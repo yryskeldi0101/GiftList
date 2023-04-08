@@ -23,6 +23,9 @@
       "react-hooks/exhaustive-deps": "off",
       "react-hooks/rules-of-hooks": "error",
       "react/function-component-definition": "off",
+      "react/jsx-boolean-value": "off",
+      "react/prop-types": "off",
+      "react/destructuring-assignment": "off",
       "max-len": [
          "error",
          {
