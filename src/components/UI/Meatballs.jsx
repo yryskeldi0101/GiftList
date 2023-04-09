@@ -1,10 +1,8 @@
 import { Button, Menu, MenuItem } from '@mui/material'
 import { ReactComponent as MeatballsIcon } from '../../assets/icons/meatballs.svg'
-import { useMeatballs } from '../../hooks/useMeatballs'
 
-export default function Meatballs({ arrayIcon, ...restProps }) {
+export default function Meatballs({ arrayIcon, open, handleClick, anchorEl, handleClose }) {
 
-    const { open, handleClick, anchorEl, handleClose } = useMeatballs();
 
     return (
         <div>
