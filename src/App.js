@@ -8,10 +8,12 @@ const arrayIcon = [
    {
       icon: KeyIcon,
       title: 'Заблокировать',
+      id: '1',
    },
    {
       icon: Anonim,
       title: 'Заблокировать анонимно',
+      id: '2',
    },
 ]
 function App() {
