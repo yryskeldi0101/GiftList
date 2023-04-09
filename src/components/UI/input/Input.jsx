@@ -6,44 +6,42 @@ import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
 import { ReactComponent as ErrorIcon } from '../../../assets/icons/Vector.svg'
 
-const ReusableInput = ({
-   id,
-   inputLabel,
-   placeholder,
-   text,
-   value,
-   onChange,
-   ref,
-}) => {
-   return (
-      <StyledBox>
-         <div>
-            <StyledFormHelperText id={inputLabel}>{text}</StyledFormHelperText>
-            <StyledOutlinedInput
-               value={value}
-               onChange={onChange}
-               placeholder={placeholder}
-               aria-describedby={inputLabel}
-               id={id}
-               ref={ref}
-            />
+const ReusableInput = React.forwardRef(
+   ({ id, inputLabel, placeholder, text, value, onChange, ...rest }, ref) => {
+      return (
+         <StyledBox>
+            <div>
+               <StyledFormHelperText id={inputLabel}>
+                  {text}
+               </StyledFormHelperText>
+               <StyledOutlinedInput
+                  value={value}
+                  onChange={onChange}
+                  placeholder={placeholder}
+                  aria-describedby={inputLabel}
+                  id={id}
+                  ref={ref}
+                  {...rest}
+               />
 
-            <StyledFormHelperText id={inputLabel} style={{ color: 'red' }}>
-               {text}
-            </StyledFormHelperText>
-            <StyledOutlinedInputError
-               error={true}
-               endAdornment={
-                  <InputAdornment position="end">
-                     <ErrorIcon style={{ color: 'red' }} />
-                  </InputAdornment>
-               }
-               aria-describedby={inputLabel}
-            />
-         </div>
-      </StyledBox>
-   )
-}
+               <StyledFormHelperText id={inputLabel} style={{ color: 'red' }}>
+                  {text}
+               </StyledFormHelperText>
+               <StyledOutlinedInputError
+                  error={true}
+                  endAdornment={
+                     <InputAdornment position="end">
+                        <ErrorIcon style={{ color: 'red' }} />
+                     </InputAdornment>
+                  }
+                  aria-describedby={inputLabel}
+                  {...rest}
+               />
+            </div>
+         </StyledBox>
+      )
+   }
+)
 
 export default ReusableInput
 
@@ -52,7 +50,7 @@ const StyledFormHelperText = styled(FormHelperText)({
 })
 
 const StyledBox = styled(Box)({
-   width: '300px',
+   width: '15%',
    display: 'flex',
    flexWrap: 'wrap',
    border: '1px dashed black',
@@ -61,7 +59,7 @@ const StyledBox = styled(Box)({
 })
 
 const StyledOutlinedInput = styled(OutlinedInput)({
-   width: '300px',
+   width: '100%',
    height: '30px',
    borderRadius: '7px',
    marginBottom: '15px',
@@ -73,7 +71,7 @@ const StyledOutlinedInput = styled(OutlinedInput)({
 
 const StyledOutlinedInputError = styled(OutlinedInput)({
    color: 'red',
-   width: '300px',
+   width: '100%',
    height: '30px',
    borderRadius: '7px',
 })
