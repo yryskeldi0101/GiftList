@@ -1,14 +1,24 @@
 import React from 'react'
-import { styled } from '@mui/material'
+import Meatballs from './components/UI/Meatballs'
+import Anonim from './assets/icons/anonim.svg'
+import KeyIcon from './assets/icons/key.svg'
 
-const Test = styled('h1')(({ theme }) => ({
-   '&': {
-      fontfamily: theme.themePalette.typography.fontfamily,
+const arrayIcon = [
+   {
+      icon: KeyIcon,
+      title: 'Заблокировать',
    },
-}))
-
-const App = () => {
-   return <Test>AppTest</Test>
+   {
+      icon: Anonim,
+      title: 'Заблокировать анонимно',
+   },
+]
+function App() {
+   return (
+      <div className="App">
+         <Meatballs arrayIcon={arrayIcon} />
+      </div>
+   )
 }
 
 export default App
