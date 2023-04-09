@@ -9,16 +9,17 @@ const MyButton = ({
    defaultcolor,
    disabledcolor,
    children,
+   ...rest
 }) => {
    return (
       <StyleButton
          variant={variant}
-         style={{}}
          disabled={disabled}
          hoverbackgroundcolor={hoverbackgroundcolor}
          activebackgroundcolor={activebackgroundcolor}
          defaultcolor={defaultcolor}
          disabledcolor={disabledcolor}
+         {...rest}
       >
          {children}
       </StyleButton>
