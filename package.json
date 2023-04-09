@@ -1,5 +1,5 @@
 {
-   "name": "peaksoft-lms",
+   "name": "gift_list",
    "version": "0.1.0",
    "private": true,
    "dependencies": {
@@ -54,4 +54,3 @@
       "eslint-plugin-react-hooks": "^4.6.0",
       "prettier": "^2.8.7"
    }
-}
