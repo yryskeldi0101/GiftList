@@ -1,77 +1,69 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
 import { ReactComponent as ErrorIcon } from '../../../assets/icons/Vector.svg'
 
 const ReusableInput = React.forwardRef(
-   ({ id, inputLabel, placeholder, text, value, onChange, ...rest }, ref) => {
+   (
+      { id, inputLabel, placeholder, text, value, error, onChange, ...rest },
+      ref
+   ) => {
       return (
-         <StyledBox>
-            <div>
-               <StyledFormHelperText id={inputLabel}>
-                  {text}
-               </StyledFormHelperText>
-               <StyledOutlinedInput
-                  value={value}
-                  onChange={onChange}
-                  placeholder={placeholder}
-                  aria-describedby={inputLabel}
-                  id={id}
-                  ref={ref}
-                  {...rest}
-               />
-
-               <StyledFormHelperText id={inputLabel} style={{ color: 'red' }}>
-                  {text}
-               </StyledFormHelperText>
-               <StyledOutlinedInputError
-                  error={true}
-                  endAdornment={
-                     <InputAdornment position="end">
-                        <ErrorIcon style={{ color: 'red' }} />
-                     </InputAdornment>
-                  }
-                  aria-describedby={inputLabel}
-                  {...rest}
-               />
-            </div>
-         </StyledBox>
+         <>
+            <StyledFormHelperText error={error} id={inputLabel}>
+               {text}
+            </StyledFormHelperText>
+            <StyledOutlinedInput
+               errorColor={error}
+               value={value}
+               onChange={onChange}
+               placeholder={placeholder}
+               aria-describedby={inputLabel}
+               id={id}
+               ref={ref}
+               error={error}
+               endAdornment={
+                  <InputAdornment position="end">
+                     {error && <StyledErrorIcon error={error} />}
+                  </InputAdornment>
+               }
+               {...rest}
+            />
+         </>
       )
    }
 )
 
 export default ReusableInput
 
-const StyledFormHelperText = styled(FormHelperText)({
+const StyledFormHelperText = styled(FormHelperText)(({ error }) => ({
    fontSize: '14px',
-})
+   color: error ? 'red' : '#8D949E',
+}))
 
-const StyledBox = styled(Box)({
-   width: '15%',
-   display: 'flex',
-   flexWrap: 'wrap',
-   border: '1px dashed black',
-   borderRadius: '10px',
-   padding: '10px 10px 30px 10px',
-})
+// const StyledBox = styled(Box)({
+//    display: 'flex',
+//    flexWrap: 'wrap',
+//    borderRadius: '10px',
+//    border: '1px dashed black',
+//    padding: '10px 10px 30px 10px',
+// })
 
-const StyledOutlinedInput = styled(OutlinedInput)({
-   width: '100%',
+const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
+   width: '120%',
    height: '30px',
-   borderRadius: '7px',
    marginBottom: '15px',
-   ':hover': {
-      border: '1px solid#6200EE',
-      borderRadius: '3px',
+   border: error ? '1px solid red' : '1px solid #BDBDBD',
+   borderRadius: '6px',
+   color: error ? 'red' : '',
+   '&:hover': {
+      border: error ? 'red' : '1px solid #6200EE',
+      borderRadius: '5px',
    },
-})
+}))
 
-const StyledOutlinedInputError = styled(OutlinedInput)({
-   color: 'red',
-   width: '100%',
-   height: '30px',
-   borderRadius: '7px',
-})
+const StyledErrorIcon = styled(ErrorIcon)(({ error }) => ({
+   color: error ? 'red' : '',
+}))
