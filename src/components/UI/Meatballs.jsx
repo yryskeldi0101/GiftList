@@ -35,7 +35,6 @@ export default function Meatballs({
                vertical: 'top',
                horizontal: 'left',
             }}
-            {...restProps}
          >
             {arrayIcon.map((item) => (
                <MenuItem onClick={handleClose} key={item.id} {...restProps}>
