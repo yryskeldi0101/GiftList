@@ -21,8 +21,6 @@ const PasswordInput = (props) => {
             label={props.label}
             type={showPassword ? 'text' : 'password'}
             variant="outlined"
-            value={props.value}
-            onChange={props.changeHandler}
             InputProps={{
                endAdornment: (
                   <InputAdornment position="end">
