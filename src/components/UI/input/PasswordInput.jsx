@@ -12,31 +12,36 @@ const PasswordInput = (props) => {
    const handleMouseDownPassword = (event) => {
       event.preventDefault()
    }
+   const handleSubmit = (event) => {
+      event.preventDefault()
+   }
    const changeHandler = (e) => {
       setValue(e.target.value)
    }
    return (
-      <TextField
-         label={props.label}
-         type={showPassword ? 'text' : 'password'}
-         variant="outlined"
-         value={value}
-         onChange={changeHandler}
-         InputProps={{
-            endAdornment: (
-               <InputAdornment position="end">
-                  <IconButton
-                     onClick={handleClickShowPassword}
-                     onMouseDown={handleMouseDownPassword}
-                     edge="end"
-                  >
-                     {showPassword ? 'off' : 'on'}
-                  </IconButton>
-               </InputAdornment>
-            ),
-         }}
-         {...props}
-      />
+      <form onSubmit={handleSubmit}>
+         <TextField
+            label={props.label}
+            type={showPassword ? 'text' : 'password'}
+            variant="outlined"
+            value={value}
+            onChange={changeHandler}
+            InputProps={{
+               endAdornment: (
+                  <InputAdornment position="end">
+                     <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                     >
+                        {showPassword ? 'off' : 'on'}
+                     </IconButton>
+                  </InputAdornment>
+               ),
+            }}
+            {...props}
+         />
+      </form>
    )
 }
 
