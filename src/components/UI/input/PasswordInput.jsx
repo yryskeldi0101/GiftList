@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TextField, IconButton, InputAdornment } from '@mui/material'
 
-function PasswordInput(props) {
+const PasswordInput = (props) => {
    const [showPassword, setShowPassword] = useState(false)
    const [value, setValue] = useState('')
 
