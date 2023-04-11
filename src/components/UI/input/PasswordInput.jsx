@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { TextField, IconButton, InputAdornment } from '@mui/material'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 function PasswordInput(props) {
    const [showPassword, setShowPassword] = useState(false)
@@ -31,7 +30,7 @@ function PasswordInput(props) {
                      onMouseDown={handleMouseDownPassword}
                      edge="end"
                   >
-                     {showPassword ? <VisibilityOff /> : <Visibility />}
+                     {showPassword ? 'off' : 'on'}
                   </IconButton>
                </InputAdornment>
             ),
