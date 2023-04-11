@@ -3,7 +3,6 @@ import { TextField, IconButton, InputAdornment } from '@mui/material'
 
 const PasswordInput = (props) => {
    const [showPassword, setShowPassword] = useState(false)
-   const [value, setValue] = useState('')
 
    const handleClickShowPassword = () => {
       setShowPassword(!showPassword)
@@ -15,17 +14,15 @@ const PasswordInput = (props) => {
    const handleSubmit = (event) => {
       event.preventDefault()
    }
-   const changeHandler = (e) => {
-      setValue(e.target.value)
-   }
+
    return (
       <form onSubmit={handleSubmit}>
          <TextField
             label={props.label}
             type={showPassword ? 'text' : 'password'}
             variant="outlined"
-            value={value}
-            onChange={changeHandler}
+            value={props.value}
+            onChange={props.changeHandler}
             InputProps={{
                endAdornment: (
                   <InputAdornment position="end">
