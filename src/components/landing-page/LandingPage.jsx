@@ -48,7 +48,7 @@ export const LandingPage = () => {
                               activebackgroundcolor="#E72E49 "
                               variant="contained"
                               background="#F91C3D"
-                              propsWidth="291px"
+                              propswidth="291px"
                            >
                               Войти
                            </MyButton>
@@ -59,9 +59,9 @@ export const LandingPage = () => {
                               activebackgroundcolor="#AB62D8"
                               variant="outlined"
                               background="#ffffff"
-                              defaultColor="#ffffff"
-                              outlinedBorderColor="#ffffff"
-                              propsWidth="291px"
+                              defaultcolor="#ffffff"
+                              outlinedbordercolor="#ffffff"
+                              propswidth="291px"
                            >
                               Регистрация
                            </MyButton>
