@@ -9,6 +9,18 @@ const StyledCheckbox = styled(Checkbox)(() => ({
    },
 }))
 
-export default function Checkboxes() {
-   return <StyledCheckbox />
+export default function Checkboxes({
+   checked,
+   handleChange,
+   inputProps,
+   ...rest
+}) {
+   return (
+      <StyledCheckbox
+         checked={checked}
+         onChange={handleChange}
+         inputProps={{ 'aria-label': 'controlled' }}
+         {...rest}
+      />
+   )
 }
