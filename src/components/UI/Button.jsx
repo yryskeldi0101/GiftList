@@ -31,16 +31,20 @@ export default MyButton
 const StyleButton = styled(Button)(
    ({
       variant,
-      defaultcolor,
+      defaultColor,
       hoverbackgroundcolor,
       activebackgroundcolor,
       disabledcolor,
+      background,
+      outlinedBorderColor,
+      propsWidth,
    }) => {
       switch (variant) {
          case 'contained':
             return {
-               backgroundColor: '#8639B5',
-               color: `${defaultcolor}`,
+               width: `${propsWidth}`,
+               backgroundColor: `${background}`,
+               color: `${defaultColor}`,
                gap: '10px',
                padding: '10px 26px',
                '&:hover': {
@@ -55,10 +59,20 @@ const StyleButton = styled(Button)(
             }
          case 'outlined':
             return {
+               width: `${propsWidth}`,
                gap: '10px',
                padding: '10px 26px',
                backgroundColor: 'none',
-               color: '#8D949E',
+               borderColor: `${outlinedBorderColor}`,
+               color: `${defaultColor}`,
+               '&:hover': {
+                  background: `${hoverbackgroundcolor}`,
+                  borderColor: `${outlinedBorderColor}`,
+               },
+               '&:active': {
+                  background: `${activebackgroundcolor}`,
+                  borderColor: `${outlinedBorderColor}`,
+               },
                '&:disabled': {
                   color: `${disabledcolor}`,
                   background: 'none',
@@ -66,7 +80,8 @@ const StyleButton = styled(Button)(
             }
          default:
             return {
-               backgroundColor: 'green',
+               width: `${propsWidth}`,
+               backgroundColor: 'none',
             }
       }
    }
