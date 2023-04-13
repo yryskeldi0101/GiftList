@@ -35,11 +35,15 @@ const StyleButton = styled(Button)(
       hoverbackgroundcolor,
       activebackgroundcolor,
       disabledcolor,
+      background,
+      outlinedbordercolor,
+      propswidth,
    }) => {
       switch (variant) {
          case 'contained':
             return {
-               backgroundColor: '#8639B5',
+               width: `${propswidth}`,
+               backgroundColor: `${background}`,
                color: `${defaultcolor}`,
                gap: '10px',
                padding: '10px 26px',
@@ -55,10 +59,20 @@ const StyleButton = styled(Button)(
             }
          case 'outlined':
             return {
+               width: `${propswidth}`,
                gap: '10px',
                padding: '10px 26px',
                backgroundColor: 'none',
-               color: '#8D949E',
+               borderColor: `${outlinedbordercolor}`,
+               color: `${defaultcolor}`,
+               '&:hover': {
+                  background: `${hoverbackgroundcolor}`,
+                  borderColor: `${outlinedbordercolor}`,
+               },
+               '&:active': {
+                  background: `${activebackgroundcolor}`,
+                  borderColor: `${outlinedbordercolor}`,
+               },
                '&:disabled': {
                   color: `${disabledcolor}`,
                   background: 'none',
@@ -66,7 +80,8 @@ const StyleButton = styled(Button)(
             }
          default:
             return {
-               backgroundColor: 'green',
+               width: `${propswidth}`,
+               backgroundColor: 'none',
             }
       }
    }

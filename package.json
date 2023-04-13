@@ -6,7 +6,6 @@
       "@emotion/react": "^11.10.6",
       "@emotion/styled": "^11.10.6",
       "@mui/material": "^5.11.15",
-      
       "@reduxjs/toolkit": "^1.9.3",
       "@testing-library/jest-dom": "^5.16.5",
       "@testing-library/react": "^13.4.0",
@@ -54,4 +53,6 @@
       "eslint-plugin-react-hooks": "^4.6.0",
       "prettier": "^2.8.7"
    }
-   }
+}
+
+
