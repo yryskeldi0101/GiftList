@@ -43,13 +43,6 @@ const StyledFormHelperText = styled(FormHelperText)(({ error }) => ({
    color: error ? 'red' : '#8D949E',
 }))
 
-// const StyledBox = styled(Box)({
-//    display: 'flex',
-//    flexWrap: 'wrap',
-//    borderRadius: '10px',
-//    border: '1px dashed black',
-//    padding: '10px 10px 30px 10px',
-// })
 
 const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
    width: '120%',
