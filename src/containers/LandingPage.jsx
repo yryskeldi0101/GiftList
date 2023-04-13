@@ -1,13 +1,13 @@
 import { styled } from '@mui/material'
 import React from 'react'
-import SocialImg from '../../assets/images/firstImage.png'
-import AsideImg from '../../assets/images/secondImage.png'
-import { ReactComponent as Facebook } from '../../assets/svg/FaceBook.svg'
-import { ReactComponent as Instagram } from '../../assets/svg/Instagram.svg'
-import { ReactComponent as Vk } from '../../assets/svg/WkIcon.svg'
-import { ReactComponent as ArrowIcons } from '../../assets/svg/ArrowDown.svg'
+import SocialImg from '../assets/images/firstImage.png'
+import AsideImg from '../assets/images/secondImage.png'
+import { ReactComponent as Facebook } from '../assets/svg/FaceBook.svg'
+import { ReactComponent as Instagram } from '../assets/svg/Instagram.svg'
+import { ReactComponent as Vk } from '../assets/svg/WkIcon.svg'
+import { ReactComponent as ArrowIcons } from '../assets/svg/ArrowDown.svg'
+import MyButton from '../components/UI/Button'
 import SecondSection from './SecondSection'
-import MyButton from '../UI/Button'
 
 export const LandingPage = () => {
    return (

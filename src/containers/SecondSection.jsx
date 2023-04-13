@@ -1,9 +1,9 @@
 import { styled } from '@mui/material'
 import React from 'react'
-import Like from '../../assets/svg/Like.svg'
-import Heart from '../../assets/svg/Heart.svg'
-import Hand from '../../assets/svg/Hand.svg'
-import MyButton from '../UI/Button'
+import Like from '../assets/svg/Like.svg'
+import Heart from '../assets/svg/Heart.svg'
+import Hand from '../assets/svg/Hand.svg'
+import MyButton from '../components/UI/Button'
 
 const SecondSection = () => {
    return (
