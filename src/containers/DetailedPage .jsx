@@ -1,5 +1,5 @@
 import { Button, Card, styled } from '@mui/material'
-import MyButton from '../UI/Button'
+import MyButton from '../components/UI/Button'
 
 const Info = [
    {
