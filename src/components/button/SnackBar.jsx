@@ -25,24 +25,16 @@ function MySnackbar({ message, title, type }) {
       top: '19px',
       left: '10px',
    }
-   const notify = () => {
-      toast[type](
-         <>
-            <h4 style={titleStyle}>{title}</h4>
-            <p style={messageStyle}>{message}</p>
-         </>,
-         toastConfig
-      )
-   }
 
-   return (
-      <div>
-         <button type="button" onClick={notify}>
-            Toast
-         </button>
-         <ToastContainer />
-      </div>
+   toast[type](
+      <>
+         <h4 style={titleStyle}>{title}</h4>
+         <p style={messageStyle}>{message}</p>
+      </>,
+      toastConfig
    )
+
+   return <ToastContainer />
 }
 
 export default MySnackbar
