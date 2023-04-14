@@ -3,7 +3,9 @@ import { styled } from '@mui/material/styles'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
+import { IconButton } from '@mui/material'
 import { ReactComponent as ErrorIcon } from '../../../assets/icons/Vector.svg'
+import { ReactComponent as InactiveIcon } from '../../../assets/icons/inactive.svg'
 
 const ReusableInput = React.forwardRef(
    (
@@ -16,7 +18,6 @@ const ReusableInput = React.forwardRef(
                {text}
             </StyledFormHelperText>
             <StyledOutlinedInput
-               errorColor={error}
                value={value}
                onChange={onChange}
                placeholder={placeholder}
@@ -25,9 +26,12 @@ const ReusableInput = React.forwardRef(
                ref={ref}
                error={error}
                endAdornment={
-                  <InputAdornment position="end">
+                  <StyledInputAbornment position="end">
+                     <StyledIconButton>
+                        <InactiveIcon />
+                     </StyledIconButton>
                      {error && <StyledErrorIcon error={error} />}
-                  </InputAdornment>
+                  </StyledInputAbornment>
                }
                {...rest}
             />
@@ -43,11 +47,11 @@ const StyledFormHelperText = styled(FormHelperText)(({ error }) => ({
    color: error ? 'red' : '#8D949E',
 }))
 
-
 const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
-   width: '120%',
-   height: '30px',
+   width: '322px',
+   height: '39px',
    marginBottom: '15px',
+   paddingRight: '0px',
    border: error ? '1px solid red' : '1px solid #BDBDBD',
    borderRadius: '6px',
    color: error ? 'red' : '',
@@ -60,3 +64,16 @@ const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
 const StyledErrorIcon = styled(ErrorIcon)(({ error }) => ({
    color: error ? 'red' : '',
 }))
+const StyledIconButton = styled(IconButton)`
+   padding: 0;
+   svg: {
+      circle: {
+         fill: #6200ee;
+         fill-opacity: 100%;
+      }
+   }
+`
+const StyledInputAbornment = styled(InputAdornment)`
+   padding: 0;
+   margin-right: -10px;
+`
