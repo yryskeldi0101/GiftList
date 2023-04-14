@@ -9,9 +9,10 @@ import Ananim from '../../assets/icons/anonim.svg'
 import Lock from '../../assets/icons/key.svg'
 import Present from '../../assets/icons/present.svg'
 import Dislike from '../../assets/icons/dislake.svg'
+import OpenLock from '../../assets/icons/lock.svg'
 import { useMeatballs } from '../../hooks/useMeatballs'
 
-const MEATBALLS_CONTENT = [
+const MEATBALLS_EXPECT_CONTENT = [
    {
       icon: Lock,
       title: 'Забронировать',
@@ -23,6 +24,20 @@ const MEATBALLS_CONTENT = [
    {
       icon: Present,
       title: 'Добавить в мои подарки',
+   },
+   {
+      icon: Dislike,
+      title: 'Пожаловаться',
+   },
+]
+const MEATBALLS_RESERVE_CONTENT = [
+   {
+      icon: Present,
+      title: 'Добавить в мои подарки',
+   },
+   {
+      icon: OpenLock,
+      title: 'Снять бронь',
    },
    {
       icon: Dislike,
@@ -67,24 +82,33 @@ export default function Card({ expect, onChange }) {
                   <span>{item.date}</span>
                   <FooterAvatar>
                      {expect ? (
-                        <Button type="submit" onClick={onChange}>
-                           {item.expectation}
-                        </Button>
+                        <>
+                           <Button type="submit" onClick={onChange}>
+                              {item.expectation}
+                           </Button>
+                           <Meatballs
+                              arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                              open={open}
+                              handleClose={handleClose}
+                              handleClick={handleClick}
+                              anchorEl={anchorEl}
+                           />
+                        </>
                      ) : (
                         <>
                            <ImgIcon src={item.icon} />
                            <Button type="submit" onClick={onChange}>
                               {item.reserve}
                            </Button>
+                           <Meatballs
+                              arrayIcon={MEATBALLS_RESERVE_CONTENT}
+                              open={open}
+                              handleClose={handleClose}
+                              handleClick={handleClick}
+                              anchorEl={anchorEl}
+                           />
                         </>
                      )}
-                     <Meatballs
-                        arrayIcon={MEATBALLS_CONTENT}
-                        open={open}
-                        handleClose={handleClose}
-                        handleClick={handleClick}
-                        anchorEl={anchorEl}
-                     />
                   </FooterAvatar>
                </CardActions>
             </CardActionArea>
@@ -161,7 +185,7 @@ const CardActions = styled(MuiCardActions)(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   width: '349px',
+   width: '370px',
    margin: '0',
    padding: '0',
    span: {
