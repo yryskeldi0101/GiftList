@@ -1,18 +1,7 @@
-import React, { useState } from 'react'
-import Card from './components/card/Card'
+import React from 'react'
 
 function App() {
-   const [state, setState] = useState(false)
-
-   const onChange = () => {
-      setState((prevS) => !prevS)
-   }
-
-   return (
-      <div>
-         <Card onChange={onChange} expect={state} />
-      </div>
-   )
+   return <div />
 }
 
 export default App
