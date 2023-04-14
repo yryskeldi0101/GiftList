@@ -8,6 +8,10 @@ import { ReactComponent as Vk } from '../assets/svg/WkIcon.svg'
 import { ReactComponent as ArrowIcons } from '../assets/svg/ArrowDown.svg'
 import MyButton from '../components/UI/Button'
 import SecondSection from './SecondSection'
+import ThrirdSection from './ThrirdSection'
+import FourSection from './FourSection'
+import FiveSection from './FiveSection'
+import Footer from './Footer'
 
 export const LandingPage = () => {
    return (
@@ -82,6 +86,10 @@ export const LandingPage = () => {
             </Container>
          </Header>
          <SecondSection />
+         <ThrirdSection />
+         <FourSection />
+         <FiveSection />
+         <Footer />
       </>
    )
 }
