@@ -1,16 +1,13 @@
 import { styled } from '@mui/material'
 import React from 'react'
-import KidsImage from '../../assets/images/thirdImage.png'
+import LaptopImg from '../assets/images/laptopImage.png'
 
-const ThrirdSection = () => {
+const FourSection = () => {
    return (
       <GlobalContainer>
          <Container>
             <div>
-               <img src={KidsImage} alt="img" />
-            </div>
-            <TextContainer>
-               <StyledTitle>Благотворительность</StyledTitle>
+               <StyledTitle>О проекте</StyledTitle>
                <StyledText>
                   Найти удачный подарок, который принесёт радость, не всегда
                   простая задача. <br /> Благодаря нашему сервису у вас есть
@@ -19,28 +16,31 @@ const ThrirdSection = () => {
                   благотворительность вы можете найти список опубликованных
                   вещей, забронировав, вы связываетесь с их обладателем.
                </StyledText>
-            </TextContainer>
+            </div>
+            <ImageContainer>
+               <img src={LaptopImg} alt="img" />
+            </ImageContainer>
          </Container>
       </GlobalContainer>
    )
 }
 
-export default ThrirdSection
+export default FourSection
+
 const GlobalContainer = styled('div')(() => ({
-   background: '#8639B5',
    maxWidth: '100%',
-   height: '602px',
+   height: '318px',
    marginTop: '120px',
 }))
 const Container = styled('div')(() => ({
    maxWidth: '80%',
    margin: 'auto',
    display: 'flex',
-   padding: '25px 0 120px 0',
    paddingTop: '120px',
+   padding: '25px 0 120px 0',
+   alignItems: 'center',
 }))
 const StyledTitle = styled('h1')(() => ({
-   color: '#FDFDFD',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    fontWeight: 500,
@@ -52,7 +52,6 @@ const StyledTitle = styled('h1')(() => ({
 const StyledText = styled('p')(() => ({
    width: '480px',
    textAlign: 'start',
-   color: '#FDFDFD',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    fontWeight: 400,
@@ -61,7 +60,6 @@ const StyledText = styled('p')(() => ({
    margin: 0,
    marginTop: '32px',
 }))
-const TextContainer = styled('div')(() => ({
-   paddingBottom: '80px',
-   marginLeft: '100px',
+const ImageContainer = styled('div')(() => ({
+   paddingLeft: '120px',
 }))

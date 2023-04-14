@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 import React from 'react'
-import User1 from '../../assets/images/user1.png'
-import User2 from '../../assets/images/user2.png'
-import User3 from '../../assets/images/user3.png'
-import User4 from '../../assets/images/user4.png'
-import User5 from '../../assets/images/user5.png'
-import User6 from '../../assets/images/user6.png'
+import User1 from '../assets/images/user1.png'
+import User2 from '../assets/images/user2.png'
+import User3 from '../assets/images/user3.png'
+import User4 from '../assets/images/user4.png'
+import User5 from '../assets/images/user5.png'
+import User6 from '../assets/images/user6.png'
 
 const data = [
    {
