@@ -66,8 +66,14 @@ const StyledErrorIcon = styled(ErrorIcon)(({ error }) => ({
 }))
 const StyledIconButton = styled(IconButton)`
    padding: 0;
+   svg: {
+      circle: {
+         fill: #6200ee;
+         fill-opacity: 100%;
+      }
+   }
 `
 const StyledInputAbornment = styled(InputAdornment)`
    padding: 0;
-   margin-right: -15px;
+   margin-right: -10px;
 `

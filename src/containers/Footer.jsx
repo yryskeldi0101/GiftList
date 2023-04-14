@@ -134,6 +134,7 @@ const StyledEmailTitle = styled('p')(() => ({
    fontSize: '18px',
    lineHeight: '100%',
    color: 'black',
+   marginBottom: '10px',
 }))
 
 const StyledCompanyName = styled('p')(() => ({
