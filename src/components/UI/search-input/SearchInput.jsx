@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TextField, styled } from '@mui/material'
 import { ReactComponent as IconSearch } from '../../../assets/icons/searchIcon.svg'
 import TextFieldWithDropDown from './DropDownTextfield'
@@ -19,6 +19,10 @@ const SearchInput = ({
    inputChangeHandler,
    ...rest
 }) => {
+   const [category, setCategory] = useState('')
+   const [state, setState] = useState('')
+   const [countries, setCountries] = useState('')
+   const [subCategory, setSubCategory] = useState('')
    return (
       <div>
          {inputChangeProps ? (
@@ -36,6 +40,14 @@ const SearchInput = ({
             </InputBlock>
          ) : (
             <TextFieldWithDropDown
+               setCategory={setCategory}
+               category={category}
+               state={state}
+               countries={countries}
+               subCategory={subCategory}
+               setCountries={setCountries}
+               setState={setState}
+               setSubCategory={setSubCategory}
                inputChangeHandler={inputChangeHandler}
                value={value}
             />

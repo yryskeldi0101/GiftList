@@ -8,28 +8,23 @@ const MenuProps = {
       style: {
          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
          width: 150,
-         color: '#8D949E',
+         color: '#070707',
       },
    },
 }
 
-const CustomSelect = ({
-   arraySelect,
-   title,
-   selectedOption,
-   setSelectedOption,
-}) => {
+const CustomSelect = ({ arraySelect, title, value, changeSelect }) => {
    const handleChange = (event) => {
       const {
          target: { value },
       } = event
-      setSelectedOption(typeof value === 'string' ? value.split(',') : value)
+      changeSelect(typeof value === 'string' ? value.split(',') : value)
    }
    return (
       <FormControl>
          <Select
             displayEmpty
-            value={selectedOption}
+            value={value}
             onChange={handleChange}
             input={<InputBase />}
             renderValue={(selected) => {

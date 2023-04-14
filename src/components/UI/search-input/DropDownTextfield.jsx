@@ -3,6 +3,12 @@ import { InputBase, styled } from '@mui/material'
 import { ReactComponent as IconSearch } from '../../../assets/icons/searchIcon.svg'
 import { ReactComponent as IconDelete } from '../../../assets/icons/Отмена.svg'
 import CustomSelect from './Select'
+import {
+   categoryArray,
+   countriesArray,
+   stateArray,
+   subcategoryArray,
+} from '../../../utlis/constants/constnats'
 
 const CustomIcon = () => {
    return (
@@ -13,76 +19,21 @@ const CustomIcon = () => {
       </div>
    )
 }
-const state = [{ name: 'Все' }, { name: 'Б/У' }, { name: 'Новое' }]
-const countries = [
-   {
-      name: 'Кыргызстан',
-   },
-   {
-      name: 'Азербайджан',
-   },
-   {
-      name: 'Россия',
-   },
-   {
-      name: 'Казахстан',
-   },
-   {
-      name: 'Узбекистан',
-   },
-   {
-      name: 'Таджикистан',
-   },
-]
-const category = [
-   {
-      name: 'Книги',
-   },
-   {
-      name: 'Электроника',
-   },
 
-   {
-      name: 'Одежда',
-   },
-]
-const subcategory = [
-   {
-      name: 'Драма',
-   },
-   {
-      name: 'Литература',
-   },
-   {
-      name: 'Фантастика',
-   },
-   {
-      name: 'Apple',
-   },
-   {
-      name: 'Samsung',
-   },
-   {
-      name: 'Honor',
-   },
-   {
-      name: 'Рубашки',
-   },
-   {
-      name: 'Брюки',
-   },
-   {
-      name: 'Аксессуары',
-   },
-]
 const TextFieldWithDropDown = ({
    inputChangeHandler,
    value,
-   arraySelect,
+   setCategory,
+   category,
+   state,
+   countries,
+   subCategory,
+   setCountries,
+   setState,
+   setSubCategory,
    ...rest
 }) => {
    const [isChecked, setIsChecked] = useState(false)
-   const [selectedOption, setSelectedOption] = useState('')
 
    const keyDownHandler = () => {
       setIsChecked(true)
@@ -102,27 +53,27 @@ const TextFieldWithDropDown = ({
          <ContentSelect>
             <CustomSelect
                title="Состояние"
-               arraySelect={state}
-               selectedOption={selectedOption}
-               setSelectedOption={setSelectedOption}
+               changeSelect={setState}
+               value={state}
+               arraySelect={stateArray}
             />
             <CustomSelect
                title="Категория"
-               arraySelect={category}
-               selectedOption={selectedOption}
-               setSelectedOption={setSelectedOption}
+               changeSelect={setCategory}
+               value={category}
+               arraySelect={categoryArray}
             />
             <CustomSelect
                title="Подкатегория"
-               arraySelect={subcategory}
-               selectedOption={selectedOption}
-               setSelectedOption={setSelectedOption}
+               value={subCategory}
+               changeSelect={setSubCategory}
+               arraySelect={subcategoryArray}
             />
             <CustomSelect
                title="Страна"
-               arraySelect={countries}
-               selectedOption={selectedOption}
-               setSelectedOption={setSelectedOption}
+               value={countries}
+               changeSelect={setCountries}
+               arraySelect={countriesArray}
             />
 
             {isChecked && <StyledIcon />}
