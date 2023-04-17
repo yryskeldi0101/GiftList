@@ -46,72 +46,72 @@ const MEATBALLS_RESERVE_CONTENT = [
 ]
 
 export default function GalleryCard({
+   id,
+   icon,
+   userName,
+   birthDate,
+   title,
+   img,
+   date,
+   reserve,
+   expectation,
    openMeatballs,
    meatballsChangeHandler,
-   cardData,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
 
    return (
       <Card>
-         {cardData.map((item) => (
-            <CardActionArea key={item.id}>
-               <CardHeader>
-                  <HeaderAvatar>
-                     <ImgIcon src={item.icon} alt="green iguana" />
-                     <UserName>{item.userName}</UserName>
-                  </HeaderAvatar>
-                  <UserBirthDate>{item.birthDate}</UserBirthDate>
-               </CardHeader>
+         <CardActionArea key={id}>
+            <CardHeader>
+               <HeaderAvatar>
+                  <ImgIcon src={icon} alt="green iguana" />
+                  <UserName>{userName}</UserName>
+               </HeaderAvatar>
+               <UserBirthDate>{birthDate}</UserBirthDate>
+            </CardHeader>
 
-               <TitleImg>
-                  <p>{item.title}</p>
-                  <CardMedia>
-                     <Img src={item.img} alt="" />
-                  </CardMedia>
-               </TitleImg>
+            <TitleImg>
+               <p>{title}</p>
+               <CardMedia>
+                  <Img src={img} alt="" />
+               </CardMedia>
+            </TitleImg>
 
-               <CardActions>
-                  <span>{item.date}</span>
-                  <FooterAvatar>
-                     {openMeatballs ? (
-                        <>
-                           <Button
-                              type="submit"
-                              onClick={meatballsChangeHandler}
-                           >
-                              {item.expectation}
-                           </Button>
-                           <Meatballs
-                              arrayIcon={MEATBALLS_EXPECT_CONTENT}
-                              open={open}
-                              handleClose={handleClose}
-                              handleClick={handleClick}
-                              anchorEl={anchorEl}
-                           />
-                        </>
-                     ) : (
-                        <>
-                           <ImgIcon src={item.icon} />
-                           <Button
-                              type="submit"
-                              onClick={meatballsChangeHandler}
-                           >
-                              {item.reserve}
-                           </Button>
-                           <Meatballs
-                              arrayIcon={MEATBALLS_RESERVE_CONTENT}
-                              open={open}
-                              handleClose={handleClose}
-                              handleClick={handleClick}
-                              anchorEl={anchorEl}
-                           />
-                        </>
-                     )}
-                  </FooterAvatar>
-               </CardActions>
-            </CardActionArea>
-         ))}
+            <CardActions>
+               <span>{date}</span>
+               <FooterAvatar>
+                  {openMeatballs ? (
+                     <>
+                        <Button type="submit" onClick={meatballsChangeHandler}>
+                           {expectation}
+                        </Button>
+                        <Meatballs
+                           arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                           open={open}
+                           handleClose={handleClose}
+                           handleClick={handleClick}
+                           anchorEl={anchorEl}
+                        />
+                     </>
+                  ) : (
+                     <>
+                        <ImgIcon src={icon} />
+                        <Button type="submit" onClick={meatballsChangeHandler}>
+                           {reserve}
+                        </Button>
+                        <Meatballs
+                           arrayIcon={MEATBALLS_RESERVE_CONTENT}
+                           open={open}
+                           handleClose={handleClose}
+                           handleClick={handleClick}
+                           anchorEl={anchorEl}
+                        />
+                     </>
+                  )}
+               </FooterAvatar>
+            </CardActions>
+         </CardActionArea>
       </Card>
    )
 }
