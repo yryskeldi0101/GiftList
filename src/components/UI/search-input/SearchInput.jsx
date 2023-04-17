@@ -20,7 +20,7 @@ const SearchInput = ({
    ...rest
 }) => {
    const [category, setCategory] = useState('')
-   const [state, setState] = useState('')
+   const [stateSelect, setStateSelect] = useState('')
    const [countries, setCountries] = useState('')
    const [subCategory, setSubCategory] = useState('')
    return (
@@ -42,11 +42,11 @@ const SearchInput = ({
             <TextFieldWithDropDown
                setCategory={setCategory}
                category={category}
-               state={state}
+               stateSelect={stateSelect}
                countries={countries}
                subCategory={subCategory}
                setCountries={setCountries}
-               setState={setState}
+               setStateSelect={setStateSelect}
                setSubCategory={setSubCategory}
                inputChangeHandler={inputChangeHandler}
                value={value}

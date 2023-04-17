@@ -25,11 +25,11 @@ const TextFieldWithDropDown = ({
    value,
    setCategory,
    category,
-   state,
+   stateSelect,
    countries,
    subCategory,
    setCountries,
-   setState,
+   setStateSelect,
    setSubCategory,
    ...rest
 }) => {
@@ -53,8 +53,8 @@ const TextFieldWithDropDown = ({
          <ContentSelect>
             <CustomSelect
                title="Состояние"
-               changeSelect={setState}
-               value={state}
+               changeSelect={setStateSelect}
+               value={stateSelect}
                arraySelect={stateArray}
             />
             <CustomSelect
