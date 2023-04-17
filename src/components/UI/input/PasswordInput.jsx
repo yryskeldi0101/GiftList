@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { TextField, IconButton, InputAdornment } from '@mui/material'
+import { IconButton, InputAdornment, TextField, styled } from '@mui/material'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 const PasswordInput = (props) => {
    const [showPassword, setShowPassword] = useState(false)
@@ -17,19 +19,19 @@ const PasswordInput = (props) => {
 
    return (
       <form onSubmit={handleSubmit}>
-         <TextField
+         <StyledPasswordInput
             label={props.label}
             type={showPassword ? 'text' : 'password'}
             variant="outlined"
             InputProps={{
                endAdornment: (
-                  <InputAdornment position="end">
+                  <InputAdornment position="start">
                      <IconButton
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                      >
-                        {showPassword ? 'off' : 'on'}
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
                      </IconButton>
                   </InputAdornment>
                ),
@@ -41,3 +43,16 @@ const PasswordInput = (props) => {
 }
 
 export default PasswordInput
+
+const StyledPasswordInput = styled(TextField)(() => ({
+   '& .MuiOutlinedInput-root': {
+      width: '482px',
+      height: '32px',
+      '&:hover fieldset': {
+         borderColor: '#6200EE',
+      },
+      '&.Mui-focused fieldset': {
+         borderColor: '#6200EE',
+      },
+   },
+}))

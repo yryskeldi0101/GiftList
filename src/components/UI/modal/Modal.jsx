@@ -19,4 +19,6 @@ const StyledBox = styled('div')({
    backgroundColor: '#fff',
    left: '50%',
    transform: 'translate(-50%, -50%)',
+   padding: '24px 32px',
+   borderRadius: '10px',
 })

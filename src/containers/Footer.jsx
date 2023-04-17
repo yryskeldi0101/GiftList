@@ -4,6 +4,7 @@ import ReusableInput from '../components/UI/input/Input'
 import { ReactComponent as IconFacebook } from '../assets/icons/FaceBook.svg'
 import { ReactComponent as IconInstagram } from '../assets/icons/Instagram.svg'
 import { ReactComponent as IconWk } from '../assets/icons/WkIcon.svg'
+import { ReactComponent as InactiveIcon } from '../assets/icons/inactive.svg'
 
 const Footer = () => {
    return (
@@ -57,7 +58,7 @@ const Footer = () => {
                </NavigationContainer>
                <EmailContainer>
                   <StyledEmailTitle>Подписаться на рассылку</StyledEmailTitle>
-                  <ReusableInput />
+                  <ReusableInput inactiveIcon={<InactiveIcon />} />
                </EmailContainer>
             </Container>
          </GlobalContainer>
