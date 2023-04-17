@@ -12,13 +12,13 @@ const StyledTextareaAutosize = styled(TextField)`
    padding: 18px 8px;
 `
 
-const EmptyTextarea = forwardRef(({ title, value, onChange }, ref) => {
+const EmptyTextarea = forwardRef(({ rows, title, value, onChange }, ref) => {
    return (
       <StyledTextareaAutosize
          multiline
          value={value}
          onChange={onChange}
-         minRows={3}
+         minRows={rows}
          placeholder={title}
          ref={ref}
       />
