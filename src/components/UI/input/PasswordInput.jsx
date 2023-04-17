@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IconButton, InputAdornment, TextField, styled } from '@mui/material'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Visibility from '../../../assets/icons/eye.svg'
+import VisibilityOff from '../../../assets/icons/eyeOff.svg'
 
 const PasswordInput = (props) => {
    const [showPassword, setShowPassword] = useState(false)
