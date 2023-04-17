@@ -5,20 +5,11 @@ import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
 import { IconButton } from '@mui/material'
 import { ReactComponent as ErrorIcon } from '../../../assets/icons/Vector.svg'
+import { ReactComponent as InactiveIcon } from '../../../assets/icons/inactive.svg'
 
 const ReusableInput = React.forwardRef(
    (
-      {
-         id,
-         inputLabel,
-         placeholder,
-         text,
-         value,
-         error,
-         onChange,
-         inactiveIcon,
-         ...rest
-      },
+      { id, inputLabel, placeholder, text, value, error, onChange, ...rest },
       ref
    ) => {
       return (
@@ -36,7 +27,9 @@ const ReusableInput = React.forwardRef(
                error={error}
                endAdornment={
                   <StyledInputAbornment position="end">
-                     <StyledIconButton>{inactiveIcon}</StyledIconButton>
+                     <StyledIconButton>
+                        <InactiveIcon />
+                     </StyledIconButton>
                      {error && <StyledErrorIcon error={error} />}
                   </StyledInputAbornment>
                }
