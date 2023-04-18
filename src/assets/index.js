@@ -1,1 +1,1 @@
-export { ReactComponent as ErrorIcon } from "./icons/Vector.svg";
+export { ReactComponent as ErrorIcon } from './icons/Vector.svg'

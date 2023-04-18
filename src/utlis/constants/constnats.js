@@ -6,6 +6,8 @@ import CompolaintsIcon from '../../assets/svg/complaints.svg'
 import ListIcon from '../../assets/svg/listIcon.svg'
 import MyHolidays from '../../assets/svg/myholidays.svg'
 import MailingIcon from '../../assets/svg/mailing.svg'
+import UserIcon from '../../assets/icons/UserIcon.svg'
+import OutIcon from '../../assets/icons/outIcon.svg'
 
 export const sideBarRoles = {
    ADMIN: [
@@ -73,3 +75,82 @@ export const sideBarRoles = {
       },
    ],
 }
+
+export const stateArray = [
+   {
+      name: 'Все',
+   },
+   {
+      name: 'Б/У',
+   },
+   {
+      name: 'Новое',
+   },
+]
+
+export const countriesArray = [
+   {
+      name: 'Кыргызстан',
+   },
+   {
+      name: 'Азербайджан',
+   },
+   {
+      name: 'Россия',
+   },
+   {
+      name: 'Казахстан',
+   },
+   {
+      name: 'Узбекистан',
+   },
+   {
+      name: 'Таджикистан',
+   },
+]
+export const categoryArray = [
+   {
+      name: 'Книги',
+   },
+   {
+      name: 'Электроника',
+   },
+
+   {
+      name: 'Одежда',
+   },
+]
+export const subcategoryArray = [
+   {
+      name: 'Драма',
+   },
+   {
+      name: 'Литература',
+   },
+   {
+      name: 'Фантастика',
+   },
+   {
+      name: 'Apple',
+   },
+   {
+      name: 'Samsung',
+   },
+   {
+      name: 'Honor',
+   },
+   {
+      name: 'Рубашки',
+   },
+   {
+      name: 'Брюки',
+   },
+   {
+      name: 'Аксессуары',
+   },
+]
+
+export const UserMenu = [
+   { name: 'Профиль', icon: UserIcon },
+   { name: 'Выйти', icon: OutIcon },
+]
