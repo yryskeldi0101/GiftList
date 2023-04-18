@@ -27,6 +27,13 @@ const CustomSelect = ({ arraySelect, title, value, changeSelect }) => {
             value={value}
             onChange={handleChange}
             input={<InputBase />}
+            renderValue={(selected) => {
+               if (selected.length === 0) {
+                  return <em>{title}</em>
+               }
+
+               return selected.join(', ')
+            }}
             MenuProps={MenuProps}
             inputProps={{ 'aria-label': 'Without label' }}
          >
