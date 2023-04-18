@@ -51,31 +51,38 @@ const TextFieldWithDropDown = ({
             placeholder="Поиск"
          />
          <ContentSelect>
-            <CustomSelect
-               title="Состояние"
-               changeSelect={setStateSelect}
-               value={stateSelect}
-               arraySelect={stateArray}
-            />
-            <CustomSelect
-               title="Категория"
-               changeSelect={setCategory}
-               value={category}
-               arraySelect={categoryArray}
-            />
-            <CustomSelect
-               title="Подкатегория"
-               value={subCategory}
-               changeSelect={setSubCategory}
-               arraySelect={subcategoryArray}
-            />
-            <CustomSelect
-               title="Страна"
-               value={countries}
-               changeSelect={setCountries}
-               arraySelect={countriesArray}
-            />
-
+            <SelectContainer>
+               <CustomSelect
+                  title="Состояние"
+                  changeSelect={setStateSelect}
+                  value={stateSelect}
+                  arraySelect={stateArray}
+               />
+            </SelectContainer>
+            <SelectContainer>
+               <CustomSelect
+                  title="Категория"
+                  changeSelect={setCategory}
+                  value={category}
+                  arraySelect={categoryArray}
+               />
+            </SelectContainer>
+            <SelectContainer>
+               <CustomSelect
+                  title="Подкатегория"
+                  value={subCategory}
+                  changeSelect={setSubCategory}
+                  arraySelect={subcategoryArray}
+               />
+            </SelectContainer>
+            <SelectContainer>
+               <CustomSelect
+                  title="Страна"
+                  value={countries}
+                  changeSelect={setCountries}
+                  arraySelect={countriesArray}
+               />
+            </SelectContainer>
             {isChecked && <StyledIcon />}
          </ContentSelect>
       </Container>
@@ -85,6 +92,9 @@ const TextFieldWithDropDown = ({
 export default TextFieldWithDropDown
 const StyledIcon = styled(IconDelete)`
    color: black;
+`
+const SelectContainer = styled('div')`
+   width: 150px;
 `
 const Container = styled('div')`
    display: flex;
@@ -111,7 +121,7 @@ const InputSearch = styled(InputBase)(() => ({
       borderRight: 'none',
       borderLeft: 'none',
       marginLeft: '20px',
-      width: '200px',
+      width: '309px',
    },
 
    '& .MuiOutlinedInput-root': {
@@ -127,6 +137,6 @@ const ContentSelect = styled('div')`
    display: flex;
    align-items: center;
    justify-content: space-between;
-   width: 700px;
+   width: 900px;
    overflow: hidden;
 `

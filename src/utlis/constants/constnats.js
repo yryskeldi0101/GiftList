@@ -150,7 +150,7 @@ export const subcategoryArray = [
    },
 ]
 
-export const UserMenu = [
+export const UserMenuData = [
    { name: 'Профиль', icon: UserIcon },
    { name: 'Выйти', icon: OutIcon },
 ]

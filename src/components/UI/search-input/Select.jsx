@@ -1,4 +1,4 @@
-import { FormControl, InputBase, MenuItem, Select } from '@mui/material'
+import { FormControl, InputBase, MenuItem, Select, styled } from '@mui/material'
 import React from 'react'
 
 const ITEM_HEIGHT = 40
@@ -22,7 +22,7 @@ const CustomSelect = ({ arraySelect, title, value, changeSelect }) => {
    }
    return (
       <FormControl>
-         <Select
+         <StyledSelect
             displayEmpty
             value={value}
             onChange={handleChange}
@@ -36,14 +36,20 @@ const CustomSelect = ({ arraySelect, title, value, changeSelect }) => {
             {arraySelect.map((item) => {
                return (
                   <MenuItem key={item.name} value={item.name}>
-                     <img src={item.icon} alt="" />
+                     {item.icon ? <img src={item.icon} alt="" /> : null}
                      {item.name}
                   </MenuItem>
                )
             })}
-         </Select>
+         </StyledSelect>
       </FormControl>
    )
 }
 
 export default CustomSelect
+
+const StyledSelect = styled(Select)(() => ({
+   '&': {
+      maxWidth: '200px',
+   },
+}))
