@@ -10,15 +10,8 @@ function AppSelect({ options, ...restProps }) {
    const [val, setValue] = useState('')
 
    const handleChange = (event) => {
-      // const optionsData = {
-      //    title: options.title,
-      //    id: options.id,
-      // }
-      // console.log(optionsData)
-      // setValue()
       setValue(event.target.value)
    }
-   console.log(val, 'sssssss')
    return (
       <FormControlMui sx={{ m: 1, minWidth: 200 }}>
          <SelectMui value={val} onChange={handleChange} {...restProps}>
