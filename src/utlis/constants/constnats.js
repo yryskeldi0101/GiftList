@@ -73,3 +73,77 @@ export const sideBarRoles = {
       },
    ],
 }
+
+export const stateArray = [
+   {
+      name: 'Все',
+   },
+   {
+      name: 'Б/У',
+   },
+   {
+      name: 'Новое',
+   },
+]
+
+export const countriesArray = [
+   {
+      name: 'Кыргызстан',
+   },
+   {
+      name: 'Азербайджан',
+   },
+   {
+      name: 'Россия',
+   },
+   {
+      name: 'Казахстан',
+   },
+   {
+      name: 'Узбекистан',
+   },
+   {
+      name: 'Таджикистан',
+   },
+]
+export const categoryArray = [
+   {
+      name: 'Книги',
+   },
+   {
+      name: 'Электроника',
+   },
+
+   {
+      name: 'Одежда',
+   },
+]
+export const subcategoryArray = [
+   {
+      name: 'Драма',
+   },
+   {
+      name: 'Литература',
+   },
+   {
+      name: 'Фантастика',
+   },
+   {
+      name: 'Apple',
+   },
+   {
+      name: 'Samsung',
+   },
+   {
+      name: 'Honor',
+   },
+   {
+      name: 'Рубашки',
+   },
+   {
+      name: 'Брюки',
+   },
+   {
+      name: 'Аксессуары',
+   },
+]
