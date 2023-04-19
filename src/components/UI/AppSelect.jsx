@@ -41,7 +41,7 @@ const Option = styled(MenuItem)`
       background: rgba(134, 57, 181, 0.2);
    }
    &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:active {
-      background: rgba(134, 57, 181, 0.2);
+      background: ·rgba(134, 57, 181, 0.4);
    }
 `
 
