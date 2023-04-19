@@ -147,3 +147,5 @@ export const subcategoryArray = [
       name: 'Аксессуары',
    },
 ]
+
+// export default options
