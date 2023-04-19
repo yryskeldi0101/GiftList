@@ -148,30 +148,4 @@ export const subcategoryArray = [
    },
 ]
 
-const options = [
-   {
-      title: 'Электроника',
-      id: 1,
-   },
-   {
-      title: 'Одежда',
-      id: 2,
-   },
-   {
-      title: 'Школа',
-      id: 3,
-   },
-   {
-      title: 'Дом и сад',
-      id: 4,
-   },
-   {
-      title: 'Овувь',
-      id: 5,
-   },
-   {
-      title: 'Транспорт',
-      id: 6,
-   },
-]
-export default options
+// export default options

@@ -1,47 +1,55 @@
-import * as React from 'react'
-import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import { useState } from 'react'
-import styled from '@emotion/styled'
+import MenuItem from '@mui/material/MenuItem'
+import SelectMui from '@mui/material/Select'
+import styled from 'styled-components'
 
-function AppSelect({ options, ...restProps }) {
-   console.log(options)
-   const [val, setValue] = useState('')
-
+const Placeholder = ({ children }) => {
+   return <div style={{ color: '#8D949E' }}>{children}</div>
+}
+function AppSelect({ width, height, placeholder, options, value, setValue }) {
    const handleChange = (event) => {
       setValue(event.target.value)
    }
+
    return (
-      <FormControlMui sx={{ m: 1, minWidth: 200 }}>
-         <SelectMui value={val} onChange={handleChange} {...restProps}>
-            {options.map((item) => (
-               <MenuItemMui value={item.title} key={item.id}>
-                  {item.title}
-               </MenuItemMui>
-            ))}
+      <Form height={height} width={width}>
+         <SelectMui
+            onChange={handleChange}
+            value={value}
+            displayEmpty
+            renderValue={
+               value !== ''
+                  ? undefined
+                  : () => <Placeholder>{placeholder}</Placeholder>
+            }
+         >
+            {options.map((item) => {
+               return (
+                  <Option key={item.id} value={item.title}>
+                     {item.title}
+                  </Option>
+               )
+            })}
          </SelectMui>
-      </FormControlMui>
+      </Form>
    )
 }
-
 export default AppSelect
-const FormControlMui = styled(FormControl)(() => ({
-   borderRadius: '10px',
-}))
-const MenuItemMui = styled(MenuItem)(() => ({
-   width: '396px',
 
-   '&:hover': {
-      backgroundColor: ' rgba(134, 57, 181, 0.2)',
-   },
-   '&:active': {
-      backgroundColor: '  rgba(134, 57, 181, 0.4);',
-   },
-}))
+const Option = styled(MenuItem)`
+   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
+      background: rgba(134, 57, 181, 0.2);
+   }
+   &.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:active {
+      background: rgba(134, 57, 181, 0.2);
+   }
+`
 
-const SelectMui = styled(Select)(() => ({
-   '&:hover': {
-      backgroundColor: 'transparent',
-   },
-}))
+const Form = styled(FormControl)`
+   width: ${(props) => props.width || '396px'};
+   background: #ffffff;
+   border-radius: 2px;
+   & fieldset {
+      border: 1px solid #c4c4c4;
+   }
+`
