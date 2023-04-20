@@ -3,7 +3,6 @@ import {
    CardActions as MuiCardActions,
    Card as MuiCard,
    CardContent as MuiCardContent,
-   Typography as MuiTypography,
    styled,
 } from '@mui/material'
 import Meatballs from '../UI/Meatballs'
@@ -47,7 +46,7 @@ const MEATBALLS_RESERVE_CONTENT = [
    },
 ]
 
-export default function GalleryCard({
+export default function Cards({
    id,
    icon,
    userName,
@@ -63,80 +62,38 @@ export default function GalleryCard({
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
 
-   return changeCard ? (
-      <Card>
+   return (
+      <Card changeCard sx={{ width: changeCard ? '349px' : '530px' }}>
          <CardActionArea key={id}>
-            <CardHeader>
-               <HeaderAvatar>
-                  <ImgIcon src={icon} alt="green iguana" />
-                  <UserName>{userName}</UserName>
-               </HeaderAvatar>
-               <UserBirthDate>{birthDate}</UserBirthDate>
-            </CardHeader>
-
-            <TitleImg>
-               <p>{title}</p>
-               <CardMedia>
-                  <Img src={img} alt="" />
-               </CardMedia>
-            </TitleImg>
-
-            <CardActions>
-               <span>{date}</span>
-               <FooterAvatar>
-                  {openMeatballs ? (
-                     <>
-                        <Button type="submit" onClick={meatballsChangeHandler}>
-                           {expectation}
-                        </Button>
-                        <Meatballs
-                           arrayIcon={MEATBALLS_EXPECT_CONTENT}
-                           open={open}
-                           handleClose={handleClose}
-                           handleClick={handleClick}
-                           anchorEl={anchorEl}
-                        />
-                     </>
-                  ) : (
-                     <>
-                        <ImgIcon src={icon} />
-                        <Button type="submit" onClick={meatballsChangeHandler}>
-                           {reserve}
-                        </Button>
-                        <Meatballs
-                           arrayIcon={MEATBALLS_RESERVE_CONTENT}
-                           open={open}
-                           handleClose={handleClose}
-                           handleClick={handleClick}
-                           anchorEl={anchorEl}
-                        />
-                     </>
-                  )}
-               </FooterAvatar>
-            </CardActions>
-         </CardActionArea>
-      </Card>
-   ) : (
-      <ListCard>
-         <ListCardActionArea key={id}>
-            <CardMedia>
-               <ListImg src={img} alt="" />
-            </CardMedia>
+            {changeCard ? (
+               ''
+            ) : (
+               <ListCardMedia>
+                  <ListImg src={img} alt="" />
+               </ListCardMedia>
+            )}
 
             <CardContent>
-               <ListCardHeader>
+               <CardHeader>
                   <HeaderAvatar>
-                     <ImgIcon src={icon} alt="avatar" />
+                     <ImgIcon src={icon} alt="green iguana" />
                      <UserName>{userName}</UserName>
                   </HeaderAvatar>
                   <UserBirthDate>{birthDate}</UserBirthDate>
-               </ListCardHeader>
+               </CardHeader>
 
-               <Typography gutterBottom variant="h5" component="div">
-                  {title}
-               </Typography>
+               <TitleImg>
+                  <p>{title}</p>
+                  {changeCard ? (
+                     <CardMedia>
+                        <Img src={img} alt="" />
+                     </CardMedia>
+                  ) : (
+                     ''
+                  )}
+               </TitleImg>
 
-               <ListCardActions>
+               <CardActions>
                   <span>{date}</span>
                   <FooterAvatar>
                      {openMeatballs ? (
@@ -174,10 +131,10 @@ export default function GalleryCard({
                         </>
                      )}
                   </FooterAvatar>
-               </ListCardActions>
+               </CardActions>
             </CardContent>
-         </ListCardActionArea>
-      </ListCard>
+         </CardActionArea>
+      </Card>
    )
 }
 
@@ -186,21 +143,25 @@ const Card = styled(MuiCard)(() => ({
    background: '#FFFFFF',
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
-   width: '349px',
    margin: '2rem',
 }))
-const CardActionArea = styled(MuiCardActionArea)(() => ({
+const CardActionArea = styled(MuiCardActionArea)(({ changeCard }) => ({
+   padding: '0',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    letterSpacing: '0.02em',
    fontWeight: 500,
+   display: changeCard ? '' : 'flex',
+   justifyContent: changeCard ? '' : 'space-between',
 }))
 
 const CardHeader = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   marginBottom: '16px',
+   padding: 0,
+   margin: 0,
+   width: '347px',
 }))
 const HeaderAvatar = styled('div')(() => ({
    display: 'flex',
@@ -222,7 +183,7 @@ const UserBirthDate = styled('a')(() => ({
    color: '#0BA360',
 }))
 const Img = styled('img')(() => ({
-   width: '349px',
+   width: '348px',
    heght: '153px',
    borderRadius: '6px',
    margin: '12px 0',
@@ -266,57 +227,22 @@ const Button = styled('button')(() => ({
    fontSize: '14px',
    color: '#636C84',
 }))
-const ListCard = styled(MuiCard)(() => ({
-   padding: '16px 4px 4px 16px',
-   background: '#FFFFFF',
-   border: '1px solid #FFFFFF',
-   borderRadius: '8px',
-   width: '533px',
-   height: '138px',
-   margin: '16px 20px ',
-}))
-const ListCardActionArea = styled(MuiCardActionArea)(() => ({
-   display: 'flex',
-   justifyContent: 'space-between',
-   alignItems: 'center',
-   margin: 0,
-   padding: 0,
-   width: '517px',
-}))
-const CardContent = styled(MuiCardContent)(() => ({
-   display: 'flex',
-   flexDirection: 'column',
-   width: '341px',
+const CardContent = styled(MuiCardContent)(({ changeCard }) => ({
+   display: changeCard ? '' : 'flex',
+   flexDirection: changeCard ? '' : 'column',
+   width: changeCard ? '300px' : '355px',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    letterSpacing: '0.02em',
-   padding: 0,
-}))
-const ListCardHeader = styled('div')(() => ({
-   display: 'flex',
-   justifyContent: 'space-between',
-   alignItems: 'center',
-}))
-const Typography = styled(MuiTypography)(() => ({
-   fontSize: '14px',
+   margin: '0',
    padding: '0',
-   margin: '14px 0',
+}))
+const ListCardMedia = styled('div')(() => ({
+   width: '146px',
+   heght: '106px',
 }))
 const ListImg = styled('img')(() => ({
    width: '156px',
    height: '118px',
    borderRadius: '6px',
-}))
-const ListCardActions = styled(MuiCardActions)(() => ({
-   display: 'flex',
-   justifyContent: 'space-between',
-   alignItems: 'center',
-   width: '360px',
-   margin: '0',
-   padding: '0',
-   span: {
-      fontWeight: '400',
-      fontSize: '14px',
-      color: '#636C84',
-   },
 }))
