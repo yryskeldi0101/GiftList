@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { InputBase, styled } from '@mui/material'
 import { ReactComponent as IconSearch } from '../../../assets/icons/searchIcon.svg'
 import { ReactComponent as IconDelete } from '../../../assets/icons/Отмена.svg'
-import CustomSelect from './Select'
 import {
    categoryArray,
    countriesArray,
    stateArray,
    subcategoryArray,
 } from '../../../utlis/constants/constnats'
+import AppSelect from '../AppSelect'
 
 const CustomIcon = () => {
    return (
@@ -51,29 +51,41 @@ const TextFieldWithDropDown = ({
             placeholder="Поиск"
          />
          <ContentSelect>
-            <CustomSelect
-               title="Состояние"
-               changeSelect={setStateSelect}
+            <AppSelect
+               setValue={setStateSelect}
                value={stateSelect}
-               arraySelect={stateArray}
+               placeholder="Состояние"
+               width="150px"
+               height="35px"
+               border="none"
+               options={stateArray}
             />
-            <CustomSelect
-               title="Категория"
-               changeSelect={setCategory}
+            <AppSelect
+               setValue={setCategory}
                value={category}
-               arraySelect={categoryArray}
+               width="150px"
+               height="35px"
+               placeholder="Категория"
+               border="none"
+               options={categoryArray}
             />
-            <CustomSelect
-               title="Подкатегория"
+            <AppSelect
                value={subCategory}
-               changeSelect={setSubCategory}
-               arraySelect={subcategoryArray}
+               width="150px"
+               height="35px"
+               placeholder="Подкатегория"
+               border="none"
+               setValue={setSubCategory}
+               options={subcategoryArray}
             />
-            <CustomSelect
-               title="Страна"
+            <AppSelect
                value={countries}
-               changeSelect={setCountries}
-               arraySelect={countriesArray}
+               width="150px"
+               height="35px"
+               placeholder="Страна"
+               border="none"
+               setValue={setCountries}
+               options={countriesArray}
             />
 
             {isChecked && <StyledIcon />}
@@ -93,6 +105,7 @@ const Container = styled('div')`
    border: 1px solid #bdbdbd;
    border-radius: 8px;
    max-width: 821px;
+   background-color: #ffffff;
    height: 40px;
    padding: 0 5px;
 `
