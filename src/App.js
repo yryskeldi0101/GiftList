@@ -1,10 +1,10 @@
 import React from 'react'
-import ErrorPage from './containers/ErrorPage'
+import SearchInput from './components/UI/search-input/SearchInput'
 
-function App() {
+const App = () => {
    return (
       <div>
-         <ErrorPage />
+         <SearchInput inputChangeProps={false} />
       </div>
    )
 }
