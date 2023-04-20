@@ -13,7 +13,7 @@ const MenuProps = {
    },
 }
 
-const CustomSelect = ({ arraySelect, title, value, changeSelect }) => {
+const CustomSelect = ({ arraySelect = [], title, value, changeSelect }) => {
    const handleChange = (event) => {
       const {
          target: { value },
@@ -28,7 +28,7 @@ const CustomSelect = ({ arraySelect, title, value, changeSelect }) => {
             onChange={handleChange}
             input={<InputBase />}
             renderValue={(selected) => {
-               if (selected.length === 0) {
+               if (selected?.length === 0) {
                   return <em>{title}</em>
                }
 

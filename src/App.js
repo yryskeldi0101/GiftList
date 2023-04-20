@@ -1,7 +1,12 @@
 import React from 'react'
+import ErrorPage from './containers/ErrorPage'
 
 function App() {
-   return <div />
+   return (
+      <div>
+         <ErrorPage />
+      </div>
+   )
 }
 
 export default App
