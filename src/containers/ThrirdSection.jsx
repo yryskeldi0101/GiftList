@@ -4,7 +4,7 @@ import KidsImage from '../assets/images/thirdImage.png'
 
 const ThrirdSection = () => {
    return (
-      <GlobalContainer>
+      <GlobalContainer id="about-charity">
          <Container>
             <div>
                <img src={KidsImage} alt="img" />

@@ -19,9 +19,9 @@ export const LandingPage = () => {
          <Header>
             <Container>
                <HeaderNav>
-                  <NavMenu>О проекте</NavMenu>
+                  <NavMenu href="#about-project">О проекте</NavMenu>
                   <GiftList>Gift list</GiftList>
-                  <NavMenu>Благотворительность</NavMenu>
+                  <NavMenu href="#about-charity">Благотворительность</NavMenu>
                </HeaderNav>
                <HeaderContent>
                   <SocialContent>
@@ -119,13 +119,14 @@ const HeaderNav = styled('nav')(() => ({
    width: '1140px',
    paddingTop: '25px',
 }))
-const NavMenu = styled('nav')(() => ({
+const NavMenu = styled('a')(() => ({
    fontFamily: 'Inter',
    fontStyle: 'normal',
    fontWeight: '500',
    fontSize: '16px',
    lineHeight: '100%',
    color: '#FDFDFD',
+   textDecoration: 'none',
 }))
 const GiftList = styled('nav')(() => ({
    fontFamily: 'Inter',

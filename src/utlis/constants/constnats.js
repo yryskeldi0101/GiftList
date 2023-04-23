@@ -168,5 +168,7 @@ export const subcategoryArray = [
       id: '9',
    },
 ]
-
-// export default options
+export const ROLES = {
+   ADMIN: 'ADMIN',
+   USER: 'USER',
+}
