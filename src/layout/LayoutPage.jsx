@@ -1,16 +1,23 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import SideBar from '../components/side-bar/SideBar'
-import Header from '../containers/Header'
+import { styled } from '@mui/material'
+import SideBar from './SideBar'
+import Header from './Header'
 
 const LayoutPage = () => {
    return (
-      <>
+      <main>
          <Header />
          <SideBar />
-         <Outlet />
-      </>
+         <Container>
+            <Outlet />
+         </Container>
+      </main>
    )
 }
 
 export default LayoutPage
+
+const Container = styled('div')`
+   margin-left: 332px;
+`
