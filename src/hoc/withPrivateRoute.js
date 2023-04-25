@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 const PrivateRoute = ({ component: Component, ...rest }) => {
    const isAuthenticated = 'lgdlgm'
    if (!isAuthenticated) {
-      return <Navigate to="/login" />
+      return <Navigate to="/login" replace />
    }
    return <Component {...rest} />
 }
