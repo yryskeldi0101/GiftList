@@ -1,45 +1,8 @@
 import * as React from 'react'
 import { Tabs as MuiTabs, Tab as MuiTab, Box, styled } from '@mui/material'
-import PropTypes from 'prop-types'
-import Typography from '@mui/material/Typography'
+import { TabPanel, a11yProps } from './TabPanel'
 
-function TabPanel(props) {
-   const { children, value, index, ...other } = props
-
-   return (
-      <div
-         role="tabpanel"
-         hidden={value !== index}
-         id={`simple-tabpanel-${index}`}
-         aria-labelledby={`simple-tab-${index}`}
-         {...other}
-      >
-         {value === index && (
-            <Box sx={{ p: 3 }}>
-               <Typography>{children}</Typography>
-            </Box>
-         )}
-      </div>
-   )
-}
-
-TabPanel.propTypes = {
-   children: PropTypes.node,
-   index: PropTypes.number.isRequired,
-   value: PropTypes.number.isRequired,
-}
-TabPanel.defaultProps = {
-   children: null,
-}
-
-function a11yProps(index) {
-   return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-   }
-}
-
-export default function BasicTabs({
+export default function Tabs({
    children,
    requestTab,
    followersCount = 4,
@@ -55,7 +18,7 @@ export default function BasicTabs({
    return (
       <Box changeStyle={changeStyle}>
          <Box sx={{ width: '100%', height: '32px' }}>
-            <Tabs
+            <StyledTabs
                value={value}
                onChange={handleChange}
                aria-label="basic tabs example"
@@ -80,7 +43,7 @@ export default function BasicTabs({
                   {...a11yProps(1)}
                   iconPosition="end"
                />
-            </Tabs>
+            </StyledTabs>
          </Box>
          <TabPanel value={value} index={0}>
             {children}
@@ -92,7 +55,7 @@ export default function BasicTabs({
    )
 }
 
-const Tabs = styled(MuiTabs)((changeStyle) => ({
+const StyledTabs = styled(MuiTabs)((changeStyle) => ({
    borderRadius: '8.91px',
    border: '0.5px solid #797979',
    fontFamily: 'Inter',
