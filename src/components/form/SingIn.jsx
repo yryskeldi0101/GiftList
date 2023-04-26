@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { IconButton, styled } from '@mui/material'
 import MyModal from '../UI/modal/Modal'
 import ReusableInput from '../UI/input/Input'
-import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
+import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/googleBlack.svg'
 
-const SingIn = () => {
-   const [openModal, setOpenModal] = useState(true)
+const SingIn = ({ openModal, setOpenModal }) => {
+   const submitChange = (e) => {
+      e.preventDefault()
+   }
    return (
       <div>
-         <form>
+         <form onSubmit={submitChange}>
             <MyModal open={openModal}>
                <StyledTitleContainer>
                   <h2>Вход</h2>
                   <IconButton
                      onClick={() => {
-                        setOpenModal(false)
+                        setOpenModal()
                      }}
                   >
                      <LetterIcon />

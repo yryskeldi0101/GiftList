@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IconButton, InputAdornment, TextField, styled } from '@mui/material'
-import Visibility from '../../../assets/icons/eye.svg'
-import VisibilityOff from '../../../assets/icons/eyeOff.svg'
+import { ReactComponent as Visibility } from '../../../assets/icons/eye.svg'
+import { ReactComponent as VisibilityOff } from '../../../assets/icons/eyeOff.svg'
 
 const PasswordInput = (props) => {
    const [showPassword, setShowPassword] = useState(false)
@@ -16,7 +16,6 @@ const PasswordInput = (props) => {
    const handleSubmit = (event) => {
       event.preventDefault()
    }
-
    return (
       <form onSubmit={handleSubmit}>
          <StyledPasswordInput

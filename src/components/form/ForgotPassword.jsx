@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { IconButton, styled } from '@mui/material'
 import MyModal from '../UI/modal/Modal'
-import ReusableInput from '../UI/input/Input'
-import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
-
+import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
 import MyButton from '../UI/Button'
+import ReusableInput from '../UI/input/Input'
 
-const ForgotPassword = () => {
-   const [openModal, setOpenModal] = useState(true)
+const ForgotPassword = ({ openModal, setOpenModal }) => {
+   const submitChange = (e) => {
+      e.preventDefault()
+   }
    return (
-      <div>
+      <form onSubmit={submitChange}>
          <StyledModal open={openModal}>
             <StyledTitleContainer>
                <h2>Забыли пароль?</h2>
                <IconButton
                   onClick={() => {
-                     setOpenModal(false)
+                     setOpenModal()
                   }}
                >
                   <LetterIcon />
@@ -38,7 +39,7 @@ const ForgotPassword = () => {
             <br />
             <MyButton propswidth="482px">Отмена</MyButton>
          </StyledModal>
-      </div>
+      </form>
    )
 }
 

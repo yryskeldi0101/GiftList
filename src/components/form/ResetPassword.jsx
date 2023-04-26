@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { IconButton, styled } from '@mui/material'
 import MyModal from '../UI/modal/Modal'
-import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
+import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
 
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
 
-const ResetPassword = () => {
-   const [openModal, setOpenModal] = useState(true)
+const ResetPassword = ({ openModal, setOpenModal }) => {
+   const [newPassword, setNewPassword] = useState('')
+   const [confirmPassword, setConfirmPassword] = useState('')
+   const submitChange = (e) => {
+      e.preventDefault()
+   }
    return (
-      <div>
+      <form onSubmit={submitChange}>
          <MyModal open={openModal}>
             <StyledTitleContainer>
                <h2>Смена пароля</h2>
@@ -21,9 +25,17 @@ const ResetPassword = () => {
                   <LetterIcon />
                </IconButton>
             </StyledTitleContainer>
-            <PasswordInput placeholder="Введите новый пароль" />
+            <PasswordInput
+               placeholder="Введите новый пароль"
+               value={newPassword}
+               onChange={(e) => setNewPassword(e.target.value)}
+            />
             <br />
-            <PasswordInput placeholder="Повторите пароль" />
+            <PasswordInput
+               placeholder="Повторите пароль"
+               value={confirmPassword}
+               onChange={(event) => setConfirmPassword(event.target.value)}
+            />
             <br />
             <MyButton
                variant="contained"
@@ -31,11 +43,12 @@ const ResetPassword = () => {
                propswidth="482px"
                hoverbackgroundcolor="#612386"
                activebackgroundcolor="#AB62D8"
+               disabled={confirmPassword !== newPassword || !confirmPassword}
             >
                Подтвердить
             </MyButton>
          </MyModal>
-      </div>
+      </form>
    )
 }
 
