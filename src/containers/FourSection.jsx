@@ -4,7 +4,7 @@ import LaptopImg from '../assets/images/laptopImage.png'
 
 const FourSection = () => {
    return (
-      <GlobalContainer>
+      <GlobalContainer id="about-project">
          <Container>
             <div>
                <StyledTitle>О проекте</StyledTitle>
