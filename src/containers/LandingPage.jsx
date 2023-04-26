@@ -13,7 +13,7 @@ import FourSection from './FourSection'
 import FiveSection from './FiveSection'
 import Footer from './Footer'
 
-export const LandingPage = () => {
+export const LandingPage = ({ setOpenModal }) => {
    return (
       <>
          <Header>
@@ -48,6 +48,9 @@ export const LandingPage = () => {
                      <InfoActions>
                         <ButtonDiv>
                            <MyButton
+                              onClick={() => {
+                                 setOpenModal(true)
+                              }}
                               hoverbackgroundcolor="#C5243C"
                               activebackgroundcolor="#E72E49 "
                               variant="contained"
