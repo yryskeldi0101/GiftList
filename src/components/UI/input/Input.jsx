@@ -5,7 +5,6 @@ import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
 import { IconButton } from '@mui/material'
 import { ReactComponent as ErrorIcon } from '../../../assets/icons/errorInput.svg'
-
 import { ReactComponent as InactiveIcon } from '../../../assets/icons/inactive.svg'
 
 const ReusableInput = React.forwardRef(

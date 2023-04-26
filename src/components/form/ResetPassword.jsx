@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IconButton, styled } from '@mui/material'
 import MyModal from '../UI/modal/Modal'
-import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
+import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
 
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'

@@ -79,78 +79,126 @@ export const sideBarRoles = {
 export const stateArray = [
    {
       name: 'Все',
+      id: '1',
    },
    {
       name: 'Б/У',
+      id: '2',
    },
    {
       name: 'Новое',
+      id: '3',
    },
 ]
 
 export const countriesArray = [
    {
       name: 'Кыргызстан',
+      id: '1',
    },
    {
       name: 'Азербайджан',
+      id: '2',
    },
    {
       name: 'Россия',
+      id: '3',
    },
    {
       name: 'Казахстан',
+      id: '4',
    },
    {
       name: 'Узбекистан',
+      id: '5',
    },
    {
       name: 'Таджикистан',
+      id: '6',
    },
 ]
 export const categoryArray = [
    {
       name: 'Книги',
+      id: '1',
    },
    {
       name: 'Электроника',
+      id: '2',
    },
 
    {
       name: 'Одежда',
+      id: '3',
    },
 ]
 export const subcategoryArray = [
    {
       name: 'Драма',
+      id: '1',
    },
    {
       name: 'Литература',
+      id: '2',
    },
    {
       name: 'Фантастика',
+      id: '3',
    },
    {
       name: 'Apple',
+      id: '4',
    },
    {
       name: 'Samsung',
+      id: '5',
    },
    {
       name: 'Honor',
+      id: '6',
    },
    {
       name: 'Рубашки',
+      id: '7',
    },
    {
       name: 'Брюки',
+      id: '8',
    },
    {
       name: 'Аксессуары',
+      id: '9',
    },
 ]
-
 export const UserMenuData = [
    { name: 'Профиль', icon: UserIcon },
    { name: 'Выйти', icon: OutIcon },
 ]
+export const ROLES = {
+   ADMIN: 'ADMIN',
+   USER: 'USER',
+}
+export const INITIAL_PATH = {
+   ADMIN: {
+      admin: '/admin',
+      users: 'users',
+      charityAdmin: 'charityAdmin',
+      complaints: 'complaints',
+      mailing: 'mailing',
+      not_found: '*',
+   },
+   USER: {
+      user: '/user',
+      lenta: 'lenta',
+      friends: 'friends',
+      wishlist: 'wishlist',
+      bookedPage: 'bookedPage',
+      holidays: 'holidays',
+      charity: 'charity',
+      not_found: '*',
+   },
+   GUEST: {
+      main: '/',
+      error: '*',
+   },
+}
