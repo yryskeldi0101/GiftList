@@ -168,5 +168,31 @@ export const subcategoryArray = [
       id: '9',
    },
 ]
-
-// export default options
+export const ROLES = {
+   ADMIN: 'ADMIN',
+   USER: 'USER',
+}
+export const INITIAL_PATH = {
+   ADMIN: {
+      admin: '/admin',
+      users: 'users',
+      charityAdmin: 'charityAdmin',
+      complaints: 'complaints',
+      mailing: 'mailing',
+      not_found: '*',
+   },
+   USER: {
+      user: '/user',
+      lenta: 'lenta',
+      friends: 'friends',
+      wishlist: 'wishlist',
+      bookedPage: 'bookedPage',
+      holidays: 'holidays',
+      charity: 'charity',
+      not_found: '*',
+   },
+   GUEST: {
+      main: '/',
+      error: '*',
+   },
+}
