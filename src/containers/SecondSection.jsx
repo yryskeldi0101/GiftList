@@ -5,7 +5,7 @@ import Heart from '../assets/svg/Heart.svg'
 import Hand from '../assets/svg/Hand.svg'
 import MyButton from '../components/UI/Button'
 
-const SecondSection = () => {
+const SecondSection = ({ openSingUpModal }) => {
    return (
       <Container>
          <Section>
@@ -74,6 +74,7 @@ const SecondSection = () => {
                   activebackgroundcolor="#AB62D8"
                   variant="contained"
                   background="#8639B5"
+                  onClick={openSingUpModal}
                >
                   Зарегистрироваться
                </MyButton>
@@ -83,7 +84,7 @@ const SecondSection = () => {
    )
 }
 const Container = styled('div')`
-   width: '1440px';
+   width: 100%;
    height: 100%;
    margin: 0 auto;
    margin-top: 120px;
@@ -103,6 +104,7 @@ const Card = styled('div')`
    display: flex;
    align-items: center;
    width: 400px;
+   margin-left: 60px;
    gap: 10px;
 `
 const HeaderTitle = styled('div')`
@@ -132,7 +134,8 @@ const HeaderTitleStyle = styled('p')`
 `
 const SecondContainer = styled('div')`
    display: flex;
-   width: 100%;
+   justify-content: space-between;
+   max-width: '1440px';
    margin-top: 156px;
    flex-wrap: wrap;
    justify-content: space-around;
@@ -141,7 +144,7 @@ const UlList = styled('ul')`
    display: flex;
    flex-direction: column;
    align-items: flex-start;
-   margin-left: 10px;
+   margin-left: 90px;
    width: 380px;
    margin-bottom: 150px;
 `
@@ -167,7 +170,6 @@ const TitleStyle = styled('h3')`
 const Section = styled('div')`
    max-width: 1440px;
    margin: 0 auto;
-   padding: 25px 0 120px 0;
 `
 
 export default SecondSection

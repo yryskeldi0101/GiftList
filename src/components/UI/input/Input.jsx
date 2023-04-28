@@ -1,15 +1,27 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
+import { IconButton } from '@mui/material'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
-import { IconButton } from '@mui/material'
-import { ReactComponent as ErrorIcon } from '../../../assets/icons/Vector.svg'
-import { ReactComponent as InactiveIcon } from '../../../assets/icons/inactive.svg'
+
+import { ReactComponent as ErrorIcon } from '../../../assets/icons/errorInput.svg'
 
 const ReusableInput = React.forwardRef(
    (
-      { id, inputLabel, placeholder, text, value, error, onChange, ...rest },
+      {
+         id,
+         inputLabel,
+         placeholder,
+         text,
+         value,
+         error,
+         onChange,
+         icon,
+         name,
+         onBlur,
+         ...rest
+      },
       ref
    ) => {
       return (
@@ -18,18 +30,20 @@ const ReusableInput = React.forwardRef(
                {text}
             </StyledFormHelperText>
             <StyledOutlinedInput
-               value={value}
+               errorcolor={error}
+               // value={value}
+               name={name}
                onChange={onChange}
                placeholder={placeholder}
                aria-describedby={inputLabel}
+               onBlur={onBlur}
                id={id}
                ref={ref}
                error={error}
                endAdornment={
                   <StyledInputAbornment position="end">
-                     <StyledIconButton>
-                        <InactiveIcon />
-                     </StyledIconButton>
+                     <StyledIconButton>{icon}</StyledIconButton>
+
                      {error && <StyledErrorIcon error={error} />}
                   </StyledInputAbornment>
                }
@@ -48,16 +62,24 @@ const StyledFormHelperText = styled(FormHelperText)(({ error }) => ({
 }))
 
 const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
-   width: '322px',
-   height: '39px',
+   height: '30px',
    marginBottom: '15px',
-   paddingRight: '0px',
-   border: error ? '1px solid red' : '1px solid #BDBDBD',
+   border: error ? '1px solid red' : '',
    borderRadius: '6px',
    color: error ? 'red' : '',
-   '&:hover': {
-      border: error ? 'red' : '1px solid #6200EE',
-      borderRadius: '5px',
+
+   '& .MuiOutlinedInput-root': {
+      width: '482px',
+      height: '32px',
+      '&:hover fieldset': {
+         borderColor: '#6200EE',
+      },
+      '&.Mui-focused fieldset': {
+         borderColor: '#6200EE',
+      },
+   },
+   '&:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#6200EE',
    },
 }))
 
@@ -65,9 +87,10 @@ const StyledErrorIcon = styled(ErrorIcon)(({ error }) => ({
    color: error ? 'red' : '',
 }))
 const StyledIconButton = styled(IconButton)`
+   margin-right: -18px;
    padding: 0;
-   margin-right: -10px;
    svg: {
+      margin-right: -35px;
       circle: {
          fill: #6200ee;
          fill-opacity: 100%;

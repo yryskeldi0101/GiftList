@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { IconButton, InputAdornment, TextField, styled } from '@mui/material'
 import { ReactComponent as Visibility } from '../../../assets/icons/eye.svg'
 import { ReactComponent as VisibilityOff } from '../../../assets/icons/eyeOff.svg'
 
-const PasswordInput = (props) => {
+const PasswordInput = forwardRef((props, ref) => {
    const [showPassword, setShowPassword] = useState(false)
 
    const handleClickShowPassword = () => {
@@ -13,15 +13,17 @@ const PasswordInput = (props) => {
    const handleMouseDownPassword = (event) => {
       event.preventDefault()
    }
-   const handleSubmit = (event) => {
-      event.preventDefault()
-   }
+
    return (
-      <form onSubmit={handleSubmit}>
+      <div>
          <StyledPasswordInput
             label={props.label}
             type={showPassword ? 'text' : 'password'}
             variant="outlined"
+            id={props.id}
+            ref={ref}
+            name={props.name}
+            {...props}
             InputProps={{
                endAdornment: (
                   <InputAdornment position="start">
@@ -37,18 +39,20 @@ const PasswordInput = (props) => {
             }}
             {...props}
          />
-      </form>
+      </div>
    )
-}
+})
 
 export default PasswordInput
 
-const StyledPasswordInput = styled(TextField)(() => ({
+const StyledPasswordInput = styled(TextField)(({ error }) => ({
    '& .MuiOutlinedInput-root': {
       width: '482px',
       height: '32px',
+      border: error ? '1px solid red' : '',
+      color: error ? 'red' : '',
       '&:hover fieldset': {
-         borderColor: '#6200EE',
+         borderColor: error ? 'red' : '#6200EE',
       },
       '&.Mui-focused fieldset': {
          borderColor: '#6200EE',

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
 import { styled } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { sideBarRoles } from '../../utlis/constants/constnats'
+import { sideBarRoles } from '../utlis/constants/constnats'
 
 const SideBar = () => {
    const role = 'USER'

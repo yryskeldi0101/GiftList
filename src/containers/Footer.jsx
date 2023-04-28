@@ -3,6 +3,7 @@ import React from 'react'
 import { ReactComponent as IconFacebook } from '../assets/icons/FaceBook.svg'
 import { ReactComponent as IconInstagram } from '../assets/icons/Instagram.svg'
 import { ReactComponent as IconWk } from '../assets/icons/WkIcon.svg'
+import { ReactComponent as Inactive } from '../assets/icons/inactive.svg'
 import ReusableInput from '../components/UI/input/Input'
 
 const Footer = () => {
@@ -57,7 +58,7 @@ const Footer = () => {
                </NavigationContainer>
                <EmailContainer>
                   <StyledEmailTitle>Подписаться на рассылку</StyledEmailTitle>
-                  <ReusableInput />
+                  <ReusableInput icon={<Inactive />} />
                </EmailContainer>
             </Container>
          </GlobalContainer>

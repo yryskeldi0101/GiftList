@@ -1,5 +1,6 @@
 import { styled } from '@mui/material'
 import React from 'react'
+import { useSearchParams } from 'react-router-dom'
 import SocialImg from '../assets/images/firstImage.png'
 import AsideImg from '../assets/images/secondImage.png'
 import { ReactComponent as Facebook } from '../assets/svg/FaceBook.svg'
@@ -12,16 +13,26 @@ import ThrirdSection from './ThrirdSection'
 import FourSection from './FourSection'
 import FiveSection from './FiveSection'
 import Footer from './Footer'
+import SingUp from '../components/form/SingUp'
+import SingIn from '../components/form/SingIn'
+import ForgotPassword from '../components/form/ForgotPassword'
 
-export const LandingPage = ({ setOpenModal }) => {
+export const LandingPage = () => {
+   const [searchParams, setSearchParams] = useSearchParams()
+   const { open } = Object.fromEntries(searchParams)
+   const onCloseModal = () => setSearchParams({})
+   const openSingUpModal = () => setSearchParams({ open: 'register' })
+   const openSingInModal = () => setSearchParams({ open: 'login' })
+   const openForgotModal = () => setSearchParams({ open: 'forgot-password' })
+
    return (
       <>
          <Header>
             <Container>
                <HeaderNav>
-                  <NavMenu>О проекте</NavMenu>
+                  <NavMenu href="#about-project">О проекте</NavMenu>
                   <GiftList>Gift list</GiftList>
-                  <NavMenu>Благотворительность</NavMenu>
+                  <NavMenu href="#about-charity">Благотворительность</NavMenu>
                </HeaderNav>
                <HeaderContent>
                   <SocialContent>
@@ -38,7 +49,6 @@ export const LandingPage = ({ setOpenModal }) => {
                      </SocialIcons>
                      <SocialImageContent src={SocialImg} alt="/" />
                   </SocialContent>
-
                   <InfoContent>
                      <InfoTitle>Социальная сеть нового поколения</InfoTitle>
                      <InfoDescription>
@@ -47,10 +57,14 @@ export const LandingPage = ({ setOpenModal }) => {
                      </InfoDescription>
                      <InfoActions>
                         <ButtonDiv>
+                           <SingIn
+                              openModal={open === 'login'}
+                              onCloseModal={onCloseModal}
+                              openForgotModal={openForgotModal}
+                              openSingUpModal={openSingUpModal}
+                           />
                            <MyButton
-                              onClick={() => {
-                                 setOpenModal(true)
-                              }}
+                              onClick={openSingInModal}
                               hoverbackgroundcolor="#C5243C"
                               activebackgroundcolor="#E72E49 "
                               variant="contained"
@@ -69,9 +83,15 @@ export const LandingPage = ({ setOpenModal }) => {
                               defaultcolor="#ffffff"
                               outlinedbordercolor="#ffffff"
                               propswidth="291px"
+                              onClick={openSingUpModal}
                            >
                               Регистрация
                            </MyButton>
+                           <SingUp
+                              openModal={open === 'register'}
+                              onCloseModal={onCloseModal}
+                              openSingInModal={openSingInModal}
+                           />
                         </div>
                      </InfoActions>
                   </InfoContent>
@@ -88,11 +108,15 @@ export const LandingPage = ({ setOpenModal }) => {
                </HeaderContent>
             </Container>
          </Header>
-         <SecondSection />
+         <SecondSection openSingUpModal={openSingUpModal} />
          <ThrirdSection />
          <FourSection />
          <FiveSection />
          <Footer />
+         <ForgotPassword
+            openModal={open === 'forgot-password'}
+            onCloseModal={onCloseModal}
+         />
       </>
    )
 }
@@ -113,21 +137,23 @@ const Header = styled('header')(() => ({
 const Container = styled('div')(() => ({
    maxWidth: '1440px',
    margin: ' 0 auto',
+   paddingBottom: '75px',
 }))
 const HeaderNav = styled('nav')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
    width: '1140px',
-   padding: '25px 135px 0 135px',
+   paddingTop: '25px',
 }))
-const NavMenu = styled('nav')(() => ({
+const NavMenu = styled('a')(() => ({
    fontFamily: 'Inter',
    fontStyle: 'normal',
    fontWeight: '500',
    fontSize: '16px',
    lineHeight: '100%',
    color: '#FDFDFD',
+   textDecoration: 'none',
 }))
 const GiftList = styled('nav')(() => ({
    fontFamily: 'Inter',
@@ -143,7 +169,7 @@ const HeaderContent = styled('nav')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   padding: '25px 135px 120px 135px',
+   maxWidth: '1440px',
 }))
 const SocialContent = styled('div')(() => ({}))
 const SocialIcons = styled('div')(() => ({
