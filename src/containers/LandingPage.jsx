@@ -1,5 +1,6 @@
 import { styled } from '@mui/material'
 import React from 'react'
+import { useSearchParams } from 'react-router-dom'
 import SocialImg from '../assets/images/firstImage.png'
 import AsideImg from '../assets/images/secondImage.png'
 import { ReactComponent as Facebook } from '../assets/svg/FaceBook.svg'
@@ -12,8 +13,18 @@ import ThrirdSection from './ThrirdSection'
 import FourSection from './FourSection'
 import FiveSection from './FiveSection'
 import Footer from './Footer'
+import SingUp from '../components/form/SingUp'
+import SingIn from '../components/form/SingIn'
+import ForgotPassword from '../components/form/ForgotPassword'
 
 export const LandingPage = () => {
+   const [searchParams, setSearchParams] = useSearchParams()
+   const { open } = Object.fromEntries(searchParams)
+   const onCloseModal = () => setSearchParams({})
+   const openSingUpModal = () => setSearchParams({ open: 'register' })
+   const openSingInModal = () => setSearchParams({ open: 'login' })
+   const openForgotModal = () => setSearchParams({ open: 'forgot-password' })
+
    return (
       <>
          <Header>
@@ -38,7 +49,6 @@ export const LandingPage = () => {
                      </SocialIcons>
                      <SocialImageContent src={SocialImg} alt="/" />
                   </SocialContent>
-
                   <InfoContent>
                      <InfoTitle>Социальная сеть нового поколения</InfoTitle>
                      <InfoDescription>
@@ -47,7 +57,14 @@ export const LandingPage = () => {
                      </InfoDescription>
                      <InfoActions>
                         <ButtonDiv>
+                           <SingIn
+                              openModal={open === 'login'}
+                              onCloseModal={onCloseModal}
+                              openForgotModal={openForgotModal}
+                              openSingUpModal={openSingUpModal}
+                           />
                            <MyButton
+                              onClick={openSingInModal}
                               hoverbackgroundcolor="#C5243C"
                               activebackgroundcolor="#E72E49 "
                               variant="contained"
@@ -66,9 +83,15 @@ export const LandingPage = () => {
                               defaultcolor="#ffffff"
                               outlinedbordercolor="#ffffff"
                               propswidth="291px"
+                              onClick={openSingUpModal}
                            >
                               Регистрация
                            </MyButton>
+                           <SingUp
+                              openModal={open === 'register'}
+                              onCloseModal={onCloseModal}
+                              openSingInModal={openSingInModal}
+                           />
                         </div>
                      </InfoActions>
                   </InfoContent>
@@ -85,11 +108,15 @@ export const LandingPage = () => {
                </HeaderContent>
             </Container>
          </Header>
-         <SecondSection />
+         <SecondSection openSingUpModal={openSingUpModal} />
          <ThrirdSection />
          <FourSection />
          <FiveSection />
          <Footer />
+         <ForgotPassword
+            openModal={open === 'forgot-password'}
+            onCloseModal={onCloseModal}
+         />
       </>
    )
 }
