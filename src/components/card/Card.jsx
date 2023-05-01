@@ -45,6 +45,16 @@ const MEATBALLS_RESERVE_CONTENT = [
       title: 'Пожаловаться',
    },
 ]
+const MEATBALLS_BOOK_CONTENT = [
+   {
+      icon: Present,
+      title: 'Добавить в мои подарки',
+   },
+   {
+      icon: OpenLock,
+      title: 'Снять бронь',
+   },
+]
 
 export default function Cards({
    id,
@@ -59,12 +69,16 @@ export default function Cards({
    openMeatballs,
    meatballsChangeHandler,
    changeCard,
+   bookChange,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
 
    return (
-      <Card changeCard sx={{ width: changeCard ? '349px' : '530px' }}>
-         <CardActionArea key={id}>
+      <Card
+         changeCard={changeCard}
+         sx={{ width: changeCard ? '349px' : '533px' }}
+      >
+         <CardActionArea key={id} changeCard={changeCard}>
             {changeCard ? (
                ''
             ) : (
@@ -85,7 +99,7 @@ export default function Cards({
                <TitleImg>
                   <p>{title}</p>
                   {changeCard ? (
-                     <CardMedia>
+                     <CardMedia openMeatballs={openMeatballs}>
                         <Img src={img} alt="" />
                      </CardMedia>
                   ) : (
@@ -93,44 +107,54 @@ export default function Cards({
                   )}
                </TitleImg>
 
-               <CardActions>
+               <CardActions openMeatballs={openMeatballs}>
                   <span>{date}</span>
-                  <FooterAvatar>
-                     {openMeatballs ? (
-                        <>
-                           <Button
-                              type="submit"
-                              onClick={meatballsChangeHandler}
-                           >
-                              {expectation}
-                           </Button>
-                           <Meatballs
-                              arrayIcon={MEATBALLS_EXPECT_CONTENT}
-                              open={open}
-                              handleClose={handleClose}
-                              handleClick={handleClick}
-                              anchorEl={anchorEl}
-                           />
-                        </>
-                     ) : (
-                        <>
-                           <ImgIcon src={icon} />
-                           <Button
-                              type="submit"
-                              onClick={meatballsChangeHandler}
-                           >
-                              {reserve}
-                           </Button>
-                           <Meatballs
-                              arrayIcon={MEATBALLS_RESERVE_CONTENT}
-                              open={open}
-                              handleClose={handleClose}
-                              handleClick={handleClick}
-                              anchorEl={anchorEl}
-                           />
-                        </>
-                     )}
-                  </FooterAvatar>
+                  {bookChange ? (
+                     <Meatballs
+                        arrayIcon={MEATBALLS_BOOK_CONTENT}
+                        open={open}
+                        handleClose={handleClose}
+                        handleClick={handleClick}
+                        anchorEl={anchorEl}
+                     />
+                  ) : (
+                     <FooterAvatar>
+                        {openMeatballs ? (
+                           <>
+                              <Button
+                                 type="submit"
+                                 onClick={meatballsChangeHandler}
+                              >
+                                 {expectation}
+                              </Button>
+                              <Meatballs
+                                 arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                 open={open}
+                                 handleClose={handleClose}
+                                 handleClick={handleClick}
+                                 anchorEl={anchorEl}
+                              />
+                           </>
+                        ) : (
+                           <>
+                              <ImgIcon src={icon} />
+                              <Button
+                                 type="submit"
+                                 onClick={meatballsChangeHandler}
+                              >
+                                 {reserve}
+                              </Button>
+                              <Meatballs
+                                 arrayIcon={MEATBALLS_RESERVE_CONTENT}
+                                 open={open}
+                                 handleClose={handleClose}
+                                 handleClick={handleClick}
+                                 anchorEl={anchorEl}
+                              />
+                           </>
+                        )}
+                     </FooterAvatar>
+                  )}
                </CardActions>
             </CardContent>
          </CardActionArea>
@@ -153,15 +177,15 @@ const CardActionArea = styled(MuiCardActionArea)(({ changeCard }) => ({
    fontWeight: 500,
    display: changeCard ? '' : 'flex',
    justifyContent: changeCard ? '' : 'space-between',
+   width: changeCard ? '' : '524px',
 }))
-
 const CardHeader = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
    padding: 0,
    margin: 0,
-   width: '347px',
+   width: '317px',
 }))
 const HeaderAvatar = styled('div')(() => ({
    display: 'flex',
@@ -183,7 +207,7 @@ const UserBirthDate = styled('a')(() => ({
    color: '#0BA360',
 }))
 const Img = styled('img')(() => ({
-   width: '348px',
+   width: '315px',
    heght: '153px',
    borderRadius: '6px',
    margin: '12px 0',
@@ -192,20 +216,21 @@ const TitleImg = styled('div')(() => ({
    padding: '0',
    margin: '0',
    p: {
+      padding: '14px 0',
       fontSize: '14px',
       color: '#020202',
    },
 }))
 const CardMedia = styled('div')(() => ({
-   width: '317px',
+   width: '312px',
    heght: '153px',
 }))
-const CardActions = styled(MuiCardActions)(() => ({
+const CardActions = styled(MuiCardActions)(({ openMeatballs }) => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   width: '370px',
-   margin: '0',
+   width: '338px',
+   margin: openMeatballs ? '9px 0' : '0',
    padding: '0',
    span: {
       fontWeight: 400,
