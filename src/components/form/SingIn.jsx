@@ -1,31 +1,71 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
 import MyModal from '../UI/modal/Modal'
-import ReusableInput from '../UI/input/Input'
-import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
+import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/googleBlack.svg'
+import ReusableInput from '../UI/input/Input'
 
-const SingIn = () => {
-   const [openModal, setOpenModal] = useState(true)
+const SingIn = ({
+   openModal,
+   onCloseModal,
+   openForgotModal,
+   openSingUpModal,
+}) => {
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+   } = useForm()
+   const submitHandler = (data) => {
+      console.log(data)
+   }
    return (
       <div>
-         <form>
-            <MyModal open={openModal}>
+         <MyModal open={openModal} onClose={onCloseModal}>
+            <form onSubmit={handleSubmit(submitHandler)}>
                <StyledTitleContainer>
                   <h2>Вход</h2>
-                  <IconButton
-                     onClick={() => {
-                        setOpenModal(false)
-                     }}
-                  >
+                  <IconButton onClick={onCloseModal}>
                      <LetterIcon />
                   </IconButton>
                </StyledTitleContainer>
-               <StyledInput placeholder="Email" />
-               <PasswordInput placeholder="Пароль" />
+               {errors.email && (
+                  <StyledErrorColor>{errors.email?.message}</StyledErrorColor>
+               )}
+               <StyledInput
+                  placeholder="Email"
+                  id="email"
+                  name="email"
+                  {...register('email', {
+                     required: 'Электронная почта обязательна',
+                     pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: 'Неверный формат электронной почты',
+                     },
+                  })}
+               />
+               {errors.password && (
+                  <StyledErrorColor>
+                     {errors.password?.message}
+                  </StyledErrorColor>
+               )}
+               <PasswordInput
+                  placeholder="Пароль"
+                  id="password"
+                  name="password"
+                  {...register('password', {
+                     required: 'Необходим пароль',
+                     minLength: {
+                        value: 8,
+                        message: 'Пароль должен содержать не менее 8 символов',
+                     },
+                  })}
+               />
+
                <StyledCheckboxContainer>
                   <Checkboxes />
                   <StyledCheckboxText>Запомнить меня</StyledCheckboxText>
@@ -36,11 +76,12 @@ const SingIn = () => {
                   propswidth="482px"
                   hoverbackgroundcolor="#612386"
                   activebackgroundcolor="#AB62D8"
+                  type="submit"
                >
                   Войти
                </MyButton>
                <StyledForrgotPasswordContainer>
-                  <StyledForrgotPassword href="/">
+                  <StyledForrgotPassword onClick={openForgotModal}>
                      Забыли пароль?
                   </StyledForrgotPassword>
                </StyledForrgotPasswordContainer>
@@ -60,19 +101,24 @@ const SingIn = () => {
                   <GoogleIcon />
                   Продолжить с Google
                </MyButton>
-               <StyledRegistrationText>
-                  Нет аккаунта?
-                  <StyledForrgotPassword href="/">
-                     Зарегистрироваться
-                  </StyledForrgotPassword>
-               </StyledRegistrationText>
-            </MyModal>
-         </form>
+               <StyledRegistrationText>Нет аккаунта?</StyledRegistrationText>
+               <StyledForrgotPassword onClick={openSingUpModal}>
+                  Зарегистрироваться
+               </StyledForrgotPassword>
+            </form>
+         </MyModal>
       </div>
    )
 }
 
 export default SingIn
+
+const StyledErrorColor = styled('h2')`
+   font-size: large;
+   color: #d91c1c;
+   font-weight: 400;
+   font-family: 'Inter';
+`
 
 const StyledTitleContainer = styled('div')`
    display: flex;
@@ -116,7 +162,9 @@ const StyledBorderStyle = styled('span')`
    border: 1px solid #f1f1f1;
 `
 
-const StyledForrgotPassword = styled('a')`
+const StyledForrgotPassword = styled('div')`
+   text-align: center;
+   cursor: pointer;
    font-family: 'Inter';
    font-style: normal;
    font-weight: 400;

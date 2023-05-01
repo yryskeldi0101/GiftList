@@ -1,77 +1,154 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { IconButton, styled } from '@mui/material'
+import { useForm } from 'react-hook-form'
+
 import MyModal from '../UI/modal/Modal'
-import ReusableInput from '../UI/input/Input'
 import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/googleBlack.svg'
+import ReusableInput from '../UI/input/Input'
 
-const SingUp = () => {
-   const [openModal, setOpenModal] = useState(true)
+const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+   } = useForm()
+   const submitHandler = (data) => {
+      if (data.confirmPassword === data.password) {
+         console.log(data)
+      }
+   }
    return (
-      <div>
-         <form>
-            <MyModal open={openModal}>
-               <StyledTitleContainer>
-                  <h2>Регистрация</h2>
-                  <IconButton
-                     onClick={() => {
-                        setOpenModal(false)
-                     }}
-                  >
-                     <LetterIcon />
-                  </IconButton>
-               </StyledTitleContainer>
-               <StyledInput placeholder="Имя" />
-               <StyledInput placeholder="Фамилия" />
-               <StyledInput placeholder="Email" />
-               <PasswordInput placeholder="Введите пароль" />
-               <br />
-               <PasswordInput placeholder="Повторите пароль" />
-               <StyledCheckboxContainer>
-                  <Checkboxes />
-                  <StyledCheckboxText>
-                     Подписаться на рассылку
-                  </StyledCheckboxText>
-               </StyledCheckboxContainer>
-               <MyButton
-                  variant="contained"
-                  background="#8639B5"
-                  propswidth="482px"
-                  hoverbackgroundcolor="#612386"
-                  activebackgroundcolor="#AB62D8"
-               >
-                  Создать аккаунт
-               </MyButton>
-               <StyledTextContainer>
-                  <StyledBorderStyle> </StyledBorderStyle>
-                  <StyledText>или</StyledText>
-                  <StyledBorderStyle> </StyledBorderStyle>
-               </StyledTextContainer>
-               <MyButton
-                  variant="contained"
-                  background="#f1f1f1"
-                  propswidth="482px"
-                  hoverbackgroundcolor="#d6d5d5"
-                  activebackgroundcolor="#d6d6d6"
-                  defaultcolor="black"
-               >
-                  <GoogleIcon />
-                  Зарегистрироваться с Google
-               </MyButton>
-               <StyledRegistrationText>
-                  У вас уже есть аккаунт?
-                  <StyledForrgotPassword href="/">Войти</StyledForrgotPassword>
-               </StyledRegistrationText>
-            </MyModal>
+      <MyModal open={openModal} onClose={onCloseModal}>
+         <form onSubmit={handleSubmit(submitHandler)}>
+            <StyledTitleContainer>
+               <h2>Регистрация</h2>
+               <IconButton onClick={onCloseModal}>
+                  <LetterIcon />
+               </IconButton>
+            </StyledTitleContainer>
+            {errors.name && (
+               <StyledErrorColor>{errors.name?.message}</StyledErrorColor>
+            )}
+            <StyledInput
+               placeholder="Имя"
+               id="name"
+               name="name"
+               {...register('name', {
+                  required: 'Имя обязательна',
+               })}
+            />
+            {errors.lastName && (
+               <StyledErrorColor>{errors.lastName?.message}</StyledErrorColor>
+            )}
+            <StyledInput
+               placeholder="Фамилия"
+               id="lastName"
+               name="lastName"
+               {...register('lastName', {
+                  required: 'Фамилия обязательна',
+               })}
+            />
+            {errors.email && (
+               <StyledErrorColor>{errors.email?.message}</StyledErrorColor>
+            )}
+            <StyledInput
+               placeholder="Email"
+               id="email"
+               name="email"
+               {...register('email', {
+                  required: 'Электронная почта обязательна',
+                  pattern: {
+                     value: /\S+@\S+\.\S+/,
+                     message: 'Неверный формат электронной почты',
+                  },
+               })}
+            />
+            {errors.password && (
+               <StyledErrorColor>{errors.password?.message}</StyledErrorColor>
+            )}
+            <PasswordInput
+               placeholder="Введите пароль"
+               id="password"
+               name="password"
+               {...register('password', {
+                  required: 'Необходим пароль',
+                  minLength: {
+                     value: 8,
+                     message: 'Пароль должен содержать не менее 8 символов',
+                  },
+               })}
+            />
+            <br />
+            {errors.confirmPassword && (
+               <StyledErrorColor>
+                  {errors.confirmPassword?.message}
+               </StyledErrorColor>
+            )}
+            <PasswordInput
+               placeholder="Повторите пароль"
+               id="confirmPassword"
+               name="confirmPassword"
+               {...register('confirmPassword', {
+                  required: 'Подвердите пароль',
+                  minLength: {
+                     value: 8,
+                     message: 'Пароль должен содержать не менее 8 символов',
+                  },
+               })}
+            />
+            <StyledCheckboxContainer>
+               <Checkboxes />
+               <StyledCheckboxText>Подписаться на рассылку</StyledCheckboxText>
+            </StyledCheckboxContainer>
+            <MyButton
+               variant="contained"
+               background="#8639B5"
+               propswidth="482px"
+               hoverbackgroundcolor="#612386"
+               activebackgroundcolor="#AB62D8"
+               type="submit"
+            >
+               Создать аккаунт
+            </MyButton>
+            <StyledTextContainer>
+               <StyledBorderStyle> </StyledBorderStyle>
+               <StyledText>или</StyledText>
+               <StyledBorderStyle> </StyledBorderStyle>
+            </StyledTextContainer>
+            <MyButton
+               variant="contained"
+               background="#f1f1f1"
+               propswidth="482px"
+               hoverbackgroundcolor="#d6d5d5"
+               activebackgroundcolor="#d6d6d6"
+               defaultcolor="black"
+            >
+               <GoogleIcon />
+               Зарегистрироваться с Google
+            </MyButton>
+            <StyledRegistrationText>
+               У вас уже есть аккаунт?
+            </StyledRegistrationText>
+            <StyledForrgotPassword onClick={openSingInModal}>
+               Войти
+            </StyledForrgotPassword>
          </form>
-      </div>
+      </MyModal>
    )
 }
 
 export default SingUp
+
+const StyledErrorColor = styled('h2')`
+   font-size: large;
+   color: #d91c1c;
+   font-weight: 400;
+   font-family: 'Inter';
+`
 
 const StyledTitleContainer = styled('div')`
    display: flex;
@@ -116,7 +193,8 @@ const StyledBorderStyle = styled('span')`
    border: 1px solid #f1f1f1;
 `
 
-const StyledForrgotPassword = styled('a')`
+const StyledForrgotPassword = styled('div')`
+   cursor: pointer;
    font-family: 'Inter';
    font-style: normal;
    font-weight: 400;
@@ -124,6 +202,7 @@ const StyledForrgotPassword = styled('a')`
    line-height: 16px;
    text-decoration: none;
    color: #3772ff;
+   text-align: center;
 `
 
 const StyledCheckboxContainer = styled('div')`

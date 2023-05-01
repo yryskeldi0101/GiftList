@@ -5,16 +5,18 @@ import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material'
 import App from './App'
 import lightTheme from './utlis/constants/theme'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 
 const theme = createTheme(lightTheme)
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-   <React.StrictMode>
+   <Provider store={store}>
       <BrowserRouter>
          <ThemeProvider theme={theme}>
             <App />
          </ThemeProvider>
       </BrowserRouter>
-   </React.StrictMode>
+   </Provider>
 )

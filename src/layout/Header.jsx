@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconButton, styled } from '@mui/material'
-import SearchInput from './UI/search-input/SearchInput'
+import SearchInput from '../components/UI/search-input/SearchInput'
 import { ReactComponent as BallIcon } from '../assets/icons/ball.svg'
 import UserMenu from './HeaderMenu'
 

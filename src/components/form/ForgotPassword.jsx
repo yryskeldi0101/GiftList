@@ -1,57 +1,85 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
 import MyModal from '../UI/modal/Modal'
-import ReusableInput from '../UI/input/Input'
 import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
-
 import MyButton from '../UI/Button'
+import ReusableInput from '../UI/input/Input'
 
-const ForgotPassword = () => {
-   const [openModal, setOpenModal] = useState(true)
+const ForgotPassword = ({ openModal, onCloseModal }) => {
+   const { register, handleSubmit, formState } = useForm()
+   const submitHandler = (data) => {
+      console.log(data)
+   }
    return (
       <div>
-         <StyledModal open={openModal}>
-            <StyledTitleContainer>
-               <h2>Забыли пароль?</h2>
-               <IconButton
-                  onClick={() => {
-                     setOpenModal(false)
-                  }}
-               >
-                  <LetterIcon />
-               </IconButton>
-            </StyledTitleContainer>
-            <StyledText>
-               Вам будет отправлена ссылка для сброса пароля
-            </StyledText>
-            <StyledInput placeholder="Email" />
-            <MyButton
-               variant="contained"
-               background="#8639B5"
-               propswidth="482px"
-               hoverbackgroundcolor="#612386"
-               activebackgroundcolor="#AB62D8"
-            >
-               Отправить
-            </MyButton>
-            <br />
-            <br />
-            <MyButton propswidth="482px">Отмена</MyButton>
+         <StyledModal
+            propswidth="564px"
+            open={openModal}
+            onClose={onCloseModal}
+         >
+            <div>
+               <form onSubmit={handleSubmit(submitHandler)}>
+                  <StyledTitleContainer>
+                     <h2>Забыли пароль?</h2>
+                     <IconButton onClick={onCloseModal}>
+                        <LetterIcon />
+                     </IconButton>
+                  </StyledTitleContainer>
+                  <StyledText>
+                     Вам будет отправлена ссылка для сброса пароля
+                  </StyledText>
+                  {formState.errors.email && (
+                     <StyledErrorColor>
+                        {formState.errors.email.message}
+                     </StyledErrorColor>
+                  )}
+                  <StyledInput
+                     placeholder="Email"
+                     id="email"
+                     name="email"
+                     {...register('email', {
+                        required: 'Электронная почта обязательна',
+                        pattern: {
+                           value: /\S+@\S+\.\S+/,
+                           message: 'Неверный формат электронной почты',
+                        },
+                     })}
+                  />
+
+                  <MyButton
+                     variant="contained"
+                     background="#8639B5"
+                     propswidth="482px"
+                     hoverbackgroundcolor="#612386"
+                     activebackgroundcolor="#AB62D8"
+                     type="submit"
+                  >
+                     Отправить
+                  </MyButton>
+                  <br />
+                  <br />
+                  <MyButton propswidth="482px" onClick={onCloseModal}>
+                     Отмена
+                  </MyButton>
+               </form>
+            </div>
          </StyledModal>
       </div>
    )
 }
 
 export default ForgotPassword
+
 const StyledModal = styled(MyModal)`
-   width: 546px;
-   transform: translate(-50%, -50%);
-   position: absolute;
+   width: 564px;
+   position: 'absolute';
    top: 50%;
    z-index: 10;
-   border: none;
-   background-color: #fff;
+   border: 'none';
+   background-color: '#fff';
    left: 50%;
+   transform: translate(-50%, -50%);
 `
 const StyledTitleContainer = styled('div')`
    display: flex;
@@ -59,13 +87,16 @@ const StyledTitleContainer = styled('div')`
    justify-content: space-between;
    width: 482px;
    height: 32px;
+   margin-right: 0;
+   padding: 0;
    margin-bottom: 32px;
 `
-const StyledInput = styled(ReusableInput)`
-   width: 482px;
-   height: 32px;
-   margin-bottom: 32px;
-`
+const StyledInput = styled(ReusableInput)(() => ({
+   width: '482px',
+   height: '32px',
+   marginBottom: '32px',
+}))
+
 const StyledText = styled('p')`
    width: 482px;
    font-family: 'Inter';
@@ -76,4 +107,10 @@ const StyledText = styled('p')`
    color: #87898e;
    display: inline-block;
    margin-bottom: 32px;
+`
+const StyledErrorColor = styled('h2')`
+   font-size: large;
+   color: #d91c1c;
+   font-weight: 400;
+   font-family: 'Inter';
 `
