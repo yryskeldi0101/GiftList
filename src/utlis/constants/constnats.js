@@ -6,6 +6,8 @@ import CompolaintsIcon from '../../assets/svg/complaints.svg'
 import ListIcon from '../../assets/svg/listIcon.svg'
 import MyHolidays from '../../assets/svg/myholidays.svg'
 import MailingIcon from '../../assets/svg/mailing.svg'
+import UserIcon from '../../assets/icons/UserIcon.svg'
+import OutIcon from '../../assets/icons/outIcon.svg'
 
 export const sideBarRoles = {
    ADMIN: [
@@ -167,6 +169,10 @@ export const subcategoryArray = [
       name: 'Аксессуары',
       id: '9',
    },
+]
+export const UserMenuData = [
+   { name: 'Профиль', icon: UserIcon },
+   { name: 'Выйти', icon: OutIcon },
 ]
 export const ROLES = {
    ADMIN: 'ADMIN',
