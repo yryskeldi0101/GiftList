@@ -5,11 +5,14 @@ import Friends from '../containers/user/Friends'
 import WishList from '../containers/user/WishList'
 import Booked from '../containers/user/Booked'
 import MyHolidays from '../containers/user/MyHolidays'
-import UserCharity from '../containers/user/Charity'
+import UserCharity from '../containers/user/charities/Charity'
 import UserLayout from '../layout/user/UserLayout'
 import PrivateRoute from '../hoc/withPrivateRoute'
 import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
+import CharityDetails from '../containers/user/charities/CharityDetails'
+import AddCharity from '../containers/user/charities/AddCharity'
+import EditCharity from '../containers/user/charities/EditCharity'
 
 const UserRoutes = () => {
    return (
@@ -38,9 +41,30 @@ const UserRoutes = () => {
                path={INITIAL_PATH.USER.holidays}
                element={<PrivateRoute component={MyHolidays} />}
             />
+            {/* <Route
+               path={INITIAL_PATH.USER.charity}
+               element={<PrivateRoute component={UserCharity} />}
+            /> */}
+
             <Route
                path={INITIAL_PATH.USER.charity}
                element={<PrivateRoute component={UserCharity} />}
+            />
+            <Route
+               path={INITIAL_PATH.USER.charity && INITIAL_PATH.USER.add_charity}
+               element={<PrivateRoute component={AddCharity} />}
+            />
+            <Route
+               path={
+                  INITIAL_PATH.USER.charity && INITIAL_PATH.USER.edit_charity
+               }
+               element={<PrivateRoute component={EditCharity} />}
+            />
+            <Route
+               path={
+                  INITIAL_PATH.USER.charity && INITIAL_PATH.USER.charity_details
+               }
+               element={<PrivateRoute component={CharityDetails} />}
             />
          </Route>
          <Route path={INITIAL_PATH.USER.not_found} element={<ErrorPage />} />

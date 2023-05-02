@@ -17,32 +17,39 @@ const MEATBALLS_EXPECT_CONTENT = [
    {
       icon: Lock,
       title: 'Забронировать',
+      id: '1',
    },
    {
       icon: Ananim,
       title: 'Забронировать анонимно',
+      id: '2',
    },
-   {
-      icon: Present,
-      title: 'Добавить в мои подарки',
-   },
-   {
-      icon: Dislike,
-      title: 'Пожаловаться',
-   },
+   // {
+   //    icon: Present,
+   //    title: 'Добавить в мои подарки',
+   //    id: '3',
+   // },
+   // {
+   //    icon: Dislike,
+   //    title: 'Пожаловаться',
+   //    id: '4',
+   // },
 ]
 const MEATBALLS_RESERVE_CONTENT = [
    {
       icon: Present,
       title: 'Добавить в мои подарки',
+      id: '1',
    },
    {
       icon: OpenLock,
       title: 'Снять бронь',
+      id: '2',
    },
    {
       icon: Dislike,
       title: 'Пожаловаться',
+      id: '3',
    },
 ]
 
@@ -63,13 +70,13 @@ export default function Cards({
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
 
    return (
-      <Card changeCard sx={{ width: changeCard ? '349px' : '530px' }}>
+      <Card sx={{ width: changeCard ? '349px' : '530px' }}>
          <CardActionArea key={id}>
             {changeCard ? (
                ''
             ) : (
                <ListCardMedia>
-                  <ListImg src={img} alt="" />
+                  <ListImg src={img} alt="image" />
                </ListCardMedia>
             )}
 
@@ -105,7 +112,7 @@ export default function Cards({
                               {expectation}
                            </Button>
                            <Meatballs
-                              arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                              arrayIcon={MEATBALLS_RESERVE_CONTENT}
                               open={open}
                               handleClose={handleClose}
                               handleClick={handleClick}
@@ -114,7 +121,7 @@ export default function Cards({
                         </>
                      ) : (
                         <>
-                           <ImgIcon src={icon} />
+                           <ImgIcon src={icon} alt="icons" />
                            <Button
                               type="submit"
                               onClick={meatballsChangeHandler}
@@ -122,7 +129,7 @@ export default function Cards({
                               {reserve}
                            </Button>
                            <Meatballs
-                              arrayIcon={MEATBALLS_RESERVE_CONTENT}
+                              arrayIcon={MEATBALLS_EXPECT_CONTENT}
                               open={open}
                               handleClose={handleClose}
                               handleClick={handleClick}
@@ -143,7 +150,6 @@ const Card = styled(MuiCard)(() => ({
    background: '#FFFFFF',
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
-   margin: '2rem',
 }))
 const CardActionArea = styled(MuiCardActionArea)(({ changeCard }) => ({
    padding: '0',

@@ -1,4 +1,4 @@
-import { Button, Card, styled } from '@mui/material'
+import { Card, styled } from '@mui/material'
 import MyButton from '../components/UI/Button'
 
 const Info = [
@@ -20,81 +20,76 @@ const Info = [
 
 function DetailedPage() {
    return (
-      <>
-         <StyledHeader>
-            <Span>Благотворительность </Span>/ Рубашка
-         </StyledHeader>
-         <StyledCard>
-            {Info.map((item) => (
-               <StyledInfo key={item.id}>
-                  <StyledImage>
-                     <Img src={item.img} alt="cat" />
-                  </StyledImage>
-                  <InfoBox>
-                     <HeaderBox>
-                        <TitleBox>
-                           <ImgIcon src={item.icon} />
-                           <StyledTitle>
-                              <UserName>{item.userName}</UserName>
-                              <UserNumber>{item.number}</UserNumber>
-                           </StyledTitle>
-                        </TitleBox>
-                        <StyledReserve>
-                           <IconImage src={item.icon} />
-                           <p>{item.reserve}</p>
-                        </StyledReserve>
-                     </HeaderBox>
-                     <StyledText>
-                        <h3>{item.title}</h3>
-                        <p>{item.text}</p>
-                     </StyledText>
-                     <StyledData>
-                        <div>
-                           <Category>Категория:</Category>
-                           <span>{item.category}</span>
-                           <State>Состояние:</State>
-                           <span>{item.state}</span>
-                        </div>
-                        <StyledSubcategory>
-                           <Subcategory>Подкатогория:</Subcategory>
-                           <span>{item.subcategory}</span>
-                           <Date>Дата добавления:</Date>
-                           <span>{item.date_added}</span>
-                        </StyledSubcategory>
-                     </StyledData>
-                  </InfoBox>
-               </StyledInfo>
-            ))}
-            <StyledButton>
-               <ButtonMui>Удалить</ButtonMui>
-               <MyButtonPage>Заблокировать</MyButtonPage>
-            </StyledButton>
-         </StyledCard>
-      </>
+      <StyledCard>
+         {Info.map((item) => (
+            <StyledInfo key={item.id}>
+               <StyledImage>
+                  <Img src={item.img} alt="cat" />
+               </StyledImage>
+               <InfoBox>
+                  <HeaderBox>
+                     <TitleBox>
+                        <ImgIcon src={item.icon} />
+                        <StyledTitle>
+                           <UserName>{item.userName}</UserName>
+                           <UserNumber>{item.number}</UserNumber>
+                        </StyledTitle>
+                     </TitleBox>
+                     <StyledReserve>
+                        <IconImage src={item.icon} />
+                        <p>{item.reserve}</p>
+                     </StyledReserve>
+                  </HeaderBox>
+                  <StyledText>
+                     <h3>{item.title}</h3>
+                     <p>{item.text}</p>
+                  </StyledText>
+                  <StyledData>
+                     <div>
+                        <Category>Категория:</Category>
+                        <span>{item.category}</span>
+                        <State>Состояние:</State>
+                        <span>{item.state}</span>
+                     </div>
+                     <StyledSubcategory>
+                        <Subcategory>Подкатогория:</Subcategory>
+                        <span>{item.subcategory}</span>
+                        <Dates>Дата добавления:</Dates>
+                        <span>{item.date_added}</span>
+                     </StyledSubcategory>
+                  </StyledData>
+               </InfoBox>
+            </StyledInfo>
+         ))}
+         <StyledButton>
+            <MyButton variant="outlined" border="none" defaultcolor="#8D949E">
+               Удалить
+            </MyButton>
+            <MyButton
+               variant="contained"
+               background="#8639B5"
+               hoverbackgroundcolor="#860cd1"
+               activebackgroundcolor="#510680"
+            >
+               Заблокировать
+            </MyButton>
+         </StyledButton>
+      </StyledCard>
    )
 }
 
 export default DetailedPage
 
-const Span = styled('span')(() => ({
-   color: '#B4B4B4',
-   marginLeft: '23%',
-}))
-
-const StyledHeader = styled('div')(() => ({
-   marginTop: '40px',
-}))
-
 const StyledCard = styled(Card)(() => ({
-   padding: '16px',
+   padding: '20px',
    background: '#FFFFFF',
    border: '2px solid #FFFFFF',
    borderRadius: '10px',
-   width: '1086px',
-   height: '871px',
-   marginLeft: '23%',
+   width: '1170px',
+   height: '100%',
    position: 'relative',
    marginTop: '26px',
+   paddingBottom: '200px',
 }))
 
 const StyledInfo = styled('div')(() => ({
@@ -202,7 +197,7 @@ const Subcategory = styled('p')(() => ({
    lineHeight: '130%',
 }))
 
-const Date = styled('p')(() => ({
+const Dates = styled('p')(() => ({
    color: '#5C5C5C',
    fontWeight: '400',
    fontSize: '14px',
@@ -212,23 +207,7 @@ const Date = styled('p')(() => ({
 
 const StyledButton = styled('div')(() => ({
    display: 'flex',
-   marginLeft: '69%',
-   marginTop: '40px',
-}))
-
-const ButtonMui = styled(Button)(() => ({
-   color: '#8D949E',
-   fontWeight: '500',
-   fontSize: '12px',
-   lineHeight: '17px',
-}))
-
-const MyButtonPage = styled(MyButton)(() => ({
-   color: '#FFFFFF',
-   fontWeight: '500',
-   fontSize: '12px',
-   lineHeight: '17px',
-   background: '#8639B5',
-   padding: '10px 26px',
-   marginLeft: '14px',
+   marginLeft: '75%',
+   marginTop: '66px',
+   gap: '30px',
 }))

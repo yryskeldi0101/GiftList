@@ -10,7 +10,7 @@ const roleControl = {
 }
 const AppRoutes = () => {
    const role = 'USER'
-   const token = 'dsgdfgdfgdfgdf'
+   const token = 'dfdfdfdf'
    if (!token) return <GuestRoutes />
    return roleControl[role]
 }
