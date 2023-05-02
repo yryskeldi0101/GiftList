@@ -196,3 +196,48 @@ export const INITIAL_PATH = {
       error: '*',
    },
 }
+
+export const dataHolidays = [
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+]

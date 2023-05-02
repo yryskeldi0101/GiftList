@@ -33,48 +33,62 @@ const AdminCard = ({
    }
 
    return (
-      <StyledCard>
-         {data.map((item) => (
-            <div key={item.id}>
-               <CardMedia
-                  component="img"
-                  height="149"
-                  image={item.img}
-                  alt="card img"
-               />
+      <div>
+         <CardContiner>
+            {data.map((item) => (
+               <StyledCoardContainer key={item.id}>
+                  <StyledCard>
+                     <CardMedia
+                        component="img"
+                        height="149"
+                        image={item.img}
+                        alt="card img"
+                     />
 
-               <StyledCardContent>
-                  <Title>{item.title}</Title>
-                  <StyledBirthDate>{item.birthDate}</StyledBirthDate>
-                  <StyledStatus>{item.status}</StyledStatus>
-               </StyledCardContent>
+                     <StyledCardContent>
+                        <Title>{item.title}</Title>
+                        <StyledBirthDate>{item.birthDate}</StyledBirthDate>
+                        <StyledStatus>{item.status}</StyledStatus>
+                     </StyledCardContent>
 
-               <StyledCardActions>
-                  {item.date}
-                  <StyledExpectation>{item.expectation}</StyledExpectation>
-                  <Meatballs
-                     arrayIcon={meatballsContent}
-                     handleClick={handleClick}
-                     handleClose={handleClose}
-                     open={open}
-                     anchorEl={anchorEl}
-                  />
-               </StyledCardActions>
-            </div>
-         ))}
-      </StyledCard>
+                     <StyledCardActions>
+                        {item.date}
+                        <StyledExpectation>
+                           {item.expectation}
+                        </StyledExpectation>
+                        <Meatballs
+                           arrayIcon={meatballsContent}
+                           handleClick={handleClick}
+                           handleClose={handleClose}
+                           open={open}
+                           anchorEl={anchorEl}
+                        />
+                     </StyledCardActions>
+                  </StyledCard>
+               </StyledCoardContainer>
+            ))}
+         </CardContiner>
+      </div>
    )
 }
 
 export default AdminCard
 
+const CardContiner = styled('div')`
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: row;
+   width: 1000px;
+   row-gap: 30px;
+   gap: 36px;
+`
+const StyledCoardContainer = styled('div')``
+
 const StyledCard = styled(Card)`
+   display: flex;
+   flex-direction: column;
    padding: 16px;
-   background: #ffffff;
-   border: 1px solid #ffffff;
-   border-radius: 8px;
-   width: 349px;
-   margin: 2rem;
+   width: 300px;
 `
 
 const StyledCardContent = styled(CardContent)(
