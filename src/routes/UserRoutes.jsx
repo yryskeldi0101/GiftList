@@ -10,6 +10,7 @@ import UserLayout from '../layout/user/UserLayout'
 import PrivateRoute from '../hoc/withPrivateRoute'
 import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
+import CardPage from '../containers/CardPage'
 
 const UserRoutes = () => {
    return (
@@ -21,6 +22,10 @@ const UserRoutes = () => {
             <Route
                path={INITIAL_PATH.USER.lenta}
                element={<PrivateRoute component={Lenta} />}
+            />
+            <Route
+               path={INITIAL_PATH.USER.lenta && INITIAL_PATH.USER.lenta_details}
+               element={<PrivateRoute component={CardPage} />}
             />
             <Route
                path={INITIAL_PATH.USER.friends}

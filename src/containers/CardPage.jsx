@@ -1,4 +1,4 @@
-import { Button, Card, styled } from '@mui/material'
+import { Card, styled } from '@mui/material'
 import MyButton from '../components/UI/Button'
 
 const Info = [
@@ -6,23 +6,20 @@ const Info = [
       id: Math.random(),
       icon: 'https://www.vhv.rs/dpng/d/436-4363443_view-user-icon-png-font-awesome-user-circle.png',
       userName: 'Аида Каримова',
-      number: '+996 705 86 95 44',
-      title: 'Рубашка',
-      text: 'Рубашка с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
-      img: 'https://avatarko.ru/img/kartinka/2/zhivotnye_kot_prikol_ochki_1637.jpg',
-      reserve: 'Забронирован',
-      category: 'Школьные',
-      subcategory: 'Сумка',
-      state: 'Б/У',
+      title: 'iphone 13 pro',
+      text: 'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+      img: 'https://www.istore.kg/media/documents/2021-09-21/camera_redesign__ro5b5rs2s8i2_large-min.jpg',
+      holiday_name: 'День рождение',
       date_added: '12.04.2022',
+      pending: 'В ожидании',
    },
 ]
 
-function DetailedPage() {
+function CardPage() {
    return (
       <>
          <StyledHeader>
-            <Span>Благотворительность </Span>/ Рубашка
+            <Span>Лента </Span>/ iphone 13 pro
          </StyledHeader>
          <StyledCard>
             {Info.map((item) => (
@@ -36,13 +33,12 @@ function DetailedPage() {
                            <ImgIcon src={item.icon} />
                            <StyledTitle>
                               <UserName>{item.userName}</UserName>
-                              <UserNumber>{item.number}</UserNumber>
                            </StyledTitle>
                         </TitleBox>
-                        <StyledReserve>
+                        <StyledPending>
                            <IconImage src={item.icon} />
-                           <p>{item.reserve}</p>
-                        </StyledReserve>
+                           <p>{item.pending}</p>
+                        </StyledPending>
                      </HeaderBox>
                      <StyledText>
                         <h3>{item.title}</h3>
@@ -50,31 +46,27 @@ function DetailedPage() {
                      </StyledText>
                      <StyledData>
                         <div>
-                           <Category>Категория:</Category>
-                           <span>{item.category}</span>
-                           <State>Состояние:</State>
-                           <span>{item.state}</span>
+                           <Category>Дата праздника:</Category>
+                           <span>{item.date_added}</span>
                         </div>
                         <StyledSubcategory>
-                           <Subcategory>Подкатогория:</Subcategory>
-                           <span>{item.subcategory}</span>
-                           <Date>Дата добавления:</Date>
-                           <span>{item.date_added}</span>
+                           <Subcategory>Название праздника:</Subcategory>
+                           <span>{item.holiday_name}</span>
                         </StyledSubcategory>
                      </StyledData>
                   </InfoBox>
                </StyledInfo>
             ))}
             <StyledButton>
-               <ButtonMui>Удалить</ButtonMui>
-               <MyButtonPage>Заблокировать</MyButtonPage>
+               <p>Забронировать анонимно</p>
+               <MyButtonPage>Забронировать</MyButtonPage>
             </StyledButton>
          </StyledCard>
       </>
    )
 }
 
-export default DetailedPage
+export default CardPage
 
 const Span = styled('span')(() => ({
    color: '#B4B4B4',
@@ -92,7 +84,6 @@ const StyledCard = styled(Card)(() => ({
    borderRadius: '10px',
    width: '1086px',
    height: '871px',
-   // marginLeft: '23%',
    position: 'relative',
    marginTop: '26px',
 }))
@@ -142,15 +133,8 @@ const UserName = styled('h4')(() => ({
    lineHeight: '19px',
    letterSpacing: '0.02em',
 }))
-const UserNumber = styled('h4')(() => ({
-   marginTop: '4px',
-   fontWeight: '400',
-   fontSize: '14px',
-   lineHeight: '17px',
-   letterSpacing: '0.02em',
-   color: '#5C5C5C',
-}))
-const StyledReserve = styled('div')(() => ({
+
+const StyledPending = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    p: {
@@ -174,6 +158,9 @@ const StyledText = styled('div')(() => ({
 const StyledData = styled('div')(() => ({
    display: 'flex',
    marginTop: '20px',
+   span: {
+      color: 'green',
+   },
 }))
 
 const StyledSubcategory = styled('div')(() => ({
@@ -187,13 +174,13 @@ const Category = styled('p')(() => ({
    lineHeight: '130%',
 }))
 
-const State = styled('p')(() => ({
-   color: '#5C5C5C',
-   fontWeight: '400',
-   fontSize: '14px',
-   lineHeight: '130%',
-   marginTop: '20px',
-}))
+// const State = styled('p')(() => ({
+//    color: '#5C5C5C',
+//    fontWeight: '400',
+//    fontSize: '14px',
+//    lineHeight: '130%',
+//    marginTop: '20px',
+// }))
 
 const Subcategory = styled('p')(() => ({
    color: '#5C5C5C',
@@ -202,26 +189,26 @@ const Subcategory = styled('p')(() => ({
    lineHeight: '130%',
 }))
 
-const Date = styled('p')(() => ({
-   color: '#5C5C5C',
-   fontWeight: '400',
-   fontSize: '14px',
-   lineHeight: '130%',
-   marginTop: '20px',
-}))
+// const Date = styled('p')(() => ({
+//    color: '#5C5C5C',
+//    fontWeight: '400',
+//    fontSize: '14px',
+//    lineHeight: '130%',
+//    marginTop: '20px',
+// }))
 
 const StyledButton = styled('div')(() => ({
    display: 'flex',
-   marginLeft: '69%',
+   marginLeft: '65%',
    marginTop: '40px',
 }))
 
-const ButtonMui = styled(Button)(() => ({
-   color: '#8D949E',
-   fontWeight: '500',
-   fontSize: '12px',
-   lineHeight: '17px',
-}))
+// const ButtonMui = styled(Button)(() => ({
+//    color: '#8D949E',
+//    fontWeight: '500',
+//    fontSize: '12px',
+//    lineHeight: '17px',
+// }))
 
 const MyButtonPage = styled(MyButton)(() => ({
    color: '#FFFFFF',

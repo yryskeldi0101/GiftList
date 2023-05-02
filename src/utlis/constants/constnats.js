@@ -184,6 +184,7 @@ export const INITIAL_PATH = {
    USER: {
       user: '/user',
       lenta: 'lenta',
+      lenta_details: 'lenta/:id/lenta_details',
       friends: 'friends',
       wishlist: 'wishlist',
       bookedPage: 'bookedPage',

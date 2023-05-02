@@ -143,7 +143,7 @@ const Card = styled(MuiCard)(() => ({
    background: '#FFFFFF',
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
-   margin: '2rem',
+   // margin: '2rem',
 }))
 const CardActionArea = styled(MuiCardActionArea)(({ changeCard }) => ({
    padding: '0',
@@ -153,6 +153,7 @@ const CardActionArea = styled(MuiCardActionArea)(({ changeCard }) => ({
    fontWeight: 500,
    display: changeCard ? '' : 'flex',
    justifyContent: changeCard ? '' : 'space-between',
+   width: changeCard ? '' : '524px',
 }))
 
 const CardHeader = styled('div')(() => ({
@@ -161,7 +162,7 @@ const CardHeader = styled('div')(() => ({
    alignItems: 'center',
    padding: 0,
    margin: 0,
-   width: '347px',
+   width: '317px',
 }))
 const HeaderAvatar = styled('div')(() => ({
    display: 'flex',
@@ -183,7 +184,7 @@ const UserBirthDate = styled('a')(() => ({
    color: '#0BA360',
 }))
 const Img = styled('img')(() => ({
-   width: '348px',
+   width: '316px',
    heght: '153px',
    borderRadius: '6px',
    margin: '12px 0',
@@ -192,19 +193,20 @@ const TitleImg = styled('div')(() => ({
    padding: '0',
    margin: '0',
    p: {
+      padding: '16px 0',
       fontSize: '14px',
       color: '#020202',
    },
 }))
 const CardMedia = styled('div')(() => ({
-   width: '317px',
+   width: '310px',
    heght: '153px',
 }))
 const CardActions = styled(MuiCardActions)(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   width: '370px',
+   width: '338px',
    margin: '0',
    padding: '0',
    span: {
