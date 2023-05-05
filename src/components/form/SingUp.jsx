@@ -1,26 +1,48 @@
 import React from 'react'
-import { IconButton, styled } from '@mui/material'
 import { useForm } from 'react-hook-form'
-
+import { IconButton, styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import MyModal from '../UI/modal/Modal'
-import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/googleBlack.svg'
 import ReusableInput from '../UI/input/Input'
+import { signUp } from '../../redux/reducer/auth/authThunk'
 
 const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
+   const role = useSelector((state) => state.auth.role)
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm()
-   const submitHandler = (data) => {
+   const submitHandler = ({ data }) => {
+      const sendData = {
+         firstName: data.firstName,
+         lastName: data.lastName,
+         email: data.email,
+         password: data.password,
+      }
+      console.log(sendData, 'sasas')
       if (data.confirmPassword === data.password) {
-         console.log(data)
+         dispatch(signUp(sendData))
+            .unwrap()
+            .then(() => {
+               if (role === 'ADMIN') {
+                  navigate('/admin')
+               } else {
+                  navigate('/user')
+               }
+            })
+            .catch((error) => error)
       }
    }
+
    return (
       <MyModal open={openModal} onClose={onCloseModal}>
          <form onSubmit={handleSubmit(submitHandler)}>
@@ -35,9 +57,9 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
             )}
             <StyledInput
                placeholder="Имя"
-               id="name"
-               name="name"
-               {...register('name', {
+               id="firstName"
+               name="firstName"
+               {...register('firstName', {
                   required: 'Имя обязательна',
                })}
             />

@@ -95,7 +95,3 @@ const ToastifyStyled = styled(ToastContainer)(() => ({
       },
    },
 }))
-
-
-export default MySnackbar
-

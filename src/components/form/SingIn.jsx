@@ -1,13 +1,16 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import MyModal from '../UI/modal/Modal'
-import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
+import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/googleBlack.svg'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import ReusableInput from '../UI/input/Input'
+import { signIn } from '../../redux/reducer/auth/authThunk'
 
 const SingIn = ({
    openModal,
@@ -15,14 +18,29 @@ const SingIn = ({
    openForgotModal,
    openSingUpModal,
 }) => {
+   const role = useSelector((state) => state.auth.role)
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm()
+
    const submitHandler = (data) => {
-      console.log(data)
+      dispatch(signIn(data))
+         .unwrap()
+         .then(() => {
+            if (role === 'ADMIN') {
+               navigate('/admin')
+            } else {
+               navigate('user')
+            }
+         })
+         .catch((e) => console.log(e.response.data.message))
    }
+
    return (
       <div>
          <MyModal open={openModal} onClose={onCloseModal}>
@@ -41,7 +59,7 @@ const SingIn = ({
                   id="email"
                   name="email"
                   {...register('email', {
-                     required: 'Электронная почта обязательна',
+                     required: 'Электронная почта обязательнo',
                      pattern: {
                         value: /\S+@\S+\.\S+/,
                         message: 'Неверный формат электронной почты',

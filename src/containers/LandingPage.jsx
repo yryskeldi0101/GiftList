@@ -16,6 +16,7 @@ import Footer from './Footer'
 import SingUp from '../components/form/SingUp'
 import SingIn from '../components/form/SingIn'
 import ForgotPassword from '../components/form/ForgotPassword'
+import ResetPassword from '../components/form/ResetPassword'
 
 export const LandingPage = () => {
    const [searchParams, setSearchParams] = useSearchParams()
@@ -117,6 +118,7 @@ export const LandingPage = () => {
             openModal={open === 'forgot-password'}
             onCloseModal={onCloseModal}
          />
+         <ResetPassword />
       </>
    )
 }

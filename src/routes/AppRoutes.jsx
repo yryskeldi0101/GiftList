@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { ROLES } from '../utlis/constants/constnats'
 import AdminRoutes from './AdminRoutes'
 import UserRoutes from './UserRoutes'
@@ -9,8 +10,8 @@ const roleControl = {
    [ROLES.USER]: <UserRoutes />,
 }
 const AppRoutes = () => {
+   const token = useSelector((state) => state.auth.token)
    const role = 'USER'
-   const token = 'dsgdfgdfgdfgdf'
    if (!token) return <GuestRoutes />
    return roleControl[role]
 }
