@@ -7,6 +7,7 @@ import {
    forgotPasswordReq,
    postAuthGoogleReq,
    resetPasswordReq,
+   getGoogleApisReq,
 } from '../../../service/auth/authService'
 
 export const signUp = createAsyncThunk(
@@ -80,6 +81,20 @@ export const postAuthGoogle = createAsyncThunk(
       try {
          const response = await postAuthGoogleReq(payload)
          return response
+      } catch (error) {
+         if (AxiosError(error)) {
+            return rejectWithValue(error.response?.data.message)
+         }
+      }
+      return rejectWithValue('Something went wrong')
+   }
+)
+export const getGoogleApis = createAsyncThunk(
+   'auth/getGoogleApis',
+   async (response, { rejectWithValue }) => {
+      try {
+         const { data } = await getGoogleApisReq(response)
+         return data
       } catch (error) {
          if (AxiosError(error)) {
             return rejectWithValue(error.response?.data.message)

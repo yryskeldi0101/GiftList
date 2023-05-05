@@ -4,13 +4,13 @@ import { IconButton, styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import MyModal from '../UI/modal/Modal'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
 import ReusableInput from '../UI/input/Input'
 import { signUp } from '../../redux/reducer/auth/authThunk'
+import { SignInGoogle } from './SignInGoogle'
 
 const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
    const role = useSelector((state) => state.auth.role)
@@ -141,17 +141,7 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
                <StyledText>или</StyledText>
                <StyledBorderStyle> </StyledBorderStyle>
             </StyledTextContainer>
-            <MyButton
-               variant="contained"
-               background="#f1f1f1"
-               propswidth="482px"
-               hoverbackgroundcolor="#d6d5d5"
-               activebackgroundcolor="#d6d6d6"
-               defaultcolor="black"
-            >
-               <GoogleIcon />
-               Зарегистрироваться с Google
-            </MyButton>
+            <SignInGoogle />
             <StyledRegistrationText>
                У вас уже есть аккаунт?
             </StyledRegistrationText>

@@ -8,9 +8,9 @@ import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import ReusableInput from '../UI/input/Input'
 import { signIn } from '../../redux/reducer/auth/authThunk'
+import { SignInGoogle } from './SignInGoogle'
 
 const SingIn = ({
    openModal,
@@ -108,17 +108,7 @@ const SingIn = ({
                   <StyledText>или</StyledText>
                   <StyledBorderStyle> </StyledBorderStyle>
                </StyledTextContainer>
-               <MyButton
-                  variant="contained"
-                  background="#f1f1f1"
-                  propswidth="482px"
-                  hoverbackgroundcolor="#d6d5d5"
-                  activebackgroundcolor="#d6d6d6"
-                  defaultcolor="black"
-               >
-                  <GoogleIcon />
-                  Продолжить с Google
-               </MyButton>
+               <SignInGoogle />
                <StyledRegistrationText>Нет аккаунта?</StyledRegistrationText>
                <StyledForrgotPassword onClick={openSingUpModal}>
                   Зарегистрироваться

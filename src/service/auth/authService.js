@@ -16,3 +16,10 @@ export const resetPasswordReq = (token) => {
 export const postAuthGoogleReq = (data) => {
    return axiosInstance.post('/api/auth/auth-google', data)
 }
+export const getGoogleApisReq = (response) => {
+   return axiosInstance.get('https://www.googleapis.com/oauth2/v3userInfo', {
+      headers: {
+         Authorization: `Bearer ${response.access_token}}`,
+      },
+   })
+}
