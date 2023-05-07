@@ -10,6 +10,7 @@ const initialState = {
    isloading: false,
    error: '',
    role: '',
+   userID: '',
 }
 
 export const authSlice = createSlice({
@@ -24,6 +25,7 @@ export const authSlice = createSlice({
          state.isloading = false
          state.error = ''
          state.role = payload.role
+         state.userID = payload.userID
       })
       builder.addCase(signIn.pending, (state) => {
          state.email = ''
@@ -48,6 +50,7 @@ export const authSlice = createSlice({
          state.isloading = false
          state.error = ''
          state.role = payload.role
+         state.userID = payload.userID
       })
       builder.addCase(signUp.pending, (state) => {
          state.email = ''
