@@ -14,6 +14,7 @@ import { SignInGoogle } from './SignInGoogle'
 
 const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
    const role = useSelector((state) => state.auth.role)
+   const isLoading = useSelector((state) => state.auth.isLoading)
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const {
@@ -21,14 +22,14 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
       handleSubmit,
       formState: { errors },
    } = useForm()
-   const submitHandler = ({ data }) => {
+   const submitHandler = (data) => {
       const sendData = {
          firstName: data.firstName,
          lastName: data.lastName,
          email: data.email,
          password: data.password,
       }
-      console.log(sendData, 'sasas')
+
       if (data.confirmPassword === data.password) {
          dispatch(signUp(sendData))
             .unwrap()
@@ -122,6 +123,9 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
                   },
                })}
             />
+            {isLoading && (
+               <p style={{ color: 'red', textAlign: 'center' }}>isLoading</p>
+            )}
             <StyledCheckboxContainer>
                <Checkboxes />
                <StyledCheckboxText>Подписаться на рассылку</StyledCheckboxText>

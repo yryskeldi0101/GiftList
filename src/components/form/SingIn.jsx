@@ -19,6 +19,7 @@ const SingIn = ({
    openSingUpModal,
 }) => {
    const role = useSelector((state) => state.auth.role)
+   const isLoading = useSelector((state) => state.auth.isLoading)
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
@@ -35,7 +36,7 @@ const SingIn = ({
             if (role === 'ADMIN') {
                navigate('/admin')
             } else {
-               navigate('user')
+               navigate('/user')
             }
          })
          .catch((e) => console.log(e.response.data.message))
@@ -83,6 +84,9 @@ const SingIn = ({
                      },
                   })}
                />
+               {isLoading && (
+                  <p style={{ color: 'red', textAlign: 'center' }}>isLoading</p>
+               )}
 
                <StyledCheckboxContainer>
                   <Checkboxes />

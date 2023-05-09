@@ -2,7 +2,10 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { useDispatch } from 'react-redux'
 import MyButton from '../UI/Button'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
-import { getGoogleApis } from '../../redux/reducer/auth/authThunk'
+import {
+   postAuthGoogle,
+   getGoogleApis,
+} from '../../redux/reducer/auth/authThunk'
 
 export const SignInGoogle = () => {
    const dispatch = useDispatch()
@@ -10,6 +13,7 @@ export const SignInGoogle = () => {
    const login = useGoogleLogin({
       onSuccess: async (response) => {
          dispatch(getGoogleApis(response))
+         dispatch(postAuthGoogle(response))
       },
    })
    const handleClick = (event) => {

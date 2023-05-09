@@ -9,14 +9,15 @@ import {
    resetPasswordReq,
    getGoogleApisReq,
 } from '../../../service/auth/authService'
+import { STORAGE_KEYS } from '../../../utlis/constants/constnats'
 
 export const signUp = createAsyncThunk(
    'auth/signUp',
    async (payload, { rejectWithValue }) => {
       try {
          const data = await signUpReq(payload)
-
-         localStorage.setItem('AUTH', data)
+         localStorage.setItem(STORAGE_KEYS.AUTH, data)
+         console.log(' Thunk data', data)
          return data
       } catch (error) {
          if (isAxiosError(error)) {
@@ -32,7 +33,8 @@ export const signIn = createAsyncThunk(
    async (payload, { rejectWithValue }) => {
       try {
          const { data } = await signInReq(payload)
-         localStorage.setItem('AUTH', JSON.stringify(data))
+         console.log('sigIn Data', data)
+         localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(data))
          return data
       } catch (error) {
          if (isAxiosError(error)) {
@@ -44,7 +46,7 @@ export const signIn = createAsyncThunk(
 )
 
 export const signOut = createAsyncThunk('auth/signOut', async () => {
-   return localStorage.removeItem('AUTH')
+   return localStorage.removeItem(STORAGE_KEYS.AUTH)
 })
 
 export const postForgetPassword = createAsyncThunk(

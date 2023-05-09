@@ -13,7 +13,6 @@ const ForgotPassword = ({ openModal, onCloseModal }) => {
    const dispatch = useDispatch()
 
    const submitHandler = ({ email }) => {
-      // console.log(data)
       dispatch(postForgetPassword(email))
    }
    return (
