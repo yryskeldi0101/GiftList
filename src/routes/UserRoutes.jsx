@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Lenta from '../containers/user/Lenta'
 import Friends from '../containers/user/Friends'
 import WishList from '../containers/user/WishList'
@@ -12,11 +12,16 @@ import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
 import CharityDetails from '../containers/user/charities/CharityDetails'
 import AddCharity from '../containers/user/charities/AddCharity'
-import EditCharity from '../containers/user/charities/EditCharity'
+// import EditCharity from '../containers/user/charities/EditCharity'
+// import BookCharity from '../containers/user/charities/BookCharity'
 
 const UserRoutes = () => {
    return (
       <Routes>
+         <Route
+            path={INITIAL_PATH.GUEST.main}
+            element={<Navigate replace to="/user" />}
+         />
          <Route
             path={INITIAL_PATH.USER.user}
             element={<PrivateRoute component={UserLayout} />}
@@ -58,7 +63,7 @@ const UserRoutes = () => {
                path={
                   INITIAL_PATH.USER.charity && INITIAL_PATH.USER.edit_charity
                }
-               element={<PrivateRoute component={EditCharity} />}
+               element={<PrivateRoute component={AddCharity} />}
             />
             <Route
                path={
@@ -66,6 +71,12 @@ const UserRoutes = () => {
                }
                element={<PrivateRoute component={CharityDetails} />}
             />
+            {/* <Route
+               path={
+                  INITIAL_PATH.USER.charity && INITIAL_PATH.USER.book_charity
+               }
+               element={<PrivateRoute component={BookCharity} />}
+            /> */}
          </Route>
          <Route path={INITIAL_PATH.USER.not_found} element={<ErrorPage />} />
       </Routes>

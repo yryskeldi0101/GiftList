@@ -6,6 +6,8 @@ import CompolaintsIcon from '../../assets/svg/complaints.svg'
 import ListIcon from '../../assets/svg/listIcon.svg'
 import MyHolidays from '../../assets/svg/myholidays.svg'
 import MailingIcon from '../../assets/svg/mailing.svg'
+import UserIcon from '../../assets/icons/UserIcon.svg'
+import OutIcon from '../../assets/icons/outIcon.svg'
 
 export const sideBarRoles = {
    ADMIN: [
@@ -168,6 +170,10 @@ export const subcategoryArray = [
       id: '9',
    },
 ]
+export const UserMenuData = [
+   { name: 'Профиль', icon: UserIcon },
+   { name: 'Выйти', icon: OutIcon },
+]
 export const ROLES = {
    ADMIN: 'ADMIN',
    USER: 'USER',
@@ -189,9 +195,10 @@ export const INITIAL_PATH = {
       bookedPage: 'bookedPage',
       holidays: 'holidays',
       charity: 'charity/',
-      charity_details: 'charity/:id/charity_details',
+      charity_details: 'charity/:id/:userId/charity_details',
       add_charity: 'charity/add_charity',
-      edit_charity: 'charity/edit_charity',
+      edit_charity: 'charity/:id/edit_charity',
+      book_charity: 'charity/:id/book_charity',
       not_found: '*',
    },
    GUEST: {

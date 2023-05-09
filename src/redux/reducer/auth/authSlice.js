@@ -3,8 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
    user: [],
    email: '',
-   token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhaWJhQGdtYWlsLmNvbSIsImlhdCI6MTY4MzAwNzU1NSwiZXhwIjoxNjgzMDA4OTk1fQ.VoqXd9tuxfAMoOLZ3faoKLZ6i8DFbNgp0rKK8WomsHc',
    password: '',
+   token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5cnlza2VsZGlAZ21haWwuY29tIiwiaWF0IjoxNjgzNjIyMjMzLCJleHAiOjE2ODM3NjYyMzN9.2j3D5aDheK_6ac3atElIwMhUui5tLfW3fuAv_XjgzyQ',
+   userId: 11,
    isAuthorized: false,
    isloading: false,
    error: '',

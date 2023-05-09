@@ -1,11 +1,18 @@
-/* eslint-disable import/no-cycle */
 import { createSlice } from '@reduxjs/toolkit'
-import { addCharities, getCharities } from './charityThunk'
+import {
+   addCharities,
+   deleteCharity,
+   editCharity,
+   getCharities,
+   getOneCharityById,
+   reserveCharity,
+} from './charityThunk'
 
 const initialState = {
-   unloading: false,
+   isLoading: false,
    error: '',
    charities: [],
+   getOneCharity: {},
 }
 export const charitySlice = createSlice({
    name: 'charity',
@@ -27,6 +34,21 @@ export const charitySlice = createSlice({
          state.isLoading = false
          state.charities = []
       })
+      builder.addCase(getOneCharityById.fulfilled, (state, { payload }) => {
+         state.error = ''
+         state.isLoading = false
+         state.getOneCharity = payload
+      })
+      builder.addCase(getOneCharityById.pending, (state) => {
+         state.error = ''
+         state.isLoading = true
+         state.getOneCharity = {}
+      })
+      builder.addCase(getOneCharityById.rejected, (state, { payload }) => {
+         state.error = payload
+         state.isLoading = false
+         state.getOneCharity = {}
+      })
       builder.addCase(addCharities.fulfilled, (state) => {
          state.error = ''
          state.isLoading = false
@@ -41,6 +63,58 @@ export const charitySlice = createSlice({
          state.error = payload
          state.isLoading = false
          state.charities = []
+      })
+      builder.addCase(editCharity.fulfilled, (state) => {
+         state.error = ''
+         state.isLoading = false
+         state.charities = []
+      })
+      builder.addCase(editCharity.pending, (state) => {
+         state.error = ''
+         state.isLoading = true
+         state.charities = []
+      })
+      builder.addCase(editCharity.rejected, (state, { payload }) => {
+         state.error = payload.error
+         state.isLoading = false
+         state.charities = []
+      })
+      builder.addCase(deleteCharity.fulfilled, (state) => {
+         state.error = ''
+         state.isLoading = false
+         state.charities = []
+         state.getOneCharity = {}
+      })
+      builder.addCase(deleteCharity.pending, (state) => {
+         state.error = ''
+         state.isLoading = true
+         state.charities = []
+         state.getOneCharity = {}
+      })
+      builder.addCase(deleteCharity.rejected, (state, { payload }) => {
+         state.error = payload.error
+         state.isLoading = false
+         state.charities = []
+         state.getOneCharity = {}
+      })
+      builder.addCase(reserveCharity.fulfilled, (state) => {
+         state.isLoading = false
+         state.error = ''
+         state.isLoading = false
+         state.charities = []
+         state.getOneCharity = {}
+      })
+      builder.addCase(reserveCharity.pending, (state) => {
+         state.error = ''
+         state.isLoading = true
+         state.charities = []
+         state.getOneCharity = {}
+      })
+      builder.addCase(reserveCharity.rejected, (state, { payload }) => {
+         state.error = payload.error
+         state.isLoading = false
+         state.charities = []
+         state.getOneCharity = {}
       })
    },
 })

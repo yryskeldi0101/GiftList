@@ -8,20 +8,31 @@ import shirtIcon from '../../../assets/images/Shirt.png'
 import { ReactComponent as PlusIcon } from '../../../assets/icons/plusIcon.svg'
 import MyButton from '../../../components/UI/Button'
 import Cards from '../../../components/card/Card'
-// import { cardData } from '../../../utlis/constants/cardData'
-import { getCharities } from '../../../redux/charities/charityThunk'
+import {
+   getCharities,
+   reserveCharity,
+} from '../../../redux/charities/charityThunk'
 
 const UserCharity = () => {
    const charityData = useSelector((state) => state.charity.charities)
-   console.log(charityData)
    const navigate = useNavigate()
-   const navigateToAddCharityHandler = () => {
-      navigate('add_charity')
-   }
+   const navigateToAddCharityHandler = () => navigate('add_charity')
+
+   const navigateToCharityDetails = (id, userId) =>
+      navigate(`${id}/${userId}/charity_details`)
    const dispatch = useDispatch()
+
    useEffect(() => {
       dispatch(getCharities())
    }, [])
+   const reserveCharityHandler = (id, charityId) => {
+      const data = {
+         id: charityId,
+         anonymous: id !== '1',
+      }
+      dispatch(reserveCharity(data))
+   }
+
    return (
       <div>
          <StyledContainer>
@@ -46,32 +57,42 @@ const UserCharity = () => {
             </ButtonContainer>
          </StyledContainer>
          <CardContainer>
-            {charityData.map((item) => {
-               return (
-                  // <Link to={`${item.id}/charity_details`} key={item.id}>
-                  <div key={item.id}>
-                     <Cards
-                        changeCard={true}
-                        id={item.id}
-                        icon={item.icon}
-                        userName={item.fullName}
-                        birthDate={item.birthDate}
-                        title={item.charityName}
-                        img={item.image}
-                        date={item.dateAdded}
-                        reserve={item.isReserved}
-                        expectation={item.expectation}
-                     />
-                  </div>
-                  // </Link>
-               )
-            })}
+            <StyledCardContainer>
+               {charityData.map((item) => {
+                  return (
+                     <div key={item.id}>
+                        <Cards
+                           changeCard={true}
+                           navigateToCharityDetails={navigateToCharityDetails}
+                           reserveHandler={reserveCharityHandler}
+                           id={item.id}
+                           userId={item.userId}
+                           icon={item.icon}
+                           userName={item.fullName}
+                           birthDate={item.birthDate}
+                           title={item.charityName}
+                           img={item.image}
+                           date={item.dateAdded}
+                           userImage={item.userImage}
+                           reserve={item.isReserved}
+                           expectation={item.expectation}
+                        />
+                     </div>
+                  )
+               })}
+            </StyledCardContainer>
          </CardContainer>
       </div>
    )
 }
 
 export default UserCharity
+const StyledCardContainer = styled('div')`
+   display: flex;
+   width: 100%;
+   flex-wrap: wrap;
+   gap: 60px;
+`
 const StyledContainer = styled('div')`
    display: flex;
    align-items: center;

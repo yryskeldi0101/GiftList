@@ -23,8 +23,8 @@ const LayoutPage = () => {
 export default LayoutPage
 
 const HeaderContent = styled('header')`
-   margin-left: 320px;
+   margin-left: 290px;
 `
 const MainContainer = styled('main')`
-   margin-left: 320px;
+   margin-left: 310px;
 `

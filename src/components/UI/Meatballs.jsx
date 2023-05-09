@@ -7,6 +7,8 @@ export default function Meatballs({
    handleClose,
    handleClick,
    anchorEl,
+   reserveHandler,
+   id,
    ...restProps
 }) {
    return (
@@ -21,6 +23,7 @@ export default function Meatballs({
          >
             <MeatballsIcon />
          </Button>
+
          <Menu
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
@@ -37,14 +40,22 @@ export default function Meatballs({
             }}
          >
             {arrayIcon.map((item) => (
-               <MenuItem onClick={handleClose} key={item.id} {...restProps}>
-                  <img
-                     src={item.icon}
-                     alt="#"
-                     style={{ marginRight: '10px' }}
-                  />
-                  {item.title}
-               </MenuItem>
+               <div key={item.id}>
+                  <MenuItem
+                     onClick={() => {
+                        reserveHandler(item.id, id)
+                        handleClose()
+                     }}
+                     {...restProps}
+                  >
+                     <img
+                        src={item.icon}
+                        alt="#"
+                        style={{ marginRight: '10px' }}
+                     />
+                     {item.title}
+                  </MenuItem>
+               </div>
             ))}
          </Menu>
       </div>

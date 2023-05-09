@@ -98,13 +98,14 @@ export default TextFieldWithDropDown
 const StyledIcon = styled(IconDelete)`
    color: black;
 `
+
 const Container = styled('div')`
    display: flex;
    align-items: center;
    justify-content: flex-start;
    border: 1px solid #bdbdbd;
    border-radius: 8px;
-   max-width: 821px;
+   max-width: 921px;
    background-color: #ffffff;
    height: 40px;
    padding: 0 5px;
@@ -124,7 +125,7 @@ const InputSearch = styled(InputBase)(() => ({
       borderRight: 'none',
       borderLeft: 'none',
       marginLeft: '20px',
-      width: '200px',
+      width: '309px',
    },
 
    '& .MuiOutlinedInput-root': {
@@ -140,6 +141,6 @@ const ContentSelect = styled('div')`
    display: flex;
    align-items: center;
    justify-content: space-between;
-   width: 700px;
+   width: 900px;
    overflow: hidden;
 `
