@@ -10,14 +10,14 @@ import {
    getGoogleApisReq,
 } from '../../../service/auth/authService'
 import { STORAGE_KEYS } from '../../../utlis/constants/constnats'
+import { addDataToStorage } from '../../../utlis/helpers/storageHelpers'
 
 export const signUp = createAsyncThunk(
    'auth/signUp',
    async (payload, { rejectWithValue }) => {
       try {
          const data = await signUpReq(payload)
-         localStorage.setItem(STORAGE_KEYS.AUTH, data)
-         console.log(' Thunk data', data)
+         addDataToStorage(STORAGE_KEYS.AUTH, JSON.stringify(data))
          return data
       } catch (error) {
          if (isAxiosError(error)) {
@@ -33,8 +33,8 @@ export const signIn = createAsyncThunk(
    async (payload, { rejectWithValue }) => {
       try {
          const { data } = await signInReq(payload)
-         console.log('sigIn Data', data)
-         localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(data))
+
+         addDataToStorage(STORAGE_KEYS.AUTH, JSON.stringify(data))
          return data
       } catch (error) {
          if (isAxiosError(error)) {

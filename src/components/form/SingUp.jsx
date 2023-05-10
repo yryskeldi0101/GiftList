@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,25 +11,32 @@ import PasswordInput from '../UI/input/PasswordInput'
 import ReusableInput from '../UI/input/Input'
 import { signUp } from '../../redux/reducer/auth/authThunk'
 import { SignInGoogle } from './SignInGoogle'
+import Spinner from '../UI/Spinner'
 
 const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
    const role = useSelector((state) => state.auth.role)
-   const isLoading = useSelector((state) => state.auth.isLoading)
+   const isLoading = useSelector((state) => state.auth.isloading)
+   const [checkbox, setCheckbox] = useState(false)
    const dispatch = useDispatch()
    const navigate = useNavigate()
+
+   const changeHandle = () => {
+      setCheckbox((prevS) => !prevS)
+   }
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm()
+
    const submitHandler = (data) => {
       const sendData = {
          firstName: data.firstName,
          lastName: data.lastName,
          email: data.email,
          password: data.password,
+         checkbox,
       }
-
       if (data.confirmPassword === data.password) {
          dispatch(signUp(sendData))
             .unwrap()
@@ -123,11 +130,8 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
                   },
                })}
             />
-            {isLoading && (
-               <p style={{ color: 'red', textAlign: 'center' }}>isLoading</p>
-            )}
             <StyledCheckboxContainer>
-               <Checkboxes />
+               <Checkboxes onChange={changeHandle} checked={checkbox} />
                <StyledCheckboxText>Подписаться на рассылку</StyledCheckboxText>
             </StyledCheckboxContainer>
             <MyButton
@@ -138,7 +142,7 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
                activebackgroundcolor="#AB62D8"
                type="submit"
             >
-               Создать аккаунт
+               {isLoading ? <Spinner /> : 'Создать аккаунт'}
             </MyButton>
             <StyledTextContainer>
                <StyledBorderStyle> </StyledBorderStyle>

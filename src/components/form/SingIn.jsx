@@ -11,6 +11,7 @@ import PasswordInput from '../UI/input/PasswordInput'
 import ReusableInput from '../UI/input/Input'
 import { signIn } from '../../redux/reducer/auth/authThunk'
 import { SignInGoogle } from './SignInGoogle'
+import Spinner from '../UI/Spinner'
 
 const SingIn = ({
    openModal,
@@ -19,7 +20,7 @@ const SingIn = ({
    openSingUpModal,
 }) => {
    const role = useSelector((state) => state.auth.role)
-   const isLoading = useSelector((state) => state.auth.isLoading)
+   const isLoading = useSelector((state) => state.auth.isloading)
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
@@ -84,9 +85,6 @@ const SingIn = ({
                      },
                   })}
                />
-               {isLoading && (
-                  <p style={{ color: 'red', textAlign: 'center' }}>isLoading</p>
-               )}
 
                <StyledCheckboxContainer>
                   <Checkboxes />
@@ -100,7 +98,7 @@ const SingIn = ({
                   activebackgroundcolor="#AB62D8"
                   type="submit"
                >
-                  Войти
+                  {isLoading ? <Spinner /> : 'Войти'}
                </MyButton>
                <StyledForrgotPasswordContainer>
                   <StyledForrgotPassword onClick={openForgotModal}>
