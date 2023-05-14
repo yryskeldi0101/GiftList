@@ -17,11 +17,9 @@ const UserCharity = () => {
    const charityData = useSelector((state) => state.charity.charities)
    const navigate = useNavigate()
    const navigateToAddCharityHandler = () => navigate('add_charity')
-
    const navigateToCharityDetails = (id, userId) =>
       navigate(`${id}/${userId}/charity_details`)
    const dispatch = useDispatch()
-
    useEffect(() => {
       dispatch(getCharities())
    }, [])
@@ -32,7 +30,6 @@ const UserCharity = () => {
       }
       dispatch(reserveCharity(data))
    }
-
    return (
       <div>
          <StyledContainer>
@@ -67,15 +64,20 @@ const UserCharity = () => {
                            reserveHandler={reserveCharityHandler}
                            id={item.id}
                            userId={item.userId}
-                           icon={item.icon}
+                           icon={item.userImage}
                            userName={item.fullName}
                            birthDate={item.birthDate}
                            title={item.charityName}
                            img={item.image}
+                           state={item.state}
                            date={item.dateAdded}
-                           userImage={item.userImage}
+                           disableMeatalls={item.isReserved}
                            reserve={item.isReserved}
-                           expectation={item.expectation}
+                           charityMeatballs={item.isAnonymous}
+                           expectation={item.isReserved}
+                           charityMeatballsHandler={true}
+                           bookChange={false}
+                           openMeatballs="false"
                         />
                      </div>
                   )
@@ -91,7 +93,7 @@ const StyledCardContainer = styled('div')`
    display: flex;
    width: 100%;
    flex-wrap: wrap;
-   gap: 60px;
+   gap: 67px;
 `
 const StyledContainer = styled('div')`
    display: flex;

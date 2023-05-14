@@ -75,7 +75,7 @@ export const charitySlice = createSlice({
          state.charities = []
       })
       builder.addCase(editCharity.rejected, (state, { payload }) => {
-         state.error = payload.error
+         state.error = payload
          state.isLoading = false
          state.charities = []
       })

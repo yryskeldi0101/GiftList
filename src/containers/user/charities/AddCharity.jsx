@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as AddImg } from '../../../assets/svg/charityImgAddIcon.svg'
 import ReusableInput from '../../../components/UI/input/Input'
 import AppSelect from '../../../components/UI/AppSelect'
@@ -19,7 +18,8 @@ import {
 } from '../../../redux/charities/charityThunk'
 import useToastBar from '../../../hooks/useToastBar'
 import Snackbar from '../../../components/button/SnackBar'
-import { BASE_ULR } from '../../../api/axiosInstance'
+import Spinner from '../../../components/UI/Spinner'
+import { uploadFileRequest } from '../../../service/charityService'
 
 const CharityAdd = () => {
    const location = useLocation()
@@ -39,31 +39,28 @@ const CharityAdd = () => {
    const [descriptionValue, setDescriptionValue] = useState(
       getOneCharity?.description || ''
    )
-   const [selectedFile, setSelectedFile] = useState(
-      getOneCharity?.image || 'sjdalsfjlafalsfasfla/s.scoma/assfl'
-   )
+   const [selectedFile, setSelectedFile] = useState(getOneCharity?.image || '')
    const { id } = useParams()
-
+   const isLoading = useSelector((state) => state.charity.isLoading)
    const dispatch = useDispatch()
+   const { showToast } = useToastBar()
 
    const handleImageChange = async (e) => {
       const file = e.target.files[0]
       const formData = new FormData()
       formData.append('file', file)
       try {
-         const response = await axios.post(`${BASE_ULR}/api/file`, formData, {
-            headers: {
-               'Content-Type': 'multipart/form-data',
-            },
-         })
-         const file = response.data.url
-         setSelectedFile(file)
+         const response = await uploadFileRequest(formData)
+         const fileResponse = response.data.url
+         setSelectedFile(fileResponse)
       } catch (error) {
-         console.error('Error uploading image:', error)
+         showToast(
+            'error',
+            'Ошибка',
+            'При загрузке файла произошла ошибка повторите попытку позже'
+         )
       }
    }
-
-   const { showToast } = useToastBar()
 
    const titleInputChangeHandler = (event) =>
       setTitleInputValue(event.target.value)
@@ -92,10 +89,10 @@ const CharityAdd = () => {
          subCategory: subCategoryValue,
          description: descriptionValue,
          image: selectedFile,
-         id: +id || null,
+         id: +id || undefined,
       }
       if (id) {
-         dispatch(editCharity(data))
+         dispatch(editCharity(data)).then(() => navigate('/user/charity'))
       } else {
          dispatch(addCharities(data))
          setCategoryValue('')
@@ -115,7 +112,12 @@ const CharityAdd = () => {
                <div>
                   <StyledImgIconContainer>
                      {(selectedFile && (
-                        <StyledImgProfileWidth src={selectedFile} alt="img" />
+                        <label htmlFor="file-input">
+                           <StyledImgProfileWidth
+                              src={selectedFile}
+                              alt="img"
+                           />
+                        </label>
                      )) || (
                         <StyledImgText htmlFor="file-input">
                            <div>
@@ -208,18 +210,33 @@ const CharityAdd = () => {
                   >
                      Отмена
                   </MyButton>
-                  <MyButton
-                     variant="contained"
-                     propswidth="113px"
-                     background="#8639B5"
-                     defaultcolor="#ffffff"
-                     hoverbackgroundcolor="#612386"
-                     activebackgroundcolor="#AB62D8"
-                     propsborderradius="10px"
-                     onClick={hadleSubmit}
-                  >
-                     {id ? 'Cохранить' : 'Добавить'}
-                  </MyButton>
+                  {id ? (
+                     <MyButton
+                        variant="contained"
+                        propswidth="113px"
+                        background="#8639B5"
+                        defaultcolor="#ffffff"
+                        hoverbackgroundcolor="#612386"
+                        activebackgroundcolor="#AB62D8"
+                        propsborderradius="10px"
+                        onClick={hadleSubmit}
+                     >
+                        {isLoading ? <Spinner /> : 'Cохранить'}
+                     </MyButton>
+                  ) : (
+                     <MyButton
+                        variant="contained"
+                        propswidth="113px"
+                        background="#8639B5"
+                        defaultcolor="#ffffff"
+                        hoverbackgroundcolor="#612386"
+                        activebackgroundcolor="#AB62D8"
+                        propsborderradius="10px"
+                        onClick={hadleSubmit}
+                     >
+                        {isLoading ? <Spinner /> : 'Добавить'}
+                     </MyButton>
+                  )}
                </StyledButtonContainer>
             </StyledInputAndSelctsGlobalContainer>
          </StyledGlobalContainer>
@@ -312,10 +329,12 @@ const StyledImgContainer = styled('div')`
    display: flex;
    align-items: center;
    justify-content: center;
+   cursor: pointer;
 `
 
 const StyledImgIconContainer = styled('div')`
    text-align: center;
+   cursor: pointer;
 `
 
 const StyledImgText = styled('label')`
@@ -329,6 +348,9 @@ const StyledImgText = styled('label')`
    justify-content: center;
    margin-top: 16px;
    color: #8e8ea9;
+   cursor: pointer;
+   position: relative;
+   z-index: 3;
 `
 const StyledInputOfTypeFile = styled('input')`
    display: none;

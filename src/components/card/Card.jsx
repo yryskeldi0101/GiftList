@@ -9,6 +9,7 @@ import Meatballs from '../UI/Meatballs'
 import Ananim from '../../assets/icons/anonim.svg'
 import Lock from '../../assets/icons/key.svg'
 import Present from '../../assets/icons/present.svg'
+import Dislike from '../../assets/icons/dislake.svg'
 import OpenLock from '../../assets/icons/lock.svg'
 import { useMeatballs } from '../../hooks/useMeatballs'
 
@@ -23,6 +24,14 @@ const MEATBALLS_EXPECT_CONTENT = [
       title: 'Забронировать анонимно',
       id: '2',
    },
+   {
+      icon: Present,
+      title: 'Добавить в мои подарки',
+   },
+   {
+      icon: Dislike,
+      title: 'Пожаловаться',
+   },
 ]
 
 const MEATBALLS_BOOK_CONTENT = [
@@ -33,6 +42,18 @@ const MEATBALLS_BOOK_CONTENT = [
    {
       icon: OpenLock,
       title: 'Снять бронь',
+   },
+]
+const MEATBALLS_CHARITY_CONTENT = [
+   {
+      icon: Lock,
+      title: 'Забронировать',
+      id: '1',
+   },
+   {
+      icon: Ananim,
+      title: 'Забронировать анонимно',
+      id: '2',
    },
 ]
 
@@ -49,12 +70,14 @@ export default function Cards({
    navigateToCharityDetails,
    openMeatballs,
    userId,
-   userImage,
    meatballsChangeHandler,
    meatballsSelectHandler,
    changeCard,
    reserveHandler,
    bookChange,
+   charityMeatballs,
+   charityMeatballsHandler,
+   state,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
    return (
@@ -72,79 +95,128 @@ export default function Cards({
             )}
 
             <CardContent>
-               <CardHeader onClick={() => navigateToCharityDetails(id, userId)}>
-                  <HeaderAvatar>
-                     <ImgIcon src={userImage} alt="green iguana" />
-                     <UserName>{userName}</UserName>
-                  </HeaderAvatar>
-                  <UserBirthDate>{birthDate}</UserBirthDate>
-               </CardHeader>
+               <NavigationContainer
+                  onClick={() => navigateToCharityDetails(id, userId)}
+               >
+                  <CardHeader>
+                     <HeaderAvatar>
+                        <ImgIcon src={icon} alt="green iguana" />
+                        <UserName>{userName}</UserName>
+                     </HeaderAvatar>
+                     <UserBirthDate>{birthDate}</UserBirthDate>
+                  </CardHeader>
 
-               <TitleImg>
-                  <p>{title}</p>
-                  {changeCard ? (
-                     <CardMedia openMeatballs={openMeatballs}>
-                        <Img src={img} alt="images" />
-                     </CardMedia>
-                  ) : (
-                     ''
-                  )}
-               </TitleImg>
+                  <TitleImg>
+                     {charityMeatballsHandler && (
+                        <CharityContainer>
+                           <h3>{title}</h3>
+                           <p>{state}</p>
+                        </CharityContainer>
+                     )}
+                     {changeCard ? (
+                        <CardMedia openMeatballs={openMeatballs}>
+                           <Img src={img} alt="images" />
+                        </CardMedia>
+                     ) : (
+                        ''
+                     )}
+                  </TitleImg>
+               </NavigationContainer>
 
                <CardActions openmeatballs={openMeatballs}>
                   <span>{date}</span>
-                  {bookChange ? (
-                     <Meatballs
-                        arrayIcon={MEATBALLS_BOOK_CONTENT}
-                        open={open}
-                        handleClose={handleClose}
-                        handleClick={handleClick}
-                        anchorEl={anchorEl}
-                        id={id}
-                        reserveHandler={reserveHandler}
-                     />
-                  ) : (
+                  {charityMeatballsHandler ? (
                      <FooterAvatar>
-                        {openMeatballs ? (
+                        {charityMeatballs ? (
                            <>
-                              <Button
-                                 type="submit"
-                                 onClick={meatballsChangeHandler}
-                              >
-                                 {expectation}
+                              <Button onClick={meatballsChangeHandler}>
+                                 {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
                               <Meatballs
-                                 arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                 arrayIcon={MEATBALLS_CHARITY_CONTENT}
                                  open={open}
                                  id={id}
-                                 meatballsSelectHandler={meatballsSelectHandler}
+                                 meatballsselecthandler={meatballsSelectHandler}
                                  handleClose={handleClose}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
                                  reserveHandler={reserveHandler}
+                                 display={reserve}
                               />
                            </>
                         ) : (
                            <>
                               <ImgIcon src={icon} />
-                              <Button
-                                 type="submit"
-                                 onClick={meatballsChangeHandler}
-                              >
-                                 {reserve}
+
+                              <Button onClick={meatballsChangeHandler}>
+                                 {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
                               <Meatballs
-                                 arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                 arrayIcon={MEATBALLS_CHARITY_CONTENT}
                                  open={open}
                                  id={id}
+                                 meatballsselecthandler={meatballsSelectHandler}
                                  handleClose={handleClose}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
                                  reserveHandler={reserveHandler}
+                                 display={reserve}
                               />
                            </>
                         )}
                      </FooterAvatar>
+                  ) : (
+                     <div>
+                        {bookChange ? (
+                           <Meatballs
+                              arrayIcon={MEATBALLS_BOOK_CONTENT}
+                              open={open}
+                              handleClose={handleClose}
+                              handleClick={handleClick}
+                              anchorEl={anchorEl}
+                              id={id}
+                              reserveHandler={reserveHandler}
+                           />
+                        ) : (
+                           <FooterAvatar>
+                              {openMeatballs ? (
+                                 <>
+                                    <Button onClick={meatballsChangeHandler}>
+                                       {expectation}
+                                    </Button>
+                                    <Meatballs
+                                       arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                       open={open}
+                                       id={id}
+                                       meatballsSelectHandler={
+                                          meatballsSelectHandler
+                                       }
+                                       handleClose={handleClose}
+                                       handleClick={handleClick}
+                                       anchorEl={anchorEl}
+                                       reserveHandler={reserveHandler}
+                                    />
+                                 </>
+                              ) : (
+                                 <>
+                                    <ImgIcon src={icon} />
+                                    <Button onClick={meatballsChangeHandler}>
+                                       {reserve}
+                                    </Button>
+                                    <Meatballs
+                                       arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                       open={open}
+                                       id={id}
+                                       handleClose={handleClose}
+                                       handleClick={handleClick}
+                                       anchorEl={anchorEl}
+                                       reserveHandler={reserveHandler}
+                                    />
+                                 </>
+                              )}
+                           </FooterAvatar>
+                        )}
+                     </div>
                   )}
                </CardActions>
             </CardContent>
@@ -233,7 +305,7 @@ const FooterAvatar = styled('div')(() => ({
    justifyContent: 'space-between',
    alignItems: 'center',
 }))
-const Button = styled('button')(() => ({
+const Button = styled('div')(() => ({
    border: 'none',
    background: '#fff',
    fontFamily: 'Inter',
@@ -260,4 +332,19 @@ const ListImg = styled('img')(() => ({
    width: '156px',
    height: '118px',
    borderRadius: '6px',
+}))
+const NavigationContainer = styled('div')(() => ({
+   cursor: 'pointer',
+}))
+const CharityContainer = styled('div')(() => ({
+   display: 'flex',
+   maxWidth: '300px',
+   alignItems: 'center',
+   justifyContent: 'space-between',
+   h3: {
+      maxWidth: '70%',
+   },
+   p: {
+      maxWidth: '30%',
+   },
 }))

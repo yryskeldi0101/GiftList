@@ -1,6 +1,7 @@
 import { Card, styled } from '@mui/material'
 import MyButton from '../components/UI/Button'
 import Checkboxes from '../components/UI/Checkbox'
+import Spinner from '../components/UI/Spinner'
 
 function DetailedPage({
    profileDetails,
@@ -11,6 +12,7 @@ function DetailedPage({
    handleClick,
    handleChange,
    handleReserve,
+   isLoading,
 }) {
    return (
       <StyledCard>
@@ -67,7 +69,7 @@ function DetailedPage({
                      defaultcolor="#8D949E"
                      onClick={() => onClick(profileDetails.id)}
                   >
-                     Удалить
+                     {isLoading ? <Spinner /> : 'Удалить'}
                   </MyButton>
                   <MyButton
                      variant="contained"
@@ -96,7 +98,7 @@ function DetailedPage({
                      disabled={profileDetails.isReserved}
                      onClick={() => handleReserve(checked, profileDetails.id)}
                   >
-                     Забронировать
+                     {isLoading ? <Spinner /> : 'Забронировать'}
                   </MyButton>
                </StyledButtoncContainer>
             )}

@@ -11,7 +11,7 @@ import Snackbar from '../../../components/button/SnackBar'
 
 const CharityDetails = () => {
    const [checked, setChecked] = useState(false)
-
+   const isLoading = useSelector((state) => state.charity.isLoading)
    const { getOneCharity } = useSelector((state) => state.charity)
    const { userId } = useSelector((state) => state.auth)
 
@@ -50,6 +50,7 @@ const CharityDetails = () => {
                onClick={deleteCharityHandler}
                handleClick={editCharityHandler}
                checked={checked}
+               isLoading={isLoading}
                handleChange={checkBoxChangeHandler}
                handleReserve={reserveCharityHandler}
             />
