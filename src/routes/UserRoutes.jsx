@@ -46,11 +46,6 @@ const UserRoutes = () => {
                path={INITIAL_PATH.USER.holidays}
                element={<PrivateRoute component={MyHolidays} />}
             />
-            {/* <Route
-               path={INITIAL_PATH.USER.charity}
-               element={<PrivateRoute component={UserCharity} />}
-            /> */}
-
             <Route
                path={INITIAL_PATH.USER.charity}
                element={<PrivateRoute component={UserCharity} />}
@@ -71,12 +66,6 @@ const UserRoutes = () => {
                }
                element={<PrivateRoute component={CharityDetails} />}
             />
-            {/* <Route
-               path={
-                  INITIAL_PATH.USER.charity && INITIAL_PATH.USER.book_charity
-               }
-               element={<PrivateRoute component={BookCharity} />}
-            /> */}
          </Route>
          <Route path={INITIAL_PATH.USER.not_found} element={<ErrorPage />} />
       </Routes>
