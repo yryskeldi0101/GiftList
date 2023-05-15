@@ -270,9 +270,10 @@ const UserBirthDate = styled('a')(() => ({
 }))
 const Img = styled('img')(() => ({
    width: '315px',
-   heght: '153px',
+   height: '170px',
    borderRadius: '6px',
    margin: '12px 0',
+   objectFit: 'contain',
 }))
 const TitleImg = styled('div')(() => ({
    padding: '0',

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as AddImg } from '../../../assets/svg/charityImgAddIcon.svg'
 import ReusableInput from '../../../components/UI/input/Input'
 import AppSelect from '../../../components/UI/AppSelect'
@@ -12,14 +11,14 @@ import {
 } from '../../../utlis/constants/constnats'
 import EmptyTextarea from '../../../components/UI/textarea/Textarea'
 import MyButton from '../../../components/UI/Button'
-import {
-   addCharities,
-   editCharity,
-} from '../../../redux/charities/charityThunk'
 import useToastBar from '../../../hooks/useToastBar'
 import Snackbar from '../../../components/button/SnackBar'
 import Spinner from '../../../components/UI/Spinner'
-import { uploadFileRequest } from '../../../service/charityService'
+import {
+   addCharityRequest,
+   editCharityRequest,
+   uploadFileRequest,
+} from '../../../service/charityService'
 
 const CharityAdd = () => {
    const location = useLocation()
@@ -39,26 +38,22 @@ const CharityAdd = () => {
    const [descriptionValue, setDescriptionValue] = useState(
       getOneCharity?.description || ''
    )
-   const [selectedFile, setSelectedFile] = useState(getOneCharity?.image || '')
+   const [selectedFile, setSelectedFile] = useState(null)
+   const [imageUrl, setImageUrl] = useState(getOneCharity?.image || '')
+   const [isLoading, setIsLoading] = useState(false)
    const { id } = useParams()
-   const isLoading = useSelector((state) => state.charity.isLoading)
-   const dispatch = useDispatch()
    const { showToast } = useToastBar()
-
    const handleImageChange = async (e) => {
       const file = e.target.files[0]
       const formData = new FormData()
       formData.append('file', file)
-      try {
-         const response = await uploadFileRequest(formData)
-         const fileResponse = response.data.url
-         setSelectedFile(fileResponse)
-      } catch (error) {
-         showToast(
-            'error',
-            'Ошибка',
-            'При загрузке файла произошла ошибка повторите попытку позже'
-         )
+      setSelectedFile(formData)
+      if (file) {
+         const reader = new FileReader()
+         reader.onload = () => {
+            setImageUrl(reader.result)
+         }
+         reader.readAsDataURL(file)
       }
    }
 
@@ -70,9 +65,56 @@ const CharityAdd = () => {
 
    const navigate = useNavigate()
    const navigateToCharityHandler = () => navigate(-1)
-   const hadleSubmit = () => {
+
+   const addCharity = async (values) => {
+      setIsLoading(true)
+      try {
+         const data = await addCharityRequest(values)
+         navigate('/user/charity')
+         return data
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      } finally {
+         setIsLoading(false)
+      }
+   }
+   const editCharityHandler = async (values) => {
+      setIsLoading(true)
+      try {
+         const data = await editCharityRequest(values)
+         navigate('/user/charity')
+         return data
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      } finally {
+         setIsLoading(false)
+      }
+   }
+   const uploadFile = async () => {
+      try {
+         const response = await uploadFileRequest(selectedFile)
+         const fileResponse = response.data.url
+         setImageUrl(fileResponse)
+         return fileResponse
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'При загрузке файла произошла ошибка повторите попытку позже'
+         )
+      }
+   }
+   const hadleSubmit = async () => {
       const formIsEmpty = Object.values({
-         selectedFile,
+         imageUrl,
          titleInputValue,
          categoryValue,
          subCategoryValue,
@@ -88,19 +130,16 @@ const CharityAdd = () => {
          category: categoryValue,
          subCategory: subCategoryValue,
          description: descriptionValue,
-         image: selectedFile,
-         id: +id || undefined,
       }
-      if (id) {
-         dispatch(editCharity(data)).then(() => navigate('/user/charity'))
-      } else {
-         dispatch(addCharities(data))
-         setCategoryValue('')
-         setDescriptionValue('')
-         setSubCategoryValue('')
-         setSelectedFile('')
-         setTitleInputValue('')
-         setStateValue('')
+      const fileResponse = selectedFile && (await uploadFile())
+      if (id)
+         editCharityHandler({
+            ...data,
+            image: selectedFile ? fileResponse : imageUrl,
+            id: +id,
+         })
+      if (fileResponse) {
+         addCharity({ ...data, image: fileResponse })
       }
       return formIsEmpty
    }
@@ -111,12 +150,9 @@ const CharityAdd = () => {
             <StyledImgContainer>
                <div>
                   <StyledImgIconContainer>
-                     {(selectedFile && (
+                     {(imageUrl && (
                         <label htmlFor="file-input">
-                           <StyledImgProfileWidth
-                              src={selectedFile}
-                              alt="img"
-                           />
+                           <StyledImgProfileWidth src={imageUrl} alt="img" />
                         </label>
                      )) || (
                         <StyledImgText htmlFor="file-input">

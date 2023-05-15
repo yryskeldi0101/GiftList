@@ -1,35 +1,65 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import bagIcon from '../../../assets/images/Bag.png'
 import plaidIcon from '../../../assets/images/Plaid.png'
 import shirtIcon from '../../../assets/images/Shirt.png'
 import { ReactComponent as PlusIcon } from '../../../assets/icons/plusIcon.svg'
 import MyButton from '../../../components/UI/Button'
 import Cards from '../../../components/card/Card'
+import useToastBar from '../../../hooks/useToastBar'
 import {
-   getCharities,
-   reserveCharity,
-} from '../../../redux/charities/charityThunk'
+   getCharityRequest,
+   reserveCharityRequest,
+} from '../../../service/charityService'
 
 const UserCharity = () => {
-   const charityData = useSelector((state) => state.charity.charities)
+   const [charityData, setCharityData] = useState([])
    const navigate = useNavigate()
+   const { showToast } = useToastBar()
    const navigateToAddCharityHandler = () => navigate('add_charity')
    const navigateToCharityDetails = (id, userId) =>
       navigate(`${id}/${userId}/charity_details`)
-   const dispatch = useDispatch()
+
+   const getCharities = async () => {
+      try {
+         const { data } = await getCharityRequest()
+         return data
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      }
+   }
+
    useEffect(() => {
-      dispatch(getCharities())
+      async function getData() {
+         const data = await getCharities()
+         setCharityData(data)
+      }
+
+      getData()
    }, [])
-   const reserveCharityHandler = (id, charityId) => {
-      const data = {
+
+   const reserveCharityHandler = async (id, charityId) => {
+      const dataReserve = {
          id: charityId,
          anonymous: id !== '1',
       }
-      dispatch(reserveCharity(data))
+      try {
+         const { data } = await reserveCharityRequest(dataReserve)
+         return data
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      }
    }
+
    return (
       <div>
          <StyledContainer>
@@ -55,7 +85,7 @@ const UserCharity = () => {
          </StyledContainer>
          <CardContainer>
             <StyledCardContainer>
-               {charityData.map((item) => {
+               {charityData?.map((item) => {
                   return (
                      <div key={item.id}>
                         <Cards

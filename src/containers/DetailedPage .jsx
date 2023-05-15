@@ -23,16 +23,19 @@ function DetailedPage({
             <InfoBox>
                <HeaderBox>
                   <TitleBox>
-                     <ImgIcon src="https://www.vhv.rs/dpng/d/436-4363443_view-user-icon-png-font-awesome-user-circle.png" />
+                     <ImgIcon src={profileDetails.userImage} />
                      <StyledTitle>
                         <UserName>{profileDetails.fullName}</UserName>
                         <UserNumber>{profileDetails.phoneNumber}</UserNumber>
                      </StyledTitle>
                   </TitleBox>
                   <StyledReserve>
-                     {profileDetails.isAnonymous ? (
-                        <IconImage src={profileDetails.icon} alt="icon" />
-                     ) : null}
+                     {profileDetails.isAnonymous ? null : (
+                        <IconImage
+                           src={profileDetails.bookAgentImage}
+                           alt="icon"
+                        />
+                     )}
                      {profileDetails.isReserved ? (
                         <p>Забронирован</p>
                      ) : (
