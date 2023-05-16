@@ -1,13 +1,12 @@
 import React from 'react'
 import { IconButton, styled } from '@mui/material'
 import { useForm } from 'react-hook-form'
-
 import MyModal from '../UI/modal/Modal'
-import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
+import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/googleBlack.svg'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import ReusableInput from '../UI/input/Input'
 
 const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {

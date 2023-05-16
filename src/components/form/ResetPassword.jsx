@@ -1,10 +1,8 @@
 import React from 'react'
-// import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-// import * as yup from 'yup'
 import { IconButton, styled } from '@mui/material'
 import MyModal from '../UI/modal/Modal'
-import { ReactComponent as LetterIcon } from '../../assets/icons/light.svg'
+import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
 

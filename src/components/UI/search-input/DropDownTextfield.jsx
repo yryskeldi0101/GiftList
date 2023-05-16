@@ -105,7 +105,7 @@ const Container = styled('div')`
    justify-content: flex-start;
    border: 1px solid #bdbdbd;
    border-radius: 8px;
-   max-width: 821px;
+   max-width: 921px;
    background-color: #ffffff;
    height: 40px;
    padding: 0 5px;

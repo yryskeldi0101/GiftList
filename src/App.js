@@ -1,10 +1,10 @@
 import React from 'react'
-import { LandingPage } from './containers/LandingPage'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
    return (
       <div>
-         <LandingPage />
+         <AppRoutes />
       </div>
    )
 }

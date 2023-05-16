@@ -12,6 +12,7 @@ function AppSelect({
    height,
    placeholder,
    options,
+   background,
    value,
    setValue,
 }) {
@@ -19,7 +20,12 @@ function AppSelect({
       setValue(event.target.value)
    }
    return (
-      <Form height1={height} width={width} border={border}>
+      <Form
+         height1={height}
+         width={width}
+         border={border}
+         background={background}
+      >
          <SelectStyled
             heightprops={height}
             onChange={handleChange}
@@ -54,7 +60,7 @@ const StyledMenuItem = styled(MenuItem)(() => ({
 }))
 const Form = styled(FormControl)`
    width: ${(props) => props.width || '396px'};
-   background: #ffffff;
+   background: ${(props) => props.background || '#ffffff'};
    border-radius: 2px;
    & fieldset {
       border: ${(props) => props.border || '1px solid #c4c4c4'};

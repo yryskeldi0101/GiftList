@@ -1,1 +1,5 @@
-export const cardData = [{}]
+export const cardData = [
+   {
+      id: '34343',
+   },
+]
