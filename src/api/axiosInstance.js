@@ -1,6 +1,8 @@
 import axios from 'axios'
+import { store } from '../redux/store'
 
-const BASE_ULR = 'http://ec2-3-121-207-55.eu-central-1.compute.amazonaws.com'
+const BASE_ULR = 'http://ec2-3-120-207-129.eu-central-1.compute.amazonaws.com'
+
 export const axiosInstance = axios.create({ baseURL: BASE_ULR })
 
 axiosInstance.interceptors.request.use(

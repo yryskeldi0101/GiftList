@@ -1,5 +1,6 @@
 import React from 'react'
-import { IconButton, InputLabel, styled } from '@mui/material'
+import { styled } from '@mui/system'
+import { IconButton, InputLabel } from '@mui/material'
 import ReusableInput from '../components/UI/input/Input'
 import { ReactComponent as IconFacebook } from '../assets/icons/FaceBook.svg'
 import { ReactComponent as IconInstagram } from '../assets/icons/Instagram.svg'

@@ -1,65 +1,76 @@
 import { Card, styled } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import MyButton from '../components/UI/Button'
-
-const Info = [
-   {
-      id: Math.random(),
-      icon: 'https://www.vhv.rs/dpng/d/436-4363443_view-user-icon-png-font-awesome-user-circle.png',
-      userName: 'Аида Каримова',
-      title: 'iphone 13 pro',
-      text: 'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
-      img: 'https://www.istore.kg/media/documents/2021-09-21/camera_redesign__ro5b5rs2s8i2_large-min.jpg',
-      holiday_name: 'День рождение',
-      date_added: '12.04.2022',
-      pending: 'В ожидании',
-   },
-]
+import Checkboxes from '../components/UI/Checkbox'
+import { postRequestLentaBooking } from '../service/lenta.service'
 
 function CardPage() {
+   const infoLenta = useSelector((state) => state.lenta.getOneLenta)
+   const [isAnonym, setAnonym] = useState(false)
+   const param = useParams()
+
+   const changeIsAnonym = (e) => {
+      setAnonym(e.target.checked)
+   }
+
+   const postLentaBooking = async () => {
+      await postRequestLentaBooking(param.id, isAnonym)
+   }
+
    return (
       <>
-         <StyledHeader>
+         {/* <StyledHeader>
             <Span>Лента </Span>/ iphone 13 pro
-         </StyledHeader>
+         </StyledHeader> */}
          <StyledCard>
-            {Info.map((item) => (
-               <StyledInfo key={item.id}>
-                  <StyledImage>
-                     <Img src={item.img} alt="cat" />
-                  </StyledImage>
-                  <InfoBox>
-                     <HeaderBox>
-                        <TitleBox>
-                           <ImgIcon src={item.icon} />
-                           <StyledTitle>
-                              <UserName>{item.userName}</UserName>
-                           </StyledTitle>
-                        </TitleBox>
-                        <StyledPending>
-                           <IconImage src={item.icon} />
-                           <p>{item.pending}</p>
-                        </StyledPending>
-                     </HeaderBox>
-                     <StyledText>
-                        <h3>{item.title}</h3>
-                        <p>{item.text}</p>
-                     </StyledText>
-                     <StyledData>
-                        <div>
-                           <Category>Дата праздника:</Category>
-                           <span>{item.date_added}</span>
-                        </div>
-                        <StyledSubcategory>
-                           <Subcategory>Название праздника:</Subcategory>
-                           <span>{item.holiday_name}</span>
-                        </StyledSubcategory>
-                     </StyledData>
-                  </InfoBox>
-               </StyledInfo>
-            ))}
+            <StyledInfo>
+               <StyledImage>
+                  <Img src={infoLenta.photo} alt="#" />
+               </StyledImage>
+               <InfoBox>
+                  <HeaderBox>
+                     <TitleBox>
+                        <ImgIcon src={infoLenta.friendPhoto} />
+                        <StyledTitle>
+                           <UserName>{infoLenta.fullName}</UserName>
+                        </StyledTitle>
+                     </TitleBox>
+                     <StyledPending>
+                        <IconImage src={infoLenta.image} />
+                        <p>в ожидании</p>
+                     </StyledPending>
+                  </HeaderBox>
+                  <StyledText>
+                     <h3>{infoLenta.wishName}</h3>
+                     <p>{infoLenta.description}</p>
+                  </StyledText>
+                  <StyledData>
+                     <div>
+                        <Category>Дата праздника:</Category>
+                        <span>{infoLenta.date}</span>
+                     </div>
+                     <StyledSubcategory>
+                        <Subcategory>Название праздника:</Subcategory>
+                        <StyledSpan>{infoLenta.holidayName}</StyledSpan>
+                     </StyledSubcategory>
+                  </StyledData>
+               </InfoBox>
+            </StyledInfo>
             <StyledButton>
-               <p>Забронировать анонимно</p>
-               <MyButtonPage>Забронировать</MyButtonPage>
+               <StyledCheckbox>
+                  <Checkboxes
+                     borderChange={true}
+                     checked={isAnonym}
+                     handleChange={changeIsAnonym}
+                  />
+                  <p>Забронировать анонимно</p>
+               </StyledCheckbox>
+
+               <MyButtonPage onClick={postLentaBooking}>
+                  Забронировать
+               </MyButtonPage>
             </StyledButton>
          </StyledCard>
       </>
@@ -68,13 +79,9 @@ function CardPage() {
 
 export default CardPage
 
-const Span = styled('span')(() => ({
-   color: '#B4B4B4',
-   marginLeft: '23%',
-}))
-
-const StyledHeader = styled('div')(() => ({
-   marginTop: '40px',
+const StyledCheckbox = styled('div')(() => ({
+   display: 'flex',
+   alignItems: 'center',
 }))
 
 const StyledCard = styled(Card)(() => ({
@@ -137,6 +144,7 @@ const UserName = styled('h4')(() => ({
 const StyledPending = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
+   marginLeft: '330px',
    p: {
       marginRight: '4px',
       marginLeft: '10px',
@@ -158,11 +166,11 @@ const StyledText = styled('div')(() => ({
 const StyledData = styled('div')(() => ({
    display: 'flex',
    marginTop: '20px',
-   span: {
-      color: 'green',
-   },
 }))
 
+const StyledSpan = styled('span')(() => ({
+   color: '#0BA360',
+}))
 const StyledSubcategory = styled('div')(() => ({
    marginLeft: '159px',
 }))
@@ -174,14 +182,6 @@ const Category = styled('p')(() => ({
    lineHeight: '130%',
 }))
 
-// const State = styled('p')(() => ({
-//    color: '#5C5C5C',
-//    fontWeight: '400',
-//    fontSize: '14px',
-//    lineHeight: '130%',
-//    marginTop: '20px',
-// }))
-
 const Subcategory = styled('p')(() => ({
    color: '#5C5C5C',
    fontWeight: '400',
@@ -189,26 +189,11 @@ const Subcategory = styled('p')(() => ({
    lineHeight: '130%',
 }))
 
-// const Date = styled('p')(() => ({
-//    color: '#5C5C5C',
-//    fontWeight: '400',
-//    fontSize: '14px',
-//    lineHeight: '130%',
-//    marginTop: '20px',
-// }))
-
 const StyledButton = styled('div')(() => ({
    display: 'flex',
-   marginLeft: '65%',
+   marginLeft: '60%',
    marginTop: '40px',
 }))
-
-// const ButtonMui = styled(Button)(() => ({
-//    color: '#8D949E',
-//    fontWeight: '500',
-//    fontSize: '12px',
-//    lineHeight: '17px',
-// }))
 
 const MyButtonPage = styled(MyButton)(() => ({
    color: '#FFFFFF',

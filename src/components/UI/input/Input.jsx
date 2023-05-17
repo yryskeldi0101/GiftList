@@ -17,6 +17,8 @@ const ReusableInput = React.forwardRef(
          error,
          onChange,
          icon,
+         name,
+         onBlur,
          ...rest
       },
       ref
@@ -27,11 +29,13 @@ const ReusableInput = React.forwardRef(
                {text}
             </StyledFormHelperText>
             <StyledOutlinedInput
-               errorColor={error}
-               value={value}
+               errorcolor={error}
+               // value={value}
+               name={name}
                onChange={onChange}
                placeholder={placeholder}
                aria-describedby={inputLabel}
+               onBlur={onBlur}
                id={id}
                ref={ref}
                error={error}
@@ -81,11 +85,9 @@ const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
 const StyledErrorIcon = styled(ErrorIcon)(({ error }) => ({
    color: error ? 'red' : '',
 }))
-
 const StyledIconButton = styled(IconButton)`
-   margin-right: -15px;
+   margin-right: -18px;
    padding: 0;
-
    svg: {
       margin-right: -35px;
       circle: {

@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider, createTheme } from '@mui/material'
+import { store } from './redux/store'
 import App from './App'
 import lightTheme from './utlis/constants/theme'
-import { store } from './redux/store'
 
 const theme = createTheme(lightTheme)
 

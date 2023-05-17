@@ -1,62 +1,94 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import styled from '@emotion/styled'
+import { useDispatch, useSelector } from 'react-redux'
 import Cards from '../../components/card/Card'
-import { cardData } from '../../utlis/constants/cardData'
 import { ReactComponent as ListCardIcon } from '../../assets/icons/listcardicon.svg'
 import { ReactComponent as IconTable } from '../../assets/icons/tablecard.svg'
+import {
+   getLentaCard,
+   getLentaInfoCard,
+   postLentaReserve,
+} from '../../redux/lenta/lentaThunk'
 
 const Lenta = () => {
    const [card, setCard] = useState(true)
-
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+   const lentaArray = useSelector((state) => state.lenta.card)
+   const navigationHandler = (id) => {
+      navigate(`${id}/lenta_details`)
+   }
    const changeCard = () => {
       setCard(false)
    }
+   useEffect(() => {
+      dispatch(getLentaCard())
+   }, [])
+
+   const sentRequestById = (id) => {
+      dispatch(getLentaInfoCard(id))
+      navigationHandler(id)
+   }
+
+   const reservesLenta = (id) => {
+      dispatch(postLentaReserve(id))
+   }
+
    return (
       <div>
          <StyledMain>
-            <div>Лента</div>
-            <div>
-               <StyledIcon onClick={() => setCard(true)}>
-                  <StyledTableIcon card={card} />
-               </StyledIcon>
-               <StyledButton onClick={changeCard}>
-                  <StyledListIcon card={card} />
-               </StyledButton>
-            </div>
+            <StyledIcon onClick={() => setCard(true)}>
+               <StyledTableIcon card={card} />
+            </StyledIcon>
+            <StyledButton onClick={changeCard}>
+               <StyledListIcon card={card} />
+            </StyledButton>
          </StyledMain>
-         {cardData.map((item) => {
-            return (
-               <Link to={`${item.id}/lenta_details`}>
+         <StyledCard>
+            {lentaArray.map((item) => {
+               return (
                   <Cards
-                     id={item.id}
-                     icon={item.icon}
-                     userName={item.userName}
-                     birthDate={item.birthDate}
+                     reserveHandler={reservesLenta}
+                     sentRequestById={sentRequestById}
+                     openMeatballs={true}
+                     meatballsChangeHandler={item.meatballsChangeHandler}
+                     changeCard={card}
+                     id={item.userId}
+                     image={item.image}
+                     fullName={item.fullName}
+                     holidayName={item.holidayName}
                      title={item.title}
-                     img={item.img}
+                     wishName={item.wishName}
+                     navigationHandler={navigationHandler}
+                     img={item.photo}
+                     friendPhoto={item.friendPhoto}
                      date={item.date}
                      reserve={item.reserve}
                      expectation={item.expectation}
-                     openMeatballs={item.openMeatballs}
-                     meatballsChangeHandler={item.meatballsChangeHandler}
-                     changeCard={card}
                   />
-               </Link>
-            )
-         })}
+               )
+            })}
+         </StyledCard>
       </div>
    )
 }
 
 export default Lenta
 
+const StyledCard = styled('div')(() => ({
+   display: 'flex',
+   flexWrap: 'wrap',
+   gap: '20px',
+   marginTop: '30px',
+}))
+
 const StyledMain = styled('div')(() => ({
    marginTop: '30px',
    display: 'flex',
-   marginRight: '30px',
-   justifyContent: 'space-between',
+   marginRight: '20px',
+   justifyContent: 'end',
 }))
 
 const StyledButton = styled(Button)(() => ({

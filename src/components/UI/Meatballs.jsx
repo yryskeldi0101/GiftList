@@ -7,6 +7,8 @@ export default function Meatballs({
    handleClose,
    handleClick,
    anchorEl,
+   reserveHandler,
+   id,
    ...restProps
 }) {
    return (
@@ -37,7 +39,11 @@ export default function Meatballs({
             }}
          >
             {arrayIcon.map((item) => (
-               <MenuItem onClick={handleClose} key={item.id} {...restProps}>
+               <MenuItem
+                  onClick={() => item.clickHandler(id)}
+                  key={item.id}
+                  {...restProps}
+               >
                   <img
                      src={item.icon}
                      alt="#"

@@ -9,6 +9,7 @@ const MyButton = ({
    defaultcolor,
    disabledcolor,
    children,
+   type,
    ...rest
 }) => {
    return (
@@ -19,6 +20,7 @@ const MyButton = ({
          activebackgroundcolor={activebackgroundcolor}
          defaultcolor={defaultcolor}
          disabledcolor={disabledcolor}
+         type={type}
          {...rest}
       >
          {children}
