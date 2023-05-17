@@ -1,6 +1,6 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
+import { useForm } from 'react-hook-form'
 import MyModal from '../UI/modal/Modal'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import MyButton from '../UI/Button'
@@ -21,7 +21,7 @@ const ForgotPassword = ({ openModal, onCloseModal }) => {
             <div>
                <form onSubmit={handleSubmit(submitHandler)}>
                   <StyledTitleContainer>
-                     <h2>Забыли пароль?</h2>
+                     <StyledTitle>Забыли пароль?</StyledTitle>
                      <IconButton onClick={onCloseModal}>
                         <LetterIcon />
                      </IconButton>
@@ -46,7 +46,6 @@ const ForgotPassword = ({ openModal, onCloseModal }) => {
                         },
                      })}
                   />
-
                   <MyButton
                      variant="contained"
                      background="#8639B5"
@@ -71,21 +70,25 @@ const ForgotPassword = ({ openModal, onCloseModal }) => {
 
 export default ForgotPassword
 
+const StyledTitle = styled('h2')`
+   display: inline-block;
+`
+
 const StyledModal = styled(MyModal)`
-   width: 564px;
+   /* width: 564px;
    position: 'absolute';
    top: 50%;
    z-index: 10;
    border: 'none';
    background-color: '#fff';
    left: 50%;
-   transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%); */
 `
 const StyledTitleContainer = styled('div')`
    display: flex;
    align-items: center;
    justify-content: space-between;
-   width: 482px;
+   max-width: 482px;
    height: 32px;
    margin-right: 0;
    padding: 0;

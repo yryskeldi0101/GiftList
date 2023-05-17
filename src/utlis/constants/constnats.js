@@ -195,7 +195,11 @@ export const INITIAL_PATH = {
       wishlist: 'wishlist',
       bookedPage: 'bookedPage',
       holidays: 'holidays',
-      charity: 'charity',
+      charity: 'charity/',
+      charity_details: 'charity/:id/:userId/charity_details',
+      add_charity: 'charity/add_charity',
+      edit_charity: 'charity/:id/edit_charity',
+      book_charity: 'charity/:id/book_charity',
       not_found: '*',
    },
    GUEST: {

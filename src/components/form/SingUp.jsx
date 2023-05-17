@@ -1,7 +1,6 @@
 import React from 'react'
 import { IconButton, styled } from '@mui/material'
 import { useForm } from 'react-hook-form'
-
 import MyModal from '../UI/modal/Modal'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import Checkboxes from '../UI/Checkbox'

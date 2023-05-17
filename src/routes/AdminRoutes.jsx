@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Users from '../containers/admin/Users'
 import AdminCharity from '../containers/admin/Charity'
 import Complaints from '../containers/admin/Complaints'
@@ -12,6 +12,10 @@ import ErrorPage from '../containers/ErrorPage'
 const AdminRoutes = () => {
    return (
       <Routes>
+         <Route
+            path={INITIAL_PATH.GUEST.main}
+            element={<Navigate replace to="/admin" />}
+         />
          <Route
             path={INITIAL_PATH.ADMIN.admin}
             element={<PrivateRoute component={AdminLayout} />}

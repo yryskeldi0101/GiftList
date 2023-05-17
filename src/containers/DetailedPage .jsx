@@ -1,100 +1,155 @@
-import { Button, Card, styled } from '@mui/material'
+import { Card, styled } from '@mui/material'
 import MyButton from '../components/UI/Button'
+import Checkboxes from '../components/UI/Checkbox'
+import Spinner from '../components/UI/Spinner'
 
-const Info = [
-   {
-      id: Math.random(),
-      icon: 'https://www.vhv.rs/dpng/d/436-4363443_view-user-icon-png-font-awesome-user-circle.png',
-      userName: 'Аида Каримова',
-      number: '+996 705 86 95 44',
-      title: 'Рубашка',
-      text: 'Рубашка с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
-      img: 'https://avatarko.ru/img/kartinka/2/zhivotnye_kot_prikol_ochki_1637.jpg',
-      reserve: 'Забронирован',
-      category: 'Школьные',
-      subcategory: 'Сумка',
-      state: 'Б/У',
-      date_added: '12.04.2022',
-   },
-]
-
-function DetailedPage() {
+function DetailedPage({
+   profileDetails,
+   checked,
+   onClick,
+   id,
+   userId,
+   handleClick,
+   handleChange,
+   handleReserve,
+   isLoading,
+}) {
    return (
-      <>
-         <StyledHeader>
-            <Span>Благотворительность </Span>/ Рубашка
-         </StyledHeader>
-         <StyledCard>
-            {Info.map((item) => (
-               <StyledInfo key={item.id}>
-                  <StyledImage>
-                     <Img src={item.img} alt="cat" />
-                  </StyledImage>
-                  <InfoBox>
-                     <HeaderBox>
-                        <TitleBox>
-                           <ImgIcon src={item.icon} />
-                           <StyledTitle>
-                              <UserName>{item.userName}</UserName>
-                              <UserNumber>{item.number}</UserNumber>
-                           </StyledTitle>
-                        </TitleBox>
-                        <StyledReserve>
-                           <IconImage src={item.icon} />
-                           <p>{item.reserve}</p>
-                        </StyledReserve>
-                     </HeaderBox>
-                     <StyledText>
-                        <h3>{item.title}</h3>
-                        <p>{item.text}</p>
-                     </StyledText>
-                     <StyledData>
-                        <div>
-                           <Category>Категория:</Category>
-                           <span>{item.category}</span>
-                           <State>Состояние:</State>
-                           <span>{item.state}</span>
-                        </div>
-                        <StyledSubcategory>
-                           <Subcategory>Подкатогория:</Subcategory>
-                           <span>{item.subcategory}</span>
-                           <Date>Дата добавления:</Date>
-                           <span>{item.date_added}</span>
-                        </StyledSubcategory>
-                     </StyledData>
-                  </InfoBox>
-               </StyledInfo>
-            ))}
-            <StyledButton>
-               <ButtonMui>Удалить</ButtonMui>
-               <MyButtonPage>Заблокировать</MyButtonPage>
-            </StyledButton>
-         </StyledCard>
-      </>
+      <StyledCard>
+         <StyledInfo>
+            <StyledImage>
+               <Img src={profileDetails.image} alt="cat" />
+            </StyledImage>
+            <InfoBox>
+               <HeaderBox>
+                  <TitleBox>
+                     <ImgIcon src={profileDetails.userImage} />
+                     <StyledTitle>
+                        <UserName>{profileDetails.fullName}</UserName>
+                        <UserNumber>{profileDetails.phoneNumber}</UserNumber>
+                     </StyledTitle>
+                  </TitleBox>
+                  <StyledReserve>
+                     {profileDetails.isAnonymous ? null : (
+                        <IconImage
+                           src={profileDetails.bookAgentImage}
+                           alt="icon"
+                        />
+                     )}
+                     {profileDetails.isReserved ? (
+                        <p>Забронирован</p>
+                     ) : (
+                        <p>В ожидании</p>
+                     )}
+                  </StyledReserve>
+               </HeaderBox>
+               <StyledText>
+                  <h3>{profileDetails.charityName}</h3>
+                  <p>{profileDetails.description}</p>
+               </StyledText>
+               <StyledData>
+                  <div>
+                     <Category>Категория:</Category>
+                     <span>{profileDetails.category}</span>
+                     <State>Состояние:</State>
+                     <span>{profileDetails.state}</span>
+                  </div>
+                  <StyledSubcategory>
+                     <Subcategory>Подкатогория:</Subcategory>
+                     <span>{profileDetails.subCategory}</span>
+                     <Dates>Дата добавления:</Dates>
+                     <span>{profileDetails.dateAdded}</span>
+                  </StyledSubcategory>
+               </StyledData>
+            </InfoBox>
+         </StyledInfo>
+         <StyledButton>
+            {+userId === id ? (
+               <StyledContainer>
+                  <MyButton
+                     variant="outlined"
+                     border="none"
+                     defaultcolor="#8D949E"
+                     onClick={() => onClick(profileDetails.id)}
+                  >
+                     {isLoading ? <Spinner /> : 'Удалить'}
+                  </MyButton>
+                  <MyButton
+                     variant="contained"
+                     background="#8639B5"
+                     hoverbackgroundcolor="#860cd1"
+                     activebackgroundcolor="#510680"
+                     onClick={() => handleClick(profileDetails.id)}
+                  >
+                     Редактировать
+                  </MyButton>
+               </StyledContainer>
+            ) : (
+               <StyledButtoncContainer>
+                  <StyledCheckBox>
+                     <Checkboxes
+                        checked={checked}
+                        handleChange={handleChange}
+                     />
+                     <StyledBookText>Заброниовать анонимно</StyledBookText>
+                  </StyledCheckBox>
+                  <MyButton
+                     variant="contained"
+                     background="#8639B5"
+                     hoverbackgroundcolor="#860cd1"
+                     activebackgroundcolor="#510680"
+                     disabled={profileDetails.isReserved}
+                     onClick={() => handleReserve(checked, profileDetails.id)}
+                  >
+                     {isLoading ? <Spinner /> : 'Забронировать'}
+                  </MyButton>
+               </StyledButtoncContainer>
+            )}
+         </StyledButton>
+      </StyledCard>
    )
 }
 
 export default DetailedPage
-
-const Span = styled('span')(() => ({
-   color: '#B4B4B4',
-   marginLeft: '23%',
-}))
-
-const StyledHeader = styled('div')(() => ({
-   marginTop: '40px',
-}))
-
+const StyledBookText = styled('h3')`
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 16px;
+   line-height: 19px;
+   color: #000000;
+`
+const StyledContainer = styled('div')`
+   display: flex;
+   align-items: center;
+   width: 100%;
+   justify-content: flex-end;
+   gap: 48px;
+`
+const StyledCheckBox = styled('div')`
+   display: flex;
+   align-items: center;
+   gap: 10px;
+`
+const StyledButtoncContainer = styled('div')`
+   display: flex;
+   align-items: center;
+   width: 100%;
+   justify-content: flex-end;
+   gap: 70px;
+`
 const StyledCard = styled(Card)(() => ({
-   padding: '16px',
+   padding: '20px',
    background: '#FFFFFF',
    border: '2px solid #FFFFFF',
    borderRadius: '10px',
    width: '1086px',
    height: '871px',
-   // marginLeft: '23%',
+   width: '1170px',
+   height: '100%',
    position: 'relative',
    marginTop: '26px',
+   paddingBottom: '200px',
 }))
 
 const StyledInfo = styled('div')(() => ({
@@ -117,9 +172,10 @@ const InfoBox = styled('div')(() => ({
 }))
 
 const HeaderBox = styled('div')(() => ({
+   width: '767px',
    display: 'flex',
-   justifyContent: 'space-between',
    alignItems: 'center',
+   justifyContent: 'space-between',
 }))
 
 const TitleBox = styled('div')(() => ({
@@ -136,7 +192,7 @@ const StyledTitle = styled('div')(() => ({
       color: '#5C5C5C',
    },
 }))
-const UserName = styled('h4')(() => ({
+const UserName = styled('p')(() => ({
    fontWeight: '500',
    fontSize: '16px',
    lineHeight: '19px',
@@ -202,7 +258,7 @@ const Subcategory = styled('p')(() => ({
    lineHeight: '130%',
 }))
 
-const Date = styled('p')(() => ({
+const Dates = styled('p')(() => ({
    color: '#5C5C5C',
    fontWeight: '400',
    fontSize: '14px',
@@ -212,23 +268,7 @@ const Date = styled('p')(() => ({
 
 const StyledButton = styled('div')(() => ({
    display: 'flex',
-   marginLeft: '69%',
-   marginTop: '40px',
-}))
-
-const ButtonMui = styled(Button)(() => ({
-   color: '#8D949E',
-   fontWeight: '500',
-   fontSize: '12px',
-   lineHeight: '17px',
-}))
-
-const MyButtonPage = styled(MyButton)(() => ({
-   color: '#FFFFFF',
-   fontWeight: '500',
-   fontSize: '12px',
-   lineHeight: '17px',
-   background: '#8639B5',
-   padding: '10px 26px',
-   marginLeft: '14px',
+   marginLeft: '50%',
+   marginTop: '66px',
+   gap: '48px',
 }))
