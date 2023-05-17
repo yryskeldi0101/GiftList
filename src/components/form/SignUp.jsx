@@ -9,11 +9,11 @@ import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
 import ReusableInput from '../UI/input/Input'
-import { signUp } from '../../redux/reducer/auth/authThunk'
-import { SignInGoogle } from './SignInGoogle'
 import Spinner from '../UI/Spinner'
+import { postAuthGoogle, signUpPost } from '../../redux/reducer/auth/authThunk'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 
-const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
+const SignUp = ({ openModal, onCloseModal, openSingInModal }) => {
    const role = useSelector((state) => state.auth.role)
    const isLoading = useSelector((state) => state.auth.isloading)
    const [checkbox, setCheckbox] = useState(false)
@@ -38,7 +38,7 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
          checkbox,
       }
       if (data.confirmPassword === data.password) {
-         dispatch(signUp(sendData))
+         dispatch(signUpPost(sendData))
             .unwrap()
             .then(() => {
                if (role === 'ADMIN') {
@@ -50,7 +50,9 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
             .catch((error) => error)
       }
    }
-
+   const submitDataWithGoogle = () => {
+      dispatch(postAuthGoogle())
+   }
    return (
       <MyModal open={openModal} onClose={onCloseModal}>
          <form onSubmit={handleSubmit(submitHandler)}>
@@ -149,7 +151,19 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
                <StyledText>или</StyledText>
                <StyledBorderStyle> </StyledBorderStyle>
             </StyledTextContainer>
-            <SignInGoogle />
+            <MyButton
+               variant="contained"
+               background="#f1f1f1"
+               propswidth="482px"
+               hoverbackgroundcolor="#d6d5d5"
+               activebackgroundcolor="#d6d6d6"
+               defaultcolor="black"
+               onClick={submitDataWithGoogle}
+               type="button"
+            >
+               <GoogleIcon />
+               Продолжить с Google
+            </MyButton>
             <StyledRegistrationText>
                У вас уже есть аккаунт?
             </StyledRegistrationText>
@@ -161,7 +175,7 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
    )
 }
 
-export default SingUp
+export default SignUp
 
 const StyledErrorColor = styled('h2')`
    font-size: large;

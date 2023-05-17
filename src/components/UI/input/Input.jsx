@@ -49,7 +49,7 @@ const ReusableInput = React.forwardRef(
                }
                {...rest}
                autoComplete="off"
-               autoFocus="off"
+               autoFocus={false}
             />
          </>
       )

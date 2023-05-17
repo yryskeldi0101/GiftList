@@ -1,19 +1,22 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import MyModal from '../UI/modal/Modal'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import MyButton from '../UI/Button'
 import ReusableInput from '../UI/input/Input'
+
 import { postForgetPassword } from '../../redux/reducer/auth/authThunk'
 
 const ForgotPassword = ({ openModal, onCloseModal }) => {
    const { register, handleSubmit, formState } = useForm()
+   const token = useSelector((state) => state.auth.token)
    const dispatch = useDispatch()
+   const baseUrl = window.location.origin
 
    const submitHandler = ({ email }) => {
-      dispatch(postForgetPassword(email))
+      dispatch(postForgetPassword({ email, baseUrl, token }))
    }
    return (
       <div>

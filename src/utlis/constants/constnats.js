@@ -206,5 +206,5 @@ export const CLIENT_ID =
    '501085102732-5k18u9vmnsp6d8qh5ll82tudpk0jnqbn.apps.googleusercontent.com'
 
 export const STORAGE_KEYS = {
-   AUTH: 'AUTH',
+   GIFTLIST_AUTH: 'AUTH',
 }

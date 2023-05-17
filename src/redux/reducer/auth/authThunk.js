@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosError, isAxiosError } from 'axios'
+import { signInWithPopup } from 'firebase/auth'
 // eslint-disable-next-line import/no-cycle
 import {
    signUpReq,
@@ -7,13 +8,13 @@ import {
    forgotPasswordReq,
    postAuthGoogleReq,
    resetPasswordReq,
-   getGoogleApisReq,
 } from '../../../service/auth/authService'
 import { STORAGE_KEYS } from '../../../utlis/constants/constnats'
 import { addDataToStorage } from '../../../utlis/helpers/storageHelpers'
+import { auth, provider } from '../../../firebase/firebase'
 
-export const signUp = createAsyncThunk(
-   'auth/signUp',
+export const signUpPost = createAsyncThunk(
+   'auth/signUpPost',
    async (payload, { rejectWithValue }) => {
       try {
          const data = await signUpReq(payload)
@@ -53,7 +54,11 @@ export const postForgetPassword = createAsyncThunk(
    'auth/postForgetPassword',
    async (payload, { rejectWithValue }) => {
       try {
-         const response = await forgotPasswordReq(payload)
+         const response = await forgotPasswordReq(
+            payload.email,
+            payload.baseUrl,
+            payload.token
+         )
          return response
       } catch (error) {
          if (isAxiosError(error)) {
@@ -67,7 +72,9 @@ export const postResetPassword = createAsyncThunk(
    'auth/postResetPassword',
    async (payload, { rejectWithValue }) => {
       try {
-         const response = resetPasswordReq(payload)
+         console.log(payload, 'payload')
+         const response = await resetPasswordReq(payload)
+         console.log('postResetPassword', response)
          return response
       } catch (error) {
          if (isAxiosError(error)) {
@@ -77,26 +84,26 @@ export const postResetPassword = createAsyncThunk(
       return rejectWithValue('Something went wrong')
    }
 )
+
+export const signInWithGoogle = async () => {
+   const { user } = await signInWithPopup(auth, provider)
+   return user
+}
+
 export const postAuthGoogle = createAsyncThunk(
    'auth/postAuthGoogle',
-   async (payload, { rejectWithValue }) => {
+   async (_, { rejectWithValue }) => {
       try {
-         const response = await postAuthGoogleReq(payload)
-         return response
-      } catch (error) {
-         if (AxiosError(error)) {
-            return rejectWithValue(error.response?.data.message)
+         const user = await signInWithGoogle()
+         const response = await postAuthGoogleReq(user)
+         const usersData = {
+            id: response.id,
+            role: response.role,
+            email: response.email,
+            firstName: response.firstName,
+            lastName: response.lastName,
          }
-      }
-      return rejectWithValue('Something went wrong')
-   }
-)
-export const getGoogleApis = createAsyncThunk(
-   'auth/getGoogleApis',
-   async (response, { rejectWithValue }) => {
-      try {
-         const { data } = await getGoogleApisReq(response)
-         return data
+         return usersData
       } catch (error) {
          if (AxiosError(error)) {
             return rejectWithValue(error.response?.data.message)

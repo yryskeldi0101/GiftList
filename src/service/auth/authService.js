@@ -7,19 +7,17 @@ export const signInReq = (data) => {
 export const signUpReq = (data) => {
    return axiosInstance.post('/api/auth/sign-up', data)
 }
-export const forgotPasswordReq = (email) => {
-   return axiosInstance.post(`/api/user/forgot_password?email=${email}`)
+export const forgotPasswordReq = (email, baseUrl, token) => {
+   return axiosInstance.post(
+      `/api/auth/forgot-password?email=${email}&link=${baseUrl}/user?open=reset-password?${token}`
+   )
 }
-export const resetPasswordReq = (token) => {
-   return axiosInstance.post(`/api/user/reset_password?token=${token}`)
+export const resetPasswordReq = ({ token, data }) => {
+   return axiosInstance.post(`/api/auth/reset-password?token=${token}`, data)
 }
 export const postAuthGoogleReq = (data) => {
-   return axiosInstance.post('/api/auth/auth-google', data)
-}
-export const getGoogleApisReq = (response) => {
-   return axiosInstance.get('https://www.googleapis.com/oauth2/v3userInfo', {
-      headers: {
-         Authorization: `Bearer ${response.access_token}}`,
-      },
-   })
+   console.log(data, 'DATA')
+   return axiosInstance.post(
+      `/api/auth/auth-google?tokenId=${data.currentUser.accessToken}`
+   )
 }

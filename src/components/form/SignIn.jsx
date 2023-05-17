@@ -9,11 +9,11 @@ import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
 import ReusableInput from '../UI/input/Input'
-import { signIn } from '../../redux/reducer/auth/authThunk'
-import { SignInGoogle } from './SignInGoogle'
+import { postAuthGoogle, signIn } from '../../redux/reducer/auth/authThunk'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import Spinner from '../UI/Spinner'
 
-const SingIn = ({
+const SignIn = ({
    openModal,
    onCloseModal,
    openForgotModal,
@@ -41,6 +41,9 @@ const SingIn = ({
             }
          })
          .catch((e) => console.log(e.response.data.message))
+   }
+   const submitDataWithGoogle = () => {
+      dispatch(postAuthGoogle())
    }
 
    return (
@@ -110,7 +113,19 @@ const SingIn = ({
                   <StyledText>или</StyledText>
                   <StyledBorderStyle> </StyledBorderStyle>
                </StyledTextContainer>
-               <SignInGoogle />
+               <MyButton
+                  variant="contained"
+                  background="#f1f1f1"
+                  propswidth="482px"
+                  hoverbackgroundcolor="#d6d5d5"
+                  activebackgroundcolor="#d6d6d6"
+                  defaultcolor="black"
+                  onClick={submitDataWithGoogle}
+                  type="button"
+               >
+                  <GoogleIcon />
+                  Продолжить с Google
+               </MyButton>
                <StyledRegistrationText>Нет аккаунта?</StyledRegistrationText>
                <StyledForrgotPassword onClick={openSingUpModal}>
                   Зарегистрироваться
@@ -121,7 +136,7 @@ const SingIn = ({
    )
 }
 
-export default SingIn
+export default SignIn
 
 const StyledErrorColor = styled('h2')`
    font-size: large;

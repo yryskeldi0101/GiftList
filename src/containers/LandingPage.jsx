@@ -1,5 +1,5 @@
 import { styled } from '@mui/material'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import SocialImg from '../assets/images/firstImage.png'
 import AsideImg from '../assets/images/secondImage.png'
@@ -13,17 +13,32 @@ import ThrirdSection from './ThrirdSection'
 import FourSection from './FourSection'
 import FiveSection from './FiveSection'
 import Footer from './Footer'
-import SingUp from '../components/form/SingUp'
-import SingIn from '../components/form/SingIn'
+import SignUp from '../components/form/SignUp'
+import SignIn from '../components/form/SignIn'
 import ForgotPassword from '../components/form/ForgotPassword'
 import ResetPassword from '../components/form/ResetPassword'
 
 export const LandingPage = () => {
    const [searchParams, setSearchParams] = useSearchParams()
    const { open } = Object.fromEntries(searchParams)
+   const [token, setToken] = useState('')
+
+   useEffect(() => {
+      const splittedOpen = open?.split('/')
+
+      if (splittedOpen?.length > 1) {
+         const substrings = splittedOpen?.slice(1) // Получаем подстроки после символа "/"
+         setToken(substrings[0])
+      }
+   }, [open])
+
    const onCloseModal = () => setSearchParams({})
-   const openSingUpModal = () => setSearchParams({ open: 'register' })
-   const openSingInModal = () => setSearchParams({ open: 'login' })
+   const onCloseModalResetPassword = () => {
+      setSearchParams({})
+      setToken('')
+   }
+   const openSignUpModal = () => setSearchParams({ open: 'register' })
+   const openSignInModal = () => setSearchParams({ open: 'login' })
    const openForgotModal = () => setSearchParams({ open: 'forgot-password' })
 
    return (
@@ -56,16 +71,22 @@ export const LandingPage = () => {
                         Всегда подскажет, что подарить близким и осуществит твои
                         желания
                      </InfoDescription>
+
+                     <ResetPassword
+                        token={token}
+                        setOpenModal={onCloseModalResetPassword}
+                     />
+
                      <InfoActions>
                         <ButtonDiv>
-                           <SingIn
+                           <SignIn
                               openModal={open === 'login'}
                               onCloseModal={onCloseModal}
                               openForgotModal={openForgotModal}
-                              openSingUpModal={openSingUpModal}
+                              openSingUpModal={openSignUpModal}
                            />
                            <MyButton
-                              onClick={openSingInModal}
+                              onClick={openSignInModal}
                               hoverbackgroundcolor="#C5243C"
                               activebackgroundcolor="#E72E49 "
                               variant="contained"
@@ -84,14 +105,14 @@ export const LandingPage = () => {
                               defaultcolor="#ffffff"
                               outlinedbordercolor="#ffffff"
                               propswidth="291px"
-                              onClick={openSingUpModal}
+                              onClick={openSignUpModal}
                            >
                               Регистрация
                            </MyButton>
-                           <SingUp
+                           <SignUp
                               openModal={open === 'register'}
                               onCloseModal={onCloseModal}
-                              openSingInModal={openSingInModal}
+                              openSingInModal={openSignInModal}
                            />
                         </div>
                      </InfoActions>
@@ -109,7 +130,7 @@ export const LandingPage = () => {
                </HeaderContent>
             </Container>
          </Header>
-         <SecondSection openSingUpModal={openSingUpModal} />
+         <SecondSection openSingUpModal={openSignUpModal} />
          <ThrirdSection />
          <FourSection />
          <FiveSection />
@@ -118,10 +139,10 @@ export const LandingPage = () => {
             openModal={open === 'forgot-password'}
             onCloseModal={onCloseModal}
          />
-         <ResetPassword />
       </>
    )
 }
+
 const ButtonDiv = styled('div')`
    display: flex;
    align-items: center;

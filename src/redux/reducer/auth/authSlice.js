@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 // eslint-disable-next-line import/no-cycle
-import { postAuthGoogle, signIn, signOut, signUp } from './authThunk'
+import { postAuthGoogle, signIn, signOut, signUpPost } from './authThunk'
 
 const initialState = {
    user: [],
@@ -10,7 +10,7 @@ const initialState = {
    isloading: false,
    error: '',
    role: '',
-   userID: '',
+   userId: '',
 }
 
 export const authSlice = createSlice({
@@ -25,7 +25,7 @@ export const authSlice = createSlice({
          state.isloading = false
          state.error = ''
          state.role = payload.role
-         state.userID = payload.userID
+         state.userId = payload.userId
       })
       builder.addCase(signIn.pending, (state) => {
          state.email = ''
@@ -34,7 +34,7 @@ export const authSlice = createSlice({
          state.role = ''
          state.isloading = true
          state.error = ''
-         state.userID = ''
+         state.userId = ''
       })
       builder.addCase(signIn.rejected, (state, { payload }) => {
          state.email = ''
@@ -43,63 +43,63 @@ export const authSlice = createSlice({
          state.role = ''
          state.isloading = false
          state.error = payload.error
-         state.userID = ''
+         state.userId = ''
       })
-      builder.addCase(signUp.fulfilled, (state, { payload }) => {
+      builder.addCase(signUpPost.fulfilled, (state, { payload }) => {
          state.email = payload.email
          state.isAuthorized = true
          state.token = payload.token
          state.isloading = false
          state.error = ''
          state.role = payload.role
-         state.userID = payload.userID
+         state.userId = payload.userId
       })
-      builder.addCase(signUp.pending, (state) => {
+      builder.addCase(signUpPost.pending, (state) => {
          state.email = ''
          state.isAuthorized = false
          state.token = ''
          state.isloading = true
          state.role = ''
          state.error = ''
-         state.userID = ''
+         state.userId = ''
       })
-      builder.addCase(signUp.rejected, (state, { payload }) => {
+      builder.addCase(signUpPost.rejected, (state, { payload }) => {
          state.email = ''
          state.isAuthorized = false
          state.token = ''
          state.role = ''
          state.isloading = false
          state.error = payload
-         state.userID = ''
+         state.userId = ''
       })
-      builder.addCase(signOut.fulfilled, (state) => {
-         state.user = []
-         state.email = ''
-         state.isAuthorized = false
-         state.token = ''
-         state.isloading = false
-         state.role = ''
-         state.error = ''
-         state.userID = ''
-      })
-      builder.addCase(postAuthGoogle.fulfilled, (state, { payload }) => {
-         state.email = payload.email
-         state.isAuthorized = true
-         state.token = payload.token
-         state.isloading = false
-         state.role = payload.role
-         state.error = ''
-         state.userID = payload.userID
-      })
-      builder.addCase(postAuthGoogle.pending, (state) => {
-         state.email = ''
-         state.isAuthorized = false
-         state.token = ''
-         state.isloading = true
-         state.role = ''
-         state.error = ''
-         state.userID = ''
-      })
+      builder
+         .addCase(signOut.fulfilled, (state) => {
+            state.user = []
+            state.email = ''
+            state.isAuthorized = false
+            state.token = ''
+            state.isloading = false
+            state.role = ''
+            state.error = ''
+            state.userId = ''
+         })
+         .addCase(postAuthGoogle.fulfilled, (state, { payload }) => {
+            state.email = payload.email
+            state.isAuthorized = true
+            state.isloading = false
+            state.role = payload.role
+            state.error = ''
+            state.token = payload.idToken
+         })
+         .addCase(postAuthGoogle.pending, (state) => {
+            state.email = ''
+            state.isAuthorized = false
+            state.token = ''
+            state.isloading = true
+            state.role = ''
+            state.error = ''
+            state.userId = ''
+         })
       builder.addCase(postAuthGoogle.rejected, (state, { payload }) => {
          state.email = ''
          state.isAuthorized = false
@@ -107,7 +107,7 @@ export const authSlice = createSlice({
          state.isloading = false
          state.role = ''
          state.error = payload
-         state.userID = ''
+         state.userId = ''
       })
    },
 })
