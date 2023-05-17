@@ -16,7 +16,6 @@ export const resetPasswordReq = ({ token, data }) => {
    return axiosInstance.post(`/api/auth/reset-password?token=${token}`, data)
 }
 export const postAuthGoogleReq = (data) => {
-   console.log(data, 'DATA')
    return axiosInstance.post(
       `/api/auth/auth-google?tokenId=${data.currentUser.accessToken}`
    )

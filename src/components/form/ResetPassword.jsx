@@ -21,7 +21,6 @@ const ResetPassword = ({ token, setOpenModal }) => {
    const onSubmit = (data) => {
       if (data.confirmPassword === data.password) {
          dispatch(postResetPassword({ data, token }))
-         console.log(data)
       }
    }
    return (
