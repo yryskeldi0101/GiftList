@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { sideBarRoles } from '../utlis/constants/constnats'
 
 const SideBar = () => {
-   const role = 'USER'
+   const role = 'ADMIN'
    return (
       <Box>
          <StyledSideBar variant="permanent" anchor="left">

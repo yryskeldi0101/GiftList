@@ -181,10 +181,12 @@ export const ROLES = {
 export const INITIAL_PATH = {
    ADMIN: {
       admin: '/admin',
-      users: 'users',
+      users: 'users/',
+      profile: 'users/:id/user_detail',
       charityAdmin: 'charityAdmin',
       complaints: 'complaints',
-      mailing: 'mailing',
+      mailing: 'mailing/',
+      mailing_detail: 'mailing/:id/mailing_detail',
       not_found: '*',
    },
    USER: {
