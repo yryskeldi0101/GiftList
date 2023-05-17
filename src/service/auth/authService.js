@@ -7,9 +7,9 @@ export const signInReq = (data) => {
 export const signUpReq = (data) => {
    return axiosInstance.post('/api/auth/sign-up', data)
 }
-export const forgotPasswordReq = (email, baseUrl, token) => {
+export const forgotPasswordReq = (email, baseUrl) => {
    return axiosInstance.post(
-      `/api/auth/forgot-password?email=${email}&link=${baseUrl}/user?open=reset-password?${token}`
+      `/api/auth/forgot-password?email=${email}&link=${baseUrl}/user?open=reset-password?`
    )
 }
 export const resetPasswordReq = ({ token, data }) => {

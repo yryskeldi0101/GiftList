@@ -56,8 +56,7 @@ export const postForgetPassword = createAsyncThunk(
       try {
          const response = await forgotPasswordReq(
             payload.email,
-            payload.baseUrl,
-            payload.token
+            payload.baseUrl
          )
          return response
       } catch (error) {

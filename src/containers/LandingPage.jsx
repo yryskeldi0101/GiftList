@@ -22,7 +22,6 @@ export const LandingPage = () => {
    const [searchParams, setSearchParams] = useSearchParams()
    const { open } = Object.fromEntries(searchParams)
    const [token, setToken] = useState('')
-
    useEffect(() => {
       const splittedOpen = open?.split('/')
 
@@ -71,7 +70,6 @@ export const LandingPage = () => {
                         Всегда подскажет, что подарить близким и осуществит твои
                         желания
                      </InfoDescription>
-
                      <ResetPassword
                         token={token}
                         setOpenModal={onCloseModalResetPassword}
