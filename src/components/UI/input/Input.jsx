@@ -5,7 +5,6 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
 import { ReactComponent as ErrorIcon } from '../../../assets/icons/errorInput.svg'
-// import { ReactComponent as InactiveIcon } from '../../../assets/icons/inactive.svg'
 
 const ReusableInput = React.forwardRef(
    (
@@ -18,6 +17,8 @@ const ReusableInput = React.forwardRef(
          error,
          onChange,
          icon,
+         name,
+         onBlur,
          ...rest
       },
       ref
@@ -28,11 +29,13 @@ const ReusableInput = React.forwardRef(
                {text}
             </StyledFormHelperText>
             <StyledOutlinedInput
-               errorColor={error}
-               value={value}
+               errorcolor={error}
+               // value={value}
+               name={name}
                onChange={onChange}
                placeholder={placeholder}
                aria-describedby={inputLabel}
+               onBlur={onBlur}
                id={id}
                ref={ref}
                error={error}
@@ -82,11 +85,9 @@ const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
 const StyledErrorIcon = styled(ErrorIcon)(({ error }) => ({
    color: error ? 'red' : '',
 }))
-
 const StyledIconButton = styled(IconButton)`
-   margin-right: -15px;
+   margin-right: -18px;
    padding: 0;
-
    svg: {
       margin-right: -35px;
       circle: {

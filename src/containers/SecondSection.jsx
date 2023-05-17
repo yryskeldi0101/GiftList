@@ -5,7 +5,7 @@ import Heart from '../assets/svg/Heart.svg'
 import Hand from '../assets/svg/Hand.svg'
 import MyButton from '../components/UI/Button'
 
-const SecondSection = () => {
+const SecondSection = ({ openSingUpModal }) => {
    return (
       <Container>
          <Section>
@@ -74,6 +74,7 @@ const SecondSection = () => {
                   activebackgroundcolor="#AB62D8"
                   variant="contained"
                   background="#8639B5"
+                  onClick={openSingUpModal}
                >
                   Зарегистрироваться
                </MyButton>
