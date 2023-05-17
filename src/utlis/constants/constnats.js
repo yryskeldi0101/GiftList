@@ -194,6 +194,7 @@ export const INITIAL_PATH = {
       wishlist: 'wishlist',
       bookedPage: 'bookedPage',
       holidays: 'holidays',
+      holiday_details: 'holidays/:id/holiday_details',
       charity: 'charity',
       not_found: '*',
    },

@@ -8,7 +8,7 @@ const Header = () => {
    return (
       <div>
          <StyledHeader>
-            <SearchInput />
+            <SearchInput inputChangeProps={true} />
             <StyledContainer>
                <StyledIconButton>
                   <BallIcon />
@@ -25,7 +25,6 @@ const StyledHeader = styled('header')`
    display: flex;
    padding: 20px 40px 20px 20px;
    background-color: #ffffff;
-   margin-left: 18rem;
 `
 const StyledContainer = styled('div')`
    display: flex;

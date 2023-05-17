@@ -4,12 +4,13 @@ import Lenta from '../containers/user/Lenta'
 import Friends from '../containers/user/Friends'
 import WishList from '../containers/user/WishList'
 import Booked from '../containers/user/Booked'
-import MyHolidays from '../containers/user/MyHolidays'
+import MyHolidays from '../containers/user/holidays/MyHolidays'
 import UserCharity from '../containers/user/Charity'
 import UserLayout from '../layout/user/UserLayout'
 import PrivateRoute from '../hoc/withPrivateRoute'
 import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
+import MyHolidaysCard from '../containers/user/holidays/MyHolidaysCard'
 
 const UserRoutes = () => {
    return (
@@ -37,6 +38,13 @@ const UserRoutes = () => {
             <Route
                path={INITIAL_PATH.USER.holidays}
                element={<PrivateRoute component={MyHolidays} />}
+            />
+            <Route
+               path={
+                  INITIAL_PATH.USER.holidays &&
+                  INITIAL_PATH.USER.holiday_details
+               }
+               element={<PrivateRoute component={MyHolidaysCard} />}
             />
             <Route
                path={INITIAL_PATH.USER.charity}

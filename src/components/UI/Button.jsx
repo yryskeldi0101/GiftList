@@ -33,13 +33,13 @@ export default MyButton
 const StyleButton = styled(Button)(
    ({
       variant,
+      propswidth,
       defaultcolor,
       hoverbackgroundcolor,
       activebackgroundcolor,
       disabledcolor,
       background,
       outlinedbordercolor,
-      propswidth,
    }) => {
       switch (variant) {
          case 'contained':

@@ -7,6 +7,7 @@ const initialState = {
    isAuthorized: false,
    isloading: false,
    error: '',
+   token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmFyYmVrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDMwODgyMiwiZXhwIjoxNjg0MzEwMjYyfQ.sltv6tzEFsgcY29yhqTlEySD95IVupmcfdr6KiRCgCk',
 }
 
 export const authSlice = createSlice({

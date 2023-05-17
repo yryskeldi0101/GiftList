@@ -56,11 +56,18 @@ const ReusableInput = React.forwardRef(
 export default ReusableInput
 
 const StyledFormHelperText = styled(FormHelperText)(({ error }) => ({
+   fontFamily: 'Inter',
+   fontWeight: 400,
    fontSize: '14px',
-   color: error ? 'red' : '#8D949E',
+   lineHeight: '15px',
+   display: 'flex',
+   alignItems: 'center',
+   marginBottom: '6px',
+   color: error ? 'red' : '#464444',
 }))
 
 const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
+   width: '100%',
    height: '30px',
    marginBottom: '15px',
    border: error ? '1px solid red' : '',

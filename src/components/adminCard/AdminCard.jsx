@@ -1,29 +1,40 @@
 import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import styled from '@emotion/styled'
 import Meatballs from '../UI/Meatballs'
+import { getHolidays } from '../../redux/holiday/holydayThunk'
 
 const AdminCard = ({
    dataCategory,
    dataWishlist,
-   dataHolidays,
    dataCharity,
    meatballsContent,
    handleClick,
    handleClose,
    open,
+   handleNavigate,
    anchorEl,
 }) => {
+   const dispatch = useDispatch()
+   const { holiday } = useSelector((state) => state.holiday)
+   console.log(holiday)
+
+   useEffect(() => {
+      dispatch(getHolidays())
+   }, [])
+
    let data
    switch (dataCategory) {
       case 'wishlist':
          data = dataWishlist
          break
       case 'holidays':
-         data = dataHolidays
+         data = holiday
          break
       case 'charity':
          data = dataCharity
@@ -45,7 +56,7 @@ const AdminCard = ({
                         alt="card img"
                      />
 
-                     <StyledCardContent>
+                     <StyledCardContent onClick={() => handleNavigate(item.id)}>
                         <Title>{item.title}</Title>
                         <StyledBirthDate>{item.birthDate}</StyledBirthDate>
                         <StyledStatus>{item.status}</StyledStatus>
