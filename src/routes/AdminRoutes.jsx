@@ -10,6 +10,9 @@ import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
 import ProfileDetails from '../containers/admin/users/ProfileDetails'
 import NewsletterDetails from '../containers/admin/NewsLetterDetail'
+import AllGifts from '../containers/admin/users/AllWishes'
+import AllHolidays from '../containers/admin/users/AllHolidays'
+import AllCharities from '../containers/admin/users/AllCharities'
 
 const AdminRoutes = () => {
    return (
@@ -27,8 +30,22 @@ const AdminRoutes = () => {
                element={<PrivateRoute component={Users} />}
             />
             <Route
-               path={INITIAL_PATH.ADMIN.users && INITIAL_PATH.ADMIN.profile}
+               path={INITIAL_PATH.ADMIN.profile}
                element={<PrivateRoute component={ProfileDetails} />}
+            />
+            <Route
+               path={INITIAL_PATH.ADMIN.allWishes}
+               element={<PrivateRoute component={AllGifts} />}
+            />
+            <Route
+               path={INITIAL_PATH.ADMIN.allHolidays}
+               element={<PrivateRoute component={AllHolidays} />}
+            />
+            <Route
+               path={
+                  INITIAL_PATH.ADMIN.profile && INITIAL_PATH.ADMIN.allCharities
+               }
+               element={<PrivateRoute component={AllCharities} />}
             />
             <Route
                path={INITIAL_PATH.ADMIN.charityAdmin}

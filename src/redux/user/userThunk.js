@@ -7,7 +7,7 @@ export const getOneUserById = createAsyncThunk(
    async (payload, { rejectWithValue }) => {
       try {
          const data = await getOneUserByIdRequest(payload)
-         return data
+         return data.data
       } catch (error) {
          if (isAxiosError(error)) {
             return rejectWithValue(error.response?.data.message)

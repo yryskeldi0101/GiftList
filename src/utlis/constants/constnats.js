@@ -182,7 +182,10 @@ export const INITIAL_PATH = {
    ADMIN: {
       admin: '/admin',
       users: 'users/',
-      profile: 'users/:id/user_detail',
+      profile: 'users/:id/user_detail/',
+      allWishes: 'users/:id/user_detail/wishes',
+      allHolidays: 'users/:id/user_detail/holidays',
+      allCharities: 'users/:id/user_detail/charities',
       charityAdmin: 'charityAdmin',
       complaints: 'complaints',
       mailing: 'mailing/',
@@ -207,4 +210,10 @@ export const INITIAL_PATH = {
       main: '/',
       error: '*',
    },
+}
+
+export const ACTION_TYPES = {
+   WISHLIST: 'WISHLIST',
+   HOLIDAYS: 'HOLIDAYS',
+   CHARITIES: 'CHARITIES',
 }

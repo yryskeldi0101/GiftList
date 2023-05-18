@@ -102,6 +102,7 @@ const ImageContainer = styled('div')`
    align-items: center;
    justify-content: center;
    margin-top: 24px;
+   cursor: pointer;
    h2 {
       font-family: 'Inter';
       font-style: normal;
@@ -116,6 +117,7 @@ const StyledImage = styled('img')`
    width: 217px;
    height: 217px;
    border-radius: 8px;
+   cursor: pointer;
 `
 const StyledImageContainer = styled('div')`
    margin-top: 32px;

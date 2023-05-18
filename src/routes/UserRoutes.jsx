@@ -12,8 +12,6 @@ import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
 import CharityDetails from '../containers/user/charities/CharityDetails'
 import AddCharity from '../containers/user/charities/AddCharity'
-// import EditCharity from '../containers/user/charities/EditCharity'
-// import BookCharity from '../containers/user/charities/BookCharity'
 
 const UserRoutes = () => {
    return (

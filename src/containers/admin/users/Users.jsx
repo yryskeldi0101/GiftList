@@ -137,7 +137,7 @@ export default Users
 const Container = styled('div')`
    margin-top: 45px;
    display: flex;
-   gap: 40px;
+   gap: 50px;
    row-gap: 50px;
    width: 100%;
    flex-wrap: wrap;

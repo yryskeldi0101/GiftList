@@ -1,7 +1,7 @@
 import { axiosInstance } from '../api/axiosInstance'
 
 export const getAllUsersRequest = () => {
-   return axiosInstance.get('/api/user')
+   return axiosInstance.get('/api/user?page=4&size=1')
 }
 export const getOneUserByIdRequest = (id) => {
    return axiosInstance.get(`/api/user/${id}`)

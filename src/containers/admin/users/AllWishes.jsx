@@ -5,16 +5,15 @@ import AdminCard from '../../../components/adminCard/AdminCard'
 import { ACTION_TYPES } from '../../../utlis/constants/constnats'
 import { useMeatballs } from '../../../hooks/useMeatballs'
 
-const AllCharities = () => {
+const AllGifts = () => {
    const { anchorEl, open, handleClick, handleClose } = useMeatballs()
-   const charities = useLocation()
-   const dataCharity = charities.state || []
-   console.log(dataCharity)
+   const wishList = useLocation()
+   const dataWishList = wishList.state || []
    return (
       <Container>
          <AdminCard
-            dataCharity={dataCharity}
-            dataCategory={ACTION_TYPES.CHARITIES}
+            dataWishlist={dataWishList}
+            dataCategory={ACTION_TYPES.WISHLIST}
             anchorEl={anchorEl}
             open={open}
             handleClick={handleClick}
@@ -25,7 +24,8 @@ const AllCharities = () => {
    )
 }
 
-export default AllCharities
+export default AllGifts
+
 const Container = styled('div')`
    margin-top: 50px;
    max-width: 1170px;
