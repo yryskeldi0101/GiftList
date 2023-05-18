@@ -1,7 +1,5 @@
 import React from 'react'
-// import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-// import * as yup from 'yup'
 import { IconButton, styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import MyModal from '../UI/modal/Modal'

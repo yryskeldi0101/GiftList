@@ -1,16 +1,33 @@
 import React from 'react'
 import { styled } from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
+import { useDispatch } from 'react-redux'
 import Menu from '@mui/material/Menu'
+import { useNavigate } from 'react-router-dom'
 import { ReactComponent as ProfileIcon } from '../assets/icons/Profile.svg'
 import { ReactComponent as ArrowIcon } from '../assets/icons/Arrows.svg'
 import { UserMenuData } from '../utlis/constants/constnats'
+import { signOut } from '../redux/reducer/auth/authThunk'
 
 const ITEM_HEIGHT = 48
 
 function MenuList({ id, anchorEl, open, onClose }) {
-   const handleMenuItemClick = () => {
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
+   const navigateToLogOutHandler = () => {
+      dispatch(signOut())
+      navigate('/')
+   }
+   const handleMenuItemClick = (id) => {
+      console.log(id, 'index')
       onClose()
+      if (id === '1') {
+         //
+      }
+      if (id === '2') {
+         navigateToLogOutHandler()
+      }
    }
 
    return (
@@ -27,13 +44,15 @@ function MenuList({ id, anchorEl, open, onClose }) {
             },
          }}
       >
-         {UserMenuData.map((item, index) => (
+         {UserMenuData.map((item) => (
             <MenuItem
                key={Math.random()}
-               onClick={(event) => handleMenuItemClick(event, index)}
+               onClick={() => handleMenuItemClick(item.id)}
             >
                <img src={item.icon} alt="" />
-               <StyledMenuText>{item.name}</StyledMenuText>
+               <StyledMenuText onClick={handleMenuItemClick}>
+                  {item.name}
+               </StyledMenuText>
             </MenuItem>
          ))}
       </Menu>
@@ -55,7 +74,7 @@ export default function UserMenu() {
    const id = open ? 'simple-popover' : undefined
 
    return (
-      <div>
+      <Container>
          <StyledContainer
             aria-controls={id}
             aria-haspopup="true"
@@ -71,7 +90,7 @@ export default function UserMenu() {
             open={open}
             onClose={handleClose}
          />
-      </div>
+      </Container>
    )
 }
 const StyledUserName = styled('p')`
@@ -90,6 +109,9 @@ const StyledContainer = styled('div')`
    display: flex;
    align-items: center;
    gap: 0.25rem;
+`
+const Container = styled('div')`
+   /* margin-left: 50px; */
 `
 const StyledMenuText = styled('p')`
    font-family: 'Inter';

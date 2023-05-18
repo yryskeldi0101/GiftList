@@ -1,25 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosError, isAxiosError } from 'axios'
-import { signInWithPopup } from 'firebase/auth'
+import { firebase, googleProvider } from '../../../firebase/firebase'
 // eslint-disable-next-line import/no-cycle
+
 import {
    signUpReq,
-   signInReq,
    forgotPasswordReq,
-   postAuthGoogleReq,
+   signInReq,
    resetPasswordReq,
 } from '../../../service/auth/authService'
 import { STORAGE_KEYS } from '../../../utlis/constants/constnats'
 import { addDataToStorage } from '../../../utlis/helpers/storageHelpers'
-import { auth, provider } from '../../../firebase/firebase'
 
 export const signUpPost = createAsyncThunk(
    'auth/signUpPost',
    async (payload, { rejectWithValue }) => {
       try {
          const data = await signUpReq(payload)
-         addDataToStorage(STORAGE_KEYS.AUTH, JSON.stringify(data))
-         return data
+         addDataToStorage(STORAGE_KEYS.GIFTLIST_AUTH, JSON.stringify(data))
+         return data.data
       } catch (error) {
          if (isAxiosError(error)) {
             return rejectWithValue(error.response?.data.message)
@@ -34,8 +33,7 @@ export const signIn = createAsyncThunk(
    async (payload, { rejectWithValue }) => {
       try {
          const { data } = await signInReq(payload)
-
-         addDataToStorage(STORAGE_KEYS.AUTH, JSON.stringify(data))
+         addDataToStorage(STORAGE_KEYS.GIFTLIST_AUTH, JSON.stringify(data))
          return data
       } catch (error) {
          if (isAxiosError(error)) {
@@ -47,7 +45,7 @@ export const signIn = createAsyncThunk(
 )
 
 export const signOut = createAsyncThunk('auth/signOut', async () => {
-   return localStorage.removeItem(STORAGE_KEYS.AUTH)
+   return localStorage.removeItem(STORAGE_KEYS.GIFTLIST_AUTH)
 })
 
 export const postForgetPassword = createAsyncThunk(
@@ -82,25 +80,22 @@ export const postResetPassword = createAsyncThunk(
    }
 )
 
-export const signInWithGoogle = async () => {
-   const { user } = await signInWithPopup(auth, provider)
-   return user
-}
-
 export const postAuthGoogle = createAsyncThunk(
    'auth/postAuthGoogle',
    async (_, { rejectWithValue }) => {
       try {
-         const user = await signInWithGoogle()
-         const response = await postAuthGoogleReq(user)
-         const usersData = {
-            id: response.id,
-            role: response.role,
-            email: response.email,
-            firstName: response.firstName,
-            lastName: response.lastName,
-         }
-         return usersData
+         const res = await firebase.auth().signInWithPopup(googleProvider)
+
+         // const response = await postAuthGoogleReq(res)
+         // const usersData = {
+         //    id: response.id,
+         //    role: response.role,
+         //    email: response.email,
+         //    firstName: response.firstName,
+         //    lastName: response.lastName,
+         // }
+         // addDataToStorage(STORAGE_KEYS.GIFTLIST_AUTH, JSON.stringify(usersData))
+         return console.log(res)
       } catch (error) {
          if (AxiosError(error)) {
             return rejectWithValue(error.response?.data.message)

@@ -1,18 +1,22 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
 
+// Конфигурация Firebase
 const firebaseConfig = {
-   apiKey: 'AIzaSyC-EdhCIvVGTHRtxlsBq6F07zLqmuAos5w',
-   authDomain: 'giftlist-733f3.firebaseapp.com',
-   projectId: 'giftlist-733f3',
-   storageBucket: 'giftlist-733f3.appspot.com',
-   messagingSenderId: '210527508847',
-   appId: '1:210527508847:web:8f8aa02a5f3d7deba3b09a',
-   measurementId: 'G-MEP77BHBQT',
+   apiKey: 'AIzaSyB8TDrFqN_XSfFqTUeZW4xyWy85TLZL9no',
+   authDomain: 'giftlist-b8-d3a98.firebaseapp.com',
+   projectId: 'giftlist-b8-d3a98',
+   storageBucket: 'giftlist-b8-d3a98.appspot.com',
+   messagingSenderId: '915811469069',
+   appId: '1:915811469069:web:4024e316992f6649139244',
+   measurementId: 'G-DDMS5YKTBX',
 }
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
-export const provider = new GoogleAuthProvider()
+// Инициализация Firebase
+firebase.initializeApp(firebaseConfig)
+
+// Получение провайдера аутентификации Google
+const googleProvider = new firebase.auth.GoogleAuthProvider()
+
+// Экспорт необходимых объектов
+export { firebase, googleProvider }

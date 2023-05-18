@@ -28,6 +28,7 @@
       "react/jsx-boolean-value": "off",
       "import/no-extraneous-dependencies": "off",
       "no-param-reassign": "off",
+      "import/no-cycle": "off",
       "max-len": [
          "error",
          {

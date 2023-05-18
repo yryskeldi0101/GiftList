@@ -9,10 +9,10 @@ const Header = () => {
       <div>
          <StyledHeader>
             <SearchInput />
+            <StyledIconButton>
+               <BallIcon />
+            </StyledIconButton>
             <StyledContainer>
-               <StyledIconButton>
-                  <BallIcon />
-               </StyledIconButton>
                <UserMenu />
             </StyledContainer>
          </StyledHeader>
@@ -25,7 +25,7 @@ const StyledHeader = styled('header')`
    display: flex;
    padding: 20px 40px 20px 20px;
    background-color: #ffffff;
-   margin-left: 18rem;
+   justify-content: space-between;
 `
 const StyledContainer = styled('div')`
    display: flex;
@@ -33,6 +33,6 @@ const StyledContainer = styled('div')`
    gap: 0.25rem;
 `
 const StyledIconButton = styled(IconButton)`
-   margin-left: 1.2rem;
+   /* margin-left: rem; */
    margin-right: 1.2rem;
 `

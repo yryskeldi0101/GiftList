@@ -1,14 +1,10 @@
 import React from 'react'
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import { LandingPage } from './containers/LandingPage'
-import { CLIENT_ID } from './utlis/constants/constnats'
+import AppRoutes from './routes/AppRoutes'
 
 function App() {
    return (
       <div>
-         <GoogleOAuthProvider clientId={CLIENT_ID}>
-            <LandingPage />
-         </GoogleOAuthProvider>
+         <AppRoutes />
       </div>
    )
 }

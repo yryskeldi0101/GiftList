@@ -40,7 +40,7 @@ const SignIn = ({
                navigate('/user')
             }
          })
-         .catch((e) => console.log(e.response.data.message))
+         .catch((error) => error)
    }
    const submitDataWithGoogle = () => {
       dispatch(postAuthGoogle())

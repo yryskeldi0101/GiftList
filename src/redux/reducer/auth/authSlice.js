@@ -1,17 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit'
 // eslint-disable-next-line import/no-cycle
 import { postAuthGoogle, signIn, signOut, signUpPost } from './authThunk'
+import { STORAGE_KEYS } from '../../../utlis/constants/constnats'
 
-const initialState = {
-   user: [],
-   email: '',
-   token: '',
-   isAuthorized: false,
-   isloading: false,
-   error: '',
-   role: '',
-   userId: '',
+const getInitialState = () => {
+   const json = localStorage.getItem(STORAGE_KEYS.GIFTLIST_AUTH)
+   if (json) {
+      const userData = JSON.parse(json)
+      return {
+         isAuthorized: true,
+         token: userData.token,
+         email: userData.email,
+         role: userData.role,
+         userId: userData.id,
+      }
+   }
+   return {
+      email: '',
+      token: '',
+      isAuthorized: false,
+      isloading: false,
+      error: '',
+      role: 'GUEST',
+      userId: '',
+   }
 }
+const initialState = getInitialState()
 
 export const authSlice = createSlice({
    name: 'auth',
@@ -25,7 +39,7 @@ export const authSlice = createSlice({
          state.isloading = false
          state.error = ''
          state.role = payload.role
-         state.userId = payload.userId
+         state.userId = payload.id
       })
       builder.addCase(signIn.pending, (state) => {
          state.email = ''
@@ -52,7 +66,7 @@ export const authSlice = createSlice({
          state.isloading = false
          state.error = ''
          state.role = payload.role
-         state.userId = payload.userId
+         state.userId = payload.id
       })
       builder.addCase(signUpPost.pending, (state) => {
          state.email = ''

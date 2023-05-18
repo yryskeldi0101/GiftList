@@ -8,6 +8,8 @@ const MyButton = ({
    activebackgroundcolor,
    defaultcolor,
    disabledcolor,
+   background,
+   border,
    children,
    type,
    ...rest
@@ -15,6 +17,7 @@ const MyButton = ({
    return (
       <StyleButton
          variant={variant}
+         background={background}
          disabled={disabled}
          hoverbackgroundcolor={hoverbackgroundcolor}
          activebackgroundcolor={activebackgroundcolor}
@@ -38,6 +41,7 @@ const StyleButton = styled(Button)(
       activebackgroundcolor,
       disabledcolor,
       background,
+      border,
       outlinedbordercolor,
       propswidth,
    }) => {
@@ -65,15 +69,18 @@ const StyleButton = styled(Button)(
                gap: '10px',
                padding: '10px 26px',
                backgroundColor: 'none',
+               border,
                borderColor: `${outlinedbordercolor}`,
                color: `${defaultcolor}`,
                '&:hover': {
                   background: `${hoverbackgroundcolor}`,
                   borderColor: `${outlinedbordercolor}`,
+                  border,
                },
                '&:active': {
                   background: `${activebackgroundcolor}`,
                   borderColor: `${outlinedbordercolor}`,
+                  border,
                },
                '&:disabled': {
                   color: `${disabledcolor}`,

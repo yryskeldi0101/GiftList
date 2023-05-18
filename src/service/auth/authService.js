@@ -9,14 +9,12 @@ export const signUpReq = (data) => {
 }
 export const forgotPasswordReq = (email, baseUrl) => {
    return axiosInstance.post(
-      `/api/auth/forgot-password?email=${email}&link=${baseUrl}/user?open=reset-password?`
+      `/api/auth/forgot-password?email=${email}&link=${baseUrl}/?open=reset-password?`
    )
 }
 export const resetPasswordReq = ({ token, data }) => {
    return axiosInstance.post(`/api/auth/reset-password?token=${token}`, data)
 }
-export const postAuthGoogleReq = (data) => {
-   return axiosInstance.post(
-      `/api/auth/auth-google?tokenId=${data.currentUser.accessToken}`
-   )
+export const postAuthGoogleReq = (token) => {
+   return axiosInstance.post(`/api/auth/auth-google?tokenId=${token}`)
 }

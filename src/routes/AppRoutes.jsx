@@ -10,8 +10,7 @@ const roleControl = {
    [ROLES.USER]: <UserRoutes />,
 }
 const AppRoutes = () => {
-   const token = useSelector((state) => state.auth.token)
-   const role = 'USER'
+   const { token, role } = useSelector((state) => state.auth)
    if (!token) return <GuestRoutes />
    return roleControl[role]
 }

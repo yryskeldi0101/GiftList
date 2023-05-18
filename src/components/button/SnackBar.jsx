@@ -16,6 +16,8 @@ const ToastifyStyled = styled(ToastContainer)(() => ({
       fontFamily: 'Inter',
       background: '#EAFBE7',
       border: '1px solid #8CDB95',
+      width: '500px',
+      right: '20px',
       '& .Toastify__toast-icon': {
          paddingBottom: '25px',
          alighItems: 'flex-start',
@@ -33,6 +35,8 @@ const ToastifyStyled = styled(ToastContainer)(() => ({
       position: 'absolute',
       fontFamily: 'Inter',
       color: '#FF8800',
+      width: '500px',
+      right: '20px',
       background: '#FFF3D8',
       border: '1px solid #ED9E44',
       '& .Toastify__toast-icon': {
@@ -51,6 +55,8 @@ const ToastifyStyled = styled(ToastContainer)(() => ({
    '& .Toastify__toast--info': {
       position: 'absolute',
       fontFamily: 'Inter',
+      width: '500px',
+      right: '20px',
       background: '#EBEFF7',
       '& .Toastify__toast-icon': {
          background: '#EBEFF7',
@@ -69,6 +75,8 @@ const ToastifyStyled = styled(ToastContainer)(() => ({
       position: 'absolute',
       background: '#FFEBEB',
       border: '1px solid #fb9998',
+      width: '500px',
+      right: '20px',
       padding: '8px 16px',
       '& .Toastify__toast-icon': {
          paddingBottom: '25px',

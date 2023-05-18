@@ -171,8 +171,8 @@ export const subcategoryArray = [
    },
 ]
 export const UserMenuData = [
-   { name: 'Профиль', icon: UserIcon },
-   { name: 'Выйти', icon: OutIcon },
+   { name: 'Профиль', icon: UserIcon, id: '1' },
+   { name: 'Выйти', icon: OutIcon, id: '2' },
 ]
 export const ROLES = {
    ADMIN: 'ADMIN',
@@ -194,7 +194,11 @@ export const INITIAL_PATH = {
       wishlist: 'wishlist',
       bookedPage: 'bookedPage',
       holidays: 'holidays',
-      charity: 'charity',
+      charity: 'charity/',
+      charity_details: 'charity/:id/:userId/charity_details',
+      add_charity: 'charity/add_charity',
+      edit_charity: 'charity/:id/edit_charity',
+      book_charity: 'charity/:id/book_charity',
       not_found: '*',
    },
    GUEST: {
@@ -206,5 +210,5 @@ export const CLIENT_ID =
    '501085102732-5k18u9vmnsp6d8qh5ll82tudpk0jnqbn.apps.googleusercontent.com'
 
 export const STORAGE_KEYS = {
-   GIFTLIST_AUTH: 'AUTH',
+   GIFTLIST_AUTH: 'GIFTLIST_AUTH',
 }
