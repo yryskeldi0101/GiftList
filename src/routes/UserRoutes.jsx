@@ -12,15 +12,13 @@ import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
 import CharityDetails from '../containers/user/charities/CharityDetails'
 import AddCharity from '../containers/user/charities/AddCharity'
-// import EditCharity from '../containers/user/charities/EditCharity'
-// import BookCharity from '../containers/user/charities/BookCharity'
 
 const UserRoutes = () => {
    return (
       <Routes>
          <Route
             path={INITIAL_PATH.GUEST.main}
-            element={<Navigate replace to="/user" />}
+            element={<Navigate replace to="/" />}
          />
          <Route
             path={INITIAL_PATH.USER.user}

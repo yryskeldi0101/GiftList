@@ -4,7 +4,7 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ThemeProvider, createTheme } from '@mui/material'
-import { store } from './redux/store'
+import store from './redux/store'
 import App from './App'
 import lightTheme from './utlis/constants/theme'
 
