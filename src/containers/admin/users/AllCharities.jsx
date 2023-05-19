@@ -9,7 +9,6 @@ const AllCharities = () => {
    const { anchorEl, open, handleClick, handleClose } = useMeatballs()
    const charities = useLocation()
    const dataCharity = charities.state || []
-   console.log(dataCharity)
    return (
       <Container>
          <AdminCard
@@ -20,6 +19,7 @@ const AllCharities = () => {
             handleClick={handleClick}
             handleClose={handleClose}
             meatballsContent={[]}
+            display={true}
          />
       </Container>
    )

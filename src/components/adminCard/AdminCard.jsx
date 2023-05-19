@@ -14,6 +14,7 @@ const AdminCard = ({
    meatballsContent,
    handleClick,
    handleClose,
+   display,
    open,
    anchorEl,
 }) => {
@@ -53,6 +54,7 @@ const AdminCard = ({
                         <MeatBalssContainer>
                            <StyledStatus>{item.status}</StyledStatus>
                            <Meatballs
+                              display={display}
                               arrayIcon={meatballsContent}
                               handleClick={handleClick}
                               handleClose={handleClose}
@@ -82,6 +84,7 @@ const AdminCard = ({
                         <p>{item.date}</p>
                         <MeatBalssContainer>
                            <Meatballs
+                              display={display}
                               arrayIcon={meatballsContent}
                               handleClick={handleClick}
                               handleClose={handleClose}
@@ -120,6 +123,7 @@ const AdminCard = ({
                               )}
                            </StyledExpectation>
                            <Meatballs
+                              display={display}
                               arrayIcon={meatballsContent}
                               handleClick={handleClick}
                               handleClose={handleClose}

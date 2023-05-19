@@ -55,7 +55,6 @@ const ProfileDetails = () => {
    const dataHoliday = profileData.holidayResponses || []
    const dataWishList = profileData.wishResponseUserList || []
    const dataCharity = profileData.charityResponseUsers || []
-   console.log(profileData)
    return (
       <>
          <Snackbar />
@@ -76,6 +75,7 @@ const ProfileDetails = () => {
                </StyledTitileContainer>
                <ArrayContainer>
                   <AdminCard
+                     display={true}
                      dataWishlist={dataWishList?.slice(0, 3)}
                      dataCategory={ACTION_TYPES.WISHLIST}
                      anchorEl={anchorEl}
@@ -95,6 +95,7 @@ const ProfileDetails = () => {
                </StyledTitileContainer>
                <ArrayContainer>
                   <AdminCard
+                     display={true}
                      dataHolidays={dataHoliday?.slice(0, 3)}
                      dataCategory={ACTION_TYPES.HOLIDAYS}
                      meatballsContent={[]}
@@ -114,6 +115,7 @@ const ProfileDetails = () => {
                </StyledTitileContainer>
                <ArrayContainer>
                   <AdminCard
+                     display={true}
                      dataCharity={dataCharity?.slice(0, 3)}
                      dataCategory={ACTION_TYPES.CHARITIES}
                      meatballsContent={[]}

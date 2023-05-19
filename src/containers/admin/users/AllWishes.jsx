@@ -19,6 +19,7 @@ const AllGifts = () => {
             handleClick={handleClick}
             handleClose={handleClose}
             meatballsContent={[]}
+            display={true}
          />
       </Container>
    )
