@@ -4,7 +4,7 @@ import { charitySlice } from '../charities/charitySlice'
 import { userSlice } from '../user/userSlice'
 import { mailingSlice } from '../newsLetter/mailingSlice'
 
-export const store = configureStore({
+const store = configureStore({
    reducer: {
       [authSlice.name]: authSlice.reducer,
       [charitySlice.name]: charitySlice.reducer,
@@ -16,3 +16,5 @@ export const store = configureStore({
          serializableCheck: false,
       }),
 })
+
+export default store

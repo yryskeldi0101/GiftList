@@ -10,13 +10,10 @@ import {
    getAllMailingRequest,
    uploadMailingImageRequest,
 } from '../../service/mailingService'
-import { formatDate } from '../../utlis/constants/commons'
 
 const Newsletter = () => {
    const [fileImage, setFileImage] = useState(null)
-   const [imageUrl, setImageUrl] = useState(
-      'https://giftlistbucket.s3.eu-central-1.amazonaws.com/laptopImage.png'
-   )
+   const [imageUrl, setImageUrl] = useState('')
    const [mailingTitle, setMailingTitle] = useState('')
    const [mailingDescription, setMailingDescription] = useState('')
    const [searchParams, setSearchParams] = useSearchParams()
@@ -61,8 +58,8 @@ const Newsletter = () => {
          )
       }
    }
+
    const addMailing = async (sendData) => {
-      console.log(sendData)
       try {
          const data = await createMailRequest(sendData)
          onCloseModal()
@@ -90,9 +87,9 @@ const Newsletter = () => {
          description: mailingDescription,
       }
       const fileResponce = fileImage && (await uploadFile())
-      // if (fileResponce) {
-      console.log(fileResponce)
-      addMailing({ ...sendData, image: imageUrl })
+      if (fileResponce) {
+         addMailing({ ...sendData, image: fileResponce })
+      }
       setMailingTitle('')
       setMailingDescription('')
       setImageUrl('')
@@ -151,7 +148,7 @@ const Newsletter = () => {
                      </div>
                      <ContentContainer>
                         <h1>{item.title}</h1>
-                        <p>{formatDate(item.createdAt)}</p>
+                        <p>{item.createdAt}</p>
                      </ContentContainer>
                   </Container>
                )

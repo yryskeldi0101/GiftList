@@ -7,7 +7,6 @@ export const getOneMailingByIdRequest = (id) => {
    return axiosInstance.get(`/api/mailing_list/${id}`)
 }
 export const createMailRequest = (sendData) => {
-   console.log(sendData, 'request')
    return axiosInstance.post('/api/mailing_list', sendData)
 }
 export const uploadMailingImageRequest = (data) => {

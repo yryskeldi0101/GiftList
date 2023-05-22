@@ -94,7 +94,12 @@ const UserCard = ({
                         horizontal: 'left',
                      }}
                   >
-                     <MenuItem onClick={() => handleBlock(id)}>
+                     <MenuItem
+                        onClick={() => {
+                           handleBlock(id)
+                           handleClose()
+                        }}
+                     >
                         <img
                            src={BlockIcon}
                            alt="#"
@@ -102,7 +107,12 @@ const UserCard = ({
                         />
                         Заблокировать
                      </MenuItem>
-                     <MenuItem onClick={clickHandler}>
+                     <MenuItem
+                        onClick={() => {
+                           clickHandler()
+                           handleClose()
+                        }}
+                     >
                         <img
                            src={TrashIcon}
                            alt="#"

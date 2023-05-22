@@ -1,15 +1,21 @@
 import React from 'react'
 import { IconButton, styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import MyModal from '../UI/modal/Modal'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import MyButton from '../UI/Button'
 import ReusableInput from '../UI/input/Input'
 
+import { postForgetPassword } from '../../redux/reducer/auth/authThunk'
+
 const ForgotPassword = ({ openModal, onCloseModal }) => {
    const { register, handleSubmit, formState } = useForm()
-   const submitHandler = (data) => {
-      console.log(data)
+   const dispatch = useDispatch()
+   const baseUrl = window.location.origin
+
+   const submitHandler = ({ email }) => {
+      dispatch(postForgetPassword({ email, baseUrl }))
    }
    return (
       <div>
@@ -39,7 +45,7 @@ const ForgotPassword = ({ openModal, onCloseModal }) => {
                      id="email"
                      name="email"
                      {...register('email', {
-                        required: 'Электронная почта обязательна',
+                        required: 'Электронная почта обязательнo',
                         pattern: {
                            value: /\S+@\S+\.\S+/,
                            message: 'Неверный формат электронной почты',

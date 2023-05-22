@@ -131,6 +131,7 @@ const StyledImageContainer = styled('div')`
    align-items: center;
    justify-content: center;
    text-align: center;
+   cursor: pointer;
    p {
       font-family: 'Inter';
       font-style: normal;

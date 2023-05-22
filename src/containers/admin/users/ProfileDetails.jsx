@@ -82,7 +82,6 @@ const ProfileDetails = () => {
                      open={open}
                      handleClick={handleClick}
                      handleClose={handleClose}
-                     meatballsContent={[]}
                   />
                </ArrayContainer>
             </ItemContainer>
@@ -98,7 +97,6 @@ const ProfileDetails = () => {
                      display={true}
                      dataHolidays={dataHoliday?.slice(0, 3)}
                      dataCategory={ACTION_TYPES.HOLIDAYS}
-                     meatballsContent={[]}
                      anchorEl={anchorEl}
                      open={open}
                      handleClick={handleClick}
@@ -118,7 +116,6 @@ const ProfileDetails = () => {
                      display={true}
                      dataCharity={dataCharity?.slice(0, 3)}
                      dataCategory={ACTION_TYPES.CHARITIES}
-                     meatballsContent={[]}
                      anchorEl={anchorEl}
                      open={open}
                      handleClick={handleClick}

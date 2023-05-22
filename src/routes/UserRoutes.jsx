@@ -18,7 +18,7 @@ const UserRoutes = () => {
       <Routes>
          <Route
             path={INITIAL_PATH.GUEST.main}
-            element={<Navigate replace to="/user" />}
+            element={<Navigate replace to="/" />}
          />
          <Route
             path={INITIAL_PATH.USER.user}

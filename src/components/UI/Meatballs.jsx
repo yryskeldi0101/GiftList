@@ -3,7 +3,7 @@ import { Menu, MenuItem, styled } from '@mui/material'
 import { ReactComponent as MeatballsIcon } from '../../assets/icons/meatballs.svg'
 
 export default function Meatballs({
-   arrayIcon,
+   arrayIcon = [],
    open,
    handleClose,
    handleClick,
@@ -44,7 +44,7 @@ export default function Meatballs({
                      horizontal: 'left',
                   }}
                >
-                  {arrayIcon.map((item) => (
+                  {arrayIcon?.map((item) => (
                      <div key={item.id}>
                         <MenuItem
                            onClick={() => {

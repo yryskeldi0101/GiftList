@@ -7,10 +7,8 @@ export const getOneUserByIdRequest = (id) => {
    return axiosInstance.get(`/api/user/${id}`)
 }
 export const blockUserRequest = (id) => {
-   console.log(id)
-   return axiosInstance.put(`/api/user/${id}/block`, { blocked: true })
+   return axiosInstance.put(`/api/user`, { userId: id, blocked: true })
 }
 export const deleteUserRequest = (id) => {
-   console.log(id)
    return axiosInstance.delete(`/api/user/${id}`)
 }

@@ -41,7 +41,6 @@ const Users = () => {
       try {
          const data = await deleteUserRequest(userId)
          showToast('success', 'Успешно', 'Пользователь успешно удален!')
-         onCloseModal()
          return data
       } catch (error) {
          return showToast(
@@ -49,12 +48,17 @@ const Users = () => {
             'Ошибка',
             'Что-то пошло не так повторите попытку позже'
          )
+      } finally {
+         onCloseModal()
       }
    }
    const blockUser = async (id) => {
       try {
          const data = await blockUserRequest(id)
          showToast('success', 'Успешно', 'Пользователь успешно заблокирован!')
+         if (data.status === 200) {
+            window.location.reload()
+         }
          return data
       } catch (error) {
          return showToast(
@@ -99,7 +103,7 @@ const Users = () => {
                      background="#E53535"
                      hoverbackgroundcolor="#dc1a1a"
                      activebackgroundcolor="#c40707"
-                     onClick={() => deleteUser()}
+                     onClick={deleteUser}
                   >
                      Удалить
                   </MyButton>

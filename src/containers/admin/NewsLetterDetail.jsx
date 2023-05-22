@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getOneMailById } from '../../redux/newsLetter/mailingThunk'
-import { formatDate } from '../../utlis/constants/commons'
 
 const NewsletterDetails = () => {
    const mailingDetail = useSelector((state) => state.mailing.oneMail)
@@ -13,7 +12,6 @@ const NewsletterDetails = () => {
    useEffect(() => {
       dispatch(getOneMailById(id))
    }, [])
-   const formattedDate = formatDate(mailingDetail.createdAt)
    return (
       <GlobalContainer>
          <Container>
@@ -24,7 +22,7 @@ const NewsletterDetails = () => {
                <StyledTitle>{mailingDetail.title}</StyledTitle>
                <Description>{mailingDetail.description}</Description>
                <DateText>Дата добавления:</DateText>
-               <DateNumberText>{formattedDate}</DateNumberText>
+               <DateNumberText>{mailingDetail.createdAt}</DateNumberText>
             </div>
          </Container>
       </GlobalContainer>

@@ -1,24 +1,57 @@
-import React from 'react'
-import { IconButton, styled } from '@mui/material'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { IconButton, styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import MyModal from '../UI/modal/Modal'
-import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
+import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import ReusableInput from '../UI/input/Input'
+import Spinner from '../UI/Spinner'
+import { postAuthGoogle, signUpPost } from '../../redux/reducer/auth/authThunk'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 
-const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
+const SignUp = ({ openModal, onCloseModal, openSingInModal }) => {
+   const role = useSelector((state) => state.auth.role)
+   const isLoading = useSelector((state) => state.auth.isloading)
+   const [checkbox, setCheckbox] = useState(false)
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
+   const changeHandle = () => {
+      setCheckbox((prevS) => !prevS)
+   }
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm()
+
    const submitHandler = (data) => {
-      if (data.confirmPassword === data.password) {
-         console.log(data)
+      const sendData = {
+         firstName: data.firstName,
+         lastName: data.lastName,
+         email: data.email,
+         password: data.password,
+         checkbox,
       }
+      if (data.confirmPassword === data.password) {
+         dispatch(signUpPost(sendData))
+            .unwrap()
+            .then(() => {
+               if (role === 'ADMIN') {
+                  navigate('/admin/users')
+               } else {
+                  navigate('/user')
+               }
+            })
+            .catch((error) => error)
+      }
+   }
+   const submitDataWithGoogle = () => {
+      dispatch(postAuthGoogle())
    }
    return (
       <MyModal open={openModal} onClose={onCloseModal}>
@@ -34,9 +67,9 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
             )}
             <StyledInput
                placeholder="Имя"
-               id="name"
-               name="name"
-               {...register('name', {
+               id="firstName"
+               name="firstName"
+               {...register('firstName', {
                   required: 'Имя обязательна',
                })}
             />
@@ -100,7 +133,7 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
                })}
             />
             <StyledCheckboxContainer>
-               <Checkboxes />
+               <Checkboxes onChange={changeHandle} checked={checkbox} />
                <StyledCheckboxText>Подписаться на рассылку</StyledCheckboxText>
             </StyledCheckboxContainer>
             <MyButton
@@ -111,7 +144,7 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
                activebackgroundcolor="#AB62D8"
                type="submit"
             >
-               Создать аккаунт
+               {isLoading ? <Spinner /> : 'Создать аккаунт'}
             </MyButton>
             <StyledTextContainer>
                <StyledBorderStyle> </StyledBorderStyle>
@@ -125,9 +158,11 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
                hoverbackgroundcolor="#d6d5d5"
                activebackgroundcolor="#d6d6d6"
                defaultcolor="black"
+               onClick={submitDataWithGoogle}
+               type="button"
             >
                <GoogleIcon />
-               Зарегистрироваться с Google
+               Продолжить с Google
             </MyButton>
             <StyledRegistrationText>
                У вас уже есть аккаунт?
@@ -140,7 +175,7 @@ const SingUp = ({ openModal, onCloseModal, openSingInModal }) => {
    )
 }
 
-export default SingUp
+export default SignUp
 
 const StyledErrorColor = styled('h2')`
    font-size: large;
