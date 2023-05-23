@@ -3,10 +3,12 @@ import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
 import { styled } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { sideBarRoles } from '../utlis/constants/constnats'
 
 const SideBar = () => {
-   const role = 'USER'
+   const role = useSelector((state) => state.auth.role)
+
    return (
       <Box>
          <StyledSideBar variant="permanent" anchor="left">

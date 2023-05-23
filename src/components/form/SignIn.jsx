@@ -1,28 +1,51 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import MyModal from '../UI/modal/Modal'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
-import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import ReusableInput from '../UI/input/Input'
+import { postAuthGoogle, signIn } from '../../redux/reducer/auth/authThunk'
+import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
+import Spinner from '../UI/Spinner'
 
-const SingIn = ({
+const SignIn = ({
    openModal,
    onCloseModal,
    openForgotModal,
    openSingUpModal,
 }) => {
+   const role = useSelector((state) => state.auth.role)
+   const isLoading = useSelector((state) => state.auth.isloading)
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm()
+
    const submitHandler = (data) => {
-      console.log(data)
+      dispatch(signIn(data))
+         .unwrap()
+         .then(() => {
+            if (role === 'ADMIN') {
+               navigate('/admin')
+            } else {
+               navigate('/user')
+            }
+         })
+         .catch((error) => error)
    }
+   const submitDataWithGoogle = () => {
+      dispatch(postAuthGoogle())
+   }
+
    return (
       <div>
          <MyModal open={openModal} onClose={onCloseModal}>
@@ -41,7 +64,7 @@ const SingIn = ({
                   id="email"
                   name="email"
                   {...register('email', {
-                     required: 'Электронная почта обязательна',
+                     required: 'Электронная почта обязательнo',
                      pattern: {
                         value: /\S+@\S+\.\S+/,
                         message: 'Неверный формат электронной почты',
@@ -78,7 +101,7 @@ const SingIn = ({
                   activebackgroundcolor="#AB62D8"
                   type="submit"
                >
-                  Войти
+                  {isLoading ? <Spinner /> : 'Войти'}
                </MyButton>
                <StyledForrgotPasswordContainer>
                   <StyledForrgotPassword onClick={openForgotModal}>
@@ -97,6 +120,8 @@ const SingIn = ({
                   hoverbackgroundcolor="#d6d5d5"
                   activebackgroundcolor="#d6d6d6"
                   defaultcolor="black"
+                  onClick={submitDataWithGoogle}
+                  type="button"
                >
                   <GoogleIcon />
                   Продолжить с Google
@@ -111,7 +136,7 @@ const SingIn = ({
    )
 }
 
-export default SingIn
+export default SignIn
 
 const StyledErrorColor = styled('h2')`
    font-size: large;

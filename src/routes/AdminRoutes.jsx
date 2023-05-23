@@ -14,7 +14,7 @@ const AdminRoutes = () => {
       <Routes>
          <Route
             path={INITIAL_PATH.GUEST.main}
-            element={<Navigate replace to="/admin" />}
+            element={<Navigate replace to="/" />}
          />
          <Route
             path={INITIAL_PATH.ADMIN.admin}

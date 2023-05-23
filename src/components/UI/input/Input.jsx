@@ -47,6 +47,8 @@ const ReusableInput = React.forwardRef(
                   </StyledInputAbornment>
                }
                {...rest}
+               autoComplete="off"
+               autoFocus={false}
             />
          </>
       )
@@ -73,6 +75,7 @@ const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
    border: error ? '1px solid red' : '',
    borderRadius: '6px',
    color: error ? 'red' : '',
+   paddingTop: '2px',
 
    '& .MuiOutlinedInput-root': {
       width: '482px',
@@ -86,6 +89,9 @@ const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
    },
    '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: '#6200EE',
+   },
+   '&:hover': {
+      webkitBoxShadow: '0 0 0 30px white inset !important',
    },
 }))
 
