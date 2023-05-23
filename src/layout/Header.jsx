@@ -33,6 +33,5 @@ const StyledContainer = styled('div')`
    gap: 0.25rem;
 `
 const StyledIconButton = styled(IconButton)`
-   /* margin-left: rem; */
    margin-right: 1.2rem;
 `

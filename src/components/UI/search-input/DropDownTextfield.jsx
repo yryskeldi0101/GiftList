@@ -63,7 +63,7 @@ const TextFieldWithDropDown = ({
             <AppSelect
                setValue={setCategory}
                value={category}
-               width="150px"
+               width="170px"
                height="35px"
                placeholder="Категория"
                border="none"
@@ -71,7 +71,7 @@ const TextFieldWithDropDown = ({
             />
             <AppSelect
                value={subCategory}
-               width="150px"
+               width="170px"
                height="35px"
                placeholder="Подкатегория"
                border="none"
@@ -80,7 +80,7 @@ const TextFieldWithDropDown = ({
             />
             <AppSelect
                value={countries}
-               width="150px"
+               width="170px"
                height="35px"
                placeholder="Страна"
                border="none"
@@ -125,7 +125,7 @@ const InputSearch = styled(InputBase)(() => ({
       borderRight: 'none',
       borderLeft: 'none',
       marginLeft: '20px',
-      width: '309px',
+      maxWidth: '309px',
    },
 
    '& .MuiOutlinedInput-root': {
@@ -141,6 +141,6 @@ const ContentSelect = styled('div')`
    display: flex;
    align-items: center;
    justify-content: space-between;
-   width: 900px;
+   max-width: 900px;
    overflow: hidden;
 `

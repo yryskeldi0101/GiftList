@@ -27,7 +27,7 @@ const ProfileDetails = () => {
    }, [])
    const deleteUser = async () => {
       try {
-         const data = await deleteUserRequest()
+         const data = await deleteUserRequest(id)
          navigate('/admin/users')
          return data
       } catch (error) {
@@ -166,7 +166,5 @@ const StyledNavlink = styled(NavLink)`
    display: flex;
    align-items: center;
    letter-spacing: 0.2px;
-   text-decoration-line: underline;
-
    color: #3772ff;
 `

@@ -2,13 +2,15 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
 import { styled } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { sideBarRoles } from '../utlis/constants/constnats'
+import { useCurrentPath } from '../hooks/useCurrentPath'
 
 const SideBar = () => {
+   const path = useCurrentPath()
    const role = useSelector((state) => state.auth.role)
-
+   const pathName = role === 'USER' ? 'user' : 'admin'
    return (
       <Box>
          <StyledSideBar variant="permanent" anchor="left">
@@ -16,7 +18,14 @@ const SideBar = () => {
             {sideBarRoles[role]?.map((item) => {
                return (
                   <LinkContainer key={item.id}>
-                     <StyledLink to={item.path}>
+                     <StyledLink
+                        to={item.path}
+                        active={
+                           path === `/${pathName}/${item.path}`
+                              ? 'true'
+                              : 'false'
+                        }
+                     >
                         <ListItemsText>
                            <img src={item.icon} alt="icon" />
                            <p>{item.title}</p>
@@ -75,7 +84,7 @@ const LinkContainer = styled('div')`
    display: flex;
    align-items: center;
 `
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
    display: flex;
    align-items: center;
    border-radius: 8px;
@@ -86,6 +95,9 @@ const StyledLink = styled(Link)`
    border-radius: 8px;
    margin-left: 30px;
    padding: 0px 20px;
+   background-color: ${({ active }) => {
+      return active === 'true' ? '#7f48af' : 'none'
+   }};
 `
 
 export default SideBar
