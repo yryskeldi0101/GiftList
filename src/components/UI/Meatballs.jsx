@@ -19,7 +19,6 @@ export default function Meatballs({
    ...restProps
 }) {
    const handle = (title, { date, name, image }, func) => {
-      console.log(id, 'sub detail')
       handleClickMenuItem(title, { date, name, image }, func, id)
    }
 

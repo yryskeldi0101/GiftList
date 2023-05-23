@@ -22,7 +22,7 @@ const AdminCard = ({
    reserveHandler,
 }) => {
    const { holiday } = useSelector((state) => state.holiday)
-   console.log(holiday)
+   const [currentId, setCurrentId] = React.useState(0)
 
    const [data, setData] = React.useState([])
 
@@ -47,22 +47,20 @@ const AdminCard = ({
    }, [dataCategory, dataWishlist, holiday, dataCharity])
 
    const handleClickMenuItem = React.useCallback(
-      (title, data, func, id) => {
+      (title, data, func, currentId) => {
          // reserveHandler(cardId)
-         console.log(title, data, id)
          handleClose()
-         // console.log(id, 'func id')
+
          if (title === 'Редактировать') {
             func(setSearchParams)
          }
-         func(id)
+         func(currentId)
       },
-      [id]
+      [holiday, currentId]
    )
 
-   const handleClickMenuDetail = (title, data, func, id) => {
-      console.log(id, 'detail')
-      handleClickMenuItem(title, data, func, id)
+   const handleClickMenuDetail = (title, data, func) => {
+      handleClickMenuItem(title, data, func, currentId)
    }
 
    return (
@@ -91,7 +89,10 @@ const AdminCard = ({
                         </StyledExpectation>
                         <Meatballs
                            arrayIcon={meatballsContent}
-                           handleClick={handleClick}
+                           handleClick={(e) => {
+                              handleClick(e)
+                              setCurrentId(item.id)
+                           }}
                            handleClose={handleClose}
                            open={open}
                            anchorEl={anchorEl}
