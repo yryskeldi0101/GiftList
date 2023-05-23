@@ -1,13 +1,12 @@
 import * as React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
+import { id } from 'date-fns/locale'
 import styled from '@emotion/styled'
 import Meatballs from '../UI/Meatballs'
-import { getHolidays } from '../../redux/holiday/holydayThunk'
 
 const AdminCard = ({
    dataCategory,
@@ -19,28 +18,51 @@ const AdminCard = ({
    open,
    handleNavigate,
    anchorEl,
+   setSearchParams,
+   reserveHandler,
 }) => {
-   const dispatch = useDispatch()
    const { holiday } = useSelector((state) => state.holiday)
    console.log(holiday)
 
-   useEffect(() => {
-      dispatch(getHolidays())
-   }, [])
+   const [data, setData] = React.useState([])
 
-   let data
-   switch (dataCategory) {
-      case 'wishlist':
-         data = dataWishlist
-         break
-      case 'holidays':
-         data = holiday
-         break
-      case 'charity':
-         data = dataCharity
-         break
-      default:
-         data = dataWishlist
+   React.useEffect(() => {
+      switch (dataCategory) {
+         case 'wishlist':
+            setData(dataWishlist)
+            break
+
+         case 'holidays':
+            setData(holiday)
+            break
+
+         case 'charity':
+            setData(dataCharity)
+            break
+
+         default:
+            setData(dataWishlist)
+            break
+      }
+   }, [dataCategory, dataWishlist, holiday, dataCharity])
+
+   const handleClickMenuItem = React.useCallback(
+      (title, data, func, id) => {
+         // reserveHandler(cardId)
+         console.log(title, data, id)
+         handleClose()
+         // console.log(id, 'func id')
+         if (title === 'Редактировать') {
+            func(setSearchParams)
+         }
+         func(id)
+      },
+      [id]
+   )
+
+   const handleClickMenuDetail = (title, data, func, id) => {
+      console.log(id, 'detail')
+      handleClickMenuItem(title, data, func, id)
    }
 
    return (
@@ -52,7 +74,7 @@ const AdminCard = ({
                      <CardMedia
                         component="img"
                         height="149"
-                        image={item.img}
+                        image={item.image}
                         alt="card img"
                      />
 
@@ -63,7 +85,7 @@ const AdminCard = ({
                      </StyledCardContent>
 
                      <StyledCardActions>
-                        {item.date}
+                        {item.date} - {item.id}
                         <StyledExpectation>
                            {item.expectation}
                         </StyledExpectation>
@@ -73,6 +95,12 @@ const AdminCard = ({
                            handleClose={handleClose}
                            open={open}
                            anchorEl={anchorEl}
+                           reserveHandler={reserveHandler}
+                           id={item.id}
+                           date={item.date}
+                           name={item.name}
+                           image={item.image}
+                           handleClickMenuItem={handleClickMenuDetail}
                         />
                      </StyledCardActions>
                   </StyledCard>

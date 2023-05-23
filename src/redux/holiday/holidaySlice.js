@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getHolidays, postHoliday } from './holydayThunk'
+import { deleteHoliday, getHolidays, postHoliday } from './holydayThunk'
 
 const initialState = {
    holiday: [],
@@ -30,6 +30,13 @@ export const holidaySlice = createSlice({
             state.isLoading = false
          })
          .addCase(postHoliday.rejected, (state, action) => {
+            state.error = action.payload
+            state.isLoading = false
+         })
+         .addCase(deleteHoliday.pending, (state) => {
+            state.isLoading = true
+         })
+         .addCase(deleteHoliday.rejected, (state, action) => {
             state.error = action.payload
             state.isLoading = false
          })

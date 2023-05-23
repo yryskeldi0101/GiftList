@@ -26,5 +26,5 @@ const HeaderContent = styled('header')`
    margin-left: 290px;
 `
 const MainContainer = styled('main')`
-   margin-left: 332px;
+   margin-left: 310px;
 `

@@ -32,8 +32,8 @@ const Message = styled('p')(() => ({
    color: '#000000',
 }))
 
-function useToastBar(type, title, message) {
-   const showToast = () =>
+function useToastBar() {
+   const showToast = (type, title, message) => {
       toast[type](
          <>
             <Title type={type}>{title}</Title>
@@ -49,6 +49,7 @@ function useToastBar(type, title, message) {
             theme: 'colored',
          }
       )
+   }
    return { showToast }
 }
 

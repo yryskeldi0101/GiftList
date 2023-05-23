@@ -30,7 +30,7 @@ const ReusableInput = React.forwardRef(
             </StyledFormHelperText>
             <StyledOutlinedInput
                errorcolor={error}
-               // value={value}
+               value={value}
                name={name}
                onChange={onChange}
                placeholder={placeholder}

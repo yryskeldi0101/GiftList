@@ -1,8 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { format, isValid } from 'date-fns'
-
 import { useDispatch } from 'react-redux'
 import MyModal from '../../../components/UI/modal/Modal'
 import { useMeatballs } from '../../../hooks/useMeatballs'
@@ -15,43 +14,68 @@ import Delete from '../../../assets/icons/deleteIcon.svg'
 import Edit from '../../../assets/icons/EditIcon.svg'
 import PlusIcon from '../../../assets/icons/plusIcon.svg'
 import DateInput from '../../../components/UI/input/DateInput'
-
-import { postHoliday } from '../../../redux/holiday/holydayThunk'
-
-const meatballsContent = [
-   {
-      icon: Edit,
-      title: 'Редактировать',
-   },
-   {
-      icon: Delete,
-      title: 'Удалить',
-   },
-]
+import {
+   deleteHoliday,
+   getHolidays,
+   postHoliday,
+} from '../../../redux/holiday/holydayThunk'
+import { uploadFileRequest } from '../../../service/charityService'
+import { deleteService } from '../../../service/holidayServis'
 
 const MyHolidays = () => {
    const dispatch = useDispatch()
+   const [editHolidayData, setEditHolidayData] = useState(true)
    const [img, setImg] = useState('')
    const [title, setTitle] = useState('')
    const [inputDate, setInputDate] = useState()
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
-   const [photo, setPhoto] = useState('')
-   console.log(photo)
    const [searchParams, setSearchParams] = useSearchParams()
    const { isModalOpen } = Object.fromEntries(searchParams)
    const onCloseModal = () => setSearchParams({})
-   const openHolidayModal = () => setSearchParams({ isModalOpen: 'addholiday' })
    const navigate = useNavigate()
    const navigateToDetails = (id) => {
       navigate(`${id}/holiday_details`)
+   }
+
+   const meatballsContent = [
+      {
+         icon: Edit,
+         title: 'Редактировать',
+         func: (setSearchParams, data) => {
+            if (typeof setSearchParams === 'function') {
+               setSearchParams({ isModalOpen: 'addholiday' })
+               setEditHolidayData(data)
+            }
+         },
+      },
+      {
+         icon: Delete,
+         title: 'Удалить',
+         func: async (id) => {
+            await deleteService(`/api/holidays`, { holidayId: id })
+         },
+      },
+   ]
+
+   const openHolidayModal = (data) => {
+      setSearchParams({ isModalOpen: 'addholiday' })
+      setEditHolidayData(data)
    }
 
    const changeTitleHoliday = (e) => {
       setTitle(e.target.value)
    }
 
-   const onchangeImg = (e) => {
-      setImg(e.target.files[0])
+   const onchangeImg = async (e) => {
+      const file = e.target.files[0]
+      const formData = new FormData()
+      formData.append('file', file)
+      try {
+         const { data } = await uploadFileRequest(formData)
+         setImg(data.url)
+      } catch (error) {
+         console.log(error)
+      }
    }
 
    let date = ''
@@ -63,14 +87,23 @@ const MyHolidays = () => {
       const data = {
          name: title,
          image: img,
-         holidayDate: date,
+         dateOfHoliday: date,
       }
       dispatch(postHoliday(data))
-      console.log(data)
    }
+   console.log(date)
 
    const dateChangeHandler = (date) => {
       setInputDate(date)
+   }
+
+   useEffect(() => {
+      dispatch(getHolidays())
+   }, [])
+
+   const handleDeleteHoliday = (holidayId) => {
+      console.log(holidayId)
+      dispatch(deleteHoliday(holidayId))
    }
 
    return (
@@ -92,15 +125,19 @@ const MyHolidays = () => {
                Добавить праздник
             </MyButton>
             <MyModal open={isModalOpen} onClose={onCloseModal} propswidth>
-               <Text>Добавление праздника</Text>
+               <Text>
+                  {editHolidayData
+                     ? 'Редактирование праздника'
+                     : 'Добавление праздника'}
+               </Text>
 
-               <AvatarUpload photo={setPhoto} onChange={onchangeImg} />
+               <AvatarUpload photo={setImg} onChange={onchangeImg} />
                <ReusableInput
                   id
                   inputLabel
                   placeholder="Введите название праздника"
                   text="Название праздника"
-                  value
+                  value={title}
                   onChange={changeTitleHoliday}
                   icon
                   name
@@ -130,7 +167,10 @@ const MyHolidays = () => {
                      disabledcolor="#FFFFFF"
                      disabled={false}
                      propswidth="232px"
-                     onClick={addDateHoliday}
+                     onClick={() => {
+                        addDateHoliday()
+                        onCloseModal()
+                     }}
                   >
                      Добавить
                   </MyButton>
@@ -149,6 +189,9 @@ const MyHolidays = () => {
             handleNavigate={navigateToDetails}
             open={open}
             anchorEl={anchorEl}
+            // handleDeleteHandler={handleDeleteHoliday}
+            reserveHandler={handleDeleteHoliday}
+            setSearchParams={setSearchParams}
          />
       </>
    )
