@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
-import { id } from 'date-fns/locale'
+// import { id } from 'date-fns/locale'
 import styled from '@emotion/styled'
 import Meatballs from '../UI/Meatballs'
 
@@ -46,19 +46,16 @@ const AdminCard = ({
       }
    }, [dataCategory, dataWishlist, holiday, dataCharity])
 
-   const handleClickMenuItem = React.useCallback(
-      (title, data, func, id) => {
-         // reserveHandler(cardId)
-         console.log(title, data, id)
-         handleClose()
-         // console.log(id, 'func id')
-         if (title === 'Редактировать') {
-            func(setSearchParams)
-         }
-         func(id)
-      },
-      [id]
-   )
+   const handleClickMenuItem = (title, data, func, id) => {
+      // reserveHandler(cardId)
+      console.log(title, data, id)
+      handleClose()
+      // console.log(id, 'func id')
+      if (title === 'Редактировать') {
+         func(setSearchParams)
+      }
+      func(id)
+   }
 
    const handleClickMenuDetail = (title, data, func, id) => {
       console.log(id, 'detail')

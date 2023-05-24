@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { store } from '../redux/store'
+import store from '../redux/store'
 import { BASE_ULR } from './axiosInstance'
 
 export const axiosFileInstance = axios.create({
