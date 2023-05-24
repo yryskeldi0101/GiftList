@@ -22,10 +22,12 @@ const Header = () => {
 
 export default Header
 const StyledHeader = styled('header')`
+   width: 100%;
    display: flex;
    padding: 20px 40px 20px 20px;
    background-color: #ffffff;
    justify-content: space-between;
+   border: 3px solid red;
 `
 const StyledContainer = styled('div')`
    display: flex;

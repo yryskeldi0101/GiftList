@@ -93,15 +93,15 @@ export default function UserMenu() {
    )
 }
 const StyledUserName = styled('p')`
-   width: 7rem;
+   width: 3vw;
+   border: 2px solid red;
    font-family: 'Open Sans';
    font-style: normal;
    font-weight: 400;
-   font-size: 1rem;
+   font-size: 0.7rem;
    line-height: 1.3rem;
    margin: 0;
    letter-spacing: 0.02em;
-
    color: #020202;
 `
 const StyledContainer = styled('div')`

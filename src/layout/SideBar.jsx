@@ -48,7 +48,7 @@ const ListItemsText = styled('div')`
    font-weight: 500;
    line-height: 24px;
    letter-spacing: 0.02em;
-   gap: 17px;
+   gap: 5px;
 `
 const StyledSideBar = styled(Drawer)({
    flexShrink: 0,
@@ -63,7 +63,8 @@ const StyledSideBar = styled(Drawer)({
    paddingTop: '23px',
    zIndex: 4,
    '& .MuiDrawer-paper': {
-      width: '294px',
+      width: '20vw',
+      padding: '0 5px',
       boxSizing: 'border-box',
       background: 'linear-gradient(180deg, #8639B5 0%, #092056 100%)',
    },
@@ -91,10 +92,9 @@ const StyledLink = styled(NavLink)`
    text-decoration: none;
    margin-bottom: 36px;
    height: 50px;
-   width: 250px;
+   width: 18vw;
    border-radius: 8px;
-   margin-left: 30px;
-   padding: 0px 20px;
+   padding: 0px 10px;
    background-color: ${({ active }) => {
       return active === 'true' ? '#7f48af' : 'none'
    }};

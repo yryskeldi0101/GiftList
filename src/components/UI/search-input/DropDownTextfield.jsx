@@ -38,6 +38,7 @@ const TextFieldWithDropDown = ({
    const keyDownHandler = () => {
       setIsChecked(true)
    }
+
    return (
       <Container>
          <CustomIcon />
@@ -55,7 +56,7 @@ const TextFieldWithDropDown = ({
                setValue={setStateSelect}
                value={stateSelect}
                placeholder="Состояние"
-               width="150px"
+               width="13vw"
                height="35px"
                border="none"
                options={stateArray}
@@ -63,15 +64,15 @@ const TextFieldWithDropDown = ({
             <AppSelect
                setValue={setCategory}
                value={category}
-               width="170px"
                height="35px"
+               width="13vw"
                placeholder="Категория"
                border="none"
                options={categoryArray}
             />
             <AppSelect
                value={subCategory}
-               width="170px"
+               width="13vw"
                height="35px"
                placeholder="Подкатегория"
                border="none"
@@ -80,7 +81,7 @@ const TextFieldWithDropDown = ({
             />
             <AppSelect
                value={countries}
-               width="170px"
+               width="13vw"
                height="35px"
                placeholder="Страна"
                border="none"

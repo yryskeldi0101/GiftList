@@ -62,6 +62,7 @@ const Form = styled(FormControl)`
    width: ${(props) => props.width || '396px'};
    background: ${(props) => props.background || '#ffffff'};
    border-radius: 2px;
+   padding-right: 0;
    & fieldset {
       border: ${(props) => props.border || '1px solid #c4c4c4'};
    }
