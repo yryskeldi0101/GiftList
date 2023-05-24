@@ -73,7 +73,7 @@ export default function UserMenu() {
    const id = open ? 'simple-popover' : undefined
 
    return (
-      <Container>
+      <div>
          <StyledContainer
             aria-controls={id}
             aria-haspopup="true"
@@ -89,11 +89,10 @@ export default function UserMenu() {
             open={open}
             onClose={handleClose}
          />
-      </Container>
+      </div>
    )
 }
 const StyledUserName = styled('p')`
-   width: 3vw;
    font-family: 'Open Sans';
    font-style: normal;
    font-weight: 400;
@@ -102,13 +101,13 @@ const StyledUserName = styled('p')`
    margin: 0;
    letter-spacing: 0.02em;
    color: #020202;
+   cursor: pointer;
 `
 const StyledContainer = styled('div')`
    display: flex;
    align-items: center;
    gap: 0.9rem;
 `
-const Container = styled('div')``
 const StyledMenuText = styled('p')`
    font-family: 'Inter';
    font-style: normal;

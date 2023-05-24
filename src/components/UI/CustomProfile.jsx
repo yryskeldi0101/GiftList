@@ -233,7 +233,7 @@ const StyledImg = styled('img')`
    max-height: 217px;
    border-radius: 8px;
 `
-const StyledUserNameContainer = styled('di')`
+const StyledUserNameContainer = styled('div')`
    display: flex;
    align-items: center;
    justify-content: center;

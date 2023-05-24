@@ -2,7 +2,6 @@ import * as React from 'react'
 import { keyframes, styled } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { CSSTransition } from 'react-transition-group'
 import { sideBarRoles } from '../utlis/constants/constnats'
 import { useCurrentPath } from '../hooks/useCurrentPath'
 
@@ -16,26 +15,17 @@ const SideBar = () => {
          {sideBarRoles[role]?.map((item) => {
             return (
                <LinkContainer key={item.id}>
-                  <CSSTransition
-                     in={true} // Always show the NavLink
-                     timeout={300} // Animation duration
-                     classNames="fade"
-                     unmountOnExit
+                  <StyledLink
+                     to={item.path}
+                     active={
+                        path === `/${pathName}/${item.path}` ? 'true' : 'false'
+                     }
                   >
-                     <StyledLink
-                        to={item.path}
-                        active={
-                           path === `/${pathName}/${item.path}`
-                              ? 'true'
-                              : 'false'
-                        }
-                     >
-                        <ListItemsText>
-                           <img src={item.icon} alt="icon" />
-                           <p>{item.title}</p>
-                        </ListItemsText>
-                     </StyledLink>
-                  </CSSTransition>
+                     <ListItemsText>
+                        <img src={item.icon} alt="icon" />
+                        <p>{item.title}</p>
+                     </ListItemsText>
+                  </StyledLink>
                </LinkContainer>
             )
          })}
@@ -57,12 +47,12 @@ const ListItemsText = styled('div')`
 
 const StyledSideBar = styled('nav')`
    box-sizing: border-box;
-   width: 20vh;
+   width: 20vw;
    height: 100vh;
    top: 0;
+   left: 0;
    position: fixed;
-   border: 3px solid red;
-   background-color: violet;
+   background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
 `
 
 const StyledTitle = styled('h1')`
