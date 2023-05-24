@@ -21,7 +21,7 @@ const Newsletter = () => {
    const { open } = Object.fromEntries(searchParams)
 
    const onCloseModal = () => setSearchParams({})
-   const openMailingModal = () => setSearchParams({ open: 'mailing' })
+   // const openMailingModal = () => setSearchParams({ open: 'mailing' })
    const navigate = useNavigate()
    const { showToast } = useToastBar()
    const navigationHandler = (id) => navigate(`${id}/mailing_detail`)
@@ -131,7 +131,7 @@ const Newsletter = () => {
                background="#8639B5"
                hoverbackgroundcolor="#840fcd"
                activebackgroundcolor="#5e0695"
-               onClick={openMailingModal}
+               onClick={() => console.log('Dadsd')}
             >
                <MailingIcon /> Отправить рассылку
             </MyButton>

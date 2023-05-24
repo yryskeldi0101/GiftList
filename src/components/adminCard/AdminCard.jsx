@@ -96,7 +96,7 @@ const AdminCard = ({
                   </StyledCard>
                ))}
             {dataCategory === ACTION_TYPES.CHARITIES &&
-               data?.slice(0, 3).map((item) => (
+               data?.map((item) => (
                   <StyledCard key={item.id}>
                      <CardMedia
                         component="img"

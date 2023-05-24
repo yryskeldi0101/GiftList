@@ -94,11 +94,10 @@ export default function UserMenu() {
 }
 const StyledUserName = styled('p')`
    width: 3vw;
-   border: 2px solid red;
    font-family: 'Open Sans';
    font-style: normal;
    font-weight: 400;
-   font-size: 0.7rem;
+   font-size: 0.9rem;
    line-height: 1.3rem;
    margin: 0;
    letter-spacing: 0.02em;
@@ -107,11 +106,9 @@ const StyledUserName = styled('p')`
 const StyledContainer = styled('div')`
    display: flex;
    align-items: center;
-   gap: 0.25rem;
+   gap: 0.9rem;
 `
-const Container = styled('div')`
-   /* margin-left: 50px; */
-`
+const Container = styled('div')``
 const StyledMenuText = styled('p')`
    font-family: 'Inter';
    font-style: normal;

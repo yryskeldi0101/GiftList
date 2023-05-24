@@ -1,9 +1,10 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
-import { styled } from '@mui/material'
+import { keyframes, styled } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { CSSTransition } from 'react-transition-group'
 import { sideBarRoles } from '../utlis/constants/constnats'
 import { useCurrentPath } from '../hooks/useCurrentPath'
 
@@ -18,19 +19,26 @@ const SideBar = () => {
             {sideBarRoles[role]?.map((item) => {
                return (
                   <LinkContainer key={item.id}>
-                     <StyledLink
-                        to={item.path}
-                        active={
-                           path === `/${pathName}/${item.path}`
-                              ? 'true'
-                              : 'false'
-                        }
+                     <CSSTransition
+                        in={true} // Always show the NavLink
+                        timeout={300} // Animation duration
+                        classNames="fade"
+                        unmountOnExit
                      >
-                        <ListItemsText>
-                           <img src={item.icon} alt="icon" />
-                           <p>{item.title}</p>
-                        </ListItemsText>
-                     </StyledLink>
+                        <StyledLink
+                           to={item.path}
+                           active={
+                              path === `/${pathName}/${item.path}`
+                                 ? 'true'
+                                 : 'false'
+                           }
+                        >
+                           <ListItemsText>
+                              <img src={item.icon} alt="icon" />
+                              <p>{item.title}</p>
+                           </ListItemsText>
+                        </StyledLink>
+                     </CSSTransition>
                   </LinkContainer>
                )
             })}
@@ -53,7 +61,6 @@ const ListItemsText = styled('div')`
 const StyledSideBar = styled(Drawer)({
    flexShrink: 0,
    padding: 0,
-   width: '294px',
    height: '100%',
    position: 'fixed',
    top: 0,
@@ -85,6 +92,14 @@ const LinkContainer = styled('div')`
    display: flex;
    align-items: center;
 `
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
 const StyledLink = styled(NavLink)`
    display: flex;
    align-items: center;
@@ -98,6 +113,7 @@ const StyledLink = styled(NavLink)`
    background-color: ${({ active }) => {
       return active === 'true' ? '#7f48af' : 'none'
    }};
+   animation: ${fadeIn} 0.5s ease-in-out;
 `
 
 export default SideBar

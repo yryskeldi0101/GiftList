@@ -34,7 +34,48 @@ const TextFieldWithDropDown = ({
    ...rest
 }) => {
    const [isChecked, setIsChecked] = useState(false)
-
+   const selectArray = [
+      {
+         setValue: setStateSelect,
+         value: stateSelect,
+         placeholder: 'Состояние',
+         width: '13vw',
+         height: '35px',
+         border: 'none',
+         options: stateArray,
+         id: '1',
+      },
+      {
+         setValue: setCategory,
+         value: category,
+         placeholder: 'Категория',
+         width: '13vw',
+         height: '35px',
+         border: 'none',
+         options: categoryArray,
+         id: '2',
+      },
+      {
+         value: subCategory,
+         width: '15vw',
+         height: '35px',
+         placeholder: 'Подкатегория',
+         border: 'none',
+         setValue: setSubCategory,
+         options: subcategoryArray,
+         id: '3',
+      },
+      {
+         value: countries,
+         width: '13vw',
+         height: '35px',
+         placeholder: 'Страна',
+         border: 'none',
+         setValue: setCountries,
+         options: countriesArray,
+         id: '4',
+      },
+   ]
    const keyDownHandler = () => {
       setIsChecked(true)
    }
@@ -52,43 +93,20 @@ const TextFieldWithDropDown = ({
             placeholder="Поиск"
          />
          <ContentSelect>
-            <AppSelect
-               setValue={setStateSelect}
-               value={stateSelect}
-               placeholder="Состояние"
-               width="13vw"
-               height="35px"
-               border="none"
-               options={stateArray}
-            />
-            <AppSelect
-               setValue={setCategory}
-               value={category}
-               height="35px"
-               width="13vw"
-               placeholder="Категория"
-               border="none"
-               options={categoryArray}
-            />
-            <AppSelect
-               value={subCategory}
-               width="13vw"
-               height="35px"
-               placeholder="Подкатегория"
-               border="none"
-               setValue={setSubCategory}
-               options={subcategoryArray}
-            />
-            <AppSelect
-               value={countries}
-               width="13vw"
-               height="35px"
-               placeholder="Страна"
-               border="none"
-               setValue={setCountries}
-               options={countriesArray}
-            />
-
+            {selectArray?.map((item) => {
+               return (
+                  <AppSelect
+                     key={item.id}
+                     value={item.value}
+                     width={item.width}
+                     height={item.height}
+                     placeholder={item.placeholder}
+                     border={item.border}
+                     setValue={item.setValue}
+                     options={item.options}
+                  />
+               )
+            })}
             {isChecked && <StyledIcon />}
          </ContentSelect>
       </Container>
