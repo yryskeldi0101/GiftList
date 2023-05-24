@@ -1,6 +1,4 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
 import { keyframes, styled } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -13,37 +11,35 @@ const SideBar = () => {
    const role = useSelector((state) => state.auth.role)
    const pathName = role === 'USER' ? 'user' : 'admin'
    return (
-      <Box>
-         <StyledSideBar variant="permanent" anchor="left">
-            <StyledTitle>Gift List</StyledTitle>
-            {sideBarRoles[role]?.map((item) => {
-               return (
-                  <LinkContainer key={item.id}>
-                     <CSSTransition
-                        in={true} // Always show the NavLink
-                        timeout={300} // Animation duration
-                        classNames="fade"
-                        unmountOnExit
+      <StyledSideBar variant="permanent" anchor="left">
+         <StyledTitle>Gift List</StyledTitle>
+         {sideBarRoles[role]?.map((item) => {
+            return (
+               <LinkContainer key={item.id}>
+                  <CSSTransition
+                     in={true} // Always show the NavLink
+                     timeout={300} // Animation duration
+                     classNames="fade"
+                     unmountOnExit
+                  >
+                     <StyledLink
+                        to={item.path}
+                        active={
+                           path === `/${pathName}/${item.path}`
+                              ? 'true'
+                              : 'false'
+                        }
                      >
-                        <StyledLink
-                           to={item.path}
-                           active={
-                              path === `/${pathName}/${item.path}`
-                                 ? 'true'
-                                 : 'false'
-                           }
-                        >
-                           <ListItemsText>
-                              <img src={item.icon} alt="icon" />
-                              <p>{item.title}</p>
-                           </ListItemsText>
-                        </StyledLink>
-                     </CSSTransition>
-                  </LinkContainer>
-               )
-            })}
-         </StyledSideBar>
-      </Box>
+                        <ListItemsText>
+                           <img src={item.icon} alt="icon" />
+                           <p>{item.title}</p>
+                        </ListItemsText>
+                     </StyledLink>
+                  </CSSTransition>
+               </LinkContainer>
+            )
+         })}
+      </StyledSideBar>
    )
 }
 const ListItemsText = styled('div')`
@@ -58,24 +54,17 @@ const ListItemsText = styled('div')`
    letter-spacing: 0.02em;
    gap: 5px;
 `
-const StyledSideBar = styled(Drawer)({
-   flexShrink: 0,
-   padding: 0,
-   height: '100%',
-   position: 'fixed',
-   top: 0,
-   left: 0,
-   bottom: 0,
-   right: 0,
-   paddingTop: '23px',
-   zIndex: 4,
-   '& .MuiDrawer-paper': {
-      width: '20vw',
-      padding: '0 5px',
-      boxSizing: 'border-box',
-      background: 'linear-gradient(180deg, #8639B5 0%, #092056 100%)',
-   },
-})
+
+const StyledSideBar = styled('nav')`
+   box-sizing: border-box;
+   width: 20vh;
+   height: 100vh;
+   top: 0;
+   position: fixed;
+   border: 3px solid red;
+   background-color: violet;
+`
+
 const StyledTitle = styled('h1')`
    font-family: 'Inter';
    font-size: 24px;
