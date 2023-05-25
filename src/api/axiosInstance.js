@@ -30,7 +30,12 @@ axiosInstance.interceptors.response.use(
    },
    function cathError(error) {
       if (error) {
-         throw new Error('Error')
+         if (
+            error?.response?.code === 401 ||
+            error.message.startWith('Network Error')
+         ) {
+            throw new Error('Error')
+         }
       }
       return Promise.reject(error)
    }
