@@ -55,6 +55,42 @@ const ProfileDetails = () => {
    const dataHoliday = profileData.holidayResponses || []
    const dataWishList = profileData.wishResponseUserList || []
    const dataCharity = profileData.charityResponseUsers || []
+
+   const appSelectData = [
+      {
+         display: true,
+         dataWishlist: dataWishList?.slice(0, 3),
+         dataCategory: ACTION_TYPES.WISHLIST,
+         anchorEl,
+         open,
+         handleClick,
+         handleClose,
+         id: '1',
+         title: 'Желаимые подарки',
+      },
+      {
+         display: true,
+         dataHoliday: dataHoliday?.slice(0, 3),
+         dataCategory: ACTION_TYPES.HOLIDAYS,
+         anchorEl,
+         open,
+         handleClick,
+         handleClose,
+         id: '2',
+         title: 'Праздники',
+      },
+      {
+         display: true,
+         dataCharity: dataCharity?.slice(0, 3),
+         dataCategory: ACTION_TYPES.CHARITIES,
+         anchorEl,
+         open,
+         handleClick,
+         handleClose,
+         id: '3',
+         title: 'Благотворительность',
+      },
+   ]
    return (
       <>
          <Snackbar />
@@ -66,63 +102,39 @@ const ProfileDetails = () => {
             />
          </div>
          <Container>
-            <ItemContainer>
-               <StyledTitileContainer>
-                  <h2>Желаемые подарки</h2>
-                  <StyledNavlink to="wishes" state={dataWishList}>
-                     Смотреть все
-                  </StyledNavlink>
-               </StyledTitileContainer>
-               <ArrayContainer>
-                  <AdminCard
-                     display={true}
-                     dataWishlist={dataWishList?.slice(0, 3)}
-                     dataCategory={ACTION_TYPES.WISHLIST}
-                     anchorEl={anchorEl}
-                     open={open}
-                     handleClick={handleClick}
-                     handleClose={handleClose}
-                  />
-               </ArrayContainer>
-            </ItemContainer>
-            <ItemContainer>
-               <StyledTitileContainer>
-                  <h2>Праздники</h2>
-                  <StyledNavlink to="holidays" state={dataHoliday}>
-                     Смотреть все
-                  </StyledNavlink>
-               </StyledTitileContainer>
-               <ArrayContainer>
-                  <AdminCard
-                     display={true}
-                     dataHolidays={dataHoliday?.slice(0, 3)}
-                     dataCategory={ACTION_TYPES.HOLIDAYS}
-                     anchorEl={anchorEl}
-                     open={open}
-                     handleClick={handleClick}
-                     handleClose={handleClose}
-                  />
-               </ArrayContainer>
-            </ItemContainer>
-            <ItemContainer>
-               <StyledTitileContainer>
-                  <h2>Благотворительность</h2>
-                  <StyledNavlink to="charities" state={dataCharity}>
-                     Смотреть все
-                  </StyledNavlink>
-               </StyledTitileContainer>
-               <ArrayContainer>
-                  <AdminCard
-                     display={true}
-                     dataCharity={dataCharity?.slice(0, 3)}
-                     dataCategory={ACTION_TYPES.CHARITIES}
-                     anchorEl={anchorEl}
-                     open={open}
-                     handleClick={handleClick}
-                     handleClose={handleClose}
-                  />
-               </ArrayContainer>
-            </ItemContainer>
+            {appSelectData?.map((item) => {
+               return (
+                  <ItemContainer>
+                     <StyledTitileContainer>
+                        <h2>{item.title}</h2>
+                        <StyledNavlink
+                           to="wishes"
+                           state={{
+                              dataHoliday: item.dataHoliday,
+                              dataWishList: item.dataWishlist,
+                              dataCharity: item.dataCharity,
+                           }}
+                        >
+                           Смотреть все
+                        </StyledNavlink>
+                     </StyledTitileContainer>
+                     <ArrayContainer>
+                        <AdminCard
+                           key={item.id}
+                           display={item.display}
+                           dataWishlist={item.dataWishlist}
+                           dataHolidays={item.dataHoliday}
+                           dataCharity={item.dataCharity}
+                           dataCategory={item.dataCategory}
+                           anchorEl={item.anchorEl}
+                           open={item.open}
+                           handleClick={item.handleClick}
+                           handleClose={item.handleClose}
+                        />
+                     </ArrayContainer>
+                  </ItemContainer>
+               )
+            })}
          </Container>
       </>
    )
@@ -131,11 +143,19 @@ const ProfileDetails = () => {
 export default ProfileDetails
 const Container = styled('div')`
    margin-top: 56px;
+   display: flex;
+   gap: 50px;
+   row-gap: 50px;
+   max-width: 1170px;
+   flex-wrap: wrap;
+   justify-content: center;
 `
+
 const StyledTitileContainer = styled('div')`
    display: flex;
    align-items: center;
    justify-content: space-between;
+   align-items: center;
    margin-bottom: 24px;
    h2 {
       font-family: 'Inter';
@@ -146,16 +166,23 @@ const StyledTitileContainer = styled('div')`
       letter-spacing: 0.2px;
       color: #020202;
    }
+   @media (max-width: 800px) {
+      justify-content: space-around;
+   }
 `
 const ItemContainer = styled('div')`
    margin-top: 54px;
    max-width: 1170px;
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   justify-content: center;
 `
 const ArrayContainer = styled('div')`
+   margin-top: 45px;
    display: flex;
-   flex-wrap: wrap;
-   gap: 50px;
-   row-gap: 50px;
+   align-items: center;
+   justify-content: center;
 `
 const StyledNavlink = styled(NavLink)`
    font-family: 'Inter';

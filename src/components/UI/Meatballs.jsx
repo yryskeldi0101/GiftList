@@ -15,7 +15,7 @@ export default function Meatballs({
 }) {
    return (
       <>
-         <Button
+         <Buttons
             id="demo-positioned-button"
             aria-controls={open ? 'demo-positioned-menu' : undefined}
             aria-haspopup="true"
@@ -24,7 +24,7 @@ export default function Meatballs({
             {...restProps}
          >
             <MeatballsIcon />
-         </Button>
+         </Buttons>
          <div>
             {display ? (
                ''
@@ -68,7 +68,7 @@ export default function Meatballs({
       </>
    )
 }
-const Button = styled('div')`
-   cursor: pointer;
-   padding: 6px 20px;
-`
+const Buttons = styled('div')(() => ({
+   cursor: 'pointer',
+   width: 'auto',
+}))

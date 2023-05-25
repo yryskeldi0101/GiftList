@@ -8,7 +8,7 @@ const Header = () => {
    return (
       <div>
          <StyledHeader>
-            <SearchInput />
+            <SearchInput inputChangeProps={true} />
             <StyledContainer>
                <IconButton>
                   <BallIcon />
@@ -24,7 +24,7 @@ export default Header
 const StyledHeader = styled('header')`
    width: 100%;
    display: flex;
-   padding: 20px 40px 20px 20px;
+   padding: 20px 40px 20px 14px;
    background-color: #ffffff;
    justify-content: space-between;
 `

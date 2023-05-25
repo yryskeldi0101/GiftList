@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '../redux/store/index'
+// import { signOut } from '../redux/reducer/auth/authThunk'
 
 export const BASE_ULR = 'http://giftlist.peaksoftprojects.com'
 export const axiosInstance = axios.create({
@@ -24,11 +25,11 @@ axiosInstance.interceptors.request.use(
 )
 
 axiosInstance.interceptors.response.use(
-   function responsees(response) {
+   function c(response) {
       return response
    },
    function cathError(error) {
-      if (error.response.status === 401) {
+      if (error) {
          throw new Error('Error')
       }
       return Promise.reject(error)

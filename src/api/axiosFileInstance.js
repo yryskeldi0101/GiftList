@@ -26,7 +26,7 @@ axiosFileInstance.interceptors.request.use(
 )
 
 axiosFileInstance.interceptors.response.use(
-   function responsees(response) {
+   function response(response) {
       return response
    },
    function cathError(error) {

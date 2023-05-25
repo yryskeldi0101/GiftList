@@ -34,7 +34,11 @@ const Users = () => {
          const data = await getAllUsersRequest()
          return data.data.elements
       } catch (error) {
-         return console.error(error)
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
       }
    }
    const deleteUser = async () => {
@@ -56,9 +60,7 @@ const Users = () => {
       try {
          const data = await blockUserRequest(id)
          showToast('success', 'Успешно', 'Пользователь успешно заблокирован!')
-         if (data.status === 200) {
-            window.location.reload()
-         }
+         getAllUsers()
          return data
       } catch (error) {
          return showToast(
@@ -126,6 +128,7 @@ const Users = () => {
                         image={item.photo}
                         count={item.count}
                         id={item.id}
+                        countOfWish={item.count}
                         handleBlock={blockUser}
                      />
                   )
@@ -145,6 +148,7 @@ const Container = styled('div')`
    row-gap: 50px;
    width: 100%;
    flex-wrap: wrap;
+   justify-content: center;
 `
 const ContentContainer = styled('div')`
    display: flex;

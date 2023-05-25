@@ -1,10 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-   const isAuthenticated = 'lgdlgm'
-   if (!isAuthenticated) {
-      return <Navigate to="/login" replace />
+   const isAuthorized = useSelector((state) => state.auth.isAuthorized)
+   if (!isAuthorized) {
+      return <Navigate to="/" replace />
    }
    return <Component {...rest} />
 }

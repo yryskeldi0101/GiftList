@@ -23,7 +23,7 @@ export const userSlice = createSlice({
             state.oneUser = {}
          })
          .addCase(getOneUserById.rejected, (state, { payload }) => {
-            state.error = payload.error
+            state.error = payload
             state.isLoading = false
             state.oneUser = {}
          })

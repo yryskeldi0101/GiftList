@@ -100,7 +100,11 @@ const Newsletter = () => {
          const { data } = await getAllMailingRequest()
          return data
       } catch (error) {
-         return console.error(error)
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
       }
    }
    useEffect(() => {
@@ -169,6 +173,7 @@ const ButtonContainer = styled('div')`
 `
 const GlobalContainer = styled('div')`
    display: flex;
+   justify-content: center;
    flex-wrap: wrap;
    margin-top: 30px;
    max-width: 1170px;

@@ -70,6 +70,8 @@ const StyledTitle = styled('h1')`
 const LinkContainer = styled('div')`
    display: flex;
    align-items: center;
+   justify-content: center;
+   width: 100%;
 `
 const fadeIn = keyframes`
   from {

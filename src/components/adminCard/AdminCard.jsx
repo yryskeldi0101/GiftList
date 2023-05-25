@@ -18,25 +18,11 @@ const AdminCard = ({
    open,
    anchorEl,
 }) => {
-   let data = []
-   switch (dataCategory) {
-      case ACTION_TYPES.WISHLIST:
-         data = dataWishlist
-         break
-      case ACTION_TYPES.HOLIDAYS:
-         data = dataHolidays
-         break
-      case ACTION_TYPES.CHARITIES:
-         data = dataCharity
-         break
-      default:
-         data = dataWishlist
-   }
    return (
       <div>
          <CardContainer>
             {dataCategory === ACTION_TYPES.WISHLIST &&
-               data?.map((item) => (
+               dataWishlist?.map((item) => (
                   <StyledCard key={item.id}>
                      <CardMedia
                         component="img"
@@ -66,7 +52,7 @@ const AdminCard = ({
                   </StyledCard>
                ))}
             {dataCategory === ACTION_TYPES.HOLIDAYS &&
-               data?.map((item) => (
+               dataHolidays?.map((item) => (
                   <StyledCard key={item.id}>
                      <CardMedia
                         component="img"
@@ -96,7 +82,7 @@ const AdminCard = ({
                   </StyledCard>
                ))}
             {dataCategory === ACTION_TYPES.CHARITIES &&
-               data?.map((item) => (
+               dataCharity?.map((item) => (
                   <StyledCard key={item.id}>
                      <CardMedia
                         component="img"
@@ -147,6 +133,7 @@ const CardContainer = styled('div')`
    max-width: 1170px;
    row-gap: 40px;
    gap: 61px;
+   justify-content: center;
 `
 const StyledCard = styled(Card)`
    padding: 20px;
@@ -216,11 +203,13 @@ const StyledStatus = styled('div')`
    font-weight: 500;
    font-size: 14px;
    color: #fd5200;
+   margin-right: 20px;
 `
 const MeatBalssContainer = styled('div')`
    margin-left: 27px;
    display: flex;
    align-items: center;
+   gap: 10px;
 `
 const StyledIcon = styled('img')`
    width: 40px;

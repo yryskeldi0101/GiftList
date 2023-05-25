@@ -16,6 +16,7 @@ const UserCard = ({
    fullName,
    image,
    count,
+   countOfWish,
    id,
    handleBlock,
 }) => {
@@ -35,12 +36,12 @@ const UserCard = ({
                </UserNameContainer>
                <InfoContainer flexchange={flexchange}>
                   <InfoItemContainer>
-                     <p>{count}</p>
+                     <p>{countOfWish}</p>
                      <p>желаемых подарков</p>
                   </InfoItemContainer>
                   {changeFlexContent && (
                      <InfoItemContainer>
-                        <p>10</p>
+                        <p>{count}</p>
                         <p>праздников</p>
                      </InfoItemContainer>
                   )}
@@ -70,15 +71,16 @@ const UserCard = ({
             )}
             {changeContent && (
                <MeatballsContainer>
-                  <Button
+                  <StyledButton
                      id="demo-positioned-button"
                      aria-controls={open ? 'demo-positioned-menu' : undefined}
                      aria-haspopup="true"
                      aria-expanded={open ? 'true' : undefined}
                      onClick={handleClick}
+                     sx={{ margin: '2px' }}
                   >
                      <MeatballsIcon />
-                  </Button>
+                  </StyledButton>
                   <Menu
                      id="demo-positioned-menu"
                      aria-labelledby="demo-positioned-button"
@@ -204,8 +206,9 @@ const InfoItemContainer = styled('div')`
 `
 
 const MeatballsContainer = styled('div')`
-   margin-left: 200px;
-   padding-bottom: 16px;
+   float: right;
+   margin-bottom: 10px;
+   cursor: pointer;
 `
 const ButtonContainer = styled('div')`
    display: flex;
@@ -213,3 +216,10 @@ const ButtonContainer = styled('div')`
    gap: 15px;
    padding: 10px;
 `
+const StyledButton = styled(Button)(() => ({
+   '&.MuiButton-root': {
+      padding: '10px',
+      width: '20px',
+      background: 'transparent',
+   },
+}))
