@@ -1,8 +1,9 @@
+import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { format, isValid } from 'date-fns'
-import { useDispatch } from 'react-redux'
+import { format } from 'date-fns'
+import { useDispatch, useSelector } from 'react-redux'
 import MyModal from '../../../components/UI/modal/Modal'
 import { useMeatballs } from '../../../hooks/useMeatballs'
 import AdminCard from '../../../components/adminCard/AdminCard'
@@ -21,21 +22,42 @@ import {
 } from '../../../redux/holiday/holydayThunk'
 import { uploadFileRequest } from '../../../service/charityService'
 import { deleteService } from '../../../service/holidayServis'
+import { actionModalSlice } from '../../../redux/holiday/modalSlice'
 
 const MyHolidays = () => {
    const dispatch = useDispatch()
-   const [editHolidayData, setEditHolidayData] = useState(true)
+   const [editHolidayData, setEditHolidayData] = useState(false)
    const [img, setImg] = useState('')
    const [title, setTitle] = useState('')
-   const [inputDate, setInputDate] = useState()
+   const [inputDate, setInputDate] = useState(new Date())
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
    const [searchParams, setSearchParams] = useSearchParams()
    const { isModalOpen } = Object.fromEntries(searchParams)
    const onCloseModal = () => setSearchParams({})
    const navigate = useNavigate()
+   const { data } = useSelector((state) => state.ModalSlice)
+   console.log(data)
+
+   useEffect(() => {
+      if (editHolidayData) {
+         if (data.name) {
+            setTitle(data.name)
+         }
+         if (data.date) {
+            setInputDate(new Date(data.date))
+         }
+         if (data.image) {
+            setImg(data.image)
+         }
+      }
+   }, [data, editHolidayData])
+
    const navigateToDetails = (id) => {
-      navigate(`${id}/holiday_details`)
+      console.log(id)
+      navigate(`${id}/details`)
    }
+
+   console.log(img)
 
    const meatballsContent = [
       {
@@ -44,7 +66,13 @@ const MyHolidays = () => {
          func: (setSearchParams, data) => {
             if (typeof setSearchParams === 'function') {
                setSearchParams({ isModalOpen: 'addholiday' })
-               setEditHolidayData(data)
+               setEditHolidayData(true)
+            }
+            console.log(data, 'meat data')
+            if (data) {
+               dispatch(actionModalSlice.getEditCardData(data))
+            } else {
+               toast.error('Something with edit data')
             }
          },
       },
@@ -62,10 +90,6 @@ const MyHolidays = () => {
       setEditHolidayData(data)
    }
 
-   const changeTitleHoliday = (e) => {
-      setTitle(e.target.value)
-   }
-
    const onchangeImg = async (e) => {
       const file = e.target.files[0]
       const formData = new FormData()
@@ -78,20 +102,23 @@ const MyHolidays = () => {
       }
    }
 
-   let date = ''
-   if (inputDate && isValid(new Date(inputDate))) {
-      date = format(new Date(inputDate), 'yyyy-MM-dd')
+   const addDateHoliday = () => {
+      const date = format(new Date(inputDate), 'yyyy-MM-dd')
+      console.log(date)
+      if (title && img && date) {
+         const data = {
+            name: title,
+            image: img,
+            dateOfHoliday: date,
+         }
+         dispatch(postHoliday(data))
+         onCloseModal()
+      }
    }
 
-   const addDateHoliday = () => {
-      const data = {
-         name: title,
-         image: img,
-         dateOfHoliday: date,
-      }
-      dispatch(postHoliday(data))
+   const changeTitleHoliday = (e) => {
+      setTitle(e.target.value)
    }
-   console.log(date)
 
    const dateChangeHandler = (date) => {
       setInputDate(date)
@@ -131,7 +158,7 @@ const MyHolidays = () => {
                      : 'Добавление праздника'}
                </Text>
 
-               <AvatarUpload photo={setImg} onChange={onchangeImg} />
+               <AvatarUpload photo={img} onChange={onchangeImg} />
                <ReusableInput
                   id
                   inputLabel
@@ -169,7 +196,6 @@ const MyHolidays = () => {
                      propswidth="232px"
                      onClick={() => {
                         addDateHoliday()
-                        onCloseModal()
                      }}
                   >
                      Добавить

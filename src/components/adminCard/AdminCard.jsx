@@ -4,7 +4,6 @@ import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
-// import { id } from 'date-fns/locale'
 import styled from '@emotion/styled'
 import Meatballs from '../UI/Meatballs'
 
@@ -52,7 +51,7 @@ const AdminCard = ({
          handleClose()
 
          if (title === 'Редактировать') {
-            func(setSearchParams)
+            func(setSearchParams, data)
          }
          func(currentId)
       },
@@ -60,53 +59,59 @@ const AdminCard = ({
    )
 
    const handleClickMenuDetail = (title, data, func) => {
+      console.log(data)
       handleClickMenuItem(title, data, func, currentId)
    }
+
+   console.log(data)
 
    return (
       <div>
          <CardContiner>
-            {data.map((item) => (
-               <StyledCoardContainer key={item.id}>
-                  <StyledCard>
-                     <CardMedia
-                        component="img"
-                        height="149"
-                        image={item.image}
-                        alt="card img"
-                     />
-
-                     <StyledCardContent onClick={() => handleNavigate(item.id)}>
-                        <Title>{item.title}</Title>
-                        <StyledBirthDate>{item.birthDate}</StyledBirthDate>
-                        <StyledStatus>{item.status}</StyledStatus>
-                     </StyledCardContent>
-
-                     <StyledCardActions>
-                        {item.date} - {item.id}
-                        <StyledExpectation>
-                           {item.expectation}
-                        </StyledExpectation>
-                        <Meatballs
-                           arrayIcon={meatballsContent}
-                           handleClick={(e) => {
-                              handleClick(e)
-                              setCurrentId(item.id)
-                           }}
-                           handleClose={handleClose}
-                           open={open}
-                           anchorEl={anchorEl}
-                           reserveHandler={reserveHandler}
-                           id={item.id}
-                           date={item.date}
-                           name={item.name}
+            {data?.map((item) => {
+               return (
+                  <StyledCoardContainer key={item.id}>
+                     <StyledCard>
+                        <CardMedia
+                           component="img"
+                           height="149"
                            image={item.image}
-                           handleClickMenuItem={handleClickMenuDetail}
+                           alt="card"
                         />
-                     </StyledCardActions>
-                  </StyledCard>
-               </StyledCoardContainer>
-            ))}
+
+                        <StyledCardContent
+                           onClick={() => handleNavigate(item.id)}
+                        >
+                           <Title>{item.name}</Title>
+                           <StyledBirthDate>{item.birthDate}</StyledBirthDate>
+                           <StyledStatus>{item.status}</StyledStatus>
+                        </StyledCardContent>
+                        <StyledCardActions>
+                           {item.date} - {item.id}
+                           <StyledExpectation>
+                              {item.expectation}
+                           </StyledExpectation>
+                           <Meatballs
+                              arrayIcon={meatballsContent}
+                              handleClick={(e) => {
+                                 handleClick(e)
+                                 setCurrentId(item.id)
+                              }}
+                              handleClose={handleClose}
+                              open={open}
+                              anchorEl={anchorEl}
+                              reserveHandler={reserveHandler}
+                              id={item.id}
+                              date={item.date}
+                              name={item.name}
+                              image={item.image}
+                              handleClickMenuItem={handleClickMenuDetail}
+                           />
+                        </StyledCardActions>
+                     </StyledCard>
+                  </StyledCoardContainer>
+               )
+            })}
          </CardContiner>
       </div>
    )
