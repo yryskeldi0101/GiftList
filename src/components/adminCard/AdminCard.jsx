@@ -130,8 +130,6 @@ const CardContainer = styled('div')`
    display: flex;
    flex-wrap: wrap;
    flex-direction: row;
-   max-width: 1170px;
-   row-gap: 40px;
    gap: 61px;
    justify-content: center;
 `

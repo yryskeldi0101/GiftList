@@ -20,7 +20,7 @@ const getInitialState = () => {
       isAuthorized: false,
       isloading: false,
       error: '',
-      role: '',
+      role: 'GUEST',
       userId: '',
    }
 }
@@ -92,7 +92,7 @@ export const authSlice = createSlice({
             state.isAuthorized = false
             state.token = ''
             state.isloading = false
-            state.role = ''
+            state.role = 'GUEST'
             state.error = ''
             state.userId = ''
          })

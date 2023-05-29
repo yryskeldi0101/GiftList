@@ -36,6 +36,7 @@ const ReusableInput = React.forwardRef(
                placeholder={placeholder}
                aria-describedby={inputLabel}
                onBlur={onBlur}
+               classes={{ focused: 'focused' }}
                id={id}
                ref={ref}
                error={error}
@@ -49,6 +50,7 @@ const ReusableInput = React.forwardRef(
                {...rest}
                autoComplete="off"
                autoFocus={false}
+               fullWidth
             />
          </>
       )
@@ -70,18 +72,18 @@ const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
    color: error ? 'red' : '',
    paddingTop: '2px',
 
-   '& .MuiOutlinedInput-root': {
-      width: '482px',
+   '&.MuiOutlinedInput-root': {
       height: '32px',
-      '&:hover fieldset': {
-         borderColor: '#6200EE',
+      border: '1px solid grey',
+      '&:hover ': {
+         border: '1px solid #6200EE',
       },
-      '&.Mui-focused fieldset': {
-         borderColor: '#6200EE',
+      '&.focused': {
+         border: '1px solid #6200EE',
       },
    },
-   '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: '#6200EE',
+   '& .MuiOutlinedInput-notchedOutline': {
+      border: 'none',
    },
    '&:hover': {
       webkitBoxShadow: '0 0 0 30px white inset !important',

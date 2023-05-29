@@ -8,7 +8,7 @@ import { useMeatballs } from '../../../hooks/useMeatballs'
 const AllGifts = () => {
    const { anchorEl, open, handleClick, handleClose } = useMeatballs()
    const wishList = useLocation()
-   const dataWishList = wishList.state || []
+   const dataWishList = wishList.state.dataWishList || []
    return (
       <Container>
          <AdminCard

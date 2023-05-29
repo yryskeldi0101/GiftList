@@ -67,6 +67,7 @@ const ProfileDetails = () => {
          handleClose,
          id: '1',
          title: 'Желаимые подарки',
+         pathName: 'wishes',
       },
       {
          display: true,
@@ -78,6 +79,7 @@ const ProfileDetails = () => {
          handleClose,
          id: '2',
          title: 'Праздники',
+         pathName: 'holidays',
       },
       {
          display: true,
@@ -89,6 +91,7 @@ const ProfileDetails = () => {
          handleClose,
          id: '3',
          title: 'Благотворительность',
+         pathName: 'charities',
       },
    ]
    return (
@@ -104,11 +107,11 @@ const ProfileDetails = () => {
          <Container>
             {appSelectData?.map((item) => {
                return (
-                  <ItemContainer>
+                  <ItemContainer key={item.id}>
                      <StyledTitileContainer>
                         <h2>{item.title}</h2>
                         <StyledNavlink
-                           to="wishes"
+                           to={item.pathName}
                            state={{
                               dataHoliday: item.dataHoliday,
                               dataWishList: item.dataWishlist,
@@ -144,11 +147,8 @@ export default ProfileDetails
 const Container = styled('div')`
    margin-top: 56px;
    display: flex;
-   gap: 50px;
-   row-gap: 50px;
-   max-width: 1170px;
-   flex-wrap: wrap;
-   justify-content: center;
+   flex-direction: column;
+   padding-right: 1.5vw;
 `
 
 const StyledTitileContainer = styled('div')`
@@ -166,13 +166,9 @@ const StyledTitileContainer = styled('div')`
       letter-spacing: 0.2px;
       color: #020202;
    }
-   @media (max-width: 800px) {
-      justify-content: space-around;
-   }
 `
 const ItemContainer = styled('div')`
    margin-top: 54px;
-   max-width: 1170px;
    display: flex;
    flex-direction: column;
    flex-wrap: wrap;

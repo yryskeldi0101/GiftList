@@ -74,10 +74,12 @@ const LinkContainer = styled('div')`
    width: 100%;
 `
 const fadeIn = keyframes`
-  from {
+   from {
+    transform: translateY(100px);
     opacity: 0;
   }
   to {
+    transform: translateY(0);
     opacity: 1;
   }
 `
@@ -94,7 +96,7 @@ const StyledLink = styled(NavLink)`
    background-color: ${({ active }) => {
       return active === 'true' ? '#7f48af' : 'none'
    }};
-   animation: ${fadeIn} 0.5s ease-in-out;
+   animation: ${fadeIn} 1s ease-in-out;
 `
 
 export default SideBar

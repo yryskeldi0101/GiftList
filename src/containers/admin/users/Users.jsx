@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import UserCard from '../../../components/UI/user-cards/UserCard'
 import MyModal from '../../../components/UI/modal/Modal'
 import { ReactComponent as MoveToTrash } from '../../../assets/icons/trahsicon.svg'
@@ -16,8 +17,10 @@ import Snackbar from '../../../components/button/SnackBar'
 
 const Users = () => {
    const [searchParams, setSearchParams] = useSearchParams()
-   const [userData, setUserData] = useState()
+   const [userData, setUserData] = useState([])
    const [userId, setUserId] = useState(null)
+   const [page, setPage] = useState(3)
+
    const { open } = Object.fromEntries(searchParams)
    const { showToast } = useToastBar()
    const onCloseModal = () => setSearchParams({})
@@ -31,37 +34,39 @@ const Users = () => {
    const booleanOpen = Boolean(open)
    const getAllUsers = async () => {
       try {
-         const data = await getAllUsersRequest()
-         return data.data.elements
+         const data = await getAllUsersRequest(page)
+         const users = data.data.elements
+         setUserData(users)
+         setPage((prevPage) => prevPage + 3)
+
+         return users
       } catch (error) {
          return showToast(
             'error',
             'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
+            'При загрузке данных произошла ошибка! повторите попытку позже'
          )
       }
    }
    const deleteUser = async () => {
       try {
-         const data = await deleteUserRequest(userId)
+         await deleteUserRequest(userId)
          showToast('success', 'Успешно', 'Пользователь успешно удален!')
-         return data
+         onCloseModal()
+         return getAllUsers()
       } catch (error) {
          return showToast(
             'error',
             'Ошибка',
             'Что-то пошло не так повторите попытку позже'
          )
-      } finally {
-         onCloseModal()
       }
    }
    const blockUser = async (id) => {
       try {
-         const data = await blockUserRequest(id)
+         await blockUserRequest(id)
          showToast('success', 'Успешно', 'Пользователь успешно заблокирован!')
-         getAllUsers()
-         return data
+         return getAllUsers()
       } catch (error) {
          return showToast(
             'error',
@@ -71,12 +76,24 @@ const Users = () => {
       }
    }
    useEffect(() => {
-      const getData = async () => {
-         const data = await getAllUsers()
-         setUserData(data)
-      }
-      getData()
+      getAllUsers()
    }, [])
+
+   const handleScroll = () => {
+      if (
+         window.innerHeight + document.documentElement.scrollTop ===
+         document.documentElement.offsetHeight
+      ) {
+         getAllUsers()
+      }
+   }
+   useEffect(() => {
+      window.addEventListener('scroll', handleScroll)
+      return () => {
+         window.removeEventListener('scroll', handleScroll)
+      }
+   }, [page])
+
    return (
       <>
          <Snackbar />
@@ -113,27 +130,33 @@ const Users = () => {
             </GlobalModalContainer>
          </MyModal>
          <div>
-            <Container>
-               {userData?.map((item) => {
-                  return (
-                     <UserCard
-                        key={item.id}
-                        changeFlexContent={false}
-                        flexchange="center"
-                        changeContent={true}
-                        buttons={false}
-                        navigateHandler={navigateToDetails}
-                        openModalHandler={() => openDeleteModal(item.id)}
-                        fullName={item.fullName}
-                        image={item.photo}
-                        count={item.count}
-                        id={item.id}
-                        countOfWish={item.count}
-                        handleBlock={blockUser}
-                     />
-                  )
-               })}
-            </Container>
+            <InfiniteScroll
+               dataLength={userData.length}
+               next={getAllUsers}
+               hasMore={true}
+            >
+               <Container>
+                  {userData?.map((item) => {
+                     return (
+                        <UserCard
+                           key={item.id}
+                           changeFlexContent={false}
+                           flexchange="center"
+                           changeContent={true}
+                           buttons={false}
+                           navigateHandler={navigateToDetails}
+                           openModalHandler={() => openDeleteModal(item.id)}
+                           fullName={item.fullName}
+                           image={item.photo}
+                           count={item.count}
+                           id={item.id}
+                           countOfWish={item.count}
+                           handleBlock={blockUser}
+                        />
+                     )
+                  })}
+               </Container>
+            </InfiniteScroll>
          </div>
       </>
    )
@@ -144,9 +167,9 @@ export default Users
 const Container = styled('div')`
    margin-top: 45px;
    display: flex;
-   gap: 50px;
-   row-gap: 50px;
-   width: 100%;
+   gap: 45px;
+   max-width: 1170px;
+   height: 75vw;
    flex-wrap: wrap;
    justify-content: center;
 `

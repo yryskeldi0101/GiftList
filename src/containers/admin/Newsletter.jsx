@@ -39,6 +39,18 @@ const Newsletter = () => {
          reader.readAsDataURL(file)
       }
    }
+   const getAllMailing = async () => {
+      try {
+         const { data } = await getAllMailingRequest()
+         return data
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'При загрузке данных произошла ошибка! повторите попытку позже'
+         )
+      }
+   }
    const mailingTitleChangeHandler = (e) => setMailingTitle(e.target.value)
 
    const mailingDescriptionChangeHandler = (e) =>
@@ -61,15 +73,15 @@ const Newsletter = () => {
 
    const addMailing = async (sendData) => {
       try {
-         const data = await createMailRequest(sendData)
+         await createMailRequest(sendData)
          onCloseModal()
-         return data
+         return getAllMailing()
       } catch (error) {
          console.error(error)
          return showToast(
             'error',
             'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
+            'При загрузке данных произошла ошибка! повторите попытку позже'
          )
       }
    }
@@ -95,17 +107,12 @@ const Newsletter = () => {
       setImageUrl('')
       return formIsEmpty
    }
-   const getAllMailing = async () => {
-      try {
-         const { data } = await getAllMailingRequest()
-         return data
-      } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
-         )
-      }
+   const closeModalHandler = () => {
+      onCloseModal()
+      setMailingTitle()
+      setMailingDescription()
+      setImageUrl()
+      setFileImage()
    }
    useEffect(() => {
       const getData = async () => {
@@ -119,7 +126,7 @@ const Newsletter = () => {
          <Snackbar />
          <MailingModal
             open={open}
-            onClose={onCloseModal}
+            onClose={closeModalHandler}
             imageFileChangeHandler={imageFileChangeHandler}
             imageValue={imageUrl}
             mailingValue={mailingTitle}

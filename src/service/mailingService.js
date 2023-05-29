@@ -1,4 +1,5 @@
-import { axiosFileInstance, axiosInstance } from '../api/axiosInstance'
+import { axiosFileInstance } from '../api/axiosFileInstance'
+import { axiosInstance } from '../api/axiosInstance'
 
 export const getAllMailingRequest = () => {
    return axiosInstance.get('/api/mailing_list')

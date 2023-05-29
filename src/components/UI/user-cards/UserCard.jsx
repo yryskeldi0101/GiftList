@@ -138,6 +138,7 @@ const Container = styled('div')`
    width: 257px;
    border-radius: 8px;
    background: #ffffff;
+   height: fit-content;
 `
 const ProfileContainer = styled('div')`
    background: rgba(134, 57, 181, 0.2);
@@ -154,6 +155,7 @@ const StyledProfileIcon = styled('img')`
    margin-top: 26px;
    width: 150px;
    height: 150px;
+   border-radius: 100%;
    object-fit: cover;
 `
 const UserNameContainer = styled('h2')`

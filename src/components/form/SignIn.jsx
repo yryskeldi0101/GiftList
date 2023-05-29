@@ -2,7 +2,6 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import MyModal from '../UI/modal/Modal'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import Checkboxes from '../UI/Checkbox'
@@ -12,7 +11,6 @@ import ReusableInput from '../UI/input/Input'
 import { postAuthGoogle, signIn } from '../../redux/reducer/auth/authThunk'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import Spinner from '../UI/Spinner'
-import { ROLES } from '../../utlis/constants/constnats'
 
 const SignIn = ({
    openModal,
@@ -20,10 +18,8 @@ const SignIn = ({
    openForgotModal,
    openSingUpModal,
 }) => {
-   const role = useSelector((state) => state.auth.role)
    const isLoading = useSelector((state) => state.auth.isloading)
    const dispatch = useDispatch()
-   const navigate = useNavigate()
    const {
       register,
       handleSubmit,
@@ -31,15 +27,6 @@ const SignIn = ({
    } = useForm()
    const submitHandler = (data) => {
       dispatch(signIn(data))
-         .unwrap()
-         .then(() => {
-            if (role !== ROLES.ADMIN) {
-               navigate('/admin/users')
-            } else {
-               navigate('/user')
-            }
-         })
-         .catch((error) => error)
    }
    const submitDataWithGoogle = () => {
       dispatch(postAuthGoogle())

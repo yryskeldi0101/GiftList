@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '../redux/store/index'
-// import { signOut } from '../redux/reducer/auth/authThunk'
+import { signOut } from '../redux/reducer/auth/authThunk'
 
 export const BASE_ULR = 'http://giftlist.peaksoftprojects.com'
 export const axiosInstance = axios.create({
@@ -30,17 +30,11 @@ axiosInstance.interceptors.response.use(
    },
    function cathError(error) {
       if (error) {
-         if (
-            error?.response?.code === 401 ||
-            error.message.startWith('Network Error')
-         ) {
+         if (error?.code === 401) {
+            store.dispatch(signOut())
             throw new Error('Error')
          }
       }
       return Promise.reject(error)
    }
 )
-
-export const axiosFileInstance = axios.create({
-   baseURL: BASE_ULR,
-})

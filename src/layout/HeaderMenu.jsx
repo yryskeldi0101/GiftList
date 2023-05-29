@@ -3,7 +3,6 @@ import { styled } from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
 import { useDispatch } from 'react-redux'
 import Menu from '@mui/material/Menu'
-import { useNavigate } from 'react-router-dom'
 import { ReactComponent as ProfileIcon } from '../assets/icons/Profile.svg'
 import { ReactComponent as ArrowIcon } from '../assets/icons/Arrows.svg'
 import { UserMenuData } from '../utlis/constants/constnats'
@@ -13,11 +12,8 @@ const ITEM_HEIGHT = 48
 
 function MenuList({ id, anchorEl, open, onClose }) {
    const dispatch = useDispatch()
-   const navigate = useNavigate()
-
    const navigateToLogOutHandler = () => {
       dispatch(signOut())
-      navigate('/')
    }
    const handleMenuItemClick = (id) => {
       onClose()

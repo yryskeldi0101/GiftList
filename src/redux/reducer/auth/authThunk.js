@@ -44,6 +44,7 @@ export const signIn = createAsyncThunk(
 )
 
 export const signOut = createAsyncThunk('auth/signOut', async () => {
+   window.location.pathname = '/'
    return localStorage.removeItem(STORAGE_KEYS.GIFTLIST_AUTH)
 })
 

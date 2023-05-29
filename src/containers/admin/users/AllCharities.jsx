@@ -8,7 +8,7 @@ import { useMeatballs } from '../../../hooks/useMeatballs'
 const AllCharities = () => {
    const { anchorEl, open, handleClick, handleClose } = useMeatballs()
    const charities = useLocation()
-   const dataCharity = charities.state || []
+   const dataCharity = charities.state.dataCharity || []
    return (
       <Container>
          <AdminCard

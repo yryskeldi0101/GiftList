@@ -8,7 +8,7 @@ import { ACTION_TYPES } from '../../../utlis/constants/constnats'
 const AllHolidays = () => {
    const { anchorEl, open, handleClick, handleClose } = useMeatballs()
    const holidays = useLocation()
-   const dataHolidays = holidays.state || []
+   const dataHolidays = holidays.state.dataHoliday || []
    return (
       <Container>
          <AdminCard
