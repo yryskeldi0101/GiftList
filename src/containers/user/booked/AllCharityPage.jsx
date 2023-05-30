@@ -10,16 +10,15 @@ import Cards from '../../../components/card/Card'
 export const AllCharityPage = () => {
    const dispatch = useDispatch()
 
+   const allCharityBooked = useSelector((state) => state.booked.postAllBooked)
+   console.log(allCharityBooked, 'allCharityBooked')
+
    useEffect(() => {
       dispatch(getAllBooked())
    }, [])
-   const allCharityBooked = useSelector(
-      (state) => state.booked.allCharityBooked
-   )
-
-   const addToMyPresents = (id, whisId) => {
+   const addToMyPresents = (id, charityId) => {
       const dataIconMyPresents = {
-         id: whisId,
+         id: charityId,
          anonymous: id !== '1',
       }
       dispatch(postBookedCharities(dataIconMyPresents))

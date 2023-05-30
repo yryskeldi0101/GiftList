@@ -9,7 +9,6 @@ export default function BookedWishes({ getWishesData }) {
    const dispatch = useDispatch()
 
    const addToMyPresents = async (id) => {
-      console.log(id, 's')
       try {
          await postBookedWishReq(id)
       } catch (error) {

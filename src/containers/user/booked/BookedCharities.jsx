@@ -9,7 +9,6 @@ export const BookedCharities = ({ getChraititesData }) => {
    const dispatch = useDispatch()
 
    const addToMyPresents = async (id) => {
-      console.log(id, 's')
       try {
          await postBookedCharityReq(id)
       } catch (error) {
