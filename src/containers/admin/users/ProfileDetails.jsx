@@ -113,9 +113,9 @@ const ProfileDetails = () => {
                         <StyledNavlink
                            to={item.pathName}
                            state={{
-                              dataHoliday: item.dataHoliday,
-                              dataWishList: item.dataWishlist,
-                              dataCharity: item.dataCharity,
+                              dataHoliday,
+                              dataWishList,
+                              dataCharity,
                            }}
                         >
                            Смотреть все
