@@ -38,10 +38,12 @@ const MEATBALLS_BOOK_CONTENT = [
    {
       icon: Present,
       title: 'Добавить в мои подарки',
+      id: '1',
    },
    {
       icon: OpenLock,
       title: 'Снять бронь',
+      id: '2',
    },
 ]
 const MEATBALLS_CHARITY_CONTENT = [
@@ -78,6 +80,7 @@ export default function Cards({
    charityMeatballs,
    charityMeatballsHandler,
    state,
+   deleteHandler,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
    return (
@@ -138,6 +141,7 @@ export default function Cards({
                                  id={id}
                                  meatballsselecthandler={meatballsSelectHandler}
                                  handleClose={handleClose}
+                                 deleteHandler={deleteHandler}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
                                  reserveHandler={reserveHandler}

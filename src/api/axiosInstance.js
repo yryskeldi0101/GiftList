@@ -2,7 +2,7 @@ import axios from 'axios'
 // eslint-disable-next-line import/no-cycle
 import store from '../redux/store/index'
 
-const BASE_ULR = 'http://ec2-3-120-207-129.eu-central-1.compute.amazonaws.com'
+const BASE_ULR = 'http://giftlist.peaksoftprojects.com'
 export const axiosInstance = axios.create({
    baseURL: BASE_ULR,
    'Content-Type': 'application/json',

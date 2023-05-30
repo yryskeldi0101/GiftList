@@ -48,7 +48,7 @@ export default function Meatballs({
                      <div key={item.id}>
                         <MenuItem
                            onClick={() => {
-                              reserveHandler(item.id, id)
+                              reserveHandler(id)
                               handleClose()
                            }}
                            {...restProps}

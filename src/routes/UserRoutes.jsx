@@ -3,13 +3,15 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Lenta from '../containers/user/Lenta'
 import Friends from '../containers/user/Friends'
 import WishList from '../containers/user/WishList'
-import Booked from '../containers/user/Booked'
+import Booked from '../containers/user/booked/Booked'
 import MyHolidays from '../containers/user/MyHolidays'
 import UserCharity from '../containers/user/charities/Charity'
 import UserLayout from '../layout/user/UserLayout'
 import PrivateRoute from '../hoc/withPrivateRoute'
 import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
+import { AllWishesPage } from '../containers/user/booked/AllWishesPage'
+import { AllCharityPage } from '../containers/user/booked/AllCharityPage'
 import CharityDetails from '../containers/user/charities/CharityDetails'
 import AddCharity from '../containers/user/charities/AddCharity'
 
@@ -39,6 +41,15 @@ const UserRoutes = () => {
             <Route
                path={INITIAL_PATH.USER.bookedPage}
                element={<PrivateRoute component={Booked} />}
+            />
+            <Route
+               path="/user/bookedPage/booked-wish"
+               element={<PrivateRoute component={AllWishesPage} />}
+            />
+
+            <Route
+               path="/user/bookedPage/booked-charity"
+               element={<PrivateRoute component={AllCharityPage} />}
             />
             <Route
                path={INITIAL_PATH.USER.holidays}
