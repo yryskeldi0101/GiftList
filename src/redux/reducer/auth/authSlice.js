@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-// eslint-disable-next-line import/no-cycle
 import { postAuthGoogle, signIn, signOut, signUpPost } from './authThunk'
 import { STORAGE_KEYS } from '../../../utlis/constants/constnats'
 
@@ -93,7 +92,7 @@ export const authSlice = createSlice({
             state.isAuthorized = false
             state.token = ''
             state.isloading = false
-            state.role = ''
+            state.role = 'GUEST'
             state.error = ''
             state.userId = ''
          })

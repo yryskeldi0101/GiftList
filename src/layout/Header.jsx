@@ -13,8 +13,10 @@ const Header = () => {
             <StyledIconButton>
                <BallIcon />
             </StyledIconButton>
-
             <StyledContainer>
+               <IconButton>
+                  <BallIcon />
+               </IconButton>
                <UserMenu />
             </StyledContainer>
          </StyledHeader>
@@ -24,8 +26,9 @@ const Header = () => {
 
 export default Header
 const StyledHeader = styled('header')`
+   width: 100%;
    display: flex;
-   padding: 20px 40px 20px 20px;
+   padding: 20px 40px 20px 14px;
    background-color: #ffffff;
    marginright: 20px;
    justify-content: space-between;
@@ -40,4 +43,5 @@ const StyledIconButton = styled(IconButton)`
    margin-right: 0;
    /* margin-left: rem; */
    margin-right: 1.2rem;
+   gap: 1rem;
 `
