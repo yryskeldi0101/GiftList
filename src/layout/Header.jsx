@@ -8,11 +8,11 @@ const Header = () => {
    return (
       <div>
          <StyledHeader>
-            <SearchInput />
-            <StyledIconButton>
-               <BallIcon />
-            </StyledIconButton>
+            <SearchInput inputChangeProps={true} />
             <StyledContainer>
+               <IconButton>
+                  <BallIcon />
+               </IconButton>
                <UserMenu />
             </StyledContainer>
          </StyledHeader>
@@ -22,17 +22,14 @@ const Header = () => {
 
 export default Header
 const StyledHeader = styled('header')`
+   width: 100%;
    display: flex;
-   padding: 20px 40px 20px 20px;
+   padding: 20px 40px 20px 14px;
    background-color: #ffffff;
    justify-content: space-between;
 `
 const StyledContainer = styled('div')`
    display: flex;
    align-items: center;
-   gap: 0.25rem;
-`
-const StyledIconButton = styled(IconButton)`
-   /* margin-left: rem; */
-   margin-right: 1.2rem;
+   gap: 1rem;
 `

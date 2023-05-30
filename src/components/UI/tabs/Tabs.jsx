@@ -16,8 +16,8 @@ export default function Tabs({
    }
 
    return (
-      <Box changeStyle={changeStyle}>
-         <Box sx={{ width: '100%', height: '32px' }}>
+      <Box changestyle={changeStyle}>
+         <Box sx={{ width: '77vw', height: '32px' }}>
             <StyledTabs
                value={value}
                onChange={handleChange}
@@ -55,14 +55,14 @@ export default function Tabs({
    )
 }
 
-const StyledTabs = styled(MuiTabs)((changeStyle) => ({
+const StyledTabs = styled(MuiTabs)((changestyle) => ({
    borderRadius: '8.91px',
    border: '0.5px solid #797979',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    fontWeight: 500,
    fontSize: '16px',
-   marginTop: changeStyle ? '33px' : '22px',
+   marginTop: changestyle ? '33px' : '22px',
 
    p: {
       fontSize: '14px',
@@ -71,6 +71,7 @@ const StyledTabs = styled(MuiTabs)((changeStyle) => ({
       background: '#595656',
       width: '20px',
       textAlign: 'center',
+      height: '20px',
    },
 
    '& button.Mui-selected': {
@@ -92,7 +93,7 @@ const StyledTabs = styled(MuiTabs)((changeStyle) => ({
       },
    },
    '& button': {
-      maxWidth: '50%',
+      maxWidth: '40vw',
       minHeight: 0,
       textTransform: 'lowercase',
       margin: '2px',
