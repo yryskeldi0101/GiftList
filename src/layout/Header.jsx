@@ -8,7 +8,7 @@ const Header = () => {
    return (
       <div>
          <StyledHeader>
-            <SearchInput />
+            <SearchInput inputChangeProps={true} />
             <StyledIconButton>
                <BallIcon />
             </StyledIconButton>

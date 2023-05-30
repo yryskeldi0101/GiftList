@@ -19,7 +19,7 @@ export default function Meatballs({
    ...restProps
 }) {
    const handle = (title, { date, name, image }, func) => {
-      handleClickMenuItem(title, { date, name, image }, func, id)
+      handleClickMenuItem(title, { date, name, image, id }, func, id)
    }
 
    return (

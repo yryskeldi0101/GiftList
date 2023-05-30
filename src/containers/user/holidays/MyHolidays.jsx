@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import MyModal from '../../../components/UI/modal/Modal'
 import { useMeatballs } from '../../../hooks/useMeatballs'
 import AdminCard from '../../../components/adminCard/AdminCard'
-import { dataHolidays } from '../../../utlis/constants/constnats'
 import ReusableInput from '../../../components/UI/input/Input'
 import MyButton from '../../../components/UI/Button'
 import AvatarUpload from '../../../components/UI/Avatar'
@@ -19,6 +18,7 @@ import {
    deleteHoliday,
    getHolidays,
    postHoliday,
+   updateHoliday,
 } from '../../../redux/holiday/holydayThunk'
 import { uploadFileRequest } from '../../../service/charityService'
 import { deleteService } from '../../../service/holidayServis'
@@ -29,6 +29,7 @@ const MyHolidays = () => {
    const [editHolidayData, setEditHolidayData] = useState(false)
    const [img, setImg] = useState('')
    const [title, setTitle] = useState('')
+   const [ubdateId, setUbdateId] = useState('')
    const [inputDate, setInputDate] = useState(new Date())
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
    const [searchParams, setSearchParams] = useSearchParams()
@@ -48,6 +49,9 @@ const MyHolidays = () => {
          }
          if (data.image) {
             setImg(data.image)
+         }
+         if (data.id) {
+            setUbdateId(data.id)
          }
       }
    }, [data, editHolidayData])
@@ -112,6 +116,20 @@ const MyHolidays = () => {
             dateOfHoliday: date,
          }
          dispatch(postHoliday(data))
+         onCloseModal()
+      }
+   }
+
+   const updateDateHolidayHandler = () => {
+      const date = format(new Date(inputDate), 'yyyy-MM-dd')
+      console.log(date)
+      if (title && img && date) {
+         const data = {
+            name: title,
+            image: img,
+            dateOfHoliday: date,
+         }
+         dispatch(updateHoliday({ data, ubdateId }))
          onCloseModal()
       }
    }
@@ -195,7 +213,11 @@ const MyHolidays = () => {
                      disabled={false}
                      propswidth="232px"
                      onClick={() => {
-                        addDateHoliday()
+                        if (editHolidayData) {
+                           updateDateHolidayHandler()
+                        } else {
+                           addDateHoliday()
+                        }
                      }}
                   >
                      Добавить
@@ -207,7 +229,6 @@ const MyHolidays = () => {
          <AdminCard
             dataCategory="holidays"
             dataWishlist
-            dataHolidays={dataHolidays}
             dataCharity
             meatballsContent={meatballsContent}
             handleClick={handleClick}
@@ -215,7 +236,6 @@ const MyHolidays = () => {
             handleNavigate={navigateToDetails}
             open={open}
             anchorEl={anchorEl}
-            // handleDeleteHandler={handleDeleteHoliday}
             reserveHandler={handleDeleteHoliday}
             setSearchParams={setSearchParams}
          />

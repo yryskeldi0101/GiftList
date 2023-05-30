@@ -33,10 +33,17 @@ export const postHoliday = createAsyncThunk(
 export const updateHoliday = createAsyncThunk(
    'holiday/updateHoliday',
    async (holidayData, { rejectWithValue }) => {
+      console.log(holidayData)
       try {
-         const response = await putService('/api/holidays', holidayData)
+         const response = await putService(
+            '/api/holidays',
+            holidayData.data,
+            holidayData.ubdateId
+         )
+         console.log(response)
          return response.data
       } catch (error) {
+         console.log(error)
          return rejectWithValue(error.response.data)
       }
    }

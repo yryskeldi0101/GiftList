@@ -22,7 +22,6 @@ const AdminCard = ({
 }) => {
    const { holiday } = useSelector((state) => state.holiday)
    const [currentId, setCurrentId] = React.useState(0)
-
    const [data, setData] = React.useState([])
 
    React.useEffect(() => {

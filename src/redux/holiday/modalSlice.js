@@ -6,6 +6,7 @@ export const modalSlice = createSlice({
          name: '',
          date: '',
          image: '',
+         id: '',
       },
    },
    name: 'ModalSlice',

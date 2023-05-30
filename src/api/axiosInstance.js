@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
       return response
    },
    function cathError(error) {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
          throw new Error('Error')
       }
       return Promise.reject(error)
@@ -64,7 +64,7 @@ axiosFileInstance.interceptors.response.use(
       return response
    },
    function cathError(error) {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
          throw new Error('Error')
       }
       return Promise.reject(error)
