@@ -8,6 +8,7 @@ import {
    postRequestLentaComplain,
    postRequestLentaPresent,
 } from '../../service/lenta.service'
+import RadioButton from './RadioButton'
 
 const holidays = [
    {
@@ -131,6 +132,7 @@ export default function Meatballs({
          </MyModal>
          <MyModal open={openComplaint} onClose={closeModal}>
             <Styledh2>Пожаловаться</Styledh2>
+            <StyledP>Почему вы хотите пожаловаться на эту публикацию?</StyledP>
             {complaints.map((item) => {
                return (
                   <MenuitemMui
@@ -139,7 +141,7 @@ export default function Meatballs({
                      }
                      id={item.id}
                   >
-                     <input type="radio" id="title" />
+                     <StyledCheckbox />
                      {item.title}
                   </MenuitemMui>
                )
@@ -198,6 +200,10 @@ export default function Meatballs({
 const MenuitemMui = styled(MenuItem)(() => ({
    width: '400px',
    marginTop: '10px',
+   Weight: '400',
+   size: '14px',
+   lineHight: '16px',
+
    '&:hover': {
       background: 'rgba(134, 57, 181, 0.2)',
    },
@@ -206,4 +212,23 @@ const MenuitemMui = styled(MenuItem)(() => ({
 const Styledh2 = styled('h2')(() => ({
    marginLeft: '14px',
    marginBottom: '30px',
+   Weight: '500',
+   size: '24px',
+   lineHight: '32px',
+}))
+const StyledP = styled('p')(() => ({
+   marginLeft: '14px',
+   marginBottom: '30px',
+   Weight: '500',
+   size: '14px',
+   lineHight: '16px',
+}))
+
+const StyledCheckbox = styled(RadioButton)(() => ({
+   width: '20px',
+   height: ' 20px',
+   marginRight: '15px',
+   '&:checked': {
+      background: ' #8639B5',
+   },
 }))

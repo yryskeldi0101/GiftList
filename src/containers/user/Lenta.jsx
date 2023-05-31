@@ -59,7 +59,7 @@ const Lenta = () => {
                      changeCard={card}
                      id={item.userId}
                      icon={item.image}
-                     friendPhoto={item.friendPhoto}
+                     reserveUserImage={item.reserveUserImage}
                      userName={item.fullName}
                      birthDate={item.holidayName}
                      title={item.wishName}
@@ -69,7 +69,8 @@ const Lenta = () => {
                      bookChange={false}
                      charityMeatballsHandler={false}
                      charityMeatballs={false}
-                     reserve={item.status}
+                     reserve={item.isReserved}
+                     isAnonymous={item.isAnonymous}
                   />
                )
             })}

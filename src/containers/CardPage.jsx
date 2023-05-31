@@ -11,6 +11,7 @@ function CardPage() {
    const dispatch = useDispatch()
    const infoLenta = useSelector((state) => state.lenta.getOneLenta)
    const [isAnonym, setAnonym] = useState(false)
+   const [isReserved] = useState(true)
    const param = useParams()
    const [isLocked, setLocked] = useState(false)
 
@@ -49,7 +50,7 @@ function CardPage() {
                         {isAnonym && !isLocked ? null : (
                            <IconImage src={infoLenta.image} />
                         )}
-                        <p>{isLocked ? 'Заблокировано' : 'Забронирован'}</p>
+                        <p>{isReserved ? 'Забронирован' : 'В ожидании'}</p>
                      </StyledPending>
                   </HeaderBox>
                   <StyledText>
@@ -76,8 +77,12 @@ function CardPage() {
                   />
                   <p>Забронировать анонимно</p>
                </StyledCheckbox>
-               <MyButtonPage onClick={postLentaBooking}>
-                  {isLocked ? 'Заблокировано' : 'Забронировать'}
+               <MyButtonPage
+                  onClick={postLentaBooking}
+                  disabled={isReserved}
+                  variant="contained"
+               >
+                  Забронировать
                </MyButtonPage>
             </StyledButton>
          </StyledCard>

@@ -110,7 +110,7 @@ const MEATBALLS_CHARITY_CONTENT = [
 export default function Cards({
    id,
    icon,
-   friendPhoto,
+   reserveUserImage,
    userName,
    birthDate,
    title,
@@ -128,6 +128,7 @@ export default function Cards({
    state,
    requestById,
    reserve,
+   isAisAnonymous,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
 
@@ -232,11 +233,11 @@ export default function Cards({
                            />
                         ) : (
                            <FooterAvatar>
-                              {friendPhoto !== null && !reserve ? (
+                              {reserveUserImage !== null && !isAisAnonymous ? (
                                  <>
-                                    <ImgIcon src={friendPhoto} />
+                                    <ImgIcon src={reserveUserImage} />
                                     <Button>
-                                       {reserve
+                                       {isAisAnonymous
                                           ? 'Забронирован анонимно'
                                           : 'Забронирован'}
                                     </Button>
@@ -260,7 +261,7 @@ export default function Cards({
                               ) : (
                                  <>
                                     <Button>
-                                       {reserve
+                                       {isAisAnonymous
                                           ? 'Забронирован анонимно'
                                           : 'Забронирован'}
                                     </Button>
