@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
-import Cards from '../../components/card/Card'
 import { ReactComponent as ListCardIcon } from '../../assets/icons/listcardicon.svg'
 import { ReactComponent as IconTable } from '../../assets/icons/tablecard.svg'
 import {
@@ -11,12 +10,14 @@ import {
    getLentaInfoCard,
    postLentaReserve,
 } from '../../redux/lenta/lentaThunk'
+import Cards from '../../components/card/Card'
 
 const Lenta = () => {
    const [card, setCard] = useState(true)
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const lentaArray = useSelector((state) => state.lenta.card)
+
    const navigationHandler = (id) => {
       navigate(`${id}/lenta_details`)
    }
@@ -27,7 +28,7 @@ const Lenta = () => {
       dispatch(getLentaCard())
    }, [])
 
-   const sentRequestById = (id) => {
+   const requesById = (id) => {
       dispatch(getLentaInfoCard(id))
       navigationHandler(id)
    }
@@ -35,38 +36,40 @@ const Lenta = () => {
    const reservesLenta = (id) => {
       dispatch(postLentaReserve(id))
    }
+   console.log(lentaArray, 'lentaArray')
 
    return (
       <div>
          <StyledMain>
             <StyledIcon onClick={() => setCard(true)}>
-               <StyledTableIcon card={card} />
+               <StyledTableIcon card={toString(card)} />
             </StyledIcon>
             <StyledButton onClick={changeCard}>
-               <StyledListIcon card={card} />
+               <StyledListIcon card={toString(card)} />
             </StyledButton>
          </StyledMain>
          <StyledCard>
             {lentaArray.map((item) => {
                return (
                   <Cards
+                     key={item.userId}
                      reserveHandler={reservesLenta}
-                     sentRequestById={sentRequestById}
+                     requestById={requesById}
                      openMeatballs={true}
-                     meatballsChangeHandler={item.meatballsChangeHandler}
                      changeCard={card}
                      id={item.userId}
-                     image={item.image}
-                     fullName={item.fullName}
-                     holidayName={item.holidayName}
-                     title={item.title}
-                     wishName={item.wishName}
-                     navigationHandler={navigationHandler}
-                     img={item.photo}
+                     icon={item.image}
                      friendPhoto={item.friendPhoto}
+                     userName={item.fullName}
+                     birthDate={item.holidayName}
+                     title={item.wishName}
+                     img={item.photo}
                      date={item.date}
-                     reserve={item.reserve}
-                     expectation={item.expectation}
+                     navigateToCharityDetails={navigationHandler}
+                     bookChange={false}
+                     charityMeatballsHandler={false}
+                     charityMeatballs={false}
+                     reserve={item.status}
                   />
                )
             })}
@@ -87,7 +90,7 @@ const StyledCard = styled('div')(() => ({
 const StyledMain = styled('div')(() => ({
    marginTop: '30px',
    display: 'flex',
-   marginRight: '20px',
+   marginRight: '125px',
    justifyContent: 'end',
 }))
 

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import { styled } from '@mui/material'
 
@@ -9,20 +9,17 @@ const StyledCheckbox = styled(Checkbox)(({ borderChange }) => ({
    },
 }))
 
-export default function Checkboxes({
-   checked,
-   handleChange,
-   inputProps,
-   borderChange,
-   ...rest
-}) {
-   return (
-      <StyledCheckbox
-         borderChange={borderChange}
-         checked={checked}
-         onChange={handleChange}
-         inputProps={{ 'aria-label': 'controlled' }}
-         {...rest}
-      />
-   )
-}
+const Checkboxes = React.forwardRef(
+   ({ checked, handleChange, inputProps, ...rest }, ref) => {
+      return (
+         <StyledCheckbox
+            checked={checked}
+            onChange={handleChange}
+            ref={ref}
+            inputProps={{ 'aria-label': 'controlled' }}
+            {...rest}
+         />
+      )
+   }
+)
+export default Checkboxes

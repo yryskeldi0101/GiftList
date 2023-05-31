@@ -1,15 +1,22 @@
 import { Card, styled } from '@mui/material'
-import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import MyButton from '../components/UI/Button'
-import Checkboxes from '../components/UI/Checkbox'
 import { postRequestLentaBooking } from '../service/lenta.service'
+import Checkboxes from '../components/UI/Checkbox'
+import { getLentaInfoCard } from '../redux/lenta/lentaThunk'
 
 function CardPage() {
+   const dispatch = useDispatch()
    const infoLenta = useSelector((state) => state.lenta.getOneLenta)
    const [isAnonym, setAnonym] = useState(false)
    const param = useParams()
+   const [isLocked, setLocked] = useState(false)
+
+   useEffect(() => {
+      dispatch(getLentaInfoCard(param.id))
+   }, [])
 
    const changeIsAnonym = (e) => {
       setAnonym(e.target.checked)
@@ -17,6 +24,7 @@ function CardPage() {
 
    const postLentaBooking = async () => {
       await postRequestLentaBooking(param.id, isAnonym)
+      setLocked(true)
    }
 
    return (
@@ -32,14 +40,16 @@ function CardPage() {
                <InfoBox>
                   <HeaderBox>
                      <TitleBox>
-                        <ImgIcon src={infoLenta.friendPhoto} />
+                        <ImgIcon src={infoLenta.image} />
                         <StyledTitle>
                            <UserName>{infoLenta.fullName}</UserName>
                         </StyledTitle>
                      </TitleBox>
                      <StyledPending>
-                        <IconImage src={infoLenta.image} />
-                        <p>в ожидании</p>
+                        {isAnonym && !isLocked ? null : (
+                           <IconImage src={infoLenta.image} />
+                        )}
+                        <p>{isLocked ? 'Заблокировано' : 'Забронирован'}</p>
                      </StyledPending>
                   </HeaderBox>
                   <StyledText>
@@ -61,15 +71,13 @@ function CardPage() {
             <StyledButton>
                <StyledCheckbox>
                   <Checkboxes
-                     borderChange={true}
                      checked={isAnonym}
                      handleChange={changeIsAnonym}
                   />
                   <p>Забронировать анонимно</p>
                </StyledCheckbox>
-
                <MyButtonPage onClick={postLentaBooking}>
-                  Забронировать
+                  {isLocked ? 'Заблокировано' : 'Забронировать'}
                </MyButtonPage>
             </StyledButton>
          </StyledCard>
@@ -158,6 +166,7 @@ const IconImage = styled('img')(() => ({
 
 const StyledText = styled('div')(() => ({
    marginTop: '40px',
+   h3: { color: ' #3774D0' },
    p: {
       marginTop: '30px',
    },
@@ -203,4 +212,7 @@ const MyButtonPage = styled(MyButton)(() => ({
    background: '#8639B5',
    padding: '10px 26px',
    marginLeft: '14px',
+   '&:hover': {
+      background: ' #8639B5',
+   },
 }))

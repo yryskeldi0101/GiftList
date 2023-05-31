@@ -55,7 +55,7 @@ export default function UserMenu() {
    const id = open ? 'simple-popover' : undefined
 
    return (
-      <div>
+      <Container>
          <StyledContainer
             aria-controls={id}
             aria-haspopup="true"
@@ -71,7 +71,7 @@ export default function UserMenu() {
             open={open}
             onClose={handleClose}
          />
-      </div>
+      </Container>
    )
 }
 const StyledUserName = styled('p')`
@@ -90,6 +90,9 @@ const StyledContainer = styled('div')`
    display: flex;
    align-items: center;
    gap: 0.25rem;
+`
+const Container = styled('div')`
+   /* margin-left: 50px; */
 `
 const StyledMenuText = styled('p')`
    font-family: 'Inter';

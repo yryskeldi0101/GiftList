@@ -14,6 +14,7 @@ export const getLentaCard = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const { data } = await getRequestLentaCard()
+         console.log(data, 'DATA')
          return data.elements
       } catch (error) {
          if (isAxiosError(error)) {

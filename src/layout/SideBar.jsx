@@ -80,7 +80,7 @@ const StyledLink = styled(Link)`
    text-decoration: none;
    margin-bottom: 36px;
    height: 50px;
-   width: 200px;
+   width: 250px;
    border-radius: 8px;
    margin-left: 30px;
    padding: 0px 20px;

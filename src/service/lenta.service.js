@@ -7,8 +7,10 @@ export const getRequestLentaInfoCard = (userId) => {
    return axiosInstance.get(`/api/feeds/${userId}`)
 }
 
-export const postRequestLentaPresent = (id) => {
-   return axiosInstance.post(`/api/reserves?wishId=${id}`)
+export const postRequestLentaPresent = ({ wishId, holidayId }) => {
+   return axiosInstance.post(
+      `/api/reserves?wishId=${wishId}&holidayId=${holidayId}`
+   )
 }
 
 export const postRequestLentaBooking = (id, isAnonymous) => {
@@ -17,6 +19,10 @@ export const postRequestLentaBooking = (id, isAnonymous) => {
    )
 }
 
-// export const postRequestLentaСomplain = () => {
-//    return axiosInstance.get('/api/lentaComplain')
-// }
+export const deleteRequestLentaBooking = (id) => {
+   return axiosInstance.delete(`/api/reserves/wish?wishId=${id}`)
+}
+
+export const postRequestLentaComplain = ({ id, complaintDescription }) => {
+   return axiosInstance.post(`api/complaint/wish`, { id, complaintDescription })
+}

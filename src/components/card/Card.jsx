@@ -1,11 +1,9 @@
 import {
-   CardActionArea as MuiCardActionArea,
    CardActions as MuiCardActions,
    Card as MuiCard,
    CardContent as MuiCardContent,
    styled,
 } from '@mui/material'
-import Meatballs from '../UI/Meatballs'
 import Ananim from '../../assets/icons/anonim.svg'
 import Lock from '../../assets/icons/key.svg'
 import Present from '../../assets/icons/present.svg'
@@ -13,9 +11,13 @@ import Dislike from '../../assets/icons/dislake.svg'
 import OpenLock from '../../assets/icons/lock.svg'
 import { useMeatballs } from '../../hooks/useMeatballs'
 import {
-   postRequestLentaBooking,
    postRequestLentaPresent,
+   postRequestLentaBooking,
+   deleteRequestLentaBooking,
+   postRequestLentaComplain,
 } from '../../service/lenta.service'
+import Meatballs from '../UI/Meatballs'
+import { getLentaCard } from '../../redux/lenta/lentaThunk'
 
 const MEATBALLS_EXPECT_CONTENT = [
    {
@@ -23,7 +25,8 @@ const MEATBALLS_EXPECT_CONTENT = [
       icon: Lock,
       title: 'Забронировать',
       clickHandler: async (id) => {
-         await postRequestLentaBooking(id, false)
+         postRequestLentaBooking(id, false)
+         getLentaCard()
       },
    },
    {
@@ -31,7 +34,7 @@ const MEATBALLS_EXPECT_CONTENT = [
       icon: Ananim,
       title: 'Забронировать анонимно',
       clickHandler: async (id) => {
-         await postRequestLentaBooking(id, true)
+         postRequestLentaBooking(id, true)
       },
    },
    {
@@ -51,9 +54,9 @@ const MEATBALLS_EXPECT_CONTENT = [
       },
    },
 ]
-const MEATBALLS_RESERVE_CONTENT = [
+const MEATBALLS_LENTA_CONTENT = [
    {
-      id: '3',
+      id: '1',
       icon: Present,
       title: 'Добавить в мои подарки',
       clickHandler: async (id) => {
@@ -61,147 +64,228 @@ const MEATBALLS_RESERVE_CONTENT = [
       },
    },
    {
+      id: '2',
       icon: OpenLock,
       title: 'Снять бронь',
-      clickHandler: (id) => {
-         console.log(id)
+      clickHandler: async (id) => {
+         try {
+            await deleteRequestLentaBooking(id, true)
+            getLentaCard()
+         } catch (error) {
+            console.log(error)
+         }
       },
    },
    {
+      id: '3',
       icon: Dislike,
       title: 'Пожаловаться',
-      clickHandler: (id) => {
-         console.log(id)
+      clickHandler: async (id) => {
+         await postRequestLentaComplain(id)
       },
    },
 ]
 const MEATBALLS_BOOK_CONTENT = [
    {
-      id: '3',
       icon: Present,
       title: 'Добавить в мои подарки',
-      clickHandler: async (id) => {
-         await postRequestLentaPresent(id)
-      },
    },
    {
       icon: OpenLock,
       title: 'Снять бронь',
-      clickHandler: (id) => {
-         console.log(id)
-      },
    },
 ]
-
+const MEATBALLS_CHARITY_CONTENT = [
+   {
+      icon: Lock,
+      title: 'Забронировать',
+      id: '1',
+   },
+   {
+      icon: Ananim,
+      title: 'Забронировать анонимно',
+      id: '2',
+   },
+]
 export default function Cards({
    id,
+   icon,
    friendPhoto,
-   fullName,
-   holidayName,
-   wishName,
-   photo,
+   userName,
+   birthDate,
+   title,
    img,
    date,
-   reserve,
-   expectation,
+   navigateToCharityDetails,
    openMeatballs,
-   meatballsChangeHandler,
+   userId,
+   meatballsselecthandler,
    changeCard,
    reserveHandler,
    bookChange,
-   sentRequestById,
+   charityMeatballs,
+   charityMeatballsHandler,
+   state,
+   requestById,
+   reserve,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
 
    return (
       <Card
-         changeCard={changeCard}
+         key={id}
+         changecard={changeCard.toString()}
          sx={{ width: changeCard ? '349px' : '533px' }}
       >
-         <CardActionArea key={id} changeCard={changeCard}>
+         <CardActionArea changecard={toString(changeCard)}>
             {changeCard ? (
                ''
             ) : (
                <ListCardMedia>
-                  <ListImg src={img} alt="" />
+                  <ListImg src={img} alt="image" />
                </ListCardMedia>
             )}
-
             <CardContent>
-               <CardHeader>
-                  <HeaderAvatar>
-                     <ImgIcon src={friendPhoto} alt="" />
-                     <UserName>{fullName}</UserName>
-                  </HeaderAvatar>
-                  <UserBirthDate>{holidayName}</UserBirthDate>
-               </CardHeader>
-
-               <TitleImg>
-                  <p>{wishName}</p>
-                  {changeCard ? (
-                     <CardMedia openMeatballs={openMeatballs}>
-                        <Img
-                           src={img}
-                           alt=""
-                           onClick={() => sentRequestById(id)}
-                        />
-                     </CardMedia>
-                  ) : (
-                     ''
-                  )}
-               </TitleImg>
-               <p>{photo}</p>
-
-               <CardActions openMeatballs={openMeatballs}>
+               <NavigationContainer
+                  onClick={() => navigateToCharityDetails(id, userId)}
+               >
+                  <CardHeader>
+                     <HeaderAvatar>
+                        <ImgIcon src={icon} alt="green iguana" />
+                        <UserName>{userName}</UserName>
+                     </HeaderAvatar>
+                     <UserBirthDate>{birthDate}</UserBirthDate>
+                  </CardHeader>
+                  <TitleImg>
+                     {charityMeatballsHandler && (
+                        <CharityContainer>
+                           <h3>{title}</h3>
+                           <p>{state}</p>
+                        </CharityContainer>
+                     )}
+                     {changeCard ? (
+                        <CardMedia openMeatballs={openMeatballs}>
+                           <h4>{title}</h4>
+                           <Img
+                              src={img}
+                              alt="images"
+                              onClick={() => requestById(id)}
+                           />
+                        </CardMedia>
+                     ) : (
+                        ''
+                     )}
+                  </TitleImg>
+               </NavigationContainer>
+               <CardActions openmeatballs={toString(openMeatballs)}>
                   <span>{date}</span>
-                  {bookChange ? (
-                     <Meatballs
-                        arrayIcon={MEATBALLS_BOOK_CONTENT}
-                        open={open}
-                        handleClose={handleClose}
-                        handleClick={handleClick}
-                        anchorEl={anchorEl}
-                        id={id}
-                     />
-                  ) : (
+                  {charityMeatballsHandler ? (
                      <FooterAvatar>
-                        {openMeatballs ? (
+                        {charityMeatballs ? (
                            <>
-                              <Button
-                                 type="submit"
-                                 onClick={meatballsChangeHandler}
-                              >
-                                 {expectation}
+                              <Button>
+                                 {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
                               <Meatballs
-                                 arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                 arrayIcon={MEATBALLS_CHARITY_CONTENT}
                                  open={open}
+                                 id={id}
+                                 meatballsselecthandler={meatballsselecthandler}
                                  handleClose={handleClose}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
                                  reserveHandler={reserveHandler}
-                                 id={id}
+                                 display={reserve}
                               />
                            </>
                         ) : (
                            <>
-                              <ImgIcon src={friendPhoto} />
-                              <Button
-                                 type="submit"
-                                 onClick={meatballsChangeHandler}
-                              >
-                                 {reserve}
+                              <ImgIcon src={icon} />
+                              <Button>
+                                 {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
                               <Meatballs
-                                 arrayIcon={MEATBALLS_RESERVE_CONTENT}
+                                 arrayIcon={MEATBALLS_LENTA_CONTENT}
                                  open={open}
+                                 id={id}
+                                 meatballsselecthandler={meatballsselecthandler}
                                  handleClose={handleClose}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
+                                 reserveHandler={reserveHandler}
+                                 display={reserve}
                               />
                            </>
                         )}
                      </FooterAvatar>
+                  ) : (
+                     <div>
+                        {bookChange ? (
+                           <Meatballs
+                              arrayIcon={MEATBALLS_BOOK_CONTENT}
+                              open={open}
+                              handleClose={handleClose}
+                              handleClick={handleClick}
+                              anchorEl={anchorEl}
+                              id={id}
+                              reserveHandler={reserveHandler}
+                           />
+                        ) : (
+                           <FooterAvatar>
+                              {friendPhoto !== null && !reserve ? (
+                                 <>
+                                    <ImgIcon src={friendPhoto} />
+                                    <Button>
+                                       {reserve
+                                          ? 'Забронирован анонимно'
+                                          : 'Забронирован'}
+                                    </Button>
+                                    <Meatballs
+                                       arrayIcon={
+                                          reserve !== null
+                                             ? MEATBALLS_LENTA_CONTENT
+                                             : MEATBALLS_EXPECT_CONTENT
+                                       }
+                                       open={open}
+                                       id={id}
+                                       meatballsselecthandler={
+                                          meatballsselecthandler
+                                       }
+                                       handleClose={handleClose}
+                                       handleClick={handleClick}
+                                       anchorEl={anchorEl}
+                                       reserveHandler={reserveHandler}
+                                    />
+                                 </>
+                              ) : (
+                                 <>
+                                    <Button>
+                                       {reserve
+                                          ? 'Забронирован анонимно'
+                                          : 'Забронирован'}
+                                    </Button>
+
+                                    <Meatballs
+                                       arrayIcon={
+                                          reserve !== null
+                                             ? MEATBALLS_LENTA_CONTENT
+                                             : MEATBALLS_EXPECT_CONTENT
+                                       }
+                                       open={open}
+                                       id={id}
+                                       meatballsselecthandler={
+                                          meatballsselecthandler
+                                       }
+                                       handleClose={handleClose}
+                                       handleClick={handleClick}
+                                       anchorEl={anchorEl}
+                                       reserveHandler={reserveHandler}
+                                    />
+                                 </>
+                              )}
+                           </FooterAvatar>
+                        )}
+                     </div>
                   )}
                </CardActions>
             </CardContent>
@@ -209,24 +293,21 @@ export default function Cards({
       </Card>
    )
 }
-
 const Card = styled(MuiCard)(() => ({
    padding: '16px',
    background: '#FFFFFF',
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
-   display: 'flex',
-   width: '349px',
 }))
-const CardActionArea = styled(MuiCardActionArea)(({ changeCard }) => ({
+const CardActionArea = styled('div')(({ changecard }) => ({
    padding: '0',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    letterSpacing: '0.02em',
    fontWeight: 500,
-   display: changeCard ? '' : 'flex',
-   justifyContent: changeCard ? '' : 'space-between',
-   width: changeCard ? '' : '524px',
+   display: changecard ? '' : 'flex',
+   justifyContent: changecard ? '' : 'space-between',
+   width: changecard ? '' : '524px',
 }))
 const CardHeader = styled('div')(() => ({
    display: 'flex',
@@ -247,7 +328,7 @@ const ImgIcon = styled('img')(() => ({
    marginRight: '10px',
 }))
 const UserName = styled('h2')(() => ({
-   fontSize: '16px',
+   fontSize: '14px',
    color: '#020202',
 }))
 const UserBirthDate = styled('a')(() => ({
@@ -257,8 +338,8 @@ const UserBirthDate = styled('a')(() => ({
 }))
 const Img = styled('img')(() => ({
    width: '315px',
-   heght: '153px',
-   borderRadius: '6px',
+   height: '170px',
+   borderRadius: '8px',
    margin: '12px 0',
 }))
 const TitleImg = styled('div')(() => ({
@@ -273,13 +354,17 @@ const TitleImg = styled('div')(() => ({
 const CardMedia = styled('div')(() => ({
    width: '312px',
    heght: '153px',
+
+   h4: {
+      padding: '12px 0',
+   },
 }))
-const CardActions = styled(MuiCardActions)(({ openMeatballs }) => ({
+const CardActions = styled(MuiCardActions)(({ openmeatballs }) => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
    width: '338px',
-   margin: openMeatballs ? '9px 0' : '0',
+   margin: openmeatballs ? '9px 0' : '0',
    padding: '0',
    span: {
       fontWeight: 400,
@@ -292,7 +377,7 @@ const FooterAvatar = styled('div')(() => ({
    justifyContent: 'space-between',
    alignItems: 'center',
 }))
-const Button = styled('button')(() => ({
+const Button = styled('div')(() => ({
    border: 'none',
    background: '#fff',
    fontFamily: 'Inter',
@@ -301,10 +386,10 @@ const Button = styled('button')(() => ({
    fontSize: '14px',
    color: '#636C84',
 }))
-const CardContent = styled(MuiCardContent)(({ changeCard }) => ({
-   display: changeCard ? '' : 'flex',
-   flexDirection: changeCard ? '' : 'column',
-   width: changeCard ? '300px' : '355px',
+const CardContent = styled(MuiCardContent)(({ changecard }) => ({
+   display: changecard ? '' : 'flex',
+   flexDirection: changecard ? '' : 'column',
+   width: changecard ? '300px' : '355px',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    letterSpacing: '0.02em',
@@ -319,4 +404,19 @@ const ListImg = styled('img')(() => ({
    width: '156px',
    height: '118px',
    borderRadius: '6px',
+}))
+const NavigationContainer = styled('div')(() => ({
+   cursor: 'pointer',
+}))
+const CharityContainer = styled('div')(() => ({
+   display: 'flex',
+   maxWidth: '300px',
+   alignItems: 'center',
+   justifyContent: 'space-between',
+   h3: {
+      maxWidth: '70%',
+   },
+   p: {
+      maxWidth: '30%',
+   },
 }))

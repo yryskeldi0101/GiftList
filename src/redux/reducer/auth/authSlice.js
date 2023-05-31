@@ -4,7 +4,7 @@ const initialState = {
    user: [],
    email: '',
    password: '',
-   token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmFyYmVrQGdtYWlsLmNvbSIsImlhdCI6MTY4NDMyMDE3MiwiZXhwIjoxNjg0MzIxNjEyfQ.b7aD-H2g_ke1T57d_eiSts_ieFsSFV-vIavgWq0HfsA',
+   token: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhLmFzYW5nYXppZXZhQGdtYWlsLmNvbSIsImlhdCI6MTY4NTUxNTA4OCwiZXhwIjoxNjg1NTE2NTI4fQ.2Yu_j93uHa9PawtB7XABm1b8UqtqfI0EBSpWfu7-qsQ',
    isAuthorized: false,
    isloading: false,
    error: '',
