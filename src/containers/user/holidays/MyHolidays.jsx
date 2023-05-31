@@ -11,7 +11,6 @@ import AvatarUpload from '../../../components/UI/Avatar'
 import Delete from '../../../assets/icons/deleteIcon.svg'
 import Edit from '../../../assets/icons/EditIcon.svg'
 import PlusIcon from '../../../assets/icons/plusIcon.svg'
-import DateInput from '../../../components/UI/input/DateInput'
 import {
    deleteHoliday,
    getHolidays,
@@ -20,6 +19,7 @@ import {
 import { uploadFileRequest } from '../../../service/charityService'
 import { deleteService } from '../../../service/holidayServis'
 import AdminCard from '../../../components/adminCard/AdminCard'
+import DateInput from '../../../components/UI/input/DateInput'
 
 const MyHolidays = () => {
    const dispatch = useDispatch()
@@ -90,7 +90,6 @@ const MyHolidays = () => {
       }
       dispatch(postHoliday(data))
    }
-   console.log(date)
 
    const dateChangeHandler = (date) => {
       setInputDate(date)

@@ -12,7 +12,6 @@ export const modalSlice = createSlice({
    name: 'ModalSlice',
    reducers: {
       getEditCardData: (state, action) => {
-         console.log(action, 'action')
          state.data = action.payload
       },
    },

@@ -2,7 +2,6 @@ import * as React from 'react'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
-// import CardActions from '@mui/material/CardActions'
 import styled from '@emotion/styled'
 import { useSelector } from 'react-redux'
 import Meatballs from '../UI/Meatballs'
@@ -19,7 +18,6 @@ const AdminCard = ({
    anchorEl,
    reserveHandler,
    setSearchParams,
-   // handleClickMenuDetail,
 }) => {
    const { holiday } = useSelector((state) => state.holiday)
    const [currentId, setCurrentId] = React.useState(0)
