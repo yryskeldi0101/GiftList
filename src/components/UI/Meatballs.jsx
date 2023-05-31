@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
-import { Menu, styled } from '@mui/material'
+import { Menu, MenuItem, styled } from '@mui/material'
 import { ReactComponent as MeatballsIcon } from '../../assets/icons/meatballs.svg'
-import Example from './Example'
 
 export default function Meatballs({
    arrayIcon = [],
@@ -15,6 +14,8 @@ export default function Meatballs({
    date,
    image,
    name,
+   title,
+   func,
    handleClickMenuItem,
    ...restProps
 }) {
@@ -59,6 +60,7 @@ export default function Meatballs({
                            onClick={() => {
                               reserveHandler(item.id, id)
                               handleClose()
+                              handle(title, { date, name, image }, func)
                            }}
                            {...restProps}
                         >
