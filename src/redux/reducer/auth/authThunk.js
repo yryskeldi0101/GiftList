@@ -1,7 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosError, isAxiosError } from 'axios'
-import { firebase, googleProvider } from '../../../firebase/firebase'
-// eslint-disable-next-line import/no-cycle
 
 import {
    signUpReq,
@@ -11,6 +9,7 @@ import {
 } from '../../../service/auth/authService'
 import { STORAGE_KEYS } from '../../../utlis/constants/constnats'
 import { addDataToStorage } from '../../../utlis/helpers/storageHelpers'
+import { firebase, googleProvider } from '../../../firebase/firebase'
 
 export const signUpPost = createAsyncThunk(
    'auth/signUpPost',
@@ -45,6 +44,7 @@ export const signIn = createAsyncThunk(
 )
 
 export const signOut = createAsyncThunk('auth/signOut', async () => {
+   window.location.pathname = '/'
    return localStorage.removeItem(STORAGE_KEYS.GIFTLIST_AUTH)
 })
 
@@ -95,7 +95,7 @@ export const postAuthGoogle = createAsyncThunk(
          //    lastName: response.lastName,
          // }
          // addDataToStorage(STORAGE_KEYS.GIFTLIST_AUTH, JSON.stringify(usersData))
-         return console.log(res)
+         return res
       } catch (error) {
          if (AxiosError(error)) {
             return rejectWithValue(error.response?.data.message)

@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { useSelector } from 'react-redux'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
-import styled from '@emotion/styled'
+import { styled } from '@mui/material'
 import Meatballs from '../UI/Meatballs'
+import { ACTION_TYPES } from '../../utlis/constants/constnats'
 
 const AdminCard = ({
    dataCategory,
@@ -14,137 +13,146 @@ const AdminCard = ({
    meatballsContent,
    handleClick,
    handleClose,
+   display,
    open,
    handleNavigate,
    anchorEl,
-   setSearchParams,
    reserveHandler,
+   dataHolidays,
+   handleClickMenuDetail,
 }) => {
-   const { holiday } = useSelector((state) => state.holiday)
-   const [currentId, setCurrentId] = React.useState(0)
-   const [data, setData] = React.useState([])
-
-   React.useEffect(() => {
-      switch (dataCategory) {
-         case 'wishlist':
-            setData(dataWishlist)
-            break
-
-         case 'holidays':
-            setData(holiday)
-            break
-
-         case 'charity':
-            setData(dataCharity)
-            break
-
-         default:
-            setData(dataWishlist)
-            break
-      }
-   }, [dataCategory, dataWishlist, holiday, dataCharity])
-
-   const handleClickMenuItem = React.useCallback(
-      (title, data, func, currentId) => {
-         // reserveHandler(cardId)
-         handleClose()
-
-         if (title === 'Редактировать') {
-            func(setSearchParams, data)
-         }
-         func(currentId)
-      },
-      [holiday, currentId]
-   )
-
-   const handleClickMenuDetail = (title, data, func) => {
-      console.log(data)
-      handleClickMenuItem(title, data, func, currentId)
-   }
-
-   console.log(data)
-
    return (
       <div>
-         <CardContiner>
-            {data?.map((item) => {
-               return (
-                  <StyledCoardContainer key={item.id}>
-                     <StyledCard>
-                        <CardMedia
-                           component="img"
-                           height="149"
-                           image={item.image}
-                           alt="card"
-                        />
-
-                        <StyledCardContent
-                           onClick={() => handleNavigate(item.id)}
-                        >
-                           <Title>{item.name}</Title>
-                           <StyledBirthDate>{item.birthDate}</StyledBirthDate>
+         <CardContainer>
+            {dataCategory === ACTION_TYPES.WISHLIST &&
+               dataWishlist?.map((item) => (
+                  <StyledCard key={item.id}>
+                     <CardMedia
+                        component="img"
+                        height="149"
+                        image={item.image}
+                        alt="card img"
+                     />
+                     {handleNavigate}
+                     <StyledCardContent>
+                        <Title>{item.nameHoliday}</Title>
+                        <StyledBirthDate>{item.nameWish}</StyledBirthDate>
+                     </StyledCardContent>
+                     <StyledCardActions>
+                        <p>{item.date}</p>
+                        <MeatBalssContainer>
                            <StyledStatus>{item.status}</StyledStatus>
-                        </StyledCardContent>
-                        <StyledCardActions>
-                           {item.date} - {item.id}
-                           <StyledExpectation>
-                              {item.expectation}
-                           </StyledExpectation>
                            <Meatballs
+                              display={display}
                               arrayIcon={meatballsContent}
-                              handleClick={(e) => {
-                                 handleClick(e)
-                                 setCurrentId(item.id)
-                              }}
+                              handleClick={handleClick}
                               handleClose={handleClose}
                               open={open}
                               anchorEl={anchorEl}
-                              reserveHandler={reserveHandler}
-                              id={item.id}
-                              date={item.date}
-                              name={item.name}
-                              image={item.image}
-                              handleClickMenuItem={handleClickMenuDetail}
                            />
-                        </StyledCardActions>
-                     </StyledCard>
-                  </StyledCoardContainer>
-               )
-            })}
-         </CardContiner>
+                        </MeatBalssContainer>
+                     </StyledCardActions>
+                  </StyledCard>
+               ))}
+            {dataCategory === ACTION_TYPES.HOLIDAYS &&
+               dataHolidays?.map((item) => (
+                  <StyledCard key={item.id}>
+                     <CardMedia
+                        component="img"
+                        height="149"
+                        image={item.image}
+                        alt="card img"
+                     />
+
+                     <StyledCardContent>
+                        <Title>{item.name}</Title>
+                        <StyledBirthDate>{item.nameWish}</StyledBirthDate>
+                        <StyledStatus>{item.status}</StyledStatus>
+                     </StyledCardContent>
+                     <StyledCardActions>
+                        <p>{item.date}</p>
+                        <MeatBalssContainer>
+                           <Meatballs
+                              display={display}
+                              arrayIcon={meatballsContent}
+                              handleClick={handleClick}
+                              handleClose={handleClose}
+                              open={open}
+                              anchorEl={anchorEl}
+                              handleClickMenuItem={handleClickMenuDetail}
+                              handleClickMenuDetail={handleClickMenuDetail}
+                              reserveHandler={reserveHandler}
+                           />
+                        </MeatBalssContainer>
+                     </StyledCardActions>
+                  </StyledCard>
+               ))}
+            {dataCategory === ACTION_TYPES.CHARITIES &&
+               dataCharity?.map((item) => (
+                  <StyledCard key={item.id}>
+                     <CardMedia
+                        component="img"
+                        height="149"
+                        image={item.image}
+                        alt="card img"
+                     />
+
+                     <StyledCardContent>
+                        <Title>{item.name}</Title>
+                        <StyledBirthDate>{item.nameWish}</StyledBirthDate>
+                        <StyledStatus>{item.state}</StyledStatus>
+                     </StyledCardContent>
+
+                     <StyledCardActions>
+                        <StyledDate>{item.date}</StyledDate>
+                        <MeatBalssContainer>
+                           <StyledIcon src={item.reservePhoto} />
+                           <StyledExpectation>
+                              {item.isReserve ? (
+                                 <p>Забронирован</p>
+                              ) : (
+                                 <p>В ожидании</p>
+                              )}
+                           </StyledExpectation>
+                           <Meatballs
+                              display={display}
+                              arrayIcon={meatballsContent}
+                              handleClick={handleClick}
+                              handleClose={handleClose}
+                              open={open}
+                              anchorEl={anchorEl}
+                           />
+                        </MeatBalssContainer>
+                     </StyledCardActions>
+                  </StyledCard>
+               ))}
+         </CardContainer>
       </div>
    )
 }
 
 export default AdminCard
 
-const CardContiner = styled('div')`
+const CardContainer = styled('div')`
    display: flex;
    flex-wrap: wrap;
    flex-direction: row;
-   width: 1000px;
-   row-gap: 30px;
-   gap: 36px;
+   gap: 61px;
+   justify-content: center;
 `
-const StyledCoardContainer = styled('div')``
-
 const StyledCard = styled(Card)`
-   display: flex;
-   flex-direction: column;
-   padding: 16px;
-   width: 300px;
+   padding: 20px;
+   width: 349px;
 `
 
-const StyledCardContent = styled(CardContent)(
-   `
-    padding: 16px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;    
-  `
-)
+const StyledCardContent = styled(CardContent)`
+   padding: 16px 0;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+`
 
-const Title = styled.div`
+const Title = styled('div')`
    font-family: 'Inter';
    font-style: normal;
    font-weight: 600;
@@ -153,7 +161,7 @@ const Title = styled.div`
    color: #000000;
 `
 
-const StyledBirthDate = styled.div`
+const StyledBirthDate = styled('div')`
    font-family: 'Inter';
    font-style: normal;
    font-weight: 400;
@@ -163,28 +171,54 @@ const StyledBirthDate = styled.div`
    padding-left: 86px;
 `
 
-const StyledCardActions = styled(CardActions)(
-   `
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #636C84;
-    padding: 0;
-  `
-)
-
-const StyledExpectation = styled.div`
-   margin-left: 115px;
-   padding: 0;
+const StyledCardActions = styled('div')`
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+   p {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      color: #636c84;
+   }
+`
+const StyledDate = styled('h3')`
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 17px;
+   color: #636c84;
+   min-width: 100px;
 `
 
-const StyledStatus = styled.div`
+const StyledExpectation = styled('div')`
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 17px;
+   color: #636c84;
+`
+
+const StyledStatus = styled('div')`
    font-weight: 500;
    font-size: 14px;
    color: #fd5200;
+   margin-right: 20px;
+`
+const MeatBalssContainer = styled('div')`
+   margin-left: 27px;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+`
+const StyledIcon = styled('img')`
+   width: 40px;
+   height: 40px;
+   border-radius: 100%;
+   object-fit: contain;
 `

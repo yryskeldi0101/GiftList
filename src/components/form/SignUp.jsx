@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import MyModal from '../UI/modal/Modal'
 import Checkboxes from '../UI/Checkbox'
 import MyButton from '../UI/Button'
@@ -14,11 +13,9 @@ import { postAuthGoogle, signUpPost } from '../../redux/reducer/auth/authThunk'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 
 const SignUp = ({ openModal, onCloseModal, openSingInModal }) => {
-   const role = useSelector((state) => state.auth.role)
    const isLoading = useSelector((state) => state.auth.isloading)
    const [checkbox, setCheckbox] = useState(false)
    const dispatch = useDispatch()
-   const navigate = useNavigate()
 
    const changeHandle = () => {
       setCheckbox((prevS) => !prevS)
@@ -39,15 +36,6 @@ const SignUp = ({ openModal, onCloseModal, openSingInModal }) => {
       }
       if (data.confirmPassword === data.password) {
          dispatch(signUpPost(sendData))
-            .unwrap()
-            .then(() => {
-               if (role === 'ADMIN') {
-                  navigate('/admin')
-               } else {
-                  navigate('/user')
-               }
-            })
-            .catch((error) => error)
       }
    }
    const submitDataWithGoogle = () => {

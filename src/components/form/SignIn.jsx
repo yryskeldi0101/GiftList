@@ -2,7 +2,6 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import MyModal from '../UI/modal/Modal'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import Checkboxes from '../UI/Checkbox'
@@ -19,28 +18,15 @@ const SignIn = ({
    openForgotModal,
    openSingUpModal,
 }) => {
-   const role = useSelector((state) => state.auth.role)
    const isLoading = useSelector((state) => state.auth.isloading)
    const dispatch = useDispatch()
-   const navigate = useNavigate()
-
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm()
-
    const submitHandler = (data) => {
       dispatch(signIn(data))
-         .unwrap()
-         .then(() => {
-            if (role === 'ADMIN') {
-               navigate('/admin')
-            } else {
-               navigate('/user')
-            }
-         })
-         .catch((error) => error)
    }
    const submitDataWithGoogle = () => {
       dispatch(postAuthGoogle())

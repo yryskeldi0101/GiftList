@@ -4,7 +4,9 @@ import SelectMui from '@mui/material/Select'
 import { styled } from '@mui/material'
 
 const Placeholder = ({ children }) => {
-   return <div style={{ color: '#8D949E' }}>{children}</div>
+   return (
+      <div style={{ color: '#8D949E', padding: 0, margin: 0 }}>{children}</div>
+   )
 }
 function AppSelect({
    width,
@@ -62,6 +64,7 @@ const Form = styled(FormControl)`
    width: ${(props) => props.width || '396px'};
    background: ${(props) => props.background || '#ffffff'};
    border-radius: 2px;
+   padding-right: 0;
    & fieldset {
       border: ${(props) => props.border || '1px solid #c4c4c4'};
    }
@@ -71,4 +74,5 @@ const Form = styled(FormControl)`
 `
 const SelectStyled = styled(SelectMui)(({ heightprops }) => ({
    height: heightprops || 'none',
+   padding: 0,
 }))

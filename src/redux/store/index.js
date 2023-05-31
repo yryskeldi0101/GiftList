@@ -1,10 +1,11 @@
-/* eslint-disable import/no-cycle */
 import { configureStore } from '@reduxjs/toolkit'
 // import { userSlice } from '../reducers/user/userSlice'
 import { authSlice } from '../reducer/auth/authSlice'
 import { holidaySlice } from '../holiday/holidaySlice'
 import { charitySlice } from '../charities/charitySlice'
 import { modalSlice } from '../holiday/modalSlice'
+import { userSlice } from '../user/userSlice'
+import { mailingSlice } from '../newsLetter/mailingSlice'
 
 const store = configureStore({
    reducer: {
@@ -12,6 +13,8 @@ const store = configureStore({
       [holidaySlice.name]: holidaySlice.reducer,
       [charitySlice.name]: charitySlice.reducer,
       [modalSlice.name]: modalSlice.reducer,
+      [userSlice.name]: userSlice.reducer,
+      [mailingSlice.name]: mailingSlice.reducer,
    },
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

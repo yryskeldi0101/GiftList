@@ -4,9 +4,9 @@ import { styled } from '@mui/material/styles'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
+import AdminCard from '../../../components/adminCard/AdminCard'
 import MyModal from '../../../components/UI/modal/Modal'
 import { useMeatballs } from '../../../hooks/useMeatballs'
-import AdminCard from '../../../components/adminCard/AdminCard'
 import ReusableInput from '../../../components/UI/input/Input'
 import MyButton from '../../../components/UI/Button'
 import AvatarUpload from '../../../components/UI/Avatar'
@@ -37,7 +37,6 @@ const MyHolidays = () => {
    const onCloseModal = () => setSearchParams({})
    const navigate = useNavigate()
    const { data } = useSelector((state) => state.ModalSlice)
-   console.log(data)
 
    useEffect(() => {
       if (editHolidayData) {
@@ -57,11 +56,8 @@ const MyHolidays = () => {
    }, [data, editHolidayData])
 
    const navigateToDetails = (id) => {
-      console.log(id)
       navigate(`${id}/details`)
    }
-
-   console.log(img)
 
    const meatballsContent = [
       {
@@ -72,7 +68,7 @@ const MyHolidays = () => {
                setSearchParams({ isModalOpen: 'addholiday' })
                setEditHolidayData(true)
             }
-            console.log(data, 'meat data')
+
             if (data) {
                dispatch(actionModalSlice.getEditCardData(data))
             } else {
@@ -108,7 +104,7 @@ const MyHolidays = () => {
 
    const addDateHoliday = () => {
       const date = format(new Date(inputDate), 'yyyy-MM-dd')
-      console.log(date)
+
       if (title && img && date) {
          const data = {
             name: title,
@@ -122,7 +118,7 @@ const MyHolidays = () => {
 
    const updateDateHolidayHandler = () => {
       const date = format(new Date(inputDate), 'yyyy-MM-dd')
-      console.log(date)
+
       if (title && img && date) {
          const data = {
             name: title,
@@ -147,7 +143,6 @@ const MyHolidays = () => {
    }, [])
 
    const handleDeleteHoliday = (holidayId) => {
-      console.log(holidayId)
       dispatch(deleteHoliday(holidayId))
    }
 
