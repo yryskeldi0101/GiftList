@@ -12,6 +12,7 @@ import ReusableInput from '../UI/input/Input'
 import { postAuthGoogle, signIn } from '../../redux/reducer/auth/authThunk'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import Spinner from '../UI/Spinner'
+import { ROLES } from '../../utlis/constants/constnats'
 
 const SignIn = ({
    openModal,
@@ -19,7 +20,7 @@ const SignIn = ({
    openForgotModal,
    openSingUpModal,
 }) => {
-   const role = useSelector((state) => state.auth.role)
+   const rolee = useSelector((state) => state.auth)
    const isLoading = useSelector((state) => state.auth.isloading)
    const dispatch = useDispatch()
    const navigate = useNavigate()
@@ -34,7 +35,7 @@ const SignIn = ({
       dispatch(signIn(data))
          .unwrap()
          .then(() => {
-            if (role === 'ADMIN') {
+            if (rolee.role === ROLES.ADMIN) {
                navigate('/admin')
             } else {
                navigate('/user')

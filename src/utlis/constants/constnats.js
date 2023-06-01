@@ -184,6 +184,8 @@ export const INITIAL_PATH = {
       users: 'users',
       charityAdmin: 'charityAdmin',
       complaints: 'complaints',
+      complains_wish_details: 'complaints/:id/wish-details',
+      complains_charity_details: 'complaints/:id/charity-details',
       mailing: 'mailing',
       not_found: '*',
    },

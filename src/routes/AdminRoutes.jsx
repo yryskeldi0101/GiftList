@@ -2,12 +2,13 @@ import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Users from '../containers/admin/Users'
 import AdminCharity from '../containers/admin/Charity'
-import Complaints from '../containers/admin/Complaints'
+import Complains from '../containers/admin/complains/Complains'
 import Newsletter from '../containers/admin/Newsletter'
 import AdminLayout from '../layout/admin/AdminLayout'
 import PrivateRoute from '../hoc/withPrivateRoute'
 import { INITIAL_PATH } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
+import { ComplainsDetail } from '../containers/admin/complains/ComplainsDetail'
 
 const AdminRoutes = () => {
    return (
@@ -30,7 +31,15 @@ const AdminRoutes = () => {
             />
             <Route
                path={INITIAL_PATH.ADMIN.complaints}
-               element={<PrivateRoute component={Complaints} />}
+               element={<PrivateRoute component={Complains} />}
+            />
+            <Route
+               path={INITIAL_PATH.ADMIN.complains_wish_details}
+               element={<PrivateRoute component={ComplainsDetail} />}
+            />
+            <Route
+               path={INITIAL_PATH.ADMIN.complains_charity_details}
+               element={<PrivateRoute component={ComplainsDetail} />}
             />
             <Route
                path={INITIAL_PATH.ADMIN.mailing}
