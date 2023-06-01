@@ -9,14 +9,14 @@ import {
 } from '../../../service/friendsService'
 import Snackbar from '../../../components/button/SnackBar'
 
-const RequestsToFriends = ({ requestToFriend }) => {
+const RequestsToFriends = ({ requestToFriend, getAllRequests }) => {
    const navigate = useNavigate()
    const { showToast } = useToastBar()
    const navigationHandler = (id) => navigate(`${id}/profile`)
    const acceptApplicationHandler = async (id) => {
       try {
          await acceptApplicationRequest(id)
-         return navigate('/user/friends')
+         return await getAllRequests()
       } catch (error) {
          return showToast(
             'error',
@@ -28,7 +28,7 @@ const RequestsToFriends = ({ requestToFriend }) => {
    const rejectApplicationHandler = async (id) => {
       try {
          await rejectApplicationRequest(id)
-         return navigate('/user/friends')
+         return await getAllRequests()
       } catch (error) {
          return showToast(
             'error',

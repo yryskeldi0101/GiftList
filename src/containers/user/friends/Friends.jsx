@@ -68,7 +68,10 @@ const Friends = () => {
                followersCount={allUsersData?.length}
                requestsCount={allrequestToFriend?.length}
                requestTab={
-                  <RequestsToFriends requestToFriend={allrequestToFriend} />
+                  <RequestsToFriends
+                     requestToFriend={allrequestToFriend}
+                     getAllRequests={getAllRequests}
+                  />
                }
             >
                <Container>
