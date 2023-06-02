@@ -50,18 +50,10 @@ const Friends = () => {
       }
    }
    useEffect(() => {
-      const getReusets = async () => {
-         await getAllRequests()
-      }
-      getReusets()
+      getAllFriends()
+      getAllRequests()
    }, [])
 
-   useEffect(() => {
-      const getData = async () => {
-         await getAllFriends()
-      }
-      getData()
-   }, [])
    const allUsersData = userData || []
    const allrequestToFriend = requestFirends || []
    return (
