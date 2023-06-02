@@ -16,6 +16,19 @@ const Friends = () => {
    const [requestFirends, setRequestFriends] = useState([])
    const navigate = useNavigate()
    const { showToast } = useToastBar()
+   const errorFunction = (error) => {
+      return error
+         ? showToast(
+              'error',
+              'Ошибка',
+              'Что-то пошло не так повторите попытку позже'
+           )
+         : showToast(
+              'error',
+              'Ошибка',
+              'При загрузке данных произошла ошибка! повторите попытку позже'
+           )
+   }
    const getAllFriends = async () => {
       try {
          const data = await getAllFriendsRequest()
@@ -23,11 +36,7 @@ const Friends = () => {
          setUserData(users)
          return users
       } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'При загрузке данных произошла ошибка! повторите попытку позже'
-         )
+         return errorFunction()
       }
    }
    const getAllRequests = async () => {
@@ -37,14 +46,9 @@ const Friends = () => {
          setRequestFriends(users)
          return users
       } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'При загрузке данных произошла ошибка! повторите попытку позже'
-         )
+         return errorFunction()
       }
    }
-   const navigationHandler = (id) => navigate(`${id}/profile`)
    useEffect(() => {
       const getReusets = async () => {
          await getAllRequests()
@@ -71,6 +75,7 @@ const Friends = () => {
                   <RequestsToFriends
                      requestToFriend={allrequestToFriend}
                      getAllRequests={getAllRequests}
+                     errorFunction={errorFunction}
                   />
                }
             >
@@ -85,7 +90,9 @@ const Friends = () => {
                            image={item.image}
                            count={item.countOfHolidays}
                            countOfWish={item.countOfWishes}
-                           navigateHandler={navigationHandler}
+                           navigateHandler={() =>
+                              navigate(`${item.id}/profile`)
+                           }
                         />
                      )
                   })}

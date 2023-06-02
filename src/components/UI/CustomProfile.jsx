@@ -56,7 +56,7 @@ const CustomProfile = ({
                      </StyledButton2Container>
                   </>
                )}
-               {profileData.inFriends ? (
+               {profileData.inFriends && (
                   <StyledDeleteButton>
                      <MyButton
                         variant="outlined"
@@ -69,22 +69,24 @@ const CustomProfile = ({
                         Удалить из друзей
                      </MyButton>
                   </StyledDeleteButton>
-               ) : (
-                  <StyledDeleteButton>
-                     <MyButton
-                        variant="contained"
-                        background="#8639B5"
-                        hoverbackgroundcolor="#7f05cb"
-                        activebackgroundcolor="#6504a0"
-                        propswidth="240px"
-                        onClick={() =>
-                           deleteOrAddToFriendHandler(profileData.id)
-                        }
-                     >
-                        Добавить в друзья
-                     </MyButton>
-                  </StyledDeleteButton>
                )}
+               {profileData.inFriends &&
+                  profileData.inRequests === undefined && (
+                     <StyledDeleteButton>
+                        <MyButton
+                           variant="contained"
+                           background="#8639B5"
+                           hoverbackgroundcolor="#7f05cb"
+                           activebackgroundcolor="#6504a0"
+                           propswidth="240px"
+                           onClick={() =>
+                              deleteOrAddToFriendHandler(profileData.id)
+                           }
+                        >
+                           Добавить в друзья
+                        </MyButton>
+                     </StyledDeleteButton>
+                  )}
                {profileData.inRequests && (
                   <FriendRequstsButtons>
                      <MyButton

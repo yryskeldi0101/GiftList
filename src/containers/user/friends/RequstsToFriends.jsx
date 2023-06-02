@@ -1,28 +1,25 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import UserCard from '../../../components/UI/user-cards/UserCard'
-import useToastBar from '../../../hooks/useToastBar'
 import {
    acceptApplicationRequest,
    rejectApplicationRequest,
 } from '../../../service/friendsService'
 import Snackbar from '../../../components/button/SnackBar'
 
-const RequestsToFriends = ({ requestToFriend, getAllRequests }) => {
+const RequestsToFriends = ({
+   requestToFriend,
+   getAllRequests,
+   errorFunction,
+}) => {
    const navigate = useNavigate()
-   const { showToast } = useToastBar()
-   const navigationHandler = (id) => navigate(`${id}/profile`)
    const acceptApplicationHandler = async (id) => {
       try {
          await acceptApplicationRequest(id)
          return await getAllRequests()
       } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
-         )
+         return errorFunction(error)
       }
    }
    const rejectApplicationHandler = async (id) => {
@@ -30,11 +27,7 @@ const RequestsToFriends = ({ requestToFriend, getAllRequests }) => {
          await rejectApplicationRequest(id)
          return await getAllRequests()
       } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
-         )
+         return errorFunction(error)
       }
    }
    return (
@@ -53,7 +46,7 @@ const RequestsToFriends = ({ requestToFriend, getAllRequests }) => {
                         image={item.image}
                         count={item.countOfHolidays}
                         countOfWish={item.countOfWishes}
-                        navigateHandler={navigationHandler}
+                        navigateHandler={() => navigate(`${item.id}/profile`)}
                         acceptHandler={acceptApplicationHandler}
                         rejectHandler={rejectApplicationHandler}
                      />
@@ -69,6 +62,6 @@ const Container = styled('div')`
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
-   gap: 30px;
+   gap: 45px;
 `
-export default RequestsToFriends
+export default memo(RequestsToFriends)

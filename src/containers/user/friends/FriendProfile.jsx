@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import { styled } from '@mui/material'
@@ -70,16 +70,19 @@ const FriendProfile = () => {
          pathTitle: 'Смотреть все',
       },
    ]
+   const errorFunction = () => {
+      return showToast(
+         'error',
+         'Ошибка',
+         'Что-то пошло не так повторите попытку позже'
+      )
+   }
    const deleteOrAddToFriendHandler = async (id) => {
       try {
          await deleteOrAddToFriendRequest(id)
          return navigate('/user/friends')
       } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
-         )
+         return errorFunction()
       }
    }
    const acceptApplicationHandler = async (id) => {
@@ -87,11 +90,7 @@ const FriendProfile = () => {
          await acceptApplicationRequest(id)
          return navigate('/user/friends')
       } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
-         )
+         return errorFunction()
       }
    }
    const rejectApplicationHandler = async (id) => {
@@ -99,11 +98,7 @@ const FriendProfile = () => {
          await rejectApplicationRequest(id)
          return navigate('/user/friends')
       } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
-         )
+         return errorFunction()
       }
    }
    return (
@@ -158,7 +153,7 @@ const FriendProfile = () => {
    )
 }
 
-export default FriendProfile
+export default memo(FriendProfile)
 
 const Container = styled('div')`
    margin-top: 56px;
