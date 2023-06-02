@@ -1,32 +1,35 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
-import { styled } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { keyframes, styled } from '@mui/material'
+import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { sideBarRoles } from '../utlis/constants/constnats'
+import { useCurrentPath } from '../hooks/useCurrentPath'
 
 const SideBar = () => {
+   const path = useCurrentPath()
    const role = useSelector((state) => state.auth.role)
-
+   const pathName = role === 'USER' ? 'user' : 'admin'
    return (
-      <Box>
-         <StyledSideBar variant="permanent" anchor="left">
-            <StyledTitle>Gift List</StyledTitle>
-            {sideBarRoles[role]?.map((item) => {
-               return (
-                  <LinkContainer key={item.id}>
-                     <StyledLink to={item.path}>
-                        <ListItemsText>
-                           <img src={item.icon} alt="icon" />
-                           <p>{item.title}</p>
-                        </ListItemsText>
-                     </StyledLink>
-                  </LinkContainer>
-               )
-            })}
-         </StyledSideBar>
-      </Box>
+      <StyledSideBar variant="permanent" anchor="left">
+         <StyledTitle>Gift List</StyledTitle>
+         {sideBarRoles[role]?.map((item) => {
+            return (
+               <LinkContainer key={item.id}>
+                  <StyledLink
+                     to={item.path}
+                     active={
+                        path === `/${pathName}/${item.path}` ? 'true' : 'false'
+                     }
+                  >
+                     <ListItemsText>
+                        <img src={item.icon} alt="icon" />
+                        <p>{item.title}</p>
+                     </ListItemsText>
+                  </StyledLink>
+               </LinkContainer>
+            )
+         })}
+      </StyledSideBar>
    )
 }
 const ListItemsText = styled('div')`
@@ -39,26 +42,19 @@ const ListItemsText = styled('div')`
    font-weight: 500;
    line-height: 24px;
    letter-spacing: 0.02em;
-   gap: 17px;
+   gap: 5px;
 `
-const StyledSideBar = styled(Drawer)({
-   flexShrink: 0,
-   padding: 0,
-   width: '294px',
-   height: '100%',
-   position: 'fixed',
-   top: 0,
-   left: 0,
-   bottom: 0,
-   right: 0,
-   paddingTop: '23px',
-   zIndex: 4,
-   '& .MuiDrawer-paper': {
-      width: '294px',
-      boxSizing: 'border-box',
-      background: 'linear-gradient(180deg, #8639B5 0%, #092056 100%)',
-   },
-})
+
+const StyledSideBar = styled('nav')`
+   box-sizing: border-box;
+   width: 20vw;
+   height: 100vh;
+   top: 0;
+   left: 0;
+   position: fixed;
+   background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
+`
+
 const StyledTitle = styled('h1')`
    font-family: 'Inter';
    font-size: 24px;
@@ -74,18 +70,33 @@ const StyledTitle = styled('h1')`
 const LinkContainer = styled('div')`
    display: flex;
    align-items: center;
+   justify-content: center;
+   width: 100%;
 `
-const StyledLink = styled(Link)`
+const fadeIn = keyframes`
+   from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`
+const StyledLink = styled(NavLink)`
    display: flex;
    align-items: center;
    border-radius: 8px;
    text-decoration: none;
    margin-bottom: 36px;
    height: 50px;
-   width: 250px;
+   width: 18vw;
    border-radius: 8px;
-   margin-left: 30px;
-   padding: 0px 20px;
+   padding: 0px 10px;
+   background-color: ${({ active }) => {
+      return active === 'true' ? '#7f48af' : 'none'
+   }};
+   animation: ${fadeIn} 1s ease-in-out;
 `
 
 export default SideBar

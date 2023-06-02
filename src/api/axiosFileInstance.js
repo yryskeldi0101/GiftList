@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-// import { BASE_ULR } from './axiosInstance'
 import store from '../redux/store'
 import { BASE_URL } from './axiosInstance'
 
@@ -28,7 +27,7 @@ axiosFileInstance.interceptors.request.use(
 )
 
 axiosFileInstance.interceptors.response.use(
-   function responsees(response) {
+   function response(response) {
       return response
    },
    function cathError(error) {
