@@ -8,14 +8,11 @@ export default function Meatballs({
    handleClose,
    handleClick,
    anchorEl,
-   reserveHandler,
    display,
    id,
    date,
    image,
    name,
-   title,
-   func,
    handleClickMenuItem,
    ...restProps
 }) {
@@ -58,9 +55,12 @@ export default function Meatballs({
                      <div key={item.id}>
                         <MenuItem
                            onClick={() => {
-                              reserveHandler(item.id, id)
                               handleClose()
-                              handle(title, { date, name, image }, func)
+                              handle(
+                                 item.title,
+                                 { date, name, image },
+                                 item.func
+                              )
                            }}
                            {...restProps}
                         >

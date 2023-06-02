@@ -1,8 +1,10 @@
+import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 import { styled } from '@mui/material/styles'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { format, isValid } from 'date-fns'
-import { useDispatch } from 'react-redux'
+import { format } from 'date-fns'
+import { useDispatch, useSelector } from 'react-redux'
 import MyModal from '../../../components/UI/modal/Modal'
 import { useMeatballs } from '../../../hooks/useMeatballs'
 import ReusableInput from '../../../components/UI/input/Input'
@@ -10,20 +12,22 @@ import MyButton from '../../../components/UI/Button'
 import AvatarUpload from '../../../components/UI/Avatar'
 import Delete from '../../../assets/icons/deleteIcon.svg'
 import Edit from '../../../assets/icons/EditIcon.svg'
+
 import PlusIcon from '../../../assets/icons/plusIcon.svg'
 import {
-   deleteHoliday,
    getHolidays,
    postHoliday,
+   updateHolidayThunk,
 } from '../../../redux/holiday/holydayThunk'
 import { uploadFileRequest } from '../../../service/charityService'
 import { deleteService } from '../../../service/holidayServis'
 import AdminCard from '../../../components/adminCard/AdminCard'
-import DateInput from '../../../components/UI/input/DateInput'
+import InputDatePicker from '../../../components/UI/input/DateInput'
+import { actionModalSlice } from '../../../redux/holiday/modalSlice'
 
 const MyHolidays = () => {
    const dispatch = useDispatch()
-   const [editHolidayData, setEditHolidayData] = useState(true)
+   const [editHolidayData, setEditHolidayData] = useState(false)
    const [img, setImg] = useState('')
    const [title, setTitle] = useState('')
    const [inputDate, setInputDate] = useState()
@@ -32,6 +36,23 @@ const MyHolidays = () => {
    const { isModalOpen } = Object.fromEntries(searchParams)
    const onCloseModal = () => setSearchParams({})
    const navigate = useNavigate()
+
+   const { data } = useSelector((state) => state.ModalSlice)
+
+   useEffect(() => {
+      if (editHolidayData) {
+         if (data.name) {
+            setTitle(data.name)
+         }
+         if (data.date) {
+            setInputDate(dayjs(data.date).format('DD/MM/YYYY'))
+         }
+         if (data.image) {
+            setImg(data.image)
+         }
+      }
+   }, [data, editHolidayData])
+
    const navigateToDetails = (id) => {
       navigate(`${id}/holiday_details`)
    }
@@ -43,7 +64,14 @@ const MyHolidays = () => {
          func: (setSearchParams, data) => {
             if (typeof setSearchParams === 'function') {
                setSearchParams({ isModalOpen: 'addholiday' })
-               setEditHolidayData(data)
+               setEditHolidayData(true)
+            }
+            console.log(data, 'meat data')
+            if (data) {
+               dispatch(actionModalSlice.getEditCardData(data))
+               dispatch(getHolidays())
+            } else {
+               toast.error('Something with edit data')
             }
          },
       },
@@ -52,6 +80,7 @@ const MyHolidays = () => {
          title: 'Удалить',
          func: async (id) => {
             await deleteService(`/api/holidays`, { holidayId: id })
+            dispatch(getHolidays())
          },
       },
    ]
@@ -77,18 +106,30 @@ const MyHolidays = () => {
       }
    }
 
-   let date = ''
-   if (inputDate && isValid(new Date(inputDate))) {
-      date = format(new Date(inputDate), 'yyyy-MM-dd')
+   const addDateHoliday = () => {
+      const date = format(new Date(inputDate), 'yyyy-MM-dd')
+      if (title && img && date) {
+         const data = {
+            name: title,
+            image: img,
+            dateOfHoliday: date,
+         }
+         dispatch(postHoliday(data))
+         onCloseModal()
+      }
    }
 
-   const addDateHoliday = () => {
-      const data = {
-         name: title,
-         image: img,
-         dateOfHoliday: date,
+   const ubdateHoliday = () => {
+      const date = format(new Date(inputDate), 'yyyy-MM-dd')
+      if (title && img && date) {
+         const data = {
+            name: title,
+            image: img,
+            dateOfHoliday: date,
+         }
+         dispatch(updateHolidayThunk({ data }))
+         onCloseModal()
       }
-      dispatch(postHoliday(data))
    }
 
    const dateChangeHandler = (date) => {
@@ -98,10 +139,6 @@ const MyHolidays = () => {
    useEffect(() => {
       dispatch(getHolidays())
    }, [])
-
-   const handleDeleteHoliday = (holidayId) => {
-      dispatch(deleteHoliday(holidayId))
-   }
 
    return (
       <>
@@ -128,7 +165,7 @@ const MyHolidays = () => {
                      : 'Добавление праздника'}
                </Text>
 
-               <AvatarUpload photo={setImg} onChange={onchangeImg} />
+               <AvatarUpload photo={img} onChange={onchangeImg} />
                <ReusableInput
                   id
                   inputLabel
@@ -139,7 +176,10 @@ const MyHolidays = () => {
                   icon
                   name
                />
-               <DateInput value={inputDate} onChange={dateChangeHandler} />
+               <InputDatePicker
+                  value={inputDate}
+                  onChange={dateChangeHandler}
+               />
 
                <ButtonsContainer>
                   <MyButton
@@ -165,8 +205,12 @@ const MyHolidays = () => {
                      disabled={false}
                      propswidth="232px"
                      onClick={() => {
-                        addDateHoliday()
                         onCloseModal()
+                        if (editHolidayData) {
+                           ubdateHoliday()
+                        } else {
+                           addDateHoliday()
+                        }
                      }}
                   >
                      Добавить
@@ -185,7 +229,6 @@ const MyHolidays = () => {
             handleNavigate={navigateToDetails}
             open={open}
             anchorEl={anchorEl}
-            reserveHandler={handleDeleteHoliday}
             setSearchParams={setSearchParams}
          />
       </>

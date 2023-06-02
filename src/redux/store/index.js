@@ -3,12 +3,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import { authSlice } from '../reducer/auth/authSlice'
 import { holidaySlice } from '../holiday/holidaySlice'
 import { charitySlice } from '../charities/charitySlice'
+import { modalSlice } from '../holiday/modalSlice'
 
 const store = configureStore({
    reducer: {
       [authSlice.name]: authSlice.reducer,
       [holidaySlice.name]: holidaySlice.reducer,
       [charitySlice.name]: charitySlice.reducer,
+      [modalSlice.name]: modalSlice.reducer,
    },
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

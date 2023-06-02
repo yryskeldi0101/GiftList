@@ -20,9 +20,10 @@ export const getHolidays = createAsyncThunk(
 
 export const postHoliday = createAsyncThunk(
    'holiday/postHoliday',
-   async (holidayData, { rejectWithValue }) => {
+   async (holidayData, { rejectWithValue, dispatch }) => {
       try {
          const response = await postService('/api/holidays', holidayData)
+         dispatch(getHolidays())
          return response.data
       } catch (error) {
          return rejectWithValue(error.response.data)
@@ -30,9 +31,9 @@ export const postHoliday = createAsyncThunk(
    }
 )
 
-export const updateHoliday = createAsyncThunk(
+export const updateHolidayThunk = createAsyncThunk(
    'holiday/updateHoliday',
-   async (holidayData, { rejectWithValue }) => {
+   async (holidayData, { rejectWithValue, dispatch }) => {
       console.log(holidayData)
       try {
          const response = await putService(
@@ -41,6 +42,7 @@ export const updateHoliday = createAsyncThunk(
             holidayData.ubdateId
          )
          console.log(response)
+         dispatch(getHolidays())
          return response.data
       } catch (error) {
          console.log(error)

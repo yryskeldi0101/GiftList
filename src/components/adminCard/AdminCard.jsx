@@ -16,12 +16,11 @@ const AdminCard = ({
    open,
    handleNavigate,
    anchorEl,
-   reserveHandler,
+
    setSearchParams,
 }) => {
    const { holiday } = useSelector((state) => state.holiday)
    const [currentId, setCurrentId] = React.useState(0)
-
    const [data, setData] = React.useState([])
 
    React.useEffect(() => {
@@ -49,10 +48,15 @@ const AdminCard = ({
          // reserveHandler(cardId)
          handleClose()
 
-         if (title === 'Редактировать') {
-            func(setSearchParams)
+         if (typeof func === 'function') {
+            if (title === 'Редактировать') {
+               func(setSearchParams, data)
+            }
+            console.log(typeof currentId, 'current id')
+            if (currentId) {
+               func(currentId, data, currentId)
+            }
          }
-         func(currentId)
       },
       [holiday, currentId]
    )
@@ -75,7 +79,7 @@ const AdminCard = ({
                      />
 
                      <StyledCardContent onClick={() => handleNavigate(item.id)}>
-                        <Title>{item.title}</Title>
+                        <Title>{item.name}</Title>
                         <StyledBirthDate>{item.birthDate}</StyledBirthDate>
                         <StyledStatus>{item.status}</StyledStatus>
                      </StyledCardContent>
@@ -94,7 +98,6 @@ const AdminCard = ({
                            handleClose={handleClose}
                            open={open}
                            anchorEl={anchorEl}
-                           reserveHandler={reserveHandler}
                            id={item.id}
                            date={item.date}
                            name={item.name}
