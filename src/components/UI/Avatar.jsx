@@ -3,7 +3,7 @@ import { useUploadAvatar } from '../../hooks/useUploadAvatar'
 import { ReactComponent as AddPhoto } from '../../assets/icons/AddPhoto.svg'
 
 const AvatarUpload = ({ photo, ...rest }) => {
-   const { avatarUrl, handleAvatarChange } = useUploadAvatar()
+   const { handleAvatarChange } = useUploadAvatar()
    // console.log(avatarUrl)
    return (
       <CenteredDiv>
@@ -17,7 +17,7 @@ const AvatarUpload = ({ photo, ...rest }) => {
             />
 
             <div>
-               {(avatarUrl && <StyledImg src={avatarUrl} alt="" />) || (
+               {(photo && <StyledImg src={photo} alt="" />) || (
                   <Container>
                      <AddPhoto />
                      <Text>Нажмите для добавления фотографии</Text>

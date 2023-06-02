@@ -22,8 +22,8 @@ import {
 import { uploadFileRequest } from '../../../service/charityService'
 import { deleteService } from '../../../service/holidayServis'
 import AdminCard from '../../../components/adminCard/AdminCard'
-import InputDatePicker from '../../../components/UI/input/DateInput'
 import { actionModalSlice } from '../../../redux/holiday/modalSlice'
+import DateInput from '../../../components/UI/input/DateInput'
 
 const MyHolidays = () => {
    const dispatch = useDispatch()
@@ -31,6 +31,7 @@ const MyHolidays = () => {
    const [img, setImg] = useState('')
    const [title, setTitle] = useState('')
    const [inputDate, setInputDate] = useState()
+   const [ubdateId, setubdateId] = useState()
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
    const [searchParams, setSearchParams] = useSearchParams()
    const { isModalOpen } = Object.fromEntries(searchParams)
@@ -61,11 +62,12 @@ const MyHolidays = () => {
       {
          icon: Edit,
          title: 'Редактировать',
-         func: (setSearchParams, data) => {
+         func: (setSearchParams, data, id) => {
             if (typeof setSearchParams === 'function') {
                setSearchParams({ isModalOpen: 'addholiday' })
                setEditHolidayData(true)
             }
+            setubdateId(id)
             console.log(data, 'meat data')
             if (data) {
                dispatch(actionModalSlice.getEditCardData(data))
@@ -85,9 +87,9 @@ const MyHolidays = () => {
       },
    ]
 
-   const openHolidayModal = (data) => {
+   const openHolidayModal = () => {
       setSearchParams({ isModalOpen: 'addholiday' })
-      setEditHolidayData(data)
+      setEditHolidayData(false)
    }
 
    const changeTitleHoliday = (e) => {
@@ -127,7 +129,7 @@ const MyHolidays = () => {
             image: img,
             dateOfHoliday: date,
          }
-         dispatch(updateHolidayThunk({ data }))
+         dispatch(updateHolidayThunk({ data, ubdateId }))
          onCloseModal()
       }
    }
@@ -176,10 +178,7 @@ const MyHolidays = () => {
                   icon
                   name
                />
-               <InputDatePicker
-                  value={inputDate}
-                  onChange={dateChangeHandler}
-               />
+               <DateInput onChange={dateChangeHandler} />
 
                <ButtonsContainer>
                   <MyButton
@@ -205,12 +204,15 @@ const MyHolidays = () => {
                      disabled={false}
                      propswidth="232px"
                      onClick={() => {
-                        onCloseModal()
                         if (editHolidayData) {
                            ubdateHoliday()
+                           setImg('')
+                           setTitle('')
+                           setTitle('')
                         } else {
                            addDateHoliday()
                         }
+                        onCloseModal()
                      }}
                   >
                      Добавить

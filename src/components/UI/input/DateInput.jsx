@@ -1,27 +1,16 @@
-import { styled } from '@mui/material'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { useSelector } from 'react-redux'
-import format from 'date-fns/format'
+import { styled } from '@mui/material'
+import { LocalizationProvider } from '@mui/x-date-pickers'
 
-function InputDatePicker({ onChange }) {
-   const { data } = useSelector((state) => state.ModalSlice)
-   const date = new Date(data.date)
-   const formattedDate = format(date, 'dd-MM-yyyy')
-   // Форматируем дату в нужный формат
+function DateInput({ onChange }) {
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-         <StyledDatePicker
-            value={formattedDate}
-            onChange={(newValue) => onChange(newValue)}
-            format="DD-MM-YYYY"
-         />
+         <StyledDatePicker onChange={(newValue) => onChange(newValue)} />
       </LocalizationProvider>
    )
 }
-export default InputDatePicker
-
+export default DateInput
 const StyledDatePicker = styled(DatePicker)(() => ({
-   width: '200px',
+   width: '100px',
 }))
