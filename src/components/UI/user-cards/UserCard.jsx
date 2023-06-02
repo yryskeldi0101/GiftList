@@ -19,6 +19,8 @@ const UserCard = ({
    countOfWish,
    id,
    handleBlock,
+   acceptHandler,
+   rejectHandler,
 }) => {
    const { open, handleClick, handleClose, anchorEl } = useMeatballs()
    const clickHandler = () => {
@@ -57,6 +59,7 @@ const UserCard = ({
                      hoverbackgroundcolor="#7f05cb"
                      activebackgroundcolor="#6504a0"
                      propswidth="240px"
+                     onClick={() => acceptHandler(id)}
                   >
                      Принять заявку
                   </MyButton>
@@ -64,6 +67,7 @@ const UserCard = ({
                      variant="outlined"
                      defaultcolor="#8D949E"
                      propswidth="240px"
+                     onClick={() => rejectHandler(id)}
                   >
                      Отклонить
                   </MyButton>
