@@ -52,6 +52,7 @@ const AdminCard = ({
             if (title === 'Редактировать') {
                func(setSearchParams, data)
             }
+
             console.log(typeof currentId, 'current id')
             if (currentId) {
                func(currentId, data, currentId)
