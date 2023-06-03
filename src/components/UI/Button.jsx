@@ -67,7 +67,7 @@ const StyleButton = styled(Button)(
             return {
                width: `${propswidth}`,
                gap: '10px',
-               padding: '10px 26px',
+               padding: '10px 2px',
                backgroundColor: 'none',
                border,
                borderColor: `${outlinedbordercolor}`,

@@ -57,7 +57,7 @@ const ProfileDetails = () => {
    const dataCharity = profileData.charityResponseUsers || []
 
    const appSelectData = [
-      {
+      dataWishList.length > 0 && {
          display: true,
          dataWishlist: dataWishList?.slice(0, 3),
          dataCategory: ACTION_TYPES.WISHLIST,
@@ -68,8 +68,9 @@ const ProfileDetails = () => {
          id: '1',
          title: 'Желаимые подарки',
          pathName: 'wishes',
+         pathTitle: 'Смотреть все',
       },
-      {
+      dataHoliday.length > 0 && {
          display: true,
          dataHoliday: dataHoliday?.slice(0, 3),
          dataCategory: ACTION_TYPES.HOLIDAYS,
@@ -80,8 +81,9 @@ const ProfileDetails = () => {
          id: '2',
          title: 'Праздники',
          pathName: 'holidays',
+         pathTitle: 'Смотреть все',
       },
-      {
+      dataCharity.length > 0 && {
          display: true,
          dataCharity: dataCharity?.slice(0, 3),
          dataCategory: ACTION_TYPES.CHARITIES,
@@ -92,6 +94,7 @@ const ProfileDetails = () => {
          id: '3',
          title: 'Благотворительность',
          pathName: 'charities',
+         pathTitle: 'Смотреть все',
       },
    ]
    return (
@@ -102,6 +105,7 @@ const ProfileDetails = () => {
                profileData={profileData}
                deleteHandler={deleteUser}
                blockHandler={blockUser}
+               adminVariant
             />
          </div>
          <Container>
@@ -118,7 +122,7 @@ const ProfileDetails = () => {
                               dataCharity,
                            }}
                         >
-                           Смотреть все
+                           {item.pathTitle}
                         </StyledNavlink>
                      </StyledTitileContainer>
                      <ArrayContainer>

@@ -11,6 +11,7 @@ function DateInput({ onChange }) {
    )
 }
 export default DateInput
+
 const StyledDatePicker = styled(DatePicker)(() => ({
-   width: '100px',
+   width: '100%',
 }))
