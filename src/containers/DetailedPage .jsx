@@ -13,6 +13,7 @@ function DetailedPage({
    handleChange,
    handleReserve,
    isLoading,
+   adminCharity,
 }) {
    return (
       <StyledCard>
@@ -64,7 +65,28 @@ function DetailedPage({
             </InfoBox>
          </StyledInfo>
          <StyledButton>
-            {+userId === id ? (
+            {+userId === id && (
+               <StyledContainer>
+                  <MyButton
+                     variant="outlined"
+                     border="none"
+                     defaultcolor="#8D949E"
+                     onClick={() => onClick(profileDetails.id)}
+                  >
+                     {isLoading ? <Spinner /> : 'Удалить'}
+                  </MyButton>
+                  <MyButton
+                     variant="contained"
+                     background="#8639B5"
+                     hoverbackgroundcolor="#860cd1"
+                     activebackgroundcolor="#510680"
+                     onClick={() => handleClick(profileDetails.id)}
+                  >
+                     Редактировать
+                  </MyButton>
+               </StyledContainer>
+            )}
+            {adminCharity ? (
                <StyledContainer>
                   <MyButton
                      variant="outlined"
@@ -143,7 +165,7 @@ const StyledCard = styled(Card)(() => ({
    background: '#FFFFFF',
    border: '2px solid #FFFFFF',
    borderRadius: '10px',
-   width: '1170px',
+   maxWidth: '1170px',
    height: '100%',
    position: 'relative',
    marginTop: '26px',
@@ -158,7 +180,7 @@ const StyledImage = styled('div')(() => ({
 }))
 const Img = styled('img')(() => ({
    borderRadius: '8px',
-   width: '343px',
+   maxWidth: '343px',
    height: '343px',
 }))
 
@@ -170,7 +192,7 @@ const InfoBox = styled('div')(() => ({
 }))
 
 const HeaderBox = styled('div')(() => ({
-   width: '767px',
+   maxWidth: '767px',
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
@@ -181,7 +203,7 @@ const TitleBox = styled('div')(() => ({
    alignItems: 'center',
 }))
 const ImgIcon = styled('img')(() => ({
-   width: '40px',
+   maxWidth: '40px',
    height: ' 40px',
 }))
 const StyledTitle = styled('div')(() => ({

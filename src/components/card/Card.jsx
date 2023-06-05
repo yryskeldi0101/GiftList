@@ -124,7 +124,7 @@ export default function Cards({
                </NavigationContainer>
 
                <CardActions openmeatballs={openMeatballs}>
-                  <span>{date}</span>
+                  <StyledDate>{date}</StyledDate>
                   {charityMeatballsHandler ? (
                      <FooterAvatar>
                         {charityMeatballs ? (
@@ -132,17 +132,21 @@ export default function Cards({
                               <Button onClick={meatballsChangeHandler}>
                                  {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
-                              <Meatballs
-                                 arrayIcon={MEATBALLS_CHARITY_CONTENT}
-                                 open={open}
-                                 id={id}
-                                 meatballsselecthandler={meatballsSelectHandler}
-                                 handleClose={handleClose}
-                                 handleClick={handleClick}
-                                 anchorEl={anchorEl}
-                                 reserveHandler={reserveHandler}
-                                 display={reserve}
-                              />
+                              <StyledMeatballsMargins>
+                                 <Meatballs
+                                    arrayIcon={MEATBALLS_CHARITY_CONTENT}
+                                    open={open}
+                                    id={id}
+                                    meatballsselecthandler={
+                                       meatballsSelectHandler
+                                    }
+                                    handleClose={handleClose}
+                                    handleClick={handleClick}
+                                    anchorEl={anchorEl}
+                                    reserveHandler={reserveHandler}
+                                    display={reserve}
+                                 />
+                              </StyledMeatballsMargins>
                            </>
                         ) : (
                            <>
@@ -303,7 +307,6 @@ const CardActions = styled(MuiCardActions)(({ openmeatballs }) => ({
 }))
 const FooterAvatar = styled('div')(() => ({
    display: 'flex',
-   justifyContent: 'space-between',
    alignItems: 'center',
 }))
 const Button = styled('div')(() => ({
@@ -349,3 +352,10 @@ const CharityContainer = styled('div')(() => ({
       maxWidth: '30%',
    },
 }))
+const StyledDate = styled('span')`
+   margin-right: 32px;
+`
+
+const StyledMeatballsMargins = styled('span')`
+   margin-left: 15px;
+`

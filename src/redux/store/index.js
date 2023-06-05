@@ -4,6 +4,7 @@ import { charitySlice } from '../charities/charitySlice'
 import { userSlice } from '../user/userSlice'
 import { mailingSlice } from '../newsLetter/mailingSlice'
 import { friendSlice } from '../friends/friendSlice'
+import { adminCharitySlice } from '../admin-charity/adminCharitySlice'
 
 const store = configureStore({
    reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
       [userSlice.name]: userSlice.reducer,
       [mailingSlice.name]: mailingSlice.reducer,
       [friendSlice.name]: friendSlice.reducer,
+      [adminCharitySlice.name]: adminCharitySlice.reducer,
    },
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

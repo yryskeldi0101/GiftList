@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { TextField, styled } from '@mui/material'
+import { useLocation } from 'react-router-dom'
 import { ReactComponent as IconSearch } from '../../../assets/icons/searchIcon.svg'
 import TextFieldWithDropDown from './DropDownTextfield'
 
@@ -23,9 +24,23 @@ const SearchInput = ({
    const [stateSelect, setStateSelect] = useState('')
    const [countries, setCountries] = useState('')
    const [subCategory, setSubCategory] = useState('')
+   const { pathname } = useLocation()
    return (
       <div>
-         {inputChangeProps ? (
+         {pathname.includes('charity') ? (
+            <TextFieldWithDropDown
+               setCategory={setCategory}
+               category={category}
+               stateSelect={stateSelect}
+               countries={countries}
+               subCategory={subCategory}
+               setCountries={setCountries}
+               setStateSelect={setStateSelect}
+               setSubCategory={setSubCategory}
+               inputChangeHandler={inputChangeHandler}
+               value={value}
+            />
+         ) : (
             <InputBlock>
                <Input
                   {...rest}
@@ -39,19 +54,6 @@ const SearchInput = ({
                   }}
                />
             </InputBlock>
-         ) : (
-            <TextFieldWithDropDown
-               setCategory={setCategory}
-               category={category}
-               stateSelect={stateSelect}
-               countries={countries}
-               subCategory={subCategory}
-               setCountries={setCountries}
-               setStateSelect={setStateSelect}
-               setSubCategory={setSubCategory}
-               inputChangeHandler={inputChangeHandler}
-               value={value}
-            />
          )}
       </div>
    )
