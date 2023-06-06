@@ -14,6 +14,7 @@ import NewsletterDetails from '../containers/admin/NewsLetterDetail'
 import AllGifts from '../containers/admin/users/AllWishes'
 import AllHolidays from '../containers/admin/users/AllHolidays'
 import AllCharities from '../containers/admin/users/AllCharities'
+import AdminCharity from '../containers/admin/Charity'
 
 const AdminRoutes = () => {
    return (
