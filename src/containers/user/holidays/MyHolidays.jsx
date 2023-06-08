@@ -1,6 +1,4 @@
-import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
-import dayjs from 'dayjs'
 import { styled } from '@mui/material/styles'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { format } from 'date-fns'
@@ -20,10 +18,11 @@ import {
    updateHolidayThunk,
 } from '../../../redux/holiday/holydayThunk'
 import { uploadFileRequest } from '../../../service/charityService'
-import { deleteService } from '../../../service/holidayServis'
+import { deleteService } from '../../../service/holidayService'
 import AdminCard from '../../../components/adminCard/AdminCard'
-import { actionModalSlice } from '../../../redux/holiday/modalSlice'
 import DateInput from '../../../components/UI/input/DateInput'
+import { ACTION_TYPES } from '../../../utlis/constants/constnats'
+import useToastBar from '../../../hooks/useToastBar'
 
 const MyHolidays = () => {
    const dispatch = useDispatch()
@@ -35,19 +34,24 @@ const MyHolidays = () => {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
    const [searchParams, setSearchParams] = useSearchParams()
    const { isModalOpen } = Object.fromEntries(searchParams)
-   const onCloseModal = () => setSearchParams({})
    const navigate = useNavigate()
+   const { showToast } = useToastBar()
 
    const { data } = useSelector((state) => state.ModalSlice)
+   const dataHolidays = useSelector((state) => state.holiday.holiday)
+
+   const onCloseModal = () => {
+      setSearchParams({})
+      setTitle('')
+      setImg('')
+   }
 
    useEffect(() => {
       if (editHolidayData) {
          if (data.name) {
             setTitle(data.name)
          }
-         if (data.date) {
-            setInputDate(dayjs(data.date).format('DD/MM/YYYY'))
-         }
+
          if (data.image) {
             setImg(data.image)
          }
@@ -68,12 +72,10 @@ const MyHolidays = () => {
                setEditHolidayData(true)
             }
             setubdateId(id)
-            console.log(data, 'meat data')
             if (data) {
-               dispatch(actionModalSlice.getEditCardData(data))
-               dispatch(getHolidays())
-            } else {
-               toast.error('Something with edit data')
+               setImg(data.image)
+               setTitle(data.name)
+               dispatch(getHolidays(showToast))
             }
          },
       },
@@ -83,6 +85,7 @@ const MyHolidays = () => {
          func: async (id) => {
             await deleteService(`/api/holidays`, { holidayId: id })
             dispatch(getHolidays())
+            showToast('success', 'Успешно', 'Успешно удален!')
          },
       },
    ]
@@ -104,33 +107,47 @@ const MyHolidays = () => {
          const { data } = await uploadFileRequest(formData)
          setImg(data.url)
       } catch (error) {
-         console.log(error)
+         showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
       }
    }
 
    const addDateHoliday = () => {
-      const date = format(new Date(inputDate), 'yyyy-MM-dd')
-      if (title && img && date) {
-         const data = {
-            name: title,
-            image: img,
-            dateOfHoliday: date,
+      if (inputDate) {
+         const date = format(new Date(inputDate), 'yyyy-MM-dd')
+         if (title && img && date) {
+            const data = {
+               name: title,
+               image: img,
+               dateOfHoliday: date,
+            }
+            dispatch(postHoliday(data))
+            onCloseModal()
+            showToast('success', 'Успешно', 'Успешно добавлено!')
          }
-         dispatch(postHoliday(data))
-         onCloseModal()
+      } else {
+         showToast('warning', 'Пожалуйста!', 'Заполните все поля')
       }
    }
 
    const ubdateHoliday = () => {
-      const date = format(new Date(inputDate), 'yyyy-MM-dd')
-      if (title && img && date) {
-         const data = {
-            name: title,
-            image: img,
-            dateOfHoliday: date,
+      if (inputDate) {
+         const date = format(new Date(inputDate), 'yyyy-MM-dd')
+         if (title && img && date) {
+            const data = {
+               name: title,
+               image: img,
+               dateOfHoliday: date,
+            }
+            dispatch(updateHolidayThunk({ data, ubdateId }))
+            onCloseModal()
+            showToast('success', 'Успешно', 'Успешно изменно!')
          }
-         dispatch(updateHolidayThunk({ data, ubdateId }))
-         onCloseModal()
+      } else {
+         showToast('warning', 'Пожалуйста!', 'Заполните все поля')
       }
    }
 
@@ -139,14 +156,14 @@ const MyHolidays = () => {
    }
 
    useEffect(() => {
-      dispatch(getHolidays())
+      dispatch(getHolidays(showToast))
    }, [])
 
    return (
       <>
          <Container>
             <Title>Мои праздники</Title>
-            <MyButton
+            <StyledMyButton
                variant="contained"
                background="#8639B5"
                hoverbackgroundcolor="#8639B5"
@@ -159,7 +176,7 @@ const MyHolidays = () => {
             >
                <img src={PlusIcon} alt="Plus Icon" />
                Добавить праздник
-            </MyButton>
+            </StyledMyButton>
             <MyModal open={isModalOpen} onClose={onCloseModal} propswidth>
                <Text>
                   {editHolidayData
@@ -187,7 +204,6 @@ const MyHolidays = () => {
                      onClick={onCloseModal}
                      efaultcolor
                      hoverbackgroundcolor
-                     activebackgroundcolor
                      disabledcolor
                      background
                      outlinedbordercolor
@@ -206,13 +222,11 @@ const MyHolidays = () => {
                      onClick={() => {
                         if (editHolidayData) {
                            ubdateHoliday()
-                           setImg('')
-                           setTitle('')
-                           setTitle('')
                         } else {
                            addDateHoliday()
+                           setImg('')
+                           setTitle('')
                         }
-                        onCloseModal()
                      }}
                   >
                      Добавить
@@ -222,8 +236,9 @@ const MyHolidays = () => {
          </Container>
 
          <AdminCard
-            dataCategory="holidays"
+            dataCategory={ACTION_TYPES.HOLIDAYS}
             dataWishlist
+            dataHolidays={dataHolidays}
             dataCharity
             meatballsContent={meatballsContent}
             handleClick={handleClick}
@@ -264,3 +279,7 @@ const Text = styled('h3')({
    justifyContent: 'center',
    textAlign: 'center',
 })
+
+const StyledMyButton = styled(MyButton)`
+   margin: 32px;
+`

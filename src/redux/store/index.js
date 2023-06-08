@@ -7,11 +7,13 @@ import { modalSlice } from '../holiday/modalSlice'
 import { userSlice } from '../user/userSlice'
 import { mailingSlice } from '../newsLetter/mailingSlice'
 import { friendSlice } from '../friends/friendSlice'
+import { holidayDetailSlice } from '../holidayDetails/holidayDetailSlice'
 
 const store = configureStore({
    reducer: {
       [authSlice.name]: authSlice.reducer,
       [holidaySlice.name]: holidaySlice.reducer,
+      [holidayDetailSlice.name]: holidayDetailSlice.reducer,
       [charitySlice.name]: charitySlice.reducer,
       [modalSlice.name]: modalSlice.reducer,
       [userSlice.name]: userSlice.reducer,

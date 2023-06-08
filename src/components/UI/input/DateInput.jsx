@@ -6,7 +6,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 function DateInput({ onChange }) {
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-         <StyledDatePicker onChange={(newValue) => onChange(newValue)} />
+         <StyledDatePicker
+            onChange={(newValue) => onChange(newValue?.toDate())}
+         />
       </LocalizationProvider>
    )
 }

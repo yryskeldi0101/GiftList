@@ -1,19 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
-   deleteService,
    getService,
    postService,
    putService,
-} from '../../service/holidayServis'
+} from '../../service/holidayService'
 
 export const getHolidays = createAsyncThunk(
    'holiday/getHoliday',
-   async (_, { rejectWithValue }) => {
+   async (showToast) => {
       try {
          const { data } = await getService()
          return data
       } catch (error) {
-         return rejectWithValue(error)
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
       }
    }
 )
@@ -34,29 +37,14 @@ export const postHoliday = createAsyncThunk(
 export const updateHolidayThunk = createAsyncThunk(
    'holiday/updateHoliday',
    async (holidayData, { rejectWithValue, dispatch }) => {
-      console.log(holidayData, 'holy')
       try {
          const response = await putService(
             '/api/holidays',
             holidayData.data,
             holidayData.ubdateId
          )
-         console.log(response)
          dispatch(getHolidays())
          return response.data
-      } catch (error) {
-         console.log(error)
-         return rejectWithValue(error.response.data)
-      }
-   }
-)
-
-export const deleteHoliday = createAsyncThunk(
-   'holiday/deleteHoliday',
-   async (holidayId, { rejectWithValue, dispatch }) => {
-      try {
-         await deleteService(`/api/holidays?holidayId=${holidayId}`)
-         return dispatch(getHolidays())
       } catch (error) {
          return rejectWithValue(error.response.data)
       }

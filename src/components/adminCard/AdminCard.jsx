@@ -2,76 +2,53 @@ import * as React from 'react'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
-import styled from '@emotion/styled'
-import { useSelector } from 'react-redux'
+import { styled } from '@mui/material'
 import Meatballs from '../UI/Meatballs'
+import { ACTION_TYPES } from '../../utlis/constants/constnats'
 
 const AdminCard = ({
    dataCategory,
    dataWishlist,
+   dataHolidays,
    dataCharity,
    meatballsContent,
    handleClick,
    handleClose,
+   display,
    open,
-   handleNavigate,
    anchorEl,
-
    setSearchParams,
+   handleNavigate,
 }) => {
-   const { holiday } = useSelector((state) => state.holiday)
    const [currentId, setCurrentId] = React.useState(0)
-   const [data, setData] = React.useState([])
-
-   React.useEffect(() => {
-      switch (dataCategory) {
-         case 'wishlist':
-            setData(dataWishlist)
-            break
-
-         case 'holidays':
-            setData(holiday)
-            break
-
-         case 'charity':
-            setData(dataCharity)
-            break
-
-         default:
-            setData(dataWishlist)
-            break
-      }
-   }, [dataCategory, dataWishlist, holiday, dataCharity])
+   const [currentData, setCurrentData] = React.useState({})
 
    const handleClickMenuItem = React.useCallback(
-      (title, data, func, currentId) => {
-         // reserveHandler(cardId)
+      (title, func) => {
          handleClose()
 
          if (typeof func === 'function') {
             if (title === 'Редактировать') {
-               func(setSearchParams, data)
+               func(setSearchParams, currentData, currentId)
             }
-
-            console.log(typeof currentId, 'current id')
             if (currentId) {
-               func(currentId, data, currentId)
+               func(currentId, { ...currentData, currentId }, currentId)
             }
          }
       },
-      [holiday, currentId]
+      [dataHolidays, currentId]
    )
 
-   const handleClickMenuDetail = (title, data, func) => {
-      handleClickMenuItem(title, data, func, currentId)
+   const handleClickMenuDetail = (title, func, currentId) => {
+      handleClickMenuItem(title, func, currentId)
    }
 
    return (
       <div>
          <CardContainer>
-            {data.map((item) => (
-               <div key={item.id}>
-                  <StyledCard>
+            {dataCategory === ACTION_TYPES.WISHLIST &&
+               dataWishlist?.map((item) => (
+                  <StyledCard key={item.id}>
                      <CardMedia
                         component="img"
                         height="149"
@@ -79,43 +56,167 @@ const AdminCard = ({
                         alt="card img"
                      />
 
-                     <StyledCardContent onClick={() => handleNavigate(item.id)}>
+                     <StyledCardContent>
+                        <Title>{item.nameHoliday}</Title>
+                        <StyledBirthDate>{item.nameWish}</StyledBirthDate>
+                     </StyledCardContent>
+                     <StyledCardActions>
+                        <p>{item.date}</p>
+                        <MeatBalssContainer>
+                           <StyledStatus>{item.status}</StyledStatus>
+                           <Meatballs
+                              display={display}
+                              arrayIcon={meatballsContent}
+                              handleClick={handleClick}
+                              handleClose={handleClose}
+                              open={open}
+                              anchorEl={anchorEl}
+                           />
+                        </MeatBalssContainer>
+                     </StyledCardActions>
+                  </StyledCard>
+               ))}
+            {dataCategory === ACTION_TYPES.HOLIDAYS &&
+               dataHolidays?.map((item) => {
+                  return (
+                     <StyledCard key={item.id}>
+                        <CardMedia
+                           component="img"
+                           height="149"
+                           image={item.image}
+                           alt="card img"
+                        />
+
+                        <StyledCardContent
+                           onClick={() =>
+                              typeof handleNavigate === 'function'
+                                 ? handleNavigate(item.id)
+                                 : null
+                           }
+                        >
+                           <Title>{item.name}</Title>
+                           <StyledBirthDate>{item.birthDate}</StyledBirthDate>
+                           <StyledStatus>{item.status}</StyledStatus>
+                        </StyledCardContent>
+
+                        <StyledCardActions>
+                           <p>{item.date}</p>
+                           <MeatBalssContainer>
+                              <Meatballs
+                                 display={display}
+                                 arrayIcon={meatballsContent}
+                                 handleClick={(e) => {
+                                    handleClick(e)
+                                    setCurrentId(item.id)
+                                    setCurrentData({
+                                       date: item.date,
+                                       image: item.image,
+                                       name: item.name,
+                                    })
+                                 }}
+                                 handleClose={handleClose}
+                                 open={open}
+                                 anchorEl={anchorEl}
+                                 handleClickMenuItem={handleClickMenuDetail}
+                              />
+                           </MeatBalssContainer>
+                        </StyledCardActions>
+                     </StyledCard>
+                  )
+               })}
+            {dataCategory === ACTION_TYPES.HOLIDAYS_DETAIL &&
+               dataHolidays?.map((item) => {
+                  return (
+                     <StyledCard key={item.id}>
+                        <CardMedia
+                           component="img"
+                           height="149"
+                           image={item.image}
+                           alt="card img"
+                        />
+
+                        <StyledCardContent
+                           onClick={() =>
+                              typeof handleNavigate === 'function'
+                                 ? handleNavigate(item.id)
+                                 : null
+                           }
+                        >
+                           <Title>{item.name}</Title>
+                           <StyledBirthDate>{item.birthDate}</StyledBirthDate>
+                           <StyledStatus>{item.status}</StyledStatus>
+                        </StyledCardContent>
+
+                        <StyledCardActions>
+                           <p>{item.date}</p>
+                           <MeatBalssContainer>
+                              <Meatballs
+                                 display={display}
+                                 arrayIcon={meatballsContent}
+                                 handleClick={(e) => {
+                                    handleClick(e)
+                                    setCurrentId(item.id)
+                                 }}
+                                 id={item.id}
+                                 date={item.date}
+                                 name={item.name}
+                                 image={item.image}
+                                 handleClose={handleClose}
+                                 open={open}
+                                 anchorEl={anchorEl}
+                                 handleClickMenuItem={handleClickMenuDetail}
+                              />
+                           </MeatBalssContainer>
+                        </StyledCardActions>
+                     </StyledCard>
+                  )
+               })}
+            {dataCategory === ACTION_TYPES.CHARITIES &&
+               dataCharity?.map((item) => (
+                  <StyledCard key={item.id}>
+                     <CardMedia
+                        component="img"
+                        height="149"
+                        image={item.image}
+                        alt="card img"
+                     />
+
+                     <StyledCardContent>
                         <Title>{item.name}</Title>
-                        <StyledBirthDate>{item.birthDate}</StyledBirthDate>
-                        <StyledStatus>{item.status}</StyledStatus>
+                        <StyledBirthDate>{item.nameWish}</StyledBirthDate>
+                        <StyledStatus>{item.state}</StyledStatus>
                      </StyledCardContent>
 
                      <StyledCardActions>
-                        {item.date} - {item.id}
-                        <StyledExpectation>
-                           {item.expectation}
-                        </StyledExpectation>
-                        <Meatballs
-                           arrayIcon={meatballsContent}
-                           handleClick={(e) => {
-                              handleClick(e)
-                              setCurrentId(item.id)
-                           }}
-                           handleClose={handleClose}
-                           open={open}
-                           anchorEl={anchorEl}
-                           id={item.id}
-                           date={item.date}
-                           name={item.name}
-                           image={item.image}
-                           handleClickMenuItem={handleClickMenuDetail}
-                        />
+                        <StyledDate>{item.date}</StyledDate>
+                        <MeatBalssContainer>
+                           <StyledIcon src={item.reservePhoto} />
+                           <StyledExpectation>
+                              {item.isReserve ? (
+                                 <p>Забронирован</p>
+                              ) : (
+                                 <p>В ожидании</p>
+                              )}
+                           </StyledExpectation>
+                           <Meatballs
+                              currentId={currentId}
+                              display={display}
+                              arrayIcon={meatballsContent}
+                              handleClick={handleClick}
+                              handleClose={handleClose}
+                              open={open}
+                              anchorEl={anchorEl}
+                           />
+                        </MeatBalssContainer>
                      </StyledCardActions>
                   </StyledCard>
-               </div>
-            ))}
+               ))}
          </CardContainer>
       </div>
    )
 }
 
 export default AdminCard
-
 const CardContainer = styled('div')`
    display: flex;
    flex-wrap: wrap;
@@ -168,15 +269,15 @@ const StyledCardActions = styled('div')`
       color: #636c84;
    }
 `
-// const StyledDate = styled('h3')`
-//    font-family: 'Inter';
-//    font-style: normal;
-//    font-weight: 400;
-//    font-size: 14px;
-//    line-height: 17px;
-//    color: #636c84;
-//    min-width: 100px;
-// `
+const StyledDate = styled('h3')`
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   line-height: 17px;
+   color: #636c84;
+   min-width: 100px;
+`
 
 const StyledExpectation = styled('div')`
    font-family: 'Inter';
@@ -193,15 +294,15 @@ const StyledStatus = styled('div')`
    color: #fd5200;
    margin-right: 20px;
 `
-// const MeatBalssContainer = styled('div')`
-//    margin-left: 27px;
-//    display: flex;
-//    align-items: center;
-//    gap: 10px;
-// `
-// const StyledIcon = styled('img')`
-//    width: 40px;
-//    height: 40px;
-//    border-radius: 100%;
-//    object-fit: contain;
-// `
+const MeatBalssContainer = styled('div')`
+   margin-left: 27px;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+`
+const StyledIcon = styled('img')`
+   width: 40px;
+   height: 40px;
+   border-radius: 100%;
+   object-fit: contain;
+`

@@ -203,6 +203,7 @@ export const INITIAL_PATH = {
       wishlist: 'wishlist',
       bookedPage: 'bookedPage',
       holidays: 'holidays',
+      holiday_details: 'holidays/:detailId/holiday_details',
       charity: 'charity/',
       charity_details: 'charity/:id/:userId/charity_details',
       add_charity: 'charity/add_charity',
@@ -263,6 +264,7 @@ export const dataHolidays = [
 export const ACTION_TYPES = {
    WISHLIST: 'WISHLIST',
    HOLIDAYS: 'HOLIDAYS',
+   HOLIDAYS_DETAIL: 'HOLIDAYS_DETAIL',
    CHARITIES: 'CHARITIES',
 }
 export const CLIENT_ID =
