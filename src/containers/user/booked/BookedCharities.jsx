@@ -69,6 +69,13 @@ export const BookedCharities = ({ getChraititesData }) => {
 const CardsContainer = styled('div')({
    display: 'flex',
    flexDirection: 'column',
+
+   a: {
+      textDecoration: 'none',
+      fontWeight: 500,
+      letterSpacing: '0.2px',
+      color: '#020202',
+   },
 })
 const StyledContainer = styled('div')({
    display: 'flex',
