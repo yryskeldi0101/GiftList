@@ -18,6 +18,7 @@ import SignUp from '../components/form/SignUp'
 import SignIn from '../components/form/SignIn'
 import ForgotPassword from '../components/form/ForgotPassword'
 import ResetPassword from '../components/form/ResetPassword'
+import Snackbar from '../components/button/SnackBar'
 
 export const LandingPage = () => {
    const [searchParams, setSearchParams] = useSearchParams()
@@ -43,6 +44,7 @@ export const LandingPage = () => {
    const [scroll, setScroll] = useState(false)
    return (
       <>
+         <Snackbar />
          <Header>
             <Container>
                <HeaderNav>

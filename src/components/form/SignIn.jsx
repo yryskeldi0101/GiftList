@@ -11,6 +11,7 @@ import ReusableInput from '../UI/input/Input'
 import { postAuthGoogle, signIn } from '../../redux/reducer/auth/authThunk'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import Spinner from '../UI/Spinner'
+import useToastBar from '../../hooks/useToastBar'
 
 const SignIn = ({
    openModal,
@@ -20,6 +21,7 @@ const SignIn = ({
 }) => {
    const isLoading = useSelector((state) => state.auth.isloading)
    const dispatch = useDispatch()
+   const { showToast } = useToastBar()
    const {
       register,
       handleSubmit,
@@ -27,6 +29,11 @@ const SignIn = ({
    } = useForm()
    const submitHandler = (data) => {
       dispatch(signIn(data))
+         .unwrap()
+         .then(() => showToast('succes', 'Успешно', 'Вы вошли успешно'))
+         .catch(() =>
+            showToast('error', 'Ошибка', 'Не верный пороль или email')
+         )
    }
    const submitDataWithGoogle = () => {
       dispatch(postAuthGoogle())

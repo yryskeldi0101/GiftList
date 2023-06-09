@@ -11,11 +11,14 @@ import ReusableInput from '../UI/input/Input'
 import Spinner from '../UI/Spinner'
 import { postAuthGoogle, signUpPost } from '../../redux/reducer/auth/authThunk'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
+import useToastBar from '../../hooks/useToastBar'
 
 const SignUp = React.forwardRef(
    ({ openModal, onCloseModal, openSingInModal }, ref) => {
       const isLoading = useSelector((state) => state.auth.isloading)
       const [checkbox, setCheckbox] = useState(false)
+      const { showToast } = useToastBar()
+
       const dispatch = useDispatch()
 
       const changeHandle = () => {
@@ -26,7 +29,6 @@ const SignUp = React.forwardRef(
          handleSubmit,
          formState: { errors },
       } = useForm()
-
       const submitHandler = (data) => {
          const sendData = {
             firstName: data.firstName,
@@ -37,6 +39,11 @@ const SignUp = React.forwardRef(
          }
          if (data.confirmPassword === data.password) {
             dispatch(signUpPost(sendData))
+               .unwrap()
+               .then(() => showToast('succes', 'Успешно', 'Вы вошли успешно'))
+               .catch(() =>
+                  showToast('error', 'Ошибка', 'Не верный пороль или email')
+               )
          }
       }
       const submitDataWithGoogle = () => {

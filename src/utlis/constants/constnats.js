@@ -177,6 +177,7 @@ export const UserMenuData = [
 export const ROLES = {
    ADMIN: 'ADMIN',
    USER: 'USER',
+   GUEST: 'GUEST',
 }
 export const INITIAL_PATH = {
    ADMIN: {

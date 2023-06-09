@@ -23,12 +23,7 @@ const AdminRoutes = () => {
             path={INITIAL_PATH.GUEST.main}
             element={<Navigate replace to="/admin/users" />}
          />
-         <Route
-            path={INITIAL_PATH.ADMIN.admin}
-            element={
-               <PrivateRoute component={AdminLayout} roles={ROLES.ADMIN} />
-            }
-         >
+         <Route path={INITIAL_PATH.ADMIN.admin} element={<AdminLayout />}>
             <Route
                path={INITIAL_PATH.ADMIN.users}
                element={<PrivateRoute component={Users} roles={ROLES.ADMIN} />}
