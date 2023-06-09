@@ -1,5 +1,7 @@
-import styled from '@emotion/styled'
-import React from 'react'
+import { styled } from '@mui/material'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import User1 from '../assets/images/user1.png'
 import User2 from '../assets/images/user2.png'
 import User3 from '../assets/images/user3.png'
@@ -41,17 +43,29 @@ const data = [
 ]
 
 const FiveSection = () => {
+   const settings = {
+      dots: false,
+      infinite: true,
+      slidesToShow: 5,
+      slidesToScroll: 2,
+      autoplay: true,
+      speed: 6000,
+      autoplaySpeed: 500,
+      cssEase: 'linear',
+   }
    return (
       <GlobalContainer>
          <Container>
-            {data.map((item) => {
-               return (
-                  <div key={item.id}>
-                     <img src={item.userImage} alt="img" />
-                     <StyledTitle>{item.title}</StyledTitle>
-                  </div>
-               )
-            })}
+            <StyledSlider {...settings}>
+               {data.map((item) => {
+                  return (
+                     <div key={item.id}>
+                        <img src={item.userImage} alt="img" />
+                        <StyledTitle>{item.title}</StyledTitle>
+                     </div>
+                  )
+               })}
+            </StyledSlider>
          </Container>
       </GlobalContainer>
    )
@@ -76,5 +90,13 @@ const StyledTitle = styled('div')(() => ({
    fontWeight: 400,
    fontSize: '14px',
    lineHeight: '130%',
-   textAlign: 'center',
+   color: '#fff',
+   marginTop: '20px',
 }))
+const StyledSlider = styled(Slider)`
+   display: flex;
+   width: 100%;
+   padding: 30px;
+   border-radius: 20px;
+   background: #8639b5;
+`

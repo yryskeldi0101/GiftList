@@ -3,15 +3,18 @@ import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import bagIcon from '../../../assets/images/Bag.png'
 import plaidIcon from '../../../assets/images/Plaid.png'
+
 import shirtIcon from '../../../assets/images/Shirt.png'
 import { ReactComponent as PlusIcon } from '../../../assets/icons/plusIcon.svg'
 import MyButton from '../../../components/UI/Button'
 import Cards from '../../../components/card/Card'
+
 import useToastBar from '../../../hooks/useToastBar'
 import {
    getCharityRequest,
    reserveCharityRequest,
 } from '../../../service/charityService'
+import Snackbar from '../../../components/button/SnackBar'
 
 const UserCharity = () => {
    const [charityData, setCharityData] = useState([])
@@ -29,11 +32,10 @@ const UserCharity = () => {
          return showToast(
             'error',
             'Ошибка',
-            'Что-то пошло не так повторите попытку позже'
+            'При загрузке данных произошла ошибка! повторите попытку позже'
          )
       }
    }
-
    useEffect(() => {
       async function getData() {
          const data = await getCharities()
@@ -61,69 +63,76 @@ const UserCharity = () => {
    }
 
    return (
-      <div>
-         <StyledContainer>
-            <Title>Благотворительность</Title>
-            <IconsContainer>
-               <Images src={bagIcon} alt="bag" />
-               <Images src={plaidIcon} alt="plaid" />
-               <Images src={shirtIcon} alt="shirt" />
-            </IconsContainer>
-            <ButtonContainer>
-               <MyButton
-                  variant="contained"
-                  hoverbackgroundcolor="#9c04fa"
-                  background="#8639B5"
-                  activebackgroundcolor="#44046b"
-                  defaultcolor="#ffff"
-                  onClick={navigateToAddCharityHandler}
-               >
-                  <PlusIcon />
-                  Добавить подарок
-               </MyButton>
-            </ButtonContainer>
-         </StyledContainer>
-         <CardContainer>
-            <StyledCardContainer>
-               {charityData?.map((item) => {
-                  return (
-                     <div key={item.id}>
-                        <Cards
-                           changeCard={true}
-                           navigateToCharityDetails={navigateToCharityDetails}
-                           reserveHandler={reserveCharityHandler}
-                           id={item.id}
-                           userId={item.userId}
-                           icon={item.userImage}
-                           userName={item.fullName}
-                           birthDate={item.birthDate}
-                           title={item.charityName}
-                           img={item.image}
-                           state={item.state}
-                           date={item.dateAdded}
-                           disableMeatalls={item.isReserved}
-                           reserve={item.isReserved}
-                           charityMeatballs={item.isAnonymous}
-                           expectation={item.isReserved}
-                           charityMeatballsHandler={true}
-                           bookChange={false}
-                           openMeatballs="false"
-                        />
-                     </div>
-                  )
-               })}
-            </StyledCardContainer>
-         </CardContainer>
-      </div>
+      <>
+         <Snackbar />
+         <div>
+            <StyledContainer>
+               <Title>Благотворительность</Title>
+               <IconsContainer>
+                  <Images src={bagIcon} alt="bag" />
+                  <Images src={plaidIcon} alt="plaid" />
+                  <Images src={shirtIcon} alt="shirt" />
+               </IconsContainer>
+               <ButtonContainer>
+                  <MyButton
+                     variant="contained"
+                     hoverbackgroundcolor="#9c04fa"
+                     background="#8639B5"
+                     activebackgroundcolor="#44046b"
+                     defaultcolor="#ffff"
+                     onClick={navigateToAddCharityHandler}
+                  >
+                     <PlusIcon />
+                     Добавить подарок
+                  </MyButton>
+               </ButtonContainer>
+            </StyledContainer>
+            <CardContainer>
+               <StyledCardContainer>
+                  {charityData?.map((item) => {
+                     return (
+                        <div key={item.id}>
+                           <Cards
+                              changeCard={true}
+                              navigateToCharityDetails={
+                                 navigateToCharityDetails
+                              }
+                              reserveHandler={reserveCharityHandler}
+                              id={item.id}
+                              userId={item.userId}
+                              icon={item.userImage}
+                              userName={item.fullName}
+                              birthDate={item.birthDate}
+                              title={item.charityName}
+                              img={item.image}
+                              state={item.state}
+                              date={item.dateAdded}
+                              disableMeatalls={item.isReserved}
+                              reserve={item.isReserved}
+                              charityMeatballs={item.isAnonymous}
+                              expectation={item.isReserved}
+                              charityMeatballsHandler={true}
+                              bookChange={false}
+                              openMeatballs="false"
+                           />
+                        </div>
+                     )
+                  })}
+               </StyledCardContainer>
+            </CardContainer>
+         </div>
+      </>
    )
 }
 
 export default UserCharity
 const StyledCardContainer = styled('div')`
    display: flex;
-   width: 100%;
+   max-width: 1170px;
    flex-wrap: wrap;
-   gap: 67px;
+   gap: 55px;
+   justify-content: flex-start;
+   align-items: flex-start;
 `
 const StyledContainer = styled('div')`
    display: flex;

@@ -42,6 +42,7 @@ const Newsletter = () => {
    const getAllMailing = async () => {
       try {
          const { data } = await getAllMailingRequest()
+         setMailingData(data)
          return data
       } catch (error) {
          return showToast(
@@ -75,7 +76,7 @@ const Newsletter = () => {
       try {
          await createMailRequest(sendData)
          onCloseModal()
-         return getAllMailing()
+         return await getAllMailing()
       } catch (error) {
          console.error(error)
          return showToast(
@@ -115,11 +116,7 @@ const Newsletter = () => {
       setFileImage()
    }
    useEffect(() => {
-      const getData = async () => {
-         const data = await getAllMailing()
-         setMailingData(data)
-      }
-      getData()
+      getAllMailing()
    }, [])
    return (
       <>

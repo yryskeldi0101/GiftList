@@ -14,6 +14,7 @@ function DetailedPage({
    handleReserve,
    isLoading,
    adminCharity,
+   userCharity,
 }) {
    return (
       <StyledCard>
@@ -65,28 +66,58 @@ function DetailedPage({
             </InfoBox>
          </StyledInfo>
          <StyledButton>
-            {+userId === id && (
-               <StyledContainer>
-                  <MyButton
-                     variant="outlined"
-                     border="none"
-                     defaultcolor="#8D949E"
-                     onClick={() => onClick(profileDetails.id)}
-                  >
-                     {isLoading ? <Spinner /> : 'Удалить'}
-                  </MyButton>
-                  <MyButton
-                     variant="contained"
-                     background="#8639B5"
-                     hoverbackgroundcolor="#860cd1"
-                     activebackgroundcolor="#510680"
-                     onClick={() => handleClick(profileDetails.id)}
-                  >
-                     Редактировать
-                  </MyButton>
-               </StyledContainer>
+            {userCharity && (
+               <div>
+                  {' '}
+                  {+userId === id ? (
+                     <StyledContainer>
+                        <MyButton
+                           variant="outlined"
+                           border="none"
+                           defaultcolor="#8D949E"
+                           onClick={() => onClick(profileDetails.id)}
+                        >
+                           {isLoading ? <Spinner /> : 'Удалить'}
+                        </MyButton>
+                        <MyButton
+                           variant="contained"
+                           background="#8639B5"
+                           hoverbackgroundcolor="#860cd1"
+                           activebackgroundcolor="#510680"
+                           onClick={() => handleClick(profileDetails.id)}
+                        >
+                           Редактировать
+                        </MyButton>
+                     </StyledContainer>
+                  ) : (
+                     <StyledButtoncContainer>
+                        <StyledCheckBox>
+                           <Checkboxes
+                              checked={checked}
+                              handleChange={handleChange}
+                           />
+                           <StyledBookText>
+                              Заброниовать анонимно
+                           </StyledBookText>
+                        </StyledCheckBox>
+                        <MyButton
+                           variant="contained"
+                           background="#8639B5"
+                           hoverbackgroundcolor="#860cd1"
+                           activebackgroundcolor="#510680"
+                           disabled={profileDetails.isReserved}
+                           onClick={() =>
+                              handleReserve(checked, profileDetails.id)
+                           }
+                        >
+                           {isLoading ? <Spinner /> : 'Забронировать'}
+                        </MyButton>
+                     </StyledButtoncContainer>
+                  )}
+               </div>
             )}
-            {adminCharity ? (
+
+            {adminCharity && (
                <StyledContainer>
                   <MyButton
                      variant="outlined"
@@ -106,26 +137,6 @@ function DetailedPage({
                      Редактировать
                   </MyButton>
                </StyledContainer>
-            ) : (
-               <StyledButtoncContainer>
-                  <StyledCheckBox>
-                     <Checkboxes
-                        checked={checked}
-                        handleChange={handleChange}
-                     />
-                     <StyledBookText>Заброниовать анонимно</StyledBookText>
-                  </StyledCheckBox>
-                  <MyButton
-                     variant="contained"
-                     background="#8639B5"
-                     hoverbackgroundcolor="#860cd1"
-                     activebackgroundcolor="#510680"
-                     disabled={profileDetails.isReserved}
-                     onClick={() => handleReserve(checked, profileDetails.id)}
-                  >
-                     {isLoading ? <Spinner /> : 'Забронировать'}
-                  </MyButton>
-               </StyledButtoncContainer>
             )}
          </StyledButton>
       </StyledCard>
@@ -180,7 +191,7 @@ const StyledImage = styled('div')(() => ({
 }))
 const Img = styled('img')(() => ({
    borderRadius: '8px',
-   maxWidth: '343px',
+   width: '343px',
    height: '343px',
 }))
 

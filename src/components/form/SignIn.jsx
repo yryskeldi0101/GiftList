@@ -31,7 +31,6 @@ const SignIn = ({
    const submitDataWithGoogle = () => {
       dispatch(postAuthGoogle())
    }
-
    return (
       <div>
          <MyModal open={openModal} onClose={onCloseModal}>
@@ -125,10 +124,11 @@ const SignIn = ({
 export default SignIn
 
 const StyledErrorColor = styled('h2')`
-   font-size: large;
+   font-size: 15px;
    color: #d91c1c;
    font-weight: 400;
    font-family: 'Inter';
+   margin-bottom: 5px;
 `
 
 const StyledTitleContainer = styled('div')`

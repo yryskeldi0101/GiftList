@@ -1,6 +1,7 @@
 import { styled } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import Scrolltrigger from 'react-scroll-trigger'
 import SocialImg from '../assets/images/firstImage.png'
 import AsideImg from '../assets/images/secondImage.png'
 import { ReactComponent as Facebook } from '../assets/svg/FaceBook.svg'
@@ -26,7 +27,7 @@ export const LandingPage = () => {
       const splittedOpen = open?.split('/')
 
       if (splittedOpen?.length > 1) {
-         const substrings = splittedOpen?.slice(1) // Получаем подстроки после символа "/"
+         const substrings = splittedOpen?.slice(1)
          setToken(substrings[0])
       }
    }, [open])
@@ -39,7 +40,7 @@ export const LandingPage = () => {
    const openSignUpModal = () => setSearchParams({ open: 'register' })
    const openSignInModal = () => setSearchParams({ open: 'login' })
    const openForgotModal = () => setSearchParams({ open: 'forgot-password' })
-
+   const [scroll, setScroll] = useState(false)
    return (
       <>
          <Header>
@@ -52,73 +53,90 @@ export const LandingPage = () => {
                <HeaderContent>
                   <SocialContent>
                      <SocialIcons>
-                        <a href="https://www.facebook.com/login/">
+                        <StyledLink href="https://www.facebook.com/login/">
                            <Facebook />
-                        </a>
-                        <a href="https://www.instagram.com/">
+                        </StyledLink>
+                        <SecondStyledLink href="https://www.instagram.com/">
                            <Instagram />
-                        </a>
-                        <a href="https://vk.com/">
+                        </SecondStyledLink>
+                        <ThirdStyledLink href="https://vk.com/">
                            <Vk />
-                        </a>
+                        </ThirdStyledLink>
                      </SocialIcons>
-                     <SocialImageContent src={SocialImg} alt="/" />
+                     <Scrolltrigger onEnter={() => setScroll(true)}>
+                        {scroll && (
+                           <FirtstAnimation>
+                              <SocialImageContent src={SocialImg} alt="/" />
+                           </FirtstAnimation>
+                        )}
+                     </Scrolltrigger>
                   </SocialContent>
-                  <InfoContent>
-                     <InfoTitle>Социальная сеть нового поколения</InfoTitle>
-                     <InfoDescription>
-                        Всегда подскажет, что подарить близким и осуществит твои
-                        желания
-                     </InfoDescription>
-                     <ResetPassword
-                        token={token}
-                        setOpenModal={onCloseModalResetPassword}
-                     />
+                  <Scrolltrigger>
+                     {scroll && (
+                        <InfoContent>
+                           <InfoTitle>
+                              Социальная сеть нового поколения
+                           </InfoTitle>
+                           <InfoDescription>
+                              Всегда подскажет, что подарить близким и
+                              осуществит твои желания
+                           </InfoDescription>
+                           <ResetPassword
+                              token={token}
+                              setOpenModal={onCloseModalResetPassword}
+                           />
 
-                     <InfoActions>
-                        <ButtonDiv>
-                           <SignIn
-                              openModal={open === 'login'}
-                              onCloseModal={onCloseModal}
-                              openForgotModal={openForgotModal}
-                              openSingUpModal={openSignUpModal}
-                           />
-                           <MyButton
-                              onClick={openSignInModal}
-                              hoverbackgroundcolor="#C5243C"
-                              activebackgroundcolor="#E72E49 "
-                              variant="contained"
-                              background="#F91C3D"
-                              propswidth="291px"
-                           >
-                              Войти
-                           </MyButton>
-                        </ButtonDiv>
-                        <div>
-                           <MyButton
-                              hoverbackgroundcolor="#612386"
-                              activebackgroundcolor="#AB62D8"
-                              variant="outlined"
-                              background="#ffffff"
-                              defaultcolor="#ffffff"
-                              outlinedbordercolor="#ffffff"
-                              propswidth="291px"
-                              onClick={openSignUpModal}
-                           >
-                              Регистрация
-                           </MyButton>
-                           <SignUp
-                              openModal={open === 'register'}
-                              onCloseModal={onCloseModal}
-                              openSingInModal={openSignInModal}
-                           />
-                        </div>
-                     </InfoActions>
-                  </InfoContent>
+                           <InfoActions>
+                              <ButtonDiv>
+                                 <SignIn
+                                    openModal={open === 'login'}
+                                    onCloseModal={onCloseModal}
+                                    openForgotModal={openForgotModal}
+                                    openSingUpModal={openSignUpModal}
+                                 />
+                                 <MyButton
+                                    onClick={openSignInModal}
+                                    hoverbackgroundcolor="#C5243C"
+                                    activebackgroundcolor="#E72E49 "
+                                    variant="contained"
+                                    background="#F91C3D"
+                                    propswidth="291px"
+                                 >
+                                    Войти
+                                 </MyButton>
+                              </ButtonDiv>
+                              <div>
+                                 <MyButton
+                                    hoverbackgroundcolor="#612386"
+                                    activebackgroundcolor="#AB62D8"
+                                    variant="outlined"
+                                    background="#ffffff"
+                                    defaultcolor="#ffffff"
+                                    outlinedbordercolor="#ffffff"
+                                    propswidth="291px"
+                                    onClick={openSignUpModal}
+                                 >
+                                    Регистрация
+                                 </MyButton>
+                                 <SignUp
+                                    openModal={open === 'register'}
+                                    onCloseModal={onCloseModal}
+                                    openSingInModal={openSignInModal}
+                                 />
+                              </div>
+                           </InfoActions>
+                        </InfoContent>
+                     )}
+                  </Scrolltrigger>
+
                   <AsideContent>
-                     <div>
-                        <AsideImageContent src={AsideImg} alt="" />
-                     </div>
+                     <Scrolltrigger onEnter={() => setScroll(true)}>
+                        {scroll && (
+                           <SecondAnimation>
+                              <AsideImageContent src={AsideImg} alt="" />
+                           </SecondAnimation>
+                        )}
+                     </Scrolltrigger>
                      <ArrowIcon>
                         <ArrowDown>
                            <Arrowss /> Листайте вниз
@@ -141,6 +159,184 @@ export const LandingPage = () => {
    )
 }
 
+const StyledLink = styled('a')`
+   -webkit-animation-name: fadeInLeftBig;
+   animation-name: fadeInLeftBig;
+   -webkit-animation-duration: 1s;
+   animation-duration: 1s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+   @-webkit-keyframes fadeInLeftBig {
+      0% {
+         opacity: 0;
+         -webkit-transform: translate3d(-2000px, 0, 0);
+         transform: translate3d(-2000px, 0, 0);
+      }
+      100% {
+         opacity: 1;
+         -webkit-transform: none;
+         transform: none;
+      }
+   }
+   @keyframes fadeInLeftBig {
+      0% {
+         opacity: 0;
+         -webkit-transform: translate3d(-2000px, 0, 0);
+         transform: translate3d(-2000px, 0, 0);
+      }
+      100% {
+         opacity: 1;
+         -webkit-transform: none;
+         transform: none;
+      }
+   }
+`
+const SecondStyledLink = styled('a')`
+   -webkit-animation-name: fadeInLeftBig;
+   animation-name: fadeInLeftBig;
+   -webkit-animation-duration: 1s;
+   animation-duration: 2s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+   @-webkit-keyframes fadeInLeftBig {
+      0% {
+         opacity: 0;
+         -webkit-transform: translate3d(-2000px, 0, 0);
+         transform: translate3d(-2000px, 0, 0);
+      }
+      100% {
+         opacity: 1;
+         -webkit-transform: none;
+         transform: none;
+      }
+   }
+   @keyframes fadeInLeftBig {
+      0% {
+         opacity: 0;
+         -webkit-transform: translate3d(-2000px, 0, 0);
+         transform: translate3d(-2000px, 0, 0);
+      }
+      100% {
+         opacity: 1;
+         -webkit-transform: none;
+         transform: none;
+      }
+   }
+`
+const ThirdStyledLink = styled('a')`
+   -webkit-animation-name: fadeInLeftBig;
+   animation-name: fadeInLeftBig;
+   -webkit-animation-duration: 1s;
+   animation-duration: 3s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+   @-webkit-keyframes fadeInLeftBig {
+      0% {
+         opacity: 0;
+         -webkit-transform: translate3d(-2000px, 0, 0);
+         transform: translate3d(-2000px, 0, 0);
+      }
+      100% {
+         opacity: 1;
+         -webkit-transform: none;
+         transform: none;
+      }
+   }
+   @keyframes fadeInLeftBig {
+      0% {
+         opacity: 0;
+         -webkit-transform: translate3d(-2000px, 0, 0);
+         transform: translate3d(-2000px, 0, 0);
+      }
+      100% {
+         opacity: 1;
+         -webkit-transform: none;
+         transform: none;
+      }
+   }
+`
+
+const FirtstAnimation = styled('div')`
+   -webkit-animation-name: div;
+   animation-name: div;
+   -webkit-animation-duration: 5s;
+   animation-duration: 1.9s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+
+   @-webkit-keyframes div {
+      0% {
+         -webkit-transform-origin: left bottom;
+         transform-origin: left bottom;
+         -webkit-transform: rotate3d(0, 0, 1, -45deg);
+         transform: rotate3d(0, 0, 1, -45deg);
+         opacity: 0;
+      }
+      100% {
+         -webkit-transform-origin: left bottom;
+         transform-origin: left bottom;
+         -webkit-transform: none;
+         transform: none;
+         opacity: 1;
+      }
+   }
+   @keyframes div {
+      0% {
+         -webkit-transform-origin: left bottom;
+         transform-origin: left bottom;
+         -webkit-transform: rotate3d(0, 0, 1, -45deg);
+         transform: rotate3d(0, 0, 1, -45deg);
+         opacity: 0;
+      }
+      100% {
+         -webkit-transform-origin: left bottom;
+         transform-origin: left bottom;
+         -webkit-transform: none;
+         transform: none;
+         opacity: 1;
+      }
+   }
+`
+const SecondAnimation = styled('div')`
+   -webkit-animation-name: rotateInDownRight;
+   animation-name: rotateInDownRight;
+   -webkit-animation-duration: 5s;
+   animation-duration: 1.9s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+   @-webkit-keyframes rotateInDownRight {
+      0% {
+         -webkit-transform-origin: right bottom;
+         transform-origin: right bottom;
+         -webkit-transform: rotate3d(0, 0, 1, 45deg);
+         transform: rotate3d(0, 0, 1, 45deg);
+         opacity: 0;
+      }
+      100% {
+         -webkit-transform-origin: right bottom;
+         transform-origin: right bottom;
+         -webkit-transform: none;
+         transform: none;
+         opacity: 1;
+      }
+   }
+   @keyframes rotateInDownRight {
+      0% {
+         -webkit-transform-origin: right bottom;
+         transform-origin: right bottom;
+         -webkit-transform: rotate3d(0, 0, 1, 45deg);
+         transform: rotate3d(0, 0, 1, 45deg);
+         opacity: 0;
+      }
+      100% {
+         -webkit-transform-origin: right bottom;
+         transform-origin: right bottom;
+         -webkit-transform: none;
+         transform: none;
+         opacity: 1;
+      }
+   }
+`
 const ButtonDiv = styled('div')`
    display: flex;
    align-items: center;
@@ -195,21 +391,51 @@ const HeaderContent = styled('nav')(() => ({
 const SocialContent = styled('div')(() => ({}))
 const SocialIcons = styled('div')(() => ({
    maxWidth: '22px',
-   height: '156px',
+   height: '176px',
    display: 'flex',
    flexWrap: 'wrap',
    flexDirection: 'column',
    alignItems: 'center',
-   gap: '30px',
+   gap: '45px',
    marginBottom: '104px',
 }))
-const InfoContent = styled('div')(() => ({
-   maxWidth: '542px',
-   display: 'flex',
-   flexWrap: 'wrap',
-   flexDirection: 'column',
-   alignItems: 'center',
-}))
+const InfoContent = styled('div')`
+   max-width: 542px;
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+   align-items: center;
+   -webkit-animation-name: fadeInDownBig;
+   animation-name: fadeInDownBig;
+   -webkit-animation-duration: 1s;
+   animation-duration: 1.9s;
+   -webkit-animation-fill-mode: both;
+   animation-fill-mode: both;
+   @-webkit-keyframes fadeInDownBig {
+      0% {
+         opacity: 0;
+         -webkit-transform: translate3d(0, -2000px, 0);
+         transform: translate3d(0, -2000px, 0);
+      }
+      100% {
+         opacity: 1;
+         -webkit-transform: none;
+         transform: none;
+      }
+   }
+   @keyframes fadeInDownBig {
+      0% {
+         opacity: 0;
+         -webkit-transform: translate3d(0, -2000px, 0);
+         transform: translate3d(0, -2000px, 0);
+      }
+      100% {
+         opacity: 1;
+         -webkit-transform: none;
+         transform: none;
+      }
+   }
+`
 const InfoTitle = styled('h1')(() => ({
    fontFamily: 'Inter',
    fontStyle: 'normal',

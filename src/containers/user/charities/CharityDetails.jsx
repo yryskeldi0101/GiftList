@@ -76,6 +76,7 @@ const CharityDetails = () => {
                isLoading={isLoading}
                handleChange={checkBoxChangeHandler}
                handleReserve={reserveCharityHandler}
+               userCharity
             />
          </div>
       </>

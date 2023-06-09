@@ -12,156 +12,164 @@ import Spinner from '../UI/Spinner'
 import { postAuthGoogle, signUpPost } from '../../redux/reducer/auth/authThunk'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 
-const SignUp = ({ openModal, onCloseModal, openSingInModal }) => {
-   const isLoading = useSelector((state) => state.auth.isloading)
-   const [checkbox, setCheckbox] = useState(false)
-   const dispatch = useDispatch()
+const SignUp = React.forwardRef(
+   ({ openModal, onCloseModal, openSingInModal }, ref) => {
+      const isLoading = useSelector((state) => state.auth.isloading)
+      const [checkbox, setCheckbox] = useState(false)
+      const dispatch = useDispatch()
 
-   const changeHandle = () => {
-      setCheckbox((prevS) => !prevS)
-   }
-   const {
-      register,
-      handleSubmit,
-      formState: { errors },
-   } = useForm()
+      const changeHandle = () => {
+         setCheckbox((prevS) => !prevS)
+      }
+      const {
+         register,
+         handleSubmit,
+         formState: { errors },
+      } = useForm()
 
-   const submitHandler = (data) => {
-      const sendData = {
-         firstName: data.firstName,
-         lastName: data.lastName,
-         email: data.email,
-         password: data.password,
-         checkbox,
+      const submitHandler = (data) => {
+         const sendData = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            password: data.password,
+            checkbox,
+         }
+         if (data.confirmPassword === data.password) {
+            dispatch(signUpPost(sendData))
+         }
       }
-      if (data.confirmPassword === data.password) {
-         dispatch(signUpPost(sendData))
+      const submitDataWithGoogle = () => {
+         dispatch(postAuthGoogle())
       }
+      return (
+         <MyModal open={openModal} onClose={onCloseModal} ref={ref}>
+            <form onSubmit={handleSubmit(submitHandler)}>
+               <StyledTitleContainer>
+                  <h2>Регистрация</h2>
+                  <IconButton onClick={onCloseModal}>
+                     <LetterIcon />
+                  </IconButton>
+               </StyledTitleContainer>
+               {errors.name && (
+                  <StyledErrorColor>{errors.name?.message}</StyledErrorColor>
+               )}
+               <StyledInput
+                  placeholder="Имя"
+                  id="firstName"
+                  name="firstName"
+                  {...register('firstName', {
+                     required: 'Имя обязательна',
+                  })}
+               />
+               {errors.lastName && (
+                  <StyledErrorColor>
+                     {errors.lastName?.message}
+                  </StyledErrorColor>
+               )}
+               <StyledInput
+                  placeholder="Фамилия"
+                  id="lastName"
+                  name="lastName"
+                  {...register('lastName', {
+                     required: 'Фамилия обязательна',
+                  })}
+               />
+               {errors.email && (
+                  <StyledErrorColor>{errors.email?.message}</StyledErrorColor>
+               )}
+               <StyledInput
+                  placeholder="Email"
+                  id="email"
+                  name="email"
+                  {...register('email', {
+                     required: 'Электронная почта обязательна',
+                     pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: 'Неверный формат электронной почты',
+                     },
+                  })}
+               />
+               {errors.password && (
+                  <StyledErrorColor>
+                     {errors.password?.message}
+                  </StyledErrorColor>
+               )}
+               <PasswordInput
+                  placeholder="Введите пароль"
+                  id="password"
+                  name="password"
+                  {...register('password', {
+                     required: 'Необходим пароль',
+                     minLength: {
+                        value: 8,
+                        message: 'Пароль должен содержать не менее 8 символов',
+                     },
+                  })}
+               />
+               <br />
+               {errors.confirmPassword && (
+                  <StyledErrorColor>
+                     {errors.confirmPassword?.message}
+                  </StyledErrorColor>
+               )}
+               <PasswordInput
+                  placeholder="Повторите пароль"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  {...register('confirmPassword', {
+                     required: 'Подвердите пароль',
+                     minLength: {
+                        value: 8,
+                        message: 'Пароль должен содержать не менее 8 символов',
+                     },
+                  })}
+               />
+               <StyledCheckboxContainer>
+                  <Checkboxes onChange={changeHandle} checked={checkbox} />
+                  <StyledCheckboxText>
+                     Подписаться на рассылку
+                  </StyledCheckboxText>
+               </StyledCheckboxContainer>
+               <MyButton
+                  variant="contained"
+                  background="#8639B5"
+                  propswidth="482px"
+                  hoverbackgroundcolor="#612386"
+                  activebackgroundcolor="#AB62D8"
+                  type="submit"
+               >
+                  {isLoading ? <Spinner /> : 'Создать аккаунт'}
+               </MyButton>
+               <StyledTextContainer>
+                  <StyledBorderStyle> </StyledBorderStyle>
+                  <StyledText>или</StyledText>
+                  <StyledBorderStyle> </StyledBorderStyle>
+               </StyledTextContainer>
+               <MyButton
+                  variant="contained"
+                  background="#f1f1f1"
+                  propswidth="482px"
+                  hoverbackgroundcolor="#d6d5d5"
+                  activebackgroundcolor="#d6d6d6"
+                  defaultcolor="black"
+                  onClick={submitDataWithGoogle}
+                  type="button"
+               >
+                  <GoogleIcon />
+                  Продолжить с Google
+               </MyButton>
+               <StyledRegistrationText>
+                  У вас уже есть аккаунт?
+               </StyledRegistrationText>
+               <StyledForrgotPassword onClick={openSingInModal}>
+                  Войти
+               </StyledForrgotPassword>
+            </form>
+         </MyModal>
+      )
    }
-   const submitDataWithGoogle = () => {
-      dispatch(postAuthGoogle())
-   }
-   return (
-      <MyModal open={openModal} onClose={onCloseModal}>
-         <form onSubmit={handleSubmit(submitHandler)}>
-            <StyledTitleContainer>
-               <h2>Регистрация</h2>
-               <IconButton onClick={onCloseModal}>
-                  <LetterIcon />
-               </IconButton>
-            </StyledTitleContainer>
-            {errors.name && (
-               <StyledErrorColor>{errors.name?.message}</StyledErrorColor>
-            )}
-            <StyledInput
-               placeholder="Имя"
-               id="firstName"
-               name="firstName"
-               {...register('firstName', {
-                  required: 'Имя обязательна',
-               })}
-            />
-            {errors.lastName && (
-               <StyledErrorColor>{errors.lastName?.message}</StyledErrorColor>
-            )}
-            <StyledInput
-               placeholder="Фамилия"
-               id="lastName"
-               name="lastName"
-               {...register('lastName', {
-                  required: 'Фамилия обязательна',
-               })}
-            />
-            {errors.email && (
-               <StyledErrorColor>{errors.email?.message}</StyledErrorColor>
-            )}
-            <StyledInput
-               placeholder="Email"
-               id="email"
-               name="email"
-               {...register('email', {
-                  required: 'Электронная почта обязательна',
-                  pattern: {
-                     value: /\S+@\S+\.\S+/,
-                     message: 'Неверный формат электронной почты',
-                  },
-               })}
-            />
-            {errors.password && (
-               <StyledErrorColor>{errors.password?.message}</StyledErrorColor>
-            )}
-            <PasswordInput
-               placeholder="Введите пароль"
-               id="password"
-               name="password"
-               {...register('password', {
-                  required: 'Необходим пароль',
-                  minLength: {
-                     value: 8,
-                     message: 'Пароль должен содержать не менее 8 символов',
-                  },
-               })}
-            />
-            <br />
-            {errors.confirmPassword && (
-               <StyledErrorColor>
-                  {errors.confirmPassword?.message}
-               </StyledErrorColor>
-            )}
-            <PasswordInput
-               placeholder="Повторите пароль"
-               id="confirmPassword"
-               name="confirmPassword"
-               {...register('confirmPassword', {
-                  required: 'Подвердите пароль',
-                  minLength: {
-                     value: 8,
-                     message: 'Пароль должен содержать не менее 8 символов',
-                  },
-               })}
-            />
-            <StyledCheckboxContainer>
-               <Checkboxes onChange={changeHandle} checked={checkbox} />
-               <StyledCheckboxText>Подписаться на рассылку</StyledCheckboxText>
-            </StyledCheckboxContainer>
-            <MyButton
-               variant="contained"
-               background="#8639B5"
-               propswidth="482px"
-               hoverbackgroundcolor="#612386"
-               activebackgroundcolor="#AB62D8"
-               type="submit"
-            >
-               {isLoading ? <Spinner /> : 'Создать аккаунт'}
-            </MyButton>
-            <StyledTextContainer>
-               <StyledBorderStyle> </StyledBorderStyle>
-               <StyledText>или</StyledText>
-               <StyledBorderStyle> </StyledBorderStyle>
-            </StyledTextContainer>
-            <MyButton
-               variant="contained"
-               background="#f1f1f1"
-               propswidth="482px"
-               hoverbackgroundcolor="#d6d5d5"
-               activebackgroundcolor="#d6d6d6"
-               defaultcolor="black"
-               onClick={submitDataWithGoogle}
-               type="button"
-            >
-               <GoogleIcon />
-               Продолжить с Google
-            </MyButton>
-            <StyledRegistrationText>
-               У вас уже есть аккаунт?
-            </StyledRegistrationText>
-            <StyledForrgotPassword onClick={openSingInModal}>
-               Войти
-            </StyledForrgotPassword>
-         </form>
-      </MyModal>
-   )
-}
+)
 
 export default SignUp
 
