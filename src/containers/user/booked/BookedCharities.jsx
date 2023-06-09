@@ -1,45 +1,50 @@
 import React from 'react'
 import { styled } from '@mui/material'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Cards from '../../../components/card/Card'
-import { postBookedCharityReq } from '../../../service/bookedService'
+import { deleteCharityReq } from '../../../service/bookedService'
+// import { postBookedCharityReq } from '../../../service/bookedService'
 
 export const BookedCharities = ({ getChraititesData }) => {
-   const dispatch = useDispatch()
+   // const addToMyPresents = async (id) => {
+   //    try {
+   //       await postBookedCharityReq(id)
+   //    } catch (error) {
+   //       console.log(error)
+   //    }
+   // }
 
-   const addToMyPresents = async (id) => {
+   console.log(getChraititesData)
+
+   const deleteMyCharities = async (charityId) => {
+      const idMyCharities = {
+         id: charityId,
+      }
       try {
-         await postBookedCharityReq(id)
+         await deleteCharityReq(idMyCharities)
       } catch (error) {
          console.log(error)
       }
    }
 
-   const deleteMyCharities = (id, wishId) => {
-      const idMyWishes = {
-         id: wishId,
-         anonymous: id !== '1',
-      }
-      dispatch(deleteMyCharities(idMyWishes))
-   }
-
    return (
       <div>
          <CardsContainer>
-            <Main>
-               <h2>Подарки </h2>
-               <ShowAll type="button">
-                  <Link to="booked-charity">Смотреть все</Link>
-               </ShowAll>
-            </Main>
+            <Link to="/charity">
+               <Main>
+                  <h2>Благотворительность</h2>
+                  <ShowAll type="button">
+                     <Link to="booked-charity">Смотреть все</Link>
+                  </ShowAll>
+               </Main>
+            </Link>
 
             <StyledContainer>
                {getChraititesData?.map((item) => {
                   return (
-                     <div key={item.id}>
+                     <div key={item.charityId}>
                         <Cards
-                           id={item.id}
+                           id={item.charityId}
                            icon={item.photo}
                            userName={item.fullName}
                            birthDate={item.birthDate}
@@ -49,8 +54,8 @@ export const BookedCharities = ({ getChraititesData }) => {
                            openMeatballs={item.openMeatballs}
                            meatballsChangeHandler={item.meatballsChangeHandler}
                            changeCard={true}
-                           bookChange={true}
-                           reserveHandler={addToMyPresents}
+                           bookChange={false}
+                           reserveHandler={deleteMyCharities}
                            deleteHandler={deleteMyCharities}
                         />
                      </div>

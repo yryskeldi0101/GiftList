@@ -23,6 +23,9 @@ export default function BookedWishes({ getWishesData }) {
       }
       dispatch(deleteMyWishes(idMyWishes))
    }
+
+   console.log(getWishesData)
+
    return (
       <div>
          <CardsContainer>
@@ -37,9 +40,9 @@ export default function BookedWishes({ getWishesData }) {
             <StyledContainer>
                {getWishesData?.map((item) => {
                   return (
-                     <div key={item.id}>
+                     <div key={item.wishId}>
                         <Cards
-                           id={item.id}
+                           id={item.wishId}
                            icon={item.photo}
                            userName={item.fullName}
                            birthDate={item.birthDate}

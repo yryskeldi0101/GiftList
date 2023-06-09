@@ -9,30 +9,30 @@ import Meatballs from '../UI/Meatballs'
 import Ananim from '../../assets/icons/anonim.svg'
 import Lock from '../../assets/icons/key.svg'
 import Present from '../../assets/icons/present.svg'
-import Dislike from '../../assets/icons/dislake.svg'
+// import Dislike from '../../assets/icons/dislake.svg'
 import OpenLock from '../../assets/icons/lock.svg'
 import { useMeatballs } from '../../hooks/useMeatballs'
 
-const MEATBALLS_EXPECT_CONTENT = [
-   {
-      icon: Lock,
-      title: 'Забронировать',
-      id: '1',
-   },
-   {
-      icon: Ananim,
-      title: 'Забронировать анонимно',
-      id: '2',
-   },
-   {
-      icon: Present,
-      title: 'Добавить в мои подарки',
-   },
-   {
-      icon: Dislike,
-      title: 'Пожаловаться',
-   },
-]
+// const MEATBALLS_EXPECT_CONTENT = [
+//    {
+//       icon: Lock,
+//       title: 'Забронировать',
+//       id: '1',
+//    },
+//    {
+//       icon: Ananim,
+//       title: 'Забронировать анонимно',
+//       id: '2',
+//    },
+//    {
+//       icon: Present,
+//       title: 'Добавить в мои подарки',
+//    },
+//    {
+//       icon: Dislike,
+//       title: 'Пожаловаться',
+//    },
+// ]
 
 const MEATBALLS_BOOK_CONTENT = [
    {
@@ -44,6 +44,13 @@ const MEATBALLS_BOOK_CONTENT = [
       icon: OpenLock,
       title: 'Снять бронь',
       id: '2',
+   },
+]
+const MEATBALLS_BOOK = [
+   {
+      icon: OpenLock,
+      title: 'Снять бронь',
+      id: '3',
    },
 ]
 const MEATBALLS_CHARITY_CONTENT = [
@@ -83,10 +90,12 @@ export default function Cards({
    deleteHandler,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
+
    return (
       <Card
          changecard={changeCard.toString()}
          sx={{ width: changeCard ? '349px' : '533px' }}
+         // eslint-disable-next-line react/jsx-no-bind
       >
          <CardActionArea key={id} changecard={changeCard.toString()}>
             {changeCard ? (
@@ -136,7 +145,7 @@ export default function Cards({
                                  {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
                               <Meatballs
-                                 arrayIcon={MEATBALLS_CHARITY_CONTENT}
+                                 arrayIcon={MEATBALLS_BOOK_CONTENT}
                                  open={open}
                                  id={id}
                                  meatballsselecthandler={meatballsSelectHandler}
@@ -189,9 +198,9 @@ export default function Cards({
                                        {expectation}
                                     </Button>
                                     <Meatballs
-                                       arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                       arrayIcon={MEATBALLS_BOOK}
                                        open={open}
-                                       id={id}
+                                       id={2}
                                        meatballsSelectHandler={
                                           meatballsSelectHandler
                                        }
@@ -203,12 +212,11 @@ export default function Cards({
                                  </>
                               ) : (
                                  <>
-                                    <ImgIcon src={icon} />
                                     <Button onClick={meatballsChangeHandler}>
                                        {reserve}
                                     </Button>
                                     <Meatballs
-                                       arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                       arrayIcon={MEATBALLS_BOOK}
                                        open={open}
                                        id={id}
                                        handleClose={handleClose}
@@ -230,10 +238,11 @@ export default function Cards({
 }
 
 const Card = styled(MuiCard)(() => ({
-   padding: '16px',
+   padding: '6px',
    background: '#FFFFFF',
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
+   marginTop: '20px',
 }))
 const CardActionArea = styled(MuiCardActionArea)(({ changecard }) => ({
    padding: '0',

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { styled } from '@mui/material'
 import {
    getAllBooked,
-   postBookedCharities,
+   // postBookedCharities,
 } from '../../../redux/booked/bookedThunk'
 import Cards from '../../../components/card/Card'
 
@@ -16,17 +16,10 @@ export const AllCharityPage = () => {
    useEffect(() => {
       dispatch(getAllBooked())
    }, [])
-   const addToMyPresents = (id, charityId) => {
-      const dataIconMyPresents = {
-         id: charityId,
-         anonymous: id !== '1',
-      }
-      dispatch(postBookedCharities(dataIconMyPresents))
-   }
 
    return (
       <div>
-         <h2>Подарки </h2>
+         <h2>Благотворительность</h2>
          <Container>
             {allCharityBooked.charities?.map((item) => {
                return (
@@ -39,11 +32,12 @@ export const AllCharityPage = () => {
                         title={item.holidayName}
                         img={item.image}
                         date={item.date}
-                        openMeatballs={item.openMeatballs}
-                        meatballsChangeHandler={item.meatballsChangeHandler}
-                        changeCard={true}
-                        bookChange={true}
-                        reserveHandler={addToMyPresents}
+                        // openMeatballs={item.openMeatballs}
+                        // meatballsChangeHandler={item.meatballsChangeHandler}
+                        // changeCard={true}
+                        // bookChange={true}
+                        display={true}
+                        // reserveHandler={addToMyPresents}
                         // deleteHandler={deleteMyCharities}
                      />
                   </div>

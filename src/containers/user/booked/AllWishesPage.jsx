@@ -8,7 +8,6 @@ export const AllWishesPage = () => {
    const dispatch = useDispatch()
 
    const allWishBooked = useSelector((state) => state.booked.postAllBooked)
-   console.log(allWishBooked, 'allWishBookeddd')
 
    useEffect(() => {
       dispatch(getAllBooked())
@@ -21,7 +20,6 @@ export const AllWishesPage = () => {
       }
       dispatch(postBookedWish(dataIconMyPresents))
    }
-
    return (
       <div>
          <h2>Желания</h2>

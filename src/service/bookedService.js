@@ -5,7 +5,7 @@ export const getAllBookedReq = () => {
    return axiosInstance.get('/api/reserves')
 }
 export const getBookedWishesReq = () => {
-   return axiosInstance.get('/api/reserves/pagination-wish?page=1&limit=2')
+   return axiosInstance.get('/api/reserves/pagination-wish?page=1')
 }
 export const getCharitiesReq = () => {
    return axiosInstance.get('/api/reserves/pagination-charity')
@@ -13,32 +13,32 @@ export const getCharitiesReq = () => {
 
 export const postBookedWishReq = (data) => {
    return axiosInstance.post(
-      `/api/reserves/wish?wishId=${data}&isAnonymous=false`,
+      `/api/reserves?wishId=${data}&holidayId=${data}`,
       {},
       {
          params: {
             wishId: data.id,
-            isAnonymous: data.anonymous,
-            // holidayId: data.holidayId,
+            holidayId: data.holidayId,
          },
       }
    )
 }
-export const postBookedCharityReq = (data) => {
-   return axiosInstance.post(
-      '/api/reserves/charity',
-      {},
-      { params: { charityId: data.id, isAnonymous: data.anonymous } }
-   )
+// export const postBookedCharityReq = (data) => {
+//    return axiosInstance.post(
+//       '/api/reserves/charity',
+//       {},
+//       { params: { charityId: data.id, isAnonymous: data.anonymous } }
+//    )
+// }
+
+export const deleteWishReq = (data) => {
+   return axiosInstance.delete(`/api/reserves/wish=${data}`, {
+      params: {
+         wishId: data.id,
+      },
+   })
 }
 
-export const deleteWishReq = (id) => {
-   return axiosInstance.delete(
-      `/api/reserves/wish=${id}`
-      //    {
-      //       params: {
-      //          wishId: id,
-      //       },
-      //    }
-   )
+export const deleteCharityReq = (data) => {
+   return axiosInstance.delete(`/api/reserves/charity?charityId=${data.id}`)
 }

@@ -14,9 +14,6 @@ const Header = () => {
                <BallIcon />
             </StyledIconButton>
             <StyledContainer>
-               <IconButton>
-                  <BallIcon />
-               </IconButton>
                <UserMenu />
             </StyledContainer>
          </StyledHeader>
@@ -30,18 +27,18 @@ const StyledHeader = styled('header')`
    display: flex;
    padding: 20px 40px 20px 14px;
    background-color: #ffffff;
-   marginright: 20px;
+   marginright: 80px;
    justify-content: space-between;
 `
 const StyledContainer = styled('div')`
    display: flex;
-   align-items: center;
-   gap: 0.25rem;
+   marginRight:'20px',
+      gap: 0.25rem;
 `
 const StyledIconButton = styled(IconButton)`
    margin-left: 0;
    margin-right: 0;
    /* margin-left: rem; */
-   margin-right: 1.2rem;
+   margin-right: 5.2rem;
    gap: 1rem;
 `

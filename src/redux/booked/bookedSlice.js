@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
-   deleteIdWish,
+   deleteBookedWish,
    getAllBooked,
    getBookedCharities,
    getBookedWishes,
@@ -39,17 +39,17 @@ const bookedSlice = createSlice({
             state.isLoading = false
             state.postAllBooked = payload
          })
-         .addCase(deleteIdWish.pending, (state) => {
+         .addCase(deleteBookedWish.pending, (state) => {
             state.isLoading = true
             state.error = ''
          })
-         .addCase(deleteIdWish.fulfilled, (state, action) => {
+         .addCase(deleteBookedWish.fulfilled, (state, action) => {
             state.isLoading = false
             state.wishes = state.wishes.filter(
                (wish) => wish.id !== action.payload
             )
          })
-         .addCase(deleteIdWish.rejected, (state, action) => {
+         .addCase(deleteBookedWish.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.payload
          })
