@@ -91,8 +91,31 @@ const MEATBALLS_BOOK_CONTENT = [
       icon: OpenLock,
       title: 'Снять бронь',
    },
+
+   {
+      icon: Dislike,
+      title: 'Пожаловаться',
+      clickHandler: (id) => {
+         console.log(id)
+      },
+   },
 ]
 const MEATBALLS_CHARITY_CONTENT = [
+   {
+      id: '3',
+      icon: Present,
+      title: 'Добавить в мои подарки',
+      clickHandler: async (id) => {
+         await postRequestLentaPresent(id)
+      },
+   },
+   {
+      icon: OpenLock,
+      title: 'Снять бронь',
+      clickHandler: (id) => {
+         console.log(id)
+      },
+   },
    {
       icon: Lock,
       title: 'Забронировать',

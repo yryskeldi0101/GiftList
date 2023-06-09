@@ -145,8 +145,6 @@ const StyledCard = styled(Card)(() => ({
    borderRadius: '10px',
    width: '1086px',
    height: '871px',
-   // width: '1170px',
-   // height: '100%',
    position: 'relative',
    marginTop: '26px',
    paddingBottom: '200px',
