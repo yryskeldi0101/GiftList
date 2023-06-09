@@ -49,7 +49,7 @@ const ForgotPassword = React.forwardRef(({ openModal, onCloseModal }, ref) => {
                         required: 'Электронная почта обязательнo',
                         pattern: {
                            value: /\S+@\S+\.\S+/,
-                           message: 'Неверный формат электронной почты',
+                           message: 'Электронная почта должна включать @',
                         },
                      })}
                   />
@@ -109,7 +109,7 @@ const StyledText = styled('p')`
    margin-bottom: 32px;
 `
 const StyledErrorColor = styled('h2')`
-   font-size: large;
+   font-size: 15px;
    color: #d91c1c;
    font-weight: 400;
    font-family: 'Inter';
