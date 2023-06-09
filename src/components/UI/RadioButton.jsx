@@ -4,28 +4,27 @@ import Radio from '@mui/material/Radio'
 
 const BpIcon = styled('span')(() => ({
    borderRadius: '50%',
-   width: 16,
-   height: 16,
+   padding: '12px',
+   border: '1px solid grey',
 }))
 
 const BpCheckedIcon = styled(BpIcon)({
-   backgroundColor: 'violet',
+   backgroundColor: '#8639B5',
 
    '&:before': {
       display: 'block',
-      width: 16,
-      height: 16,
-      backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
+      width: 5,
+      height: 5,
+      backgroundImage: 'radial-gradient(#fff,#fff 60%,transparent 100%)',
       content: '""',
-   },
-   'input:hover ~ &': {
-      backgroundColor: '#106ba3',
    },
 })
 
 const RadioButton = ({ checked, onChange, value, ...props }) => {
    return (
       <Radio
+         checked={checked}
+         onChange={onChange}
          disableRipple
          checkedIcon={<BpCheckedIcon />}
          icon={<BpIcon />}

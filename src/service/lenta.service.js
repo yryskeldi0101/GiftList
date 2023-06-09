@@ -26,3 +26,7 @@ export const deleteRequestLentaBooking = (id) => {
 export const postRequestLentaComplain = ({ id, complaintDescription }) => {
    return axiosInstance.post(`api/complaint/wish`, { id, complaintDescription })
 }
+
+export const getRequestHoliday = () => {
+   return axiosInstance.get('/api/holidays')
+}

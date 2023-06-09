@@ -11,7 +11,6 @@ function CardPage() {
    const dispatch = useDispatch()
    const infoLenta = useSelector((state) => state.lenta.getOneLenta)
    const [isAnonym, setAnonym] = useState(false)
-   const [isReserved] = useState(true)
    const param = useParams()
    const [isLocked, setLocked] = useState(false)
 
@@ -27,66 +26,59 @@ function CardPage() {
       await postRequestLentaBooking(param.id, isAnonym)
       setLocked(true)
    }
-
    return (
-      <>
-         {/* <StyledHeader>
-            <Span>Лента </Span>/ iphone 13 pro
-         </StyledHeader> */}
-         <StyledCard>
-            <StyledInfo>
-               <StyledImage>
-                  <Img src={infoLenta.photo} alt="#" />
-               </StyledImage>
-               <InfoBox>
-                  <HeaderBox>
-                     <TitleBox>
-                        <ImgIcon src={infoLenta.image} />
-                        <StyledTitle>
-                           <UserName>{infoLenta.fullName}</UserName>
-                        </StyledTitle>
-                     </TitleBox>
-                     <StyledPending>
-                        {isAnonym && !isLocked ? null : (
-                           <IconImage src={infoLenta.image} />
-                        )}
-                        <p>{isReserved ? 'Забронирован' : 'В ожидании'}</p>
-                     </StyledPending>
-                  </HeaderBox>
-                  <StyledText>
-                     <h3>{infoLenta.wishName}</h3>
-                     <p>{infoLenta.description}</p>
-                  </StyledText>
-                  <StyledData>
-                     <div>
-                        <Category>Дата праздника:</Category>
-                        <span>{infoLenta.date}</span>
-                     </div>
-                     <StyledSubcategory>
-                        <Subcategory>Название праздника:</Subcategory>
-                        <StyledSpan>{infoLenta.holidayName}</StyledSpan>
-                     </StyledSubcategory>
-                  </StyledData>
-               </InfoBox>
-            </StyledInfo>
-            <StyledButton>
-               <StyledCheckbox>
-                  <Checkboxes
-                     checked={isAnonym}
-                     handleChange={changeIsAnonym}
-                  />
-                  <p>Забронировать анонимно</p>
-               </StyledCheckbox>
-               <MyButtonPage
-                  onClick={postLentaBooking}
-                  disabled={isReserved}
-                  variant="contained"
-               >
-                  Забронировать
-               </MyButtonPage>
-            </StyledButton>
-         </StyledCard>
-      </>
+      <StyledCard>
+         <StyledInfo>
+            <StyledImage>
+               <Img src={infoLenta.photo} alt="#" />
+            </StyledImage>
+            <InfoBox>
+               <HeaderBox>
+                  <TitleBox>
+                     <ImgIcon src={infoLenta.image} />
+                     <StyledTitle>
+                        <UserName>{infoLenta.fullName}</UserName>
+                     </StyledTitle>
+                  </TitleBox>
+                  <StyledPending>
+                     {infoLenta.isAnonymous && !isLocked ? (
+                        <IconImage src={infoLenta.image} />
+                     ) : null}
+                     <p>
+                        {infoLenta.isReserved ? 'Забронирован' : 'В ожидании'}
+                     </p>
+                  </StyledPending>
+               </HeaderBox>
+               <StyledText>
+                  <h3>{infoLenta.wishName}</h3>
+                  <p>{infoLenta.description}</p>
+               </StyledText>
+               <StyledData>
+                  <div>
+                     <Category>Дата праздника:</Category>
+                     <span>{infoLenta.date}</span>
+                  </div>
+                  <StyledSubcategory>
+                     <Subcategory>Название праздника:</Subcategory>
+                     <StyledSpan>{infoLenta.holidayName}</StyledSpan>
+                  </StyledSubcategory>
+               </StyledData>
+            </InfoBox>
+         </StyledInfo>
+         <StyledButton>
+            <StyledCheckbox>
+               <Checkboxes checked={isAnonym} handleChange={changeIsAnonym} />
+               <p>Забронировать анонимно</p>
+            </StyledCheckbox>
+            <MyButtonPage
+               onClick={postLentaBooking}
+               disabled={infoLenta.isReserved}
+               variant="contained"
+            >
+               Забронировать
+            </MyButtonPage>
+         </StyledButton>
+      </StyledCard>
    )
 }
 

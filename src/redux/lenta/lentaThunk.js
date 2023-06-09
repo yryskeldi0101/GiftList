@@ -3,8 +3,8 @@ import { isAxiosError } from 'axios'
 import {
    getRequestLentaCard,
    postRequestLentaPresent,
-   // postRequestLentaСomplain,
    getRequestLentaInfoCard,
+   deleteRequestLentaBooking,
 } from '../../service/lenta.service'
 
 // eslint-disable-next-line import/no-cycle
@@ -14,7 +14,6 @@ export const getLentaCard = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const { data } = await getRequestLentaCard()
-         console.log(data, 'DATA')
          return data.elements
       } catch (error) {
          if (isAxiosError(error)) {
@@ -55,17 +54,17 @@ export const postLentaReserve = createAsyncThunk(
    }
 )
 
-// export const postLentaComplain = createAsyncThunk(
-//    'lenta/postLentaComplain',
-//    async (values, { rejectWithValue }) => {
-//       try {
-//          const data = await postRequestLentaСomplain(values)
-//          return data
-//       } catch (error) {
-//          if (isAxiosError(error)) {
-//             return rejectWithValue(error.response?.data.message)
-//          }
-//          return rejectWithValue('Something went wrong')
-//       }
-//    }
-// )
+export const deleteReserve = createAsyncThunk(
+   'lenta/delete',
+   async (values, { rejectWithValue }) => {
+      try {
+         const data = await deleteRequestLentaBooking(values)
+         return data
+      } catch (error) {
+         if (isAxiosError(error)) {
+            return rejectWithValue(error.response?.data.message)
+         }
+         return rejectWithValue('Something went wrong')
+      }
+   }
+)

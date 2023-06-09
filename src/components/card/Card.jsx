@@ -14,7 +14,7 @@ import {
    postRequestLentaPresent,
    postRequestLentaBooking,
    deleteRequestLentaBooking,
-   postRequestLentaComplain,
+   getRequestLentaCard,
 } from '../../service/lenta.service'
 import Meatballs from '../UI/Meatballs'
 import { getLentaCard } from '../../redux/lenta/lentaThunk'
@@ -25,8 +25,11 @@ const MEATBALLS_EXPECT_CONTENT = [
       icon: Lock,
       title: 'Забронировать',
       clickHandler: async (id) => {
-         postRequestLentaBooking(id, false)
-         getLentaCard()
+         if (MEATBALLS_EXPECT_CONTENT[0].id === '1') {
+            postRequestLentaBooking(id, false)
+            console.log('asaajdkfsdihfbkzdhfjsakdb')
+            getLentaCard()
+         }
       },
    },
    {
@@ -34,7 +37,9 @@ const MEATBALLS_EXPECT_CONTENT = [
       icon: Ananim,
       title: 'Забронировать анонимно',
       clickHandler: async (id) => {
-         postRequestLentaBooking(id, true)
+         if (MEATBALLS_EXPECT_CONTENT[1].id === '2') {
+            postRequestLentaBooking(id, false)
+         }
       },
    },
    {
@@ -59,30 +64,22 @@ const MEATBALLS_LENTA_CONTENT = [
       id: '1',
       icon: Present,
       title: 'Добавить в мои подарки',
-      clickHandler: async (id) => {
-         await postRequestLentaPresent(id)
-      },
+      clickHandler: async () => {},
    },
    {
       id: '2',
       icon: OpenLock,
       title: 'Снять бронь',
       clickHandler: async (id) => {
-         try {
-            await deleteRequestLentaBooking(id, true)
-            getLentaCard()
-         } catch (error) {
-            console.log(error)
-         }
+         await deleteRequestLentaBooking(id)
+         return getRequestLentaCard()
       },
    },
    {
       id: '3',
       icon: Dislike,
       title: 'Пожаловаться',
-      clickHandler: async (id) => {
-         await postRequestLentaComplain(id)
-      },
+      clickHandler: async () => {},
    },
 ]
 const MEATBALLS_BOOK_CONTENT = [
@@ -121,14 +118,13 @@ export default function Cards({
    userId,
    meatballsselecthandler,
    changeCard,
-   reserveHandler,
    bookChange,
    charityMeatballs,
    charityMeatballsHandler,
    state,
    requestById,
    reserve,
-   isAisAnonymous,
+   isAnonymous,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
 
@@ -195,7 +191,6 @@ export default function Cards({
                                  handleClose={handleClose}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
-                                 reserveHandler={reserveHandler}
                                  display={reserve}
                               />
                            </>
@@ -213,7 +208,6 @@ export default function Cards({
                                  handleClose={handleClose}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
-                                 reserveHandler={reserveHandler}
                                  display={reserve}
                               />
                            </>
@@ -229,21 +223,18 @@ export default function Cards({
                               handleClick={handleClick}
                               anchorEl={anchorEl}
                               id={id}
-                              reserveHandler={reserveHandler}
                            />
                         ) : (
                            <FooterAvatar>
-                              {reserveUserImage !== null && !isAisAnonymous ? (
+                              {reserveUserImage !== null && !isAnonymous ? (
                                  <>
                                     <ImgIcon src={reserveUserImage} />
                                     <Button>
-                                       {isAisAnonymous
-                                          ? 'Забронирован анонимно'
-                                          : 'Забронирован'}
+                                       {reserve ? 'Забронирован' : 'В ожидании'}
                                     </Button>
                                     <Meatballs
                                        arrayIcon={
-                                          reserve !== null
+                                          reserve
                                              ? MEATBALLS_LENTA_CONTENT
                                              : MEATBALLS_EXPECT_CONTENT
                                        }
@@ -255,20 +246,19 @@ export default function Cards({
                                        handleClose={handleClose}
                                        handleClick={handleClick}
                                        anchorEl={anchorEl}
-                                       reserveHandler={reserveHandler}
                                     />
                                  </>
                               ) : (
                                  <>
                                     <Button>
-                                       {isAisAnonymous
+                                       {reserve
                                           ? 'Забронирован анонимно'
-                                          : 'Забронирован'}
+                                          : 'В ожидании'}
                                     </Button>
 
                                     <Meatballs
                                        arrayIcon={
-                                          reserve !== null
+                                          reserve
                                              ? MEATBALLS_LENTA_CONTENT
                                              : MEATBALLS_EXPECT_CONTENT
                                        }
@@ -280,7 +270,6 @@ export default function Cards({
                                        handleClose={handleClose}
                                        handleClick={handleClick}
                                        anchorEl={anchorEl}
-                                       reserveHandler={reserveHandler}
                                     />
                                  </>
                               )}
@@ -306,8 +295,8 @@ const CardActionArea = styled('div')(({ changecard }) => ({
    fontStyle: 'normal',
    letterSpacing: '0.02em',
    fontWeight: 500,
-   display: changecard ? '' : 'flex',
-   justifyContent: changecard ? '' : 'space-between',
+   display: changecard ? 'flex' : '',
+   justifyContent: changecard ? 'space-between' : '',
    width: changecard ? '' : '524px',
 }))
 const CardHeader = styled('div')(() => ({
@@ -324,9 +313,10 @@ const HeaderAvatar = styled('div')(() => ({
    alignItems: 'center',
    width: '176px',
 }))
-const ImgIcon = styled('img')(() => ({
+const ImgIcon = styled('img')(({ changeCard }) => ({
    width: '36px',
    marginRight: '10px',
+   marginLeft: changeCard ? '20px' : '',
 }))
 const UserName = styled('h2')(() => ({
    fontSize: '14px',

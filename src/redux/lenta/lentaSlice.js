@@ -9,6 +9,7 @@ const initialState = {
    getOneLenta: {},
    card: [],
    lenta: [],
+   holidays: [],
 }
 export const lentaSlice = createSlice({
    name: 'lenta',

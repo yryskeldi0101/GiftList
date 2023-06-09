@@ -1,41 +1,16 @@
 import { Button, Menu, MenuItem } from '@mui/material'
-import { useState } from 'react'
+// import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import MyButton from './Button'
 import { ReactComponent as MeatballsIcon } from '../../assets/icons/meatballs.svg'
 import MyModal from './modal/Modal'
 import {
+   getRequestHoliday,
    postRequestLentaComplain,
    postRequestLentaPresent,
 } from '../../service/lenta.service'
 import RadioButton from './RadioButton'
-
-const holidays = [
-   {
-      id: '1',
-      title: 'День рождение',
-   },
-   {
-      id: '2',
-      title: 'День влюбленных',
-   },
-   {
-      id: '3',
-      title: 'Новый год',
-   },
-   {
-      id: '4',
-      title: 'Рамазан',
-   },
-   {
-      id: '5',
-      title: 'Курбан айт',
-   },
-   {
-      id: '6',
-      title: '8-март',
-   },
-]
 
 const complaints = [
    {
@@ -69,21 +44,36 @@ const complaints = [
 ]
 
 export default function Meatballs({
-   arrayIcon,
+   arrayIcon = [],
    open,
    onClose,
    handleClose,
    handleClick,
    anchorEl,
-   reserveHandler,
    id,
    setReserved,
    setAnonym,
    variant,
+   display,
+
    ...restProps
 }) {
    const [openModal, setOpenModal] = useState(false)
    const [openComplaint, setOpenComplaintModal] = useState(false)
+   const [complaint, setComplaint] = useState(null)
+   const [holidays, setHolidays] = useState([])
+
+   const getHoliday = async () => {
+      try {
+         const { data } = await getRequestHoliday()
+         setHolidays(data)
+      } catch (error) {
+         console.log(error)
+      }
+   }
+   useEffect(() => {
+      getHoliday()
+   }, [])
 
    const menuClickHandler = (title) => {
       if (title === 'Добавить в мои подарки') {
@@ -101,53 +91,70 @@ export default function Meatballs({
       postRequestLentaPresent({ wishId, holidayId })
    }
 
-   const postComplaint = async ({ id, complaintDescription }) => {
-      try {
-         await postRequestLentaComplain({ id, complaintDescription })
-      } catch (error) {
-         console.log(error)
-      }
-   }
-
    const closeModal = () => {
       setOpenModal(false)
       setOpenComplaintModal(false)
    }
+   const postComplaint = async () => {
+      try {
+         await postRequestLentaComplain({
+            id,
+            complaintDescription: complaint.title,
+         })
+
+         complaint(null)
+      } catch (error) {
+         console.log(error)
+      }
+      closeModal()
+   }
+
+   const changeRadio = (e, item) => {
+      if (e.target.checked) {
+         setComplaint(item)
+      } else {
+         setComplaint(null)
+      }
+   }
 
    return (
       <div>
-         <MyModal open={openModal} onClose={closeModal}>
-            {holidays.map((item) => {
-               return (
-                  <MenuitemMui
-                     onClick={() =>
-                        clickRequest({ wishId: id, holidayId: item.id })
-                     }
-                     id={item.id}
-                  >
-                     {item.title}
-                  </MenuitemMui>
-               )
-            })}
-         </MyModal>
+         <div>
+            <MyModal open={openModal} onClose={closeModal}>
+               {holidays.map((item) => {
+                  return (
+                     <MenuitemMui
+                        onClick={() => {
+                           clickRequest({ wishId: id, holidayId: item.id })
+                           closeModal()
+                        }}
+                        id={item.id}
+                     >
+                        {item.name}
+                     </MenuitemMui>
+                  )
+               })}
+            </MyModal>
+         </div>
+
          <MyModal open={openComplaint} onClose={closeModal}>
             <Styledh2>Пожаловаться</Styledh2>
             <StyledP>Почему вы хотите пожаловаться на эту публикацию?</StyledP>
             {complaints.map((item) => {
                return (
-                  <MenuitemMui
-                     onClick={() =>
-                        postComplaint({ id, complaintDescription: item.title })
-                     }
-                     id={item.id}
-                  >
-                     <StyledCheckbox />
+                  <MenuitemMui id={item.id}>
+                     <StyledCheckbox
+                        checked={complaint?.id === item.id}
+                        onChange={(e) => changeRadio(e, item)}
+                     />
                      {item.title}
                   </MenuitemMui>
                )
             })}
-            <MyButton variant={variant}>Отмена</MyButton>
-            <MyButton>Потвердить</MyButton>
+            <StyledContained>
+               <StyledBtn onClick={closeModal}>Отмена</StyledBtn>
+               <StyledButton onClick={postComplaint}>Потвердить</StyledButton>
+            </StyledContained>
          </MyModal>
          <Button
             id="demo-positioned-button"
@@ -159,40 +166,48 @@ export default function Meatballs({
          >
             <MeatballsIcon />
          </Button>
-         <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            anchorOrigin={{
-               vertical: 'top',
-               horizontal: 'left',
-            }}
-            transformOrigin={{
-               vertical: 'top',
-               horizontal: 'left',
-            }}
-         >
-            {arrayIcon.map((item) => (
-               <MenuItem
-                  onClick={() => {
-                     item.clickHandler(id, setReserved, setAnonym)
-                     menuClickHandler(item.title)
-                     openComplaintModal(item.title)
+         <div>
+            {display ? (
+               ''
+            ) : (
+               <Menu
+                  id="demo-positioned-menu"
+                  aria-labelledby="demo-positioned-button"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                     vertical: 'top',
+                     horizontal: 'left',
                   }}
-                  key={item.id}
-                  {...restProps}
+                  transformOrigin={{
+                     vertical: 'top',
+                     horizontal: 'left',
+                  }}
                >
-                  <img
-                     src={item.icon}
-                     alt="#"
-                     style={{ marginRight: '10px' }}
-                  />
-                  {item.title}
-               </MenuItem>
-            ))}
-         </Menu>
+                  {arrayIcon?.map((item) => (
+                     <div key={item.id}>
+                        <MenuItem
+                           onClick={() => {
+                              handleClose()
+                              menuClickHandler(item.title)
+                              openComplaintModal(item.title)
+                              item.clickHandler(id)
+                           }}
+                           {...restProps}
+                        >
+                           <img
+                              src={item.icon}
+                              alt="#"
+                              style={{ marginRight: '10px' }}
+                           />
+                           {item.title}
+                        </MenuItem>
+                     </div>
+                  ))}
+               </Menu>
+            )}
+         </div>
       </div>
    )
 }
@@ -231,4 +246,27 @@ const StyledCheckbox = styled(RadioButton)(() => ({
    '&:checked': {
       background: ' #8639B5',
    },
+}))
+const StyledBtn = styled(MyButton)(() => ({
+   background: '#FCFCFD',
+   color: '#8D949E',
+   border: '1px solid grey',
+   width: '294px',
+   borderRadius: '10px',
+}))
+
+const StyledButton = styled(MyButton)(() => ({
+   marginLeft: '20px',
+   color: '#ffff',
+   background: ' #8639B5',
+   width: '294px',
+   borderRadius: '10px',
+   '&:hover': {
+      background: ' #8639B5',
+   },
+}))
+
+const StyledContained = styled('div')(() => ({
+   marginTop: '20px',
+   marginLeft: '15px',
 }))

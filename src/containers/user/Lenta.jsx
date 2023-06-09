@@ -5,11 +5,7 @@ import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as ListCardIcon } from '../../assets/icons/listcardicon.svg'
 import { ReactComponent as IconTable } from '../../assets/icons/tablecard.svg'
-import {
-   getLentaCard,
-   getLentaInfoCard,
-   postLentaReserve,
-} from '../../redux/lenta/lentaThunk'
+import { getLentaCard, getLentaInfoCard } from '../../redux/lenta/lentaThunk'
 import Cards from '../../components/card/Card'
 
 const Lenta = () => {
@@ -33,19 +29,14 @@ const Lenta = () => {
       navigationHandler(id)
    }
 
-   const reservesLenta = (id) => {
-      dispatch(postLentaReserve(id))
-   }
-   console.log(lentaArray, 'lentaArray')
-
    return (
       <div>
          <StyledMain>
             <StyledIcon onClick={() => setCard(true)}>
-               <StyledTableIcon card={toString(card)} />
+               <StyledTableIcon cardColor={card} />
             </StyledIcon>
             <StyledButton onClick={changeCard}>
-               <StyledListIcon card={toString(card)} />
+               <StyledListIcon cardColor={card} />
             </StyledButton>
          </StyledMain>
          <StyledCard>
@@ -53,11 +44,11 @@ const Lenta = () => {
                return (
                   <Cards
                      key={item.userId}
-                     reserveHandler={reservesLenta}
                      requestById={requesById}
                      openMeatballs={true}
                      changeCard={card}
-                     id={item.userId}
+                     userId={item.userId}
+                     id={item.wishId}
                      icon={item.image}
                      reserveUserImage={item.reserveUserImage}
                      userName={item.fullName}
@@ -84,14 +75,14 @@ export default Lenta
 const StyledCard = styled('div')(() => ({
    display: 'flex',
    flexWrap: 'wrap',
-   gap: '20px',
+   gap: '55px',
    marginTop: '30px',
 }))
 
 const StyledMain = styled('div')(() => ({
    marginTop: '30px',
    display: 'flex',
-   marginRight: '125px',
+   marginRight: '40px',
    justifyContent: 'end',
 }))
 
@@ -101,14 +92,14 @@ const StyledButton = styled(Button)(() => ({
    padding: '14px 8px',
 }))
 
-const StyledListIcon = styled(ListCardIcon)(({ card }) => ({
+const StyledListIcon = styled(ListCardIcon)(({ cardColor }) => ({
    path: {
-      fill: card ? 'gray' : '#8639B5',
+      fill: cardColor ? 'gray' : '#8639B5',
    },
 }))
-const StyledTableIcon = styled(IconTable)(({ card }) => ({
+const StyledTableIcon = styled(IconTable)(({ cardColor }) => ({
    path: {
-      fill: card ? '#8639B5' : 'gray',
+      fill: cardColor ? '#8639B5' : '#84818A',
    },
 }))
 const StyledIcon = styled(Button)(() => ({

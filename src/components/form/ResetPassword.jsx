@@ -1,25 +1,28 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { IconButton, styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import MyModal from '../UI/modal/Modal'
 import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
+import { postResetPassword } from '../../redux/reducer/auth/authThunk'
 
-const ResetPassword = ({ openModal, setOpenModal }) => {
+const ResetPassword = ({ token, setOpenModal }) => {
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm()
+   const dispatch = useDispatch()
 
    const onSubmit = (data) => {
       if (data.confirmPassword === data.password) {
-         console.log(data)
+         dispatch(postResetPassword({ data, token }))
       }
    }
    return (
-      <MyModal open={openModal}>
+      <MyModal open={token} close={setOpenModal}>
          <form onSubmit={handleSubmit(onSubmit)}>
             <StyledTitleContainer>
                <h2>Смена пароля</h2>
