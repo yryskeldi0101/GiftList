@@ -1,7 +1,6 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Users from '../containers/admin/users/Users'
-import AdminCharity from '../containers/admin/Charity'
 import Complaints from '../containers/admin/Complaints'
 import Newsletter from '../containers/admin/Newsletter'
 import AdminLayout from '../layout/admin/AdminLayout'
@@ -13,6 +12,7 @@ import NewsletterDetails from '../containers/admin/NewsLetterDetail'
 import AllGifts from '../containers/admin/users/AllWishes'
 import AllHolidays from '../containers/admin/users/AllHolidays'
 import AllCharities from '../containers/admin/users/AllCharities'
+import AdminCharity from '../containers/admin/Charity'
 
 const AdminRoutes = () => {
    return (
