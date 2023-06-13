@@ -29,6 +29,7 @@
       "import/no-extraneous-dependencies": "off",
       "no-param-reassign": "off",
       "import/no-cycle": "off",
+      "default-param-last": "error",
       "max-len": [
          "error",
          {

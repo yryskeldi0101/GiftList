@@ -32,6 +32,7 @@ const SearchInput = ({
                   onChange={inputChangeHandler}
                   value={value}
                   type="text"
+                  autoFocus={false}
                   placeholder="Поиск"
                   InputProps={{
                      startAdornment: <CustomIcon />,
@@ -60,14 +61,14 @@ export default SearchInput
 
 const Input = styled(TextField)(() => ({
    outline: 'none',
-   padding: '5px 10px',
-   width: '821px',
+   width: '60vw',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    fontWeight: '400',
    fontSize: '14px',
    lineHeight: '17px',
    '& .MuiOutlinedInput-root': {
+      padding: '0px 10px',
       borderRadius: '8px',
       height: '40px',
       '& fieldset': {
@@ -94,5 +95,5 @@ const InputBlock = styled('div')`
    align-items: center;
    width: 100%;
    height: 40px;
-   padding: 10px 0px;
+   padding: 0px;
 `

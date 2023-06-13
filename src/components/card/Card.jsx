@@ -305,7 +305,7 @@ const CardActions = styled(MuiCardActions)(({ openmeatballs }) => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   width: '338px',
+   width: '316px',
    margin: openmeatballs ? '9px 0' : '0',
    padding: '0',
    span: {
@@ -318,6 +318,7 @@ const FooterAvatar = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
+   width: '200px',
 }))
 const Button = styled('div')(() => ({
    border: 'none',
