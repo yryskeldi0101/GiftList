@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import { ReactComponent as AddImg } from '../../../assets/svg/charityImgAddIcon.svg'
 import ReusableInput from '../../../components/UI/input/Input'
 import AppSelect from '../../../components/UI/AppSelect'
@@ -24,24 +25,41 @@ const CharityAdd = () => {
    const location = useLocation()
    const { getOneCharity } = location.state ?? {}
 
-   const [stateValue, setStateValue] = useState(getOneCharity?.state || '')
-   const [categoryValue, setCategoryValue] = useState(
-      getOneCharity?.category || ''
-   )
-   const [subCategoryValue, setSubCategoryValue] = useState(
-      getOneCharity?.subCategory || ''
-   )
-   const [titleInputValue, setTitleInputValue] = useState(
-      getOneCharity?.charityName || ''
-   )
+   // const [stateValue, setStateValue] = useState(getOneCharity?.state || '')
+   // const [categoryValue, setCategoryValue] = useState(
+   //    getOneCharity?.category || ''
+   // )
+   // const [subCategoryValue, setSubCategoryValue] = useState(
+   //    getOneCharity?.subCategory || ''
+   // )
+   // const [titleInputValue, setTitleInputValue] = useState(
+   //    getOneCharity?.charityName || ''
+   // )
 
-   const [descriptionValue, setDescriptionValue] = useState(
-      getOneCharity?.description || ''
-   )
+   // const [descriptionValue, setDescriptionValue] = useState(
+   //    getOneCharity?.description || ''
+   // )
    const [selectedFile, setSelectedFile] = useState(null)
    const [imageUrl, setImageUrl] = useState(getOneCharity?.image || '')
    const [isLoading, setIsLoading] = useState(false)
    const { id } = useParams()
+   const {
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+   } = useForm({
+      defaultValues: {
+         stateValue: getOneCharity?.state || '',
+         categoryValue: getOneCharity?.category || '',
+         subCategoryValue: getOneCharity?.subCategory || '',
+         titleInputValue: getOneCharity?.charityName || '',
+         descriptionValue: getOneCharity?.description || '',
+      },
+   })
+   const watchStateValue = watch('stateValue')
+   const watchCategoryValue = watch('categoryValue')
+   const watchSubCategoryValue = watch('subCategoryValue')
    const { showToast } = useToastBar()
    const handleImageChange = async (e) => {
       const file = e.target.files[0]
@@ -57,11 +75,11 @@ const CharityAdd = () => {
       }
    }
 
-   const titleInputChangeHandler = (event) =>
-      setTitleInputValue(event.target.value)
+   // const titleInputChangeHandler = (event) =>
+   //    setTitleInputValue(event.target.value)
 
-   const descriptionChangeHandler = (event) =>
-      setDescriptionValue(event.target.value)
+   // const descriptionChangeHandler = (event) =>
+   //    setDescriptionValue(event.target.value)
 
    const navigate = useNavigate()
    const navigateToCharityHandler = () => navigate(-1)
@@ -112,170 +130,200 @@ const CharityAdd = () => {
          )
       }
    }
-   const hadleSubmit = async () => {
+   const submitHandler = async (data) => {
       const formIsEmpty = Object.values({
          imageUrl,
-         titleInputValue,
-         categoryValue,
-         subCategoryValue,
-         stateValue,
-         descriptionValue,
       }).some((value) => !value)
       if (formIsEmpty) {
-         return showToast('warning', 'Пожалуйста!', 'Заполните все поля')
+         return showToast('warning', 'Пожалуйста!', 'Выберите фотографию')
       }
-      const data = {
-         name: titleInputValue,
-         state: stateValue,
-         category: categoryValue,
-         subCategory: subCategoryValue,
-         description: descriptionValue,
+      const SentData = {
+         name: data.titleInputValue,
+         state: data.stateValue,
+         category: data.categoryValue,
+         subCategory: data.subCategoryValue,
+         description: data.descriptionValue,
       }
       const fileResponse = selectedFile && (await uploadFile())
       if (id)
          editCharityHandler({
-            ...data,
+            ...SentData,
             image: selectedFile ? fileResponse : imageUrl,
             id: +id,
          })
       if (fileResponse) {
-         addCharity({ ...data, image: fileResponse })
+         addCharity({ ...SentData, image: fileResponse })
       }
       return formIsEmpty
    }
    return (
       <>
          <Snackbar />
-         <StyledGlobalContainer>
-            <StyledImgContainer>
-               <div>
-                  <StyledImgIconContainer>
-                     {(imageUrl && (
-                        <label htmlFor="file-input">
-                           <StyledImgProfileWidth src={imageUrl} alt="img" />
-                        </label>
-                     )) || (
-                        <StyledImgText htmlFor="file-input">
-                           <div>
-                              <AddImg />
-                              <p> Нажмите для добавления фотографии</p>
-                           </div>
-                        </StyledImgText>
-                     )}
-                  </StyledImgIconContainer>
-
-                  <StyledInputOfTypeFile
-                     id="file-input"
-                     accept="image/*"
-                     type="file"
-                     placeholder="Нажмите для добавления фотографии"
-                     onChange={handleImageChange}
-                  />
-               </div>
-            </StyledImgContainer>
-
-            <StyledInputAndSelctsGlobalContainer>
-               <div>
-                  <StyledTitle>Добавление вещи</StyledTitle>
-               </div>
-               <StyledInputAndSelectsContainer>
+         <form onSubmit={handleSubmit(submitHandler)}>
+            <StyledGlobalContainer>
+               <StyledImgContainer>
                   <div>
-                     <StyledTitleForSelects>
-                        Название подарка
-                     </StyledTitleForSelects>
-                     <StyledReusebleInput
-                        placeholder="Введите название подарка"
-                        value={titleInputValue}
-                        onChange={titleInputChangeHandler}
+                     <StyledImgIconContainer>
+                        {(imageUrl && (
+                           <label htmlFor="file-input">
+                              <StyledImgProfileWidth src={imageUrl} alt="img" />
+                           </label>
+                        )) || (
+                           <StyledImgText htmlFor="file-input">
+                              <div>
+                                 <AddImg />
+                                 <p> Нажмите для добавления фотографии</p>
+                              </div>
+                           </StyledImgText>
+                        )}
+                     </StyledImgIconContainer>
+
+                     <StyledInputOfTypeFile
+                        id="file-input"
+                        accept="image/*"
+                        type="file"
+                        placeholder="Нажмите для добавления фотографии"
+                        onChange={handleImageChange}
                      />
                   </div>
-                  <StyledMarginLefts>
-                     <StyledSelectContainer>
-                        <StyledTitleForSelects>Cостояние</StyledTitleForSelects>
+               </StyledImgContainer>
+
+               <StyledInputAndSelctsGlobalContainer>
+                  <div>
+                     <StyledTitle>Добавление вещи</StyledTitle>
+                  </div>
+                  <StyledInputAndSelectsContainer>
+                     <div>
+                        <StyledTitleForSelects>
+                           Название подарка
+                        </StyledTitleForSelects>
+                        <StyledReusebleInput
+                           id="titleInputValue"
+                           name="titleInputValue"
+                           placeholder="Введите название подарка"
+                           {...register('titleInputValue', { required: true })}
+                           borderError={
+                              errors?.titleInputValue ? 'true' : 'false'
+                           }
+                        />
+                     </div>
+                     <StyledMarginLefts>
+                        <StyledSelectContainer>
+                           <StyledTitleForSelects>
+                              Cостояние
+                           </StyledTitleForSelects>
+                           <AppSelect
+                              id="stateValue"
+                              name="stateValue"
+                              background="none"
+                              options={stateArray}
+                              height="30px"
+                              value={watchStateValue}
+                              placeholder="Укажите состояние"
+                              {...register('stateValue', {
+                                 required: true,
+                              })}
+                              borderError={
+                                 errors?.stateValue ? 'true' : 'false'
+                              }
+                           />
+                        </StyledSelectContainer>
+                     </StyledMarginLefts>
+                     <div>
+                        <StyledTitleForSelects>Категория</StyledTitleForSelects>
                         <AppSelect
                            background="none"
-                           options={stateArray}
+                           options={categoryArray}
                            height="30px"
-                           placeholder="Укажите состояние"
-                           value={stateValue}
-                           setValue={setStateValue}
+                           placeholder="Выберите категорию"
+                           id="categoryValue"
+                           name="categoryValue"
+                           value={watchCategoryValue}
+                           {...register('categoryValue', {
+                              required: true,
+                           })}
+                           borderError={
+                              errors?.categoryValue ? 'true' : 'false'
+                           }
                         />
-                     </StyledSelectContainer>
-                  </StyledMarginLefts>
+                     </div>
+                     <StyledMarginLefts>
+                        <StyledTitleForSelects>
+                           Подкатегория
+                        </StyledTitleForSelects>
+                        <AppSelect
+                           background="none"
+                           options={subcategoryArray}
+                           height="30px"
+                           id="subCategoryValue"
+                           value={watchSubCategoryValue}
+                           name="subCategoryValue"
+                           placeholder="Выберите подкатегорию"
+                           {...register('subCategoryValue', {
+                              required: true,
+                           })}
+                           borderError={
+                              errors?.subCategoryValue ? 'true' : 'false'
+                           }
+                        />
+                     </StyledMarginLefts>
+                  </StyledInputAndSelectsContainer>
                   <div>
-                     <StyledTitleForSelects>Категория</StyledTitleForSelects>
-                     <AppSelect
-                        background="none"
-                        options={categoryArray}
-                        height="30px"
-                        placeholder="Выберите категорию"
-                        value={categoryValue}
-                        setValue={setCategoryValue}
+                     <StyledDescription>Описание</StyledDescription>
+                     <EmptyTextarea
+                        title="Введите описание подарка"
+                        id="descriptionValue"
+                        name="descriptionValue"
+                        rows="4"
+                        {...register('descriptionValue', { required: true })}
+                        borderError={
+                           errors?.descriptionValue ? 'true' : 'false'
+                        }
                      />
                   </div>
-                  <StyledMarginLefts>
-                     <StyledTitleForSelects>Подкатегория</StyledTitleForSelects>
-                     <AppSelect
-                        background="none"
-                        options={subcategoryArray}
-                        height="30px"
-                        placeholder="Выберите подкатегорию"
-                        value={subCategoryValue}
-                        setValue={setSubCategoryValue}
-                     />
-                  </StyledMarginLefts>
-               </StyledInputAndSelectsContainer>
-               <div>
-                  <StyledDescription>Описание</StyledDescription>
-                  <EmptyTextarea
-                     value={descriptionValue}
-                     onChange={descriptionChangeHandler}
-                     title="Введите описание подарка"
-                     rows="4"
-                  />
-               </div>
-               <StyledButtonContainer>
-                  <MyButton
-                     variant="outlined"
-                     background="#ffffff"
-                     defaultcolor="#8D949E"
-                     propswidth="113px"
-                     outlinedbordercolor="#8D949E"
-                     propsborderradius="10px"
-                     onClick={navigateToCharityHandler}
-                  >
-                     Отмена
-                  </MyButton>
-                  {id ? (
+                  <StyledButtonContainer>
                      <MyButton
-                        variant="contained"
+                        variant="outlined"
+                        background="#ffffff"
+                        defaultcolor="#8D949E"
                         propswidth="113px"
-                        background="#8639B5"
-                        defaultcolor="#ffffff"
-                        hoverbackgroundcolor="#612386"
-                        activebackgroundcolor="#AB62D8"
+                        outlinedbordercolor="#8D949E"
                         propsborderradius="10px"
-                        onClick={hadleSubmit}
+                        onClick={navigateToCharityHandler}
                      >
-                        {isLoading ? <Spinner /> : 'Cохранить'}
+                        Отмена
                      </MyButton>
-                  ) : (
-                     <MyButton
-                        variant="contained"
-                        propswidth="113px"
-                        background="#8639B5"
-                        defaultcolor="#ffffff"
-                        hoverbackgroundcolor="#612386"
-                        activebackgroundcolor="#AB62D8"
-                        propsborderradius="10px"
-                        onClick={hadleSubmit}
-                     >
-                        {isLoading ? <Spinner /> : 'Добавить'}
-                     </MyButton>
-                  )}
-               </StyledButtonContainer>
-            </StyledInputAndSelctsGlobalContainer>
-         </StyledGlobalContainer>
+                     {id ? (
+                        <MyButton
+                           variant="contained"
+                           propswidth="113px"
+                           background="#8639B5"
+                           defaultcolor="#ffffff"
+                           hoverbackgroundcolor="#612386"
+                           activebackgroundcolor="#AB62D8"
+                           propsborderradius="10px"
+                           type="submit"
+                        >
+                           {isLoading ? <Spinner /> : 'Cохранить'}
+                        </MyButton>
+                     ) : (
+                        <MyButton
+                           variant="contained"
+                           propswidth="113px"
+                           background="#8639B5"
+                           defaultcolor="#ffffff"
+                           hoverbackgroundcolor="#612386"
+                           activebackgroundcolor="#AB62D8"
+                           propsborderradius="10px"
+                           type="submit"
+                        >
+                           {isLoading ? <Spinner /> : 'Добавить'}
+                        </MyButton>
+                     )}
+                  </StyledButtonContainer>
+               </StyledInputAndSelctsGlobalContainer>
+            </StyledGlobalContainer>
+         </form>
       </>
    )
 }

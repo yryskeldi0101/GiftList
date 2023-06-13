@@ -25,18 +25,22 @@ const SearchInput = ({
    const [countries, setCountries] = useState('')
    const [subCategory, setSubCategory] = useState('')
    const { pathname } = useLocation()
+   const stateChangeHandler = (e) => setStateSelect(e.target.value)
+   const categoryChangeHnadler = (e) => setCategory(e.target.value)
+   const counrtyChangeHandler = (e) => setCountries(e.target.value)
+   const subCategouryChangeHandler = (e) => setSubCategory(e.target.value)
    return (
       <div>
          {pathname.includes('charity') ? (
             <TextFieldWithDropDown
-               setCategory={setCategory}
                category={category}
                stateSelect={stateSelect}
                countries={countries}
                subCategory={subCategory}
-               setCountries={setCountries}
-               setStateSelect={setStateSelect}
-               setSubCategory={setSubCategory}
+               categoryChangeHnadler={categoryChangeHnadler}
+               counrtyChangeHandler={counrtyChangeHandler}
+               stateChangeHandler={stateChangeHandler}
+               subCategouryChangeHandler={subCategouryChangeHandler}
                inputChangeHandler={inputChangeHandler}
                value={value}
             />

@@ -57,9 +57,6 @@ const MailingModal = React.forwardRef(
                            placeholder="Введите тему рассылки"
                            {...register('mailingTitle', {
                               required: true,
-                              minLength: {
-                                 value: 3,
-                              },
                            })}
                            borderError={errors?.mailingTitle ? 'true' : 'false'}
                         />
@@ -70,9 +67,6 @@ const MailingModal = React.forwardRef(
                            placeholder="Введите текст рассылки"
                            {...register('mailingDescription', {
                               required: true,
-                              minLength: {
-                                 value: 3,
-                              },
                            })}
                            borderError={
                               errors?.mailingDescription ? 'true' : 'false'
