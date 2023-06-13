@@ -19,7 +19,7 @@ const Users = () => {
    const [searchParams, setSearchParams] = useSearchParams()
    const [userData, setUserData] = useState([])
    const [userId, setUserId] = useState(null)
-   const [page, setPage] = useState(3)
+   const [page, setPage] = useState(4)
 
    const { open } = Object.fromEntries(searchParams)
    const { showToast } = useToastBar()
@@ -30,15 +30,13 @@ const Users = () => {
    }
    const navigate = useNavigate()
    const navigateToDetails = (id) => navigate(`${id}/user_detail`)
-
    const booleanOpen = Boolean(open)
    const getAllUsers = async () => {
       try {
          const data = await getAllUsersRequest(page)
          const users = data.data.elements
          setUserData(users)
-         setPage((prevPage) => prevPage + 3)
-
+         setPage((prevPage) => prevPage + 4)
          return users
       } catch (error) {
          return showToast(
@@ -171,7 +169,6 @@ const Container = styled('div')`
    max-width: 1170px;
    height: 75vw;
    flex-wrap: wrap;
-   justify-content: center;
 `
 const ContentContainer = styled('div')`
    display: flex;
