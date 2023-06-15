@@ -10,13 +10,14 @@ import MyButton from '../../../components/UI/Button'
 import AvatarUpload from '../../../components/UI/Avatar'
 import Delete from '../../../assets/icons/deleteIcon.svg'
 import Edit from '../../../assets/icons/EditIcon.svg'
-import { getHolidays } from '../../../redux/holiday/holydayThunk'
 import { uploadFileRequest } from '../../../service/charityService'
 import { actionModalSlice } from '../../../redux/holiday/modalSlice'
 import DateInput from '../../../components/UI/input/DateInput'
 import { ACTION_TYPES } from '../../../utlis/constants/constnats'
+
 import {
    getHolidayDetails,
+   postHolidayDetail,
    ubdateHolidayDetailThunk,
 } from '../../../redux/holidayDetails/holidayDetailThunk'
 import HolidayDetailsCard from '../../../components/adminCard/HolidayDetailsCard'
@@ -65,7 +66,7 @@ const MyHolidays = () => {
             setubdateId(id)
             if (data.currentId === id) {
                dispatch(actionModalSlice.getEditCardData(data))
-               dispatch(getHolidays())
+               dispatch(getHolidayDetails())
             }
          },
       },
@@ -75,7 +76,7 @@ const MyHolidays = () => {
          func: async (iDdetail) => {
             await deleteHolidayDetailService(`/api/wishes`, { id: iDdetail })
             dispatch(getHolidayDetails(detailId))
-            showToast('success', 'Успешно', 'Пользователь успешно удален!')
+            showToast('success', '', ' успешно удален!')
          },
       },
    ]
@@ -100,6 +101,24 @@ const MyHolidays = () => {
       }
    }
 
+   const addDateHoliday = () => {
+      if (inputDate) {
+         const date = format(new Date(inputDate), 'yyyy-MM-dd')
+         if (title && img && date) {
+            const data = {
+               name: title,
+               image: img,
+               dateOfHoliday: date,
+            }
+            dispatch(postHolidayDetail(data))
+            onCloseModal()
+            showToast('success', 'Праздник успешно добавлен!')
+         }
+      } else {
+         showToast('warning', 'Пожалуйста!', 'Заполните все поля')
+      }
+   }
+
    const ubdateHoliday = () => {
       if (inputDate) {
          const date = format(new Date(inputDate), 'yyyy-MM-dd')
@@ -111,7 +130,7 @@ const MyHolidays = () => {
             }
             dispatch(ubdateHolidayDetailThunk({ data, ubdateId, detailId }))
             onCloseModal()
-            showToast('success', 'Успешно', 'Успешно изменно!')
+            showToast('success', '', 'Успешно изменно!')
          }
       } else {
          showToast('warning', 'Пожалуйста!', 'Заполните все поля')
@@ -175,7 +194,14 @@ const MyHolidays = () => {
                      disabled={false}
                      propswidth="232px"
                      onClick={() => {
-                        ubdateHoliday()
+                        if (!ReusableInput.value) {
+                           ReusableInput.value = true
+                        }
+                        if (editHolidayData) {
+                           ubdateHoliday()
+                        } else {
+                           addDateHoliday()
+                        }
                      }}
                   >
                      Добавить

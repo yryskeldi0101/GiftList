@@ -3,8 +3,9 @@ import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import { styled } from '@mui/material'
-import Meatballs from '../UI/Meatballs'
 import { ACTION_TYPES } from '../../utlis/constants/constnats'
+import Meatballs from '../UI/Meatballs'
+import HolidayMeatballs from '../UI/HolidayMeatballs'
 
 const AdminCard = ({
    dataCategory,
@@ -84,16 +85,16 @@ const AdminCard = ({
                            component="img"
                            height="149"
                            image={item.image}
-                           alt="card img"
-                        />
-
-                        <StyledCardContent
                            onClick={() =>
                               typeof handleNavigate === 'function'
                                  ? handleNavigate(item.id)
                                  : null
                            }
-                        >
+                           alt="card img"
+                           sx={{ cursor: 'pointer' }}
+                        />
+
+                        <StyledCardContent>
                            <Title>{item.name}</Title>
                            <StyledBirthDate>{item.birthDate}</StyledBirthDate>
                            <StyledStatus>{item.status}</StyledStatus>
@@ -102,7 +103,7 @@ const AdminCard = ({
                         <StyledCardActions>
                            <p>{item.date}</p>
                            <MeatBalssContainer>
-                              <Meatballs
+                              <HolidayMeatballs
                                  display={display}
                                  arrayIcon={meatballsContent}
                                  handleClick={(e) => {
@@ -222,7 +223,7 @@ const CardContainer = styled('div')`
    flex-wrap: wrap;
    flex-direction: row;
    gap: 61px;
-   justify-content: center;
+   /* justify-content: center; */
 `
 const StyledCard = styled(Card)`
    padding: 20px;

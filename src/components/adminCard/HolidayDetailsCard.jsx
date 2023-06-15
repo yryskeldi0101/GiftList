@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import { styled } from '@mui/material'
-import Meatballs from '../UI/Meatballs'
+import HolidayMeatballs from '../UI/HolidayMeatballs'
 
 const HolidayDetailsCard = ({
    holidayDetail,
@@ -67,7 +67,7 @@ const HolidayDetailsCard = ({
                      <StyledCardActions>
                         <p>{item.date}</p>
                         <MeatBalssContainer>
-                           <Meatballs
+                           <HolidayMeatballs
                               display={display}
                               arrayIcon={meatballsContent}
                               handleClick={(e) => {

@@ -5,9 +5,9 @@ import { toast } from 'react-toastify'
 
 const getColor = (type) => {
    const colors = {
-      success: '#00AB1B',
-      error: '#F61414',
-      warning: '#FFD60A',
+      success: '',
+      error: '',
+      warning: '',
       info: '#007AFF',
       default: '#4C4859',
    }

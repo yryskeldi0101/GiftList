@@ -2,9 +2,9 @@ import { styled } from '@mui/material'
 import { useUploadAvatar } from '../../hooks/useUploadAvatar'
 import { ReactComponent as AddPhoto } from '../../assets/icons/AddPhoto.svg'
 
-const AvatarUpload = ({ photo, ...rest }) => {
+const AvatarUpload = ({ valid, photo, ...rest }) => {
    const { handleAvatarChange } = useUploadAvatar()
-   // console.log(avatarUrl)
+
    return (
       <CenteredDiv>
          <label id="file" {...rest}>
@@ -18,7 +18,7 @@ const AvatarUpload = ({ photo, ...rest }) => {
 
             <div>
                {(photo && <StyledImg src={photo} alt="" />) || (
-                  <Container>
+                  <Container valid={valid}>
                      <AddPhoto />
                      <Text>Нажмите для добавления фотографии</Text>
                   </Container>
@@ -40,7 +40,7 @@ const StyledImg = styled('img')({
    height: '247px',
 })
 
-const Container = styled('div')({
+const Container = styled('div')(({ valid }) => ({
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'center',
@@ -48,10 +48,10 @@ const Container = styled('div')({
    width: '217px',
    height: '217px',
    background: '#F6F6F9',
-   border: '1px solid #DCDCE4',
+   border: `1px solid ${valid ? 'red' : '#DCDCE4'}`,
    borderRadius: '8px',
    margin: '32px',
-})
+}))
 
 const Text = styled('p')({
    fontFamily: 'Inter',

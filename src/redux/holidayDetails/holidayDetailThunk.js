@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
    getHolidayDetailService,
+   postHolidayDetailService,
    putHolidayDetailService,
 } from '../../service/holidayDetailServis'
 
@@ -12,6 +13,22 @@ export const getHolidayDetails = createAsyncThunk(
          return data
       } catch (error) {
          return rejectWithValue(error)
+      }
+   }
+)
+
+export const postHolidayDetail = createAsyncThunk(
+   'holidaydetail/postHoliday',
+   async (holidayDetailData, { rejectWithValue, dispatch }) => {
+      try {
+         const response = await postHolidayDetailService(
+            '/api/wishes',
+            holidayDetailData
+         )
+         dispatch(getHolidayDetails())
+         return response.data
+      } catch (error) {
+         return rejectWithValue(error.response.data)
       }
    }
 )

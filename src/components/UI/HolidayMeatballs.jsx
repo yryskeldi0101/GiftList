@@ -1,32 +1,21 @@
 import React from 'react'
 import { Menu, MenuItem, styled } from '@mui/material'
-import { useDispatch } from 'react-redux'
 import { ReactComponent as MeatballsIcon } from '../../assets/icons/meatballs.svg'
-import { takeOffBooked } from '../../redux/booked/bookedThunk'
 
-export default function Meatballs({
+export default function HolidayMeatballs({
    arrayIcon = [],
    open,
    handleClose,
    handleClick,
    anchorEl,
-   reserveHandler,
    display,
-   id,
+   handleClickMenuItem,
+
    ...restProps
 }) {
-   const dispatch = useDispatch()
-
-   const handleClickBtn = (id) => {
-      reserveHandler(id)
-      handleClose()
+   const handle = (title, func) => {
+      handleClickMenuItem(title, func)
    }
-
-   // eslint-disable-next-line no-unused-vars
-   const takeOffBookedHanlder = () => {
-      dispatch(takeOffBooked(id))
-   }
-
    return (
       <>
          <Buttons
@@ -62,11 +51,10 @@ export default function Meatballs({
                   {arrayIcon?.map((item) => (
                      <div key={item.id}>
                         <MenuItem
-                           onClick={
-                              // item.id === '2'
-                              // ? takeOffBookedHanlder
-                              () => handleClickBtn(id)
-                           }
+                           onClick={() => {
+                              handle(item.title, item.func)
+                              handleClose()
+                           }}
                            {...restProps}
                         >
                            <img

@@ -36,9 +36,28 @@ const MyHolidays = () => {
    const { isModalOpen } = Object.fromEntries(searchParams)
    const navigate = useNavigate()
    const { showToast } = useToastBar()
-
    const { data } = useSelector((state) => state.ModalSlice)
    const dataHolidays = useSelector((state) => state.holiday.holiday)
+   const [valid, setValid] = useState({
+      title: false,
+      inputDate: false,
+      img: false,
+   })
+
+   const holidayValid = () => {
+      if (!title) {
+         setValid((prevState) => ({ ...prevState, title: !prevState.title }))
+      }
+      if (!inputDate) {
+         setValid((prevState) => ({
+            ...prevState,
+            inputDate: !prevState.inputDate,
+         }))
+      }
+      if (!img) {
+         setValid((prevState) => ({ ...prevState, img: !prevState.img }))
+      }
+   }
 
    const onCloseModal = () => {
       setSearchParams({})
@@ -85,7 +104,7 @@ const MyHolidays = () => {
          func: async (id) => {
             await deleteService(`/api/holidays`, { holidayId: id })
             dispatch(getHolidays())
-            showToast('success', 'Успешно', 'Успешно удален!')
+            showToast('success', '', 'Праздник успешно удален!')
          },
       },
    ]
@@ -126,7 +145,7 @@ const MyHolidays = () => {
             }
             dispatch(postHoliday(data))
             onCloseModal()
-            showToast('success', 'Успешно', 'Успешно добавлено!')
+            showToast('success', 'Праздник успешно добавлен!')
          }
       } else {
          showToast('warning', 'Пожалуйста!', 'Заполните все поля')
@@ -144,7 +163,7 @@ const MyHolidays = () => {
             }
             dispatch(updateHolidayThunk({ data, ubdateId }))
             onCloseModal()
-            showToast('success', 'Успешно', 'Успешно изменно!')
+            showToast('success', '', 'Праздник успешно изменен!')
          }
       } else {
          showToast('warning', 'Пожалуйста!', 'Заполните все поля')
@@ -184,7 +203,11 @@ const MyHolidays = () => {
                      : 'Добавление праздника'}
                </Text>
 
-               <AvatarUpload photo={img} onChange={onchangeImg} />
+               <AvatarUpload
+                  valid={valid.img}
+                  photo={img}
+                  onChange={onchangeImg}
+               />
                <ReusableInput
                   id
                   inputLabel
@@ -194,8 +217,13 @@ const MyHolidays = () => {
                   onChange={changeTitleHoliday}
                   icon
                   name
+                  error={!title}
+                  valid={valid.title}
                />
-               <DateInput onChange={dateChangeHandler} />
+               <DateInput
+                  valid={valid.inputDate}
+                  onChange={dateChangeHandler}
+               />
 
                <ButtonsContainer>
                   <MyButton
@@ -220,12 +248,14 @@ const MyHolidays = () => {
                      disabled={false}
                      propswidth="232px"
                      onClick={() => {
+                        holidayValid()
+                        if (!ReusableInput.value) {
+                           ReusableInput.value = true
+                        }
                         if (editHolidayData) {
                            ubdateHoliday()
                         } else {
                            addDateHoliday()
-                           setImg('')
-                           setTitle('')
                         }
                      }}
                   >
