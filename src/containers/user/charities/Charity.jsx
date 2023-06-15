@@ -17,6 +17,7 @@ const UserCharity = () => {
    const [charityData, setCharityData] = useState([])
    const navigate = useNavigate()
    const { showToast } = useToastBar()
+
    const navigateToAddCharityHandler = () => navigate('add_charity')
    const navigateToCharityDetails = (id, userId) =>
       navigate(`${id}/${userId}/charity_details`)
@@ -95,11 +96,13 @@ const UserCharity = () => {
                            id={item.id}
                            userId={item.userId}
                            icon={item.userImage}
+                           reserveUserImage={item.reserveUserImage}
                            userName={item.fullName}
                            birthDate={item.birthDate}
                            title={item.charityName}
                            img={item.image}
                            state={item.state}
+                           category={item.category}
                            date={item.dateAdded}
                            disableMeatalls={item.isReserved}
                            reserve={item.isReserved}
@@ -107,7 +110,7 @@ const UserCharity = () => {
                            expectation={item.isReserved}
                            charityMeatballsHandler={true}
                            bookChange={false}
-                           openMeatballs="false"
+                           openMeatballs={false}
                         />
                      </div>
                   )

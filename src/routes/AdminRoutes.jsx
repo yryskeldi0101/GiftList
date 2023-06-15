@@ -1,12 +1,14 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Users from '../containers/admin/users/Users'
-import Complaints from '../containers/admin/Complaints'
+import AdminCharity from '../containers/admin/Charity'
+import Complains from '../containers/admin/complains/Complains'
 import Newsletter from '../containers/admin/Newsletter'
 import AdminLayout from '../layout/admin/AdminLayout'
 import PrivateRoute from '../hoc/withPrivateRoute'
 import { INITIAL_PATH, ROLES } from '../utlis/constants/constnats'
 import ErrorPage from '../containers/ErrorPage'
+import { ComplainsDetail } from '../containers/admin/complains/ComplainsDetail'
 import ProfileDetails from '../containers/admin/users/ProfileDetails'
 import NewsletterDetails from '../containers/admin/NewsLetterDetail'
 import AllGifts from '../containers/admin/users/AllWishes'
@@ -68,9 +70,15 @@ const AdminRoutes = () => {
             />
             <Route
                path={INITIAL_PATH.ADMIN.complaints}
-               element={
-                  <PrivateRoute component={Complaints} roles={ROLES.ADMIN} />
-               }
+               element={<PrivateRoute component={Complains} roles={ROLES.ADMIN} />}
+            />
+            <Route
+               path={INITIAL_PATH.ADMIN.complains_wish_details}
+               element={<PrivateRoute component={ComplainsDetail} roles={ROLES.ADMIN} />}
+            />
+            <Route
+               path={INITIAL_PATH.ADMIN.complains_charity_details}
+               element={<PrivateRoute component={ComplainsDetail} roles={ROLES.ADMIN}/>}
             />
             <Route
                path={INITIAL_PATH.ADMIN.mailing}

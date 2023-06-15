@@ -188,6 +188,8 @@ export const INITIAL_PATH = {
       allCharities: 'users/:id/user_detail/charities',
       charityAdmin: 'charityAdmin',
       complaints: 'complaints',
+      complains_wish_details: 'complaints/:id/wish-details',
+      complains_charity_details: 'complaints/:id/charity-details',
       mailing: 'mailing/',
       mailing_detail: 'mailing/:id/mailing_detail',
       not_found: '*',
