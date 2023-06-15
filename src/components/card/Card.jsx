@@ -38,10 +38,19 @@ const MEATBALLS_BOOK_CONTENT = [
    {
       icon: Present,
       title: 'Добавить в мои подарки',
+      id: '1',
    },
    {
       icon: OpenLock,
       title: 'Снять бронь',
+      id: '2',
+   },
+]
+const MEATBALLS_BOOK = [
+   {
+      icon: OpenLock,
+      title: 'Снять бронь',
+      id: '3',
    },
 ]
 const MEATBALLS_CHARITY_CONTENT = [
@@ -80,12 +89,15 @@ function Cards({
    state,
    secondIcon,
    complainChange,
+   deleteHandler,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
+
    return (
       <Card
          changecard={changeCard}
          sx={{ width: changeCard ? '349px' : '533px' }}
+         // eslint-disable-next-line react/jsx-no-bind
       >
          <CardActionArea key={id} changecard={changeCard}>
             {changeCard ? (
@@ -137,11 +149,12 @@ function Cards({
                                  {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
                               <Meatballs
-                                 arrayIcon={MEATBALLS_CHARITY_CONTENT}
+                                 arrayIcon={MEATBALLS_BOOK_CONTENT}
                                  open={open}
                                  id={id}
                                  meatballsselecthandler={meatballsSelectHandler}
                                  handleClose={handleClose}
+                                 deleteHandler={deleteHandler}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
                                  reserveHandler={reserveHandler}
@@ -189,9 +202,9 @@ function Cards({
                                        {expectation}
                                     </Button>
                                     <Meatballs
-                                       arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                       arrayIcon={MEATBALLS_BOOK}
                                        open={open}
-                                       id={id}
+                                       id={2}
                                        meatballsSelectHandler={
                                           meatballsSelectHandler
                                        }
@@ -209,7 +222,7 @@ function Cards({
                                        {complainChange && 'Причина жалобы'}
                                     </Button>
                                     <Meatballs
-                                       arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                       arrayIcon={MEATBALLS_BOOK}
                                        open={open}
                                        id={id}
                                        handleClose={handleClose}
@@ -233,10 +246,11 @@ function Cards({
 export default Cards
 
 const Card = styled(MuiCard)(() => ({
-   padding: '16px',
+   padding: '6px',
    background: '#FFFFFF',
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
+   marginTop: '20px',
 }))
 const CardActionArea = styled(MuiCardActionArea)(({ changecard }) => ({
    padding: '0',

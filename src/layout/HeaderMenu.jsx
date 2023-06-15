@@ -92,7 +92,7 @@ const StyledUserName = styled('p')`
    font-family: 'Open Sans';
    font-style: normal;
    font-weight: 400;
-   font-size: 0.9rem;
+   font-size: 1.2rem;
    line-height: 1.3rem;
    margin: 0;
    letter-spacing: 0.02em;

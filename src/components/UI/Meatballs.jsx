@@ -1,6 +1,8 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Menu, MenuItem, styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import { ReactComponent as MeatballsIcon } from '../../assets/icons/meatballs.svg'
+import { takeOffBooked } from '../../redux/booked/bookedThunk'
 
 export default function Meatballs({
    arrayIcon = [],
@@ -13,6 +15,20 @@ export default function Meatballs({
    id,
    ...restProps
 }) {
+   const dispatch = useDispatch()
+
+   console.log(id)
+
+   const handleClickBtn = (id) => {
+      reserveHandler(id)
+      handleClose()
+   }
+
+   // eslint-disable-next-line no-unused-vars
+   const takeOffBookedHanlder = () => {
+      dispatch(takeOffBooked(id))
+   }
+
    return (
       <>
          <Buttons
@@ -25,6 +41,7 @@ export default function Meatballs({
          >
             <MeatballsIcon />
          </Buttons>
+
          <div>
             {display ? (
                ''
@@ -47,10 +64,11 @@ export default function Meatballs({
                   {arrayIcon?.map((item) => (
                      <div key={item.id}>
                         <MenuItem
-                           onClick={() => {
-                              reserveHandler(item.id, id)
-                              handleClose()
-                           }}
+                           onClick={
+                              // item.id === '2'
+                              // ? takeOffBookedHanlder
+                              () => handleClickBtn(id)
+                           }
                            {...restProps}
                         >
                            <img
@@ -58,6 +76,7 @@ export default function Meatballs({
                               alt="#"
                               style={{ marginRight: '10px' }}
                            />
+
                            {item.title}
                         </MenuItem>
                      </div>
