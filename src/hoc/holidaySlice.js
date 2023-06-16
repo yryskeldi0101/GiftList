@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getHolidays, postHoliday } from './holydayThunk'
+import { getHolidays, postHoliday } from '../redux/holiday/holydayThunk'
 
 const initialState = {
    holiday: [],

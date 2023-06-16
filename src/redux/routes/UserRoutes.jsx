@@ -19,6 +19,7 @@ import FriendProfile from '../containers/user/friends/FriendProfile'
 import AllCharities from '../containers/admin/users/AllCharities'
 import AllGifts from '../containers/admin/users/AllWishes'
 import AllHolidays from '../containers/admin/users/AllHolidays'
+import DetailedPage from '../containers/DetailedPage '
 
 const UserRoutes = () => {
    return (
@@ -94,6 +95,10 @@ const UserRoutes = () => {
                   INITIAL_PATH.USER.holiday_details
                }
                element={<PrivateRoute component={MyHolidaysCard} />}
+            />
+            <Route
+               path="user/holidays/1/holiday_details/editWish"
+               element={<PrivateRoute component={DetailedPage} />}
             />
             <Route
                path={INITIAL_PATH.USER.charity}
