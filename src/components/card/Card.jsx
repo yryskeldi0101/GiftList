@@ -65,7 +65,7 @@ const MEATBALLS_CHARITY_CONTENT = [
    },
 ]
 
-export default function Cards({
+function Cards({
    id,
    icon,
    userName,
@@ -86,17 +86,19 @@ export default function Cards({
    charityMeatballs,
    charityMeatballsHandler,
    state,
+   secondIcon,
+   complainChange,
    deleteHandler,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
 
    return (
       <Card
-         changecard={changeCard.toString()}
+         changecard={changeCard}
          sx={{ width: changeCard ? '349px' : '533px' }}
          // eslint-disable-next-line react/jsx-no-bind
       >
-         <CardActionArea key={id} changecard={changeCard.toString()}>
+         <CardActionArea key={id} changecard={changeCard}>
             {changeCard ? (
                ''
             ) : (
@@ -120,7 +122,7 @@ export default function Cards({
                   <TitleImg>
                      {charityMeatballsHandler && (
                         <CharityContainer>
-                           <h3>{title}</h3>
+                           <NameImg>{title}</NameImg>
                            <p>{state}</p>
                         </CharityContainer>
                      )}
@@ -140,7 +142,9 @@ export default function Cards({
                      <FooterAvatar>
                         {charityMeatballs ? (
                            <>
-                              <Button onClick={meatballsChangeHandler}>
+                              <Button
+                                 onClick={() => meatballsChangeHandler(id)}
+                              >
                                  {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
                               <StyledMeatballsMargins>
@@ -172,7 +176,7 @@ export default function Cards({
                               />
                            </>
                         ) : (
-                           <>
+                           <StyledCharityContainer>
                               <ImgIcon src={icon} />
 
                               <Button onClick={meatballsChangeHandler}>
@@ -189,7 +193,7 @@ export default function Cards({
                                  reserveHandler={reserveHandler}
                                  display={reserve}
                               />
-                           </>
+                           </StyledCharityContainer>
                         )}
                      </FooterAvatar>
                   ) : (
@@ -207,7 +211,7 @@ export default function Cards({
                         ) : (
                            <FooterAvatar>
                               {openMeatballs ? (
-                                 <>
+                                 <div>
                                     <Button onClick={meatballsChangeHandler}>
                                        {expectation}
                                     </Button>
@@ -223,11 +227,13 @@ export default function Cards({
                                        anchorEl={anchorEl}
                                        reserveHandler={reserveHandler}
                                     />
-                                 </>
+                                 </div>
                               ) : (
-                                 <>
+                                 <div>
+                                    <ImgIcon src={secondIcon} />
                                     <Button onClick={meatballsChangeHandler}>
                                        {reserve}
+                                       {complainChange && 'Причина жалобы'}
                                     </Button>
                                     <Meatballs
                                        arrayIcon={MEATBALLS_BOOK}
@@ -237,8 +243,9 @@ export default function Cards({
                                        handleClick={handleClick}
                                        anchorEl={anchorEl}
                                        reserveHandler={reserveHandler}
+                                       display={complainChange && true}
                                     />
-                                 </>
+                                 </div>
                               )}
                            </FooterAvatar>
                         )}
@@ -250,7 +257,15 @@ export default function Cards({
       </Card>
    )
 }
+export default Cards
 
+const StyledCharityContainer = styled('div')`
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   margin-right: 20px;
+   gap: 10px;
+`
 const Card = styled(MuiCard)(() => ({
    padding: '6px',
    background: '#FFFFFF',
@@ -284,16 +299,21 @@ const HeaderAvatar = styled('div')(() => ({
 }))
 const ImgIcon = styled('img')(() => ({
    width: '36px',
-   marginRight: '10px',
 }))
 const UserName = styled('h2')(() => ({
-   fontSize: '16px',
+   fontSize: '13px',
    color: '#020202',
 }))
 const UserBirthDate = styled('a')(() => ({
    fontWeight: 400,
    fontSize: '13px',
    color: '#0BA360',
+}))
+const NameImg = styled('h4')(() => ({
+   padding: '16px 0 12px',
+   fontWeight: 500,
+   fontSize: '14px',
+   color: '#020202',
 }))
 const Img = styled('img')(() => ({
    width: '315px',
@@ -376,9 +396,9 @@ const CharityContainer = styled('div')(() => ({
    },
 }))
 const StyledDate = styled('span')`
-   margin-right: 32px;
+   /* margin-right: 32px; */
 `
 
 const StyledMeatballsMargins = styled('span')`
-   margin-left: 15px;
+   /* margin-left: 15px; */
 `

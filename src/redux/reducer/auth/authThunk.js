@@ -94,6 +94,7 @@ export const postAuthGoogle = createAsyncThunk(
          //    lastName: response.lastName,
          // }
          // addDataToStorage(STORAGE_KEYS.GIFTLIST_AUTH, JSON.stringify(usersData))
+
          return res
       } catch (error) {
          if (AxiosError(error)) {

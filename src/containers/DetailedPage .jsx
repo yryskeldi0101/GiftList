@@ -5,22 +5,30 @@ import Spinner from '../components/UI/Spinner'
 
 function DetailedPage({
    profileDetails,
+   reserveUserImage,
+   isReserved,
+   title,
+   date,
+   image,
    checked,
    onClick,
    id,
+   category,
    userId,
    handleClick,
    handleChange,
    handleReserve,
    isLoading,
-   adminCharity,
-   userCharity,
+   complains,
+   complainer,
+   complainerData,
+   deleteHandler,
 }) {
    return (
       <StyledCard>
          <StyledInfo>
             <StyledImage>
-               <Img src={profileDetails.image} alt="cat" />
+               <Img src={profileDetails.image || image} alt="cat" />
             </StyledImage>
             <InfoBox>
                <HeaderBox>
@@ -33,29 +41,19 @@ function DetailedPage({
                   </TitleBox>
                   <StyledReserve>
                      {profileDetails.isAnonymous ? null : (
-                        <IconImage
-                           src={
-                              profileDetails.bookAgentImage ||
-                              'https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg'
-                           }
-                           alt="icon"
-                        />
+                        <IconImage src={reserveUserImage} alt="" />
                      )}
-                     {profileDetails.isReserved ? (
-                        <p>Забронирован</p>
-                     ) : (
-                        <p>В ожидании</p>
-                     )}
+                     {isReserved ? <p>Забронирован</p> : <p>В ожидании</p>}
                   </StyledReserve>
                </HeaderBox>
                <StyledText>
-                  <h3>{profileDetails.charityName}</h3>
+                  <h3>{title}</h3>
                   <p>{profileDetails.description}</p>
                </StyledText>
                <StyledData>
                   <div>
                      <Category>Категория:</Category>
-                     <span>{profileDetails.category}</span>
+                     <span>{category}</span>
                      <State>Состояние:</State>
                      <span>{profileDetails.state}</span>
                   </div>
@@ -63,15 +61,10 @@ function DetailedPage({
                      <Subcategory>Подкатогория:</Subcategory>
                      <span>{profileDetails.subCategory}</span>
                      <Dates>Дата добавления:</Dates>
-                     <span>{profileDetails.dateAdded}</span>
+                     <span>{date}</span>
                   </StyledSubcategory>
                </StyledData>
-            </InfoBox>
-         </StyledInfo>
-         <StyledButton>
-            {userCharity && (
-               <div>
-                  {' '}
+               <StyledButton>
                   {+userId === id ? (
                      <StyledContainer>
                         <MyButton
@@ -93,55 +86,74 @@ function DetailedPage({
                         </MyButton>
                      </StyledContainer>
                   ) : (
-                     <StyledButtoncContainer>
-                        <StyledCheckBox>
-                           <Checkboxes
-                              checked={checked}
-                              handleChange={handleChange}
-                           />
-                           <StyledBookText>
-                              Заброниовать анонимно
-                           </StyledBookText>
-                        </StyledCheckBox>
-                        <MyButton
-                           variant="contained"
-                           background="#8639B5"
-                           hoverbackgroundcolor="#860cd1"
-                           activebackgroundcolor="#510680"
-                           disabled={profileDetails.isReserved}
-                           onClick={() =>
-                              handleReserve(checked, profileDetails.id)
-                           }
-                        >
-                           {isLoading ? <Spinner /> : 'Забронировать'}
-                        </MyButton>
-                     </StyledButtoncContainer>
-                  )}
-               </div>
-            )}
+                     <ComplainsContainer>
+                        {complainer ? (
+                           <div>
+                              {complainerData[0]?.map((item) => (
+                                 <TitleBox key={id}>
+                                    <ComplainerImage src={item.userImage} />
+                                    <StyledTitle>
+                                       <UserName>{item.fullName}</UserName>
+                                       <CauseComplainer>
+                                          {item.causesOfComplaint}
+                                       </CauseComplainer>
+                                    </StyledTitle>
+                                 </TitleBox>
+                              ))}
+                           </div>
+                        ) : (
+                           ''
+                        )}
+                        <StyledButtoncContainer>
+                           <div>
+                              {complains ? (
+                                 <DeleteButton
+                                    type="submit"
+                                    onClick={() =>
+                                       deleteHandler(profileDetails.id)
+                                    }
+                                 >
+                                    {isLoading ? <Spinner /> : <p>Удалить</p>}
+                                 </DeleteButton>
+                              ) : (
+                                 <StyledCheckBox>
+                                    <Checkboxes
+                                       checked={checked}
+                                       handleChange={handleChange}
+                                    />
+                                    <StyledBookText>
+                                       Забронировать анонимно
+                                    </StyledBookText>
+                                 </StyledCheckBox>
+                              )}
+                           </div>
 
-            {adminCharity && (
-               <StyledContainer>
-                  <MyButton
-                     variant="outlined"
-                     border="none"
-                     defaultcolor="#8D949E"
-                     onClick={() => onClick(profileDetails.id)}
-                  >
-                     {isLoading ? <Spinner /> : 'Удалить'}
-                  </MyButton>
-                  <MyButton
-                     variant="contained"
-                     background="#8639B5"
-                     hoverbackgroundcolor="#860cd1"
-                     activebackgroundcolor="#510680"
-                     onClick={() => handleClick(profileDetails.id)}
-                  >
-                     Редактировать
-                  </MyButton>
-               </StyledContainer>
-            )}
-         </StyledButton>
+                           <MyButton
+                              variant="contained"
+                              background="#8639B5"
+                              hoverbackgroundcolor="#860cd1"
+                              activebackgroundcolor="#510680"
+                              disabled={profileDetails.isReserved}
+                              onClick={() =>
+                                 handleReserve(checked, profileDetails.id)
+                              }
+                           >
+                              {complains ? (
+                                 <div>
+                                    {isLoading ? <Spinner /> : 'Заблокировать'}
+                                 </div>
+                              ) : (
+                                 <div>
+                                    {isLoading ? <Spinner /> : 'Забронировать'}
+                                 </div>
+                              )}
+                           </MyButton>
+                        </StyledButtoncContainer>
+                     </ComplainsContainer>
+                  )}
+               </StyledButton>
+            </InfoBox>
+         </StyledInfo>
       </StyledCard>
    )
 }
@@ -167,13 +179,28 @@ const StyledCheckBox = styled('div')`
    align-items: center;
    gap: 10px;
 `
+const ComplainsContainer = styled('div')`
+   display: flex;
+   justify-content: space-between;
+   align-items: start;
+   width: 100%;
+`
 const StyledButtoncContainer = styled('div')`
    display: flex;
    align-items: center;
    width: 100%;
-   justify-content: flex-end;
+   margin-left: 13vw;
    gap: 70px;
+
+   p {
+      font-weight: 500;
+      font-size: '14px';
+      line-height: 17px;
+      text-transform: uppercase;
+      color: #8d949e;
+   }
 `
+
 const StyledCard = styled(Card)(() => ({
    padding: '20px',
    background: '#FFFFFF',
@@ -188,6 +215,7 @@ const StyledCard = styled(Card)(() => ({
 
 const StyledInfo = styled('div')(() => ({
    display: 'flex',
+   gap: '20px',
 }))
 const StyledImage = styled('div')(() => ({
    display: 'flex',
@@ -215,6 +243,8 @@ const HeaderBox = styled('div')(() => ({
 const TitleBox = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
+   width: '100%',
+   marginBottom: '10px',
 }))
 const ImgIcon = styled('img')(() => ({
    maxWidth: '40px',
@@ -228,8 +258,7 @@ const StyledTitle = styled('div')(() => ({
 }))
 const UserName = styled('p')(() => ({
    fontWeight: '500',
-   fontSize: '16px',
-   lineHeight: '19px',
+   fontSize: '14px',
    letterSpacing: '0.02em',
 }))
 const UserNumber = styled('h4')(() => ({
@@ -240,12 +269,19 @@ const UserNumber = styled('h4')(() => ({
    letterSpacing: '0.02em',
    color: '#5C5C5C',
 }))
+const CauseComplainer = styled('h4')(() => ({
+   fontWeight: 400,
+   fontSize: '14px',
+   letterSpacing: '0.02em',
+   color: '#FD5200',
+}))
 const StyledReserve = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
+   width: '100%',
+   justifyContent: 'flex-end',
+   gap: '10px',
    p: {
-      marginRight: '4px',
-      marginLeft: '10px',
       color: '#3774D0',
    },
 }))
@@ -302,7 +338,14 @@ const Dates = styled('p')(() => ({
 
 const StyledButton = styled('div')(() => ({
    display: 'flex',
-   marginLeft: '50%',
    marginTop: '66px',
    gap: '48px',
+}))
+const ComplainerImage = styled('img')(() => ({
+   width: '40px',
+   height: '40px',
+}))
+const DeleteButton = styled('button')(() => ({
+   border: 'none',
+   background: '#FFF',
 }))

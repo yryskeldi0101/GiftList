@@ -29,7 +29,9 @@ const Users = () => {
       setSearchParams({ open: 'delete', id })
    }
    const navigate = useNavigate()
-   const navigateToDetails = (id) => navigate(`${id}/user_detail`)
+   const navigateToDetails = (id, isBlocked) => {
+      return navigate(`${id}/user_detail`, { state: { isBlocked } })
+   }
    const booleanOpen = Boolean(open)
    const getAllUsers = async () => {
       try {
@@ -60,10 +62,22 @@ const Users = () => {
          )
       }
    }
-   const blockUser = async (id) => {
+   const blockUser = async (id, isBlocked) => {
       try {
-         await blockUserRequest(id)
-         showToast('success', 'Успешно', 'Пользователь успешно заблокирован!')
+         await blockUserRequest(id, !isBlocked)
+         if (isBlocked) {
+            showToast(
+               'success',
+               'Успешно',
+               'Пользователь успешно разблокирован!'
+            )
+         } else {
+            showToast(
+               'success',
+               'Успешно',
+               'Пользователь успешно заблокирован!'
+            )
+         }
          return getAllUsers()
       } catch (error) {
          return showToast(
@@ -91,7 +105,6 @@ const Users = () => {
          window.removeEventListener('scroll', handleScroll)
       }
    }, [page])
-
    return (
       <>
          <Snackbar />
@@ -150,6 +163,7 @@ const Users = () => {
                            id={item.id}
                            countOfWish={item.count}
                            handleBlock={blockUser}
+                           isBlocked={item.isBlocked}
                         />
                      )
                   })}

@@ -73,6 +73,5 @@ const CardContainer = styled('div')`
    flex-wrap: wrap;
    gap: 60px;
    max-width: 1170px;
-   justify-content: center;
 `
 export default AdminCharity

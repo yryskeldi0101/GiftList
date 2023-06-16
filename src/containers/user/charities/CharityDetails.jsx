@@ -18,6 +18,7 @@ const CharityDetails = () => {
    const { showToast } = useToastBar()
    const params = useParams()
    const dispatch = useDispatch()
+
    useEffect(() => {
       dispatch(getOneCharityById(params.id))
    }, [])
@@ -52,6 +53,7 @@ const CharityDetails = () => {
             'Успешно',
             'благотворительность успешно бронирована'
          )
+         navigate('/user/charity')
          return data
       } catch (error) {
          return showToast(
@@ -70,6 +72,11 @@ const CharityDetails = () => {
                id={userId}
                userId={params.userId}
                profileDetails={getOneCharity}
+               reserveUserImage={getOneCharity.bookAgentImage}
+               isReserved={getOneCharity.isReserved}
+               title={getOneCharity.charityName}
+               date={getOneCharity.dateAdded}
+               image={getOneCharity.image}
                onClick={deleteCharityHandler}
                handleClick={editCharityHandler}
                checked={checked}
@@ -77,6 +84,9 @@ const CharityDetails = () => {
                handleChange={checkBoxChangeHandler}
                handleReserve={reserveCharityHandler}
                userCharity
+               complains={false}
+               complainer={false}
+               adminCharity={false}
             />
          </div>
       </>

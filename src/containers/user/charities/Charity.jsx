@@ -20,6 +20,7 @@ const UserCharity = () => {
    const [charityData, setCharityData] = useState([])
    const navigate = useNavigate()
    const { showToast } = useToastBar()
+
    const navigateToAddCharityHandler = () => navigate('add_charity')
    const navigateToCharityDetails = (id, userId) =>
       navigate(`${id}/${userId}/charity_details`)
@@ -93,7 +94,7 @@ const UserCharity = () => {
                      return (
                         <div key={item.id}>
                            <Cards
-                              changeCard={true}
+                              changeCard="true"
                               navigateToCharityDetails={
                                  navigateToCharityDetails
                               }

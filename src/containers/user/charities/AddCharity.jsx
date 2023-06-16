@@ -24,21 +24,6 @@ import {
 const CharityAdd = () => {
    const location = useLocation()
    const { getOneCharity } = location.state ?? {}
-
-   // const [stateValue, setStateValue] = useState(getOneCharity?.state || '')
-   // const [categoryValue, setCategoryValue] = useState(
-   //    getOneCharity?.category || ''
-   // )
-   // const [subCategoryValue, setSubCategoryValue] = useState(
-   //    getOneCharity?.subCategory || ''
-   // )
-   // const [titleInputValue, setTitleInputValue] = useState(
-   //    getOneCharity?.charityName || ''
-   // )
-
-   // const [descriptionValue, setDescriptionValue] = useState(
-   //    getOneCharity?.description || ''
-   // )
    const [selectedFile, setSelectedFile] = useState(null)
    const [imageUrl, setImageUrl] = useState(getOneCharity?.image || '')
    const [isLoading, setIsLoading] = useState(false)
@@ -74,13 +59,6 @@ const CharityAdd = () => {
          reader.readAsDataURL(file)
       }
    }
-
-   // const titleInputChangeHandler = (event) =>
-   //    setTitleInputValue(event.target.value)
-
-   // const descriptionChangeHandler = (event) =>
-   //    setDescriptionValue(event.target.value)
-
    const navigate = useNavigate()
    const navigateToCharityHandler = () => navigate(-1)
 
