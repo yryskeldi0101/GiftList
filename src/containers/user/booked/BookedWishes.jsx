@@ -21,7 +21,7 @@ export default function BookedWishes({ getWishesData }) {
          id: wishId,
          anonymous: id !== '1',
       }
-      dispatch(deleteMyWishes(idMyWishes))
+      return dispatch(deleteMyWishes(idMyWishes))
    }
 
    return (
