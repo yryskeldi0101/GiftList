@@ -1,7 +1,6 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Users from '../containers/admin/users/Users'
-import AdminCharity from '../containers/admin/Charity'
 import Complains from '../containers/admin/complains/Complains'
 import Newsletter from '../containers/admin/Newsletter'
 import AdminLayout from '../layout/admin/AdminLayout'
@@ -14,7 +13,9 @@ import NewsletterDetails from '../containers/admin/NewsLetterDetail'
 import AllGifts from '../containers/admin/users/AllWishes'
 import AllHolidays from '../containers/admin/users/AllHolidays'
 import AllCharities from '../containers/admin/users/AllCharities'
-import AdminCharity from '../containers/admin/Charity'
+import AdminCharityDetails from '../containers/admin/admin-charity/CharityDetails'
+import AddAdminCharity from '../containers/admin/admin-charity/AddOrEditCharities'
+import AdminCharity from '../containers/admin/admin-charity/Charity'
 
 const AdminRoutes = () => {
    return (
@@ -23,12 +24,7 @@ const AdminRoutes = () => {
             path={INITIAL_PATH.GUEST.main}
             element={<Navigate replace to="/admin/users" />}
          />
-         <Route
-            path={INITIAL_PATH.ADMIN.admin}
-            element={
-               <PrivateRoute component={AdminLayout} roles={ROLES.ADMIN} />
-            }
-         >
+         <Route path={INITIAL_PATH.ADMIN.admin} element={<AdminLayout />}>
             <Route
                path={INITIAL_PATH.ADMIN.users}
                element={<PrivateRoute component={Users} roles={ROLES.ADMIN} />}
@@ -69,16 +65,46 @@ const AdminRoutes = () => {
                }
             />
             <Route
+               path={INITIAL_PATH.ADMIN.charityAdminDetails}
+               element={
+                  <PrivateRoute
+                     component={AdminCharityDetails}
+                     roles={ROLES.ADMIN}
+                  />
+               }
+            />
+            <Route
+               path={INITIAL_PATH.ADMIN.addAdminCharity}
+               element={
+                  <PrivateRoute
+                     component={AddAdminCharity}
+                     roles={ROLES.ADMIN}
+                  />
+               }
+            />
+            <Route
                path={INITIAL_PATH.ADMIN.complaints}
-               element={<PrivateRoute component={Complains} roles={ROLES.ADMIN} />}
+               element={
+                  <PrivateRoute component={Complains} roles={ROLES.ADMIN} />
+               }
             />
             <Route
                path={INITIAL_PATH.ADMIN.complains_wish_details}
-               element={<PrivateRoute component={ComplainsDetail} roles={ROLES.ADMIN} />}
+               element={
+                  <PrivateRoute
+                     component={ComplainsDetail}
+                     roles={ROLES.ADMIN}
+                  />
+               }
             />
             <Route
                path={INITIAL_PATH.ADMIN.complains_charity_details}
-               element={<PrivateRoute component={ComplainsDetail} roles={ROLES.ADMIN}/>}
+               element={
+                  <PrivateRoute
+                     component={ComplainsDetail}
+                     roles={ROLES.ADMIN}
+                  />
+               }
             />
             <Route
                path={INITIAL_PATH.ADMIN.mailing}

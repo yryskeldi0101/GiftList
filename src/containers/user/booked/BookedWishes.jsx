@@ -2,8 +2,8 @@ import React from 'react'
 import { styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Cards from '../../../components/card/Card'
 import { postBookedWishReq } from '../../../service/bookedService'
+import Cards from '../../../components/card/Card'
 
 export default function BookedWishes({ getWishesData }) {
    const dispatch = useDispatch()
@@ -21,10 +21,8 @@ export default function BookedWishes({ getWishesData }) {
          id: wishId,
          anonymous: id !== '1',
       }
-      dispatch(deleteMyWishes(idMyWishes))
+      return dispatch(deleteMyWishes(idMyWishes))
    }
-
-   console.log(getWishesData)
 
    return (
       <div>

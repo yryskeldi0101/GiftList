@@ -26,10 +26,7 @@ const UserRoutes = () => {
             path={INITIAL_PATH.GUEST.main}
             element={<Navigate replace to="/user/lenta" />}
          />
-         <Route
-            path={INITIAL_PATH.USER.user}
-            element={<PrivateRoute component={UserLayout} roles={ROLES.USER} />}
-         >
+         <Route path={INITIAL_PATH.USER.user} element={<UserLayout />}>
             <Route
                path={INITIAL_PATH.USER.lenta}
                element={<PrivateRoute component={Lenta} roles={ROLES.USER} />}

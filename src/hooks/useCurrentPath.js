@@ -11,7 +11,7 @@ const pathConfig = [
    { path: '/admin/charity/*' },
    { path: '/admin/mailing/*' },
    { path: '/admin/complaints/*' },
-   { path: '/admin/charityAdmin/*' },
+   { path: '/admin/charity/*' },
 ]
 
 export const useCurrentPath = () => {

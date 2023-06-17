@@ -19,7 +19,7 @@ export const sideBarRoles = {
       },
       {
          title: 'Благотворительность',
-         path: 'charityAdmin',
+         path: 'charity',
          id: '2',
          icon: CharityIcon,
       },
@@ -177,6 +177,7 @@ export const UserMenuData = [
 export const ROLES = {
    ADMIN: 'ADMIN',
    USER: 'USER',
+   GUEST: 'GUEST',
 }
 export const INITIAL_PATH = {
    ADMIN: {
@@ -186,7 +187,9 @@ export const INITIAL_PATH = {
       allWishes: 'users/:id/user_detail/wishes',
       allHolidays: 'users/:id/user_detail/holidays',
       allCharities: 'users/:id/user_detail/charities',
-      charityAdmin: 'charityAdmin',
+      charityAdmin: 'charity/',
+      charityAdminDetails: 'charity/:id/detail',
+      addAdminCharity: 'charity/:id/add_charity',
       complaints: 'complaints',
       complains_wish_details: 'complaints/:id/wish-details',
       complains_charity_details: 'complaints/:id/charity-details',

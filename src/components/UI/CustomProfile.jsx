@@ -17,6 +17,7 @@ const CustomProfile = ({
    deleteOrAddToFriendHandler,
    acceptHandler,
    rejectHandler,
+   isBlocked,
 }) => {
    return (
       <StyledGlobalContainer height={height}>
@@ -225,9 +226,9 @@ const CustomProfile = ({
                      activebackgroundcolor="#44046B"
                      defaultcolor="#ffff"
                      propswidth="177px"
-                     onClick={() => blockHandler(profileData.id)}
+                     onClick={() => blockHandler(profileData.id, isBlocked)}
                   >
-                     Заблокировать
+                     {isBlocked ? 'Разблокировать' : 'Заблокировать'}
                   </MyButton>
                </StyledButtonContainer>
             </StyledButtonsVariantFalseContainer>

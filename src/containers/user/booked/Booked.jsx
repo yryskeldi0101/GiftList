@@ -20,11 +20,6 @@ const Booked = () => {
       (state) => state.booked
    )
 
-   console.log(
-      getChraititesData,
-      getWishesData,
-      ' getChraititesData, getWishesData'
-   )
    return (
       <BookedContainer>
          <h1>Забронированные</h1>

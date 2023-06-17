@@ -8,7 +8,7 @@ import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
 import { postResetPassword } from '../../redux/reducer/auth/authThunk'
 
-const ResetPassword = ({ token, setOpenModal }) => {
+const ResetPassword = React.forwardRef(({ token, setOpenModal }, ref) => {
    const {
       register,
       handleSubmit,
@@ -21,8 +21,10 @@ const ResetPassword = ({ token, setOpenModal }) => {
          dispatch(postResetPassword({ data, token }))
       }
    }
+   const open = Boolean(token)
+
    return (
-      <MyModal open={token} close={setOpenModal}>
+      <MyModal open={open} close={setOpenModal} ref={ref}>
          <form onSubmit={handleSubmit(onSubmit)}>
             <StyledTitleContainer>
                <h2>Смена пароля</h2>
@@ -81,7 +83,7 @@ const ResetPassword = ({ token, setOpenModal }) => {
          </form>
       </MyModal>
    )
-}
+})
 
 export default ResetPassword
 
@@ -94,7 +96,7 @@ const StyledTitleContainer = styled('div')`
    margin-bottom: 32px;
 `
 const StyledErrorColor = styled('h2')`
-   font-size: large;
+   font-size: 15px;
    color: #d91c1c;
    font-weight: 400;
    font-family: 'Inter';

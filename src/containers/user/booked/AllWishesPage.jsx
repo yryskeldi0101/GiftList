@@ -40,7 +40,6 @@ export const AllWishesPage = () => {
                         changeCard={true}
                         bookChange={true}
                         reserveHandler={addToMyPresents}
-                        // deleteHandler={deleteMyWishes}
                      />
                   </div>
                )

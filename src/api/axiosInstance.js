@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use(
    },
    function cathError(error) {
       if (error) {
-         if (error?.code === 401) {
+         if (error?.status === 401 || error?.code === 'ERR_NETWORK') {
             store.dispatch(signOut())
             throw new Error('Error')
          }
@@ -38,4 +38,3 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(error)
    }
 )
-
