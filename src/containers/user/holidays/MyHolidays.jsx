@@ -9,7 +9,7 @@ import ReusableInput from '../../../components/UI/input/Input'
 import MyButton from '../../../components/UI/Button'
 import AvatarUpload from '../../../components/UI/Avatar'
 import Delete from '../../../assets/icons/deleteIcon.svg'
-import Edit from '../../../assets/icons/EditIcon.svg'
+import EditIcon from '../../../assets/icons/EditIcon.svg'
 
 import PlusIcon from '../../../assets/icons/plusIcon.svg'
 import {
@@ -83,7 +83,7 @@ const MyHolidays = () => {
 
    const meatballsContent = [
       {
-         icon: Edit,
+         icon: EditIcon,
          title: 'Редактировать',
          func: (setSearchParams, data, id) => {
             if (typeof setSearchParams === 'function') {
