@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { styled } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import Cards from '../../../components/card/Card'
-import { getAllAdminCharityRequest } from '../../../service/charityAdminService'
+import {
+   blockAdminCharityRequest,
+   deleteAdminCharityRequest,
+   getAllAdminCharityRequest,
+} from '../../../service/charityAdminService'
 import useToastBar from '../../../hooks/useToastBar'
 import Snackbar from '../../../components/button/SnackBar'
+import CharityCard from '../../../components/card/CharityCard'
 
 const AdminCharity = () => {
    const [charities, setCharities] = useState([])
    const { showToast } = useToastBar()
-   const navigate = useNavigate()
    const getAllCharities = async () => {
       try {
          const data = await getAllAdminCharityRequest()
@@ -24,6 +26,36 @@ const AdminCharity = () => {
          )
       }
    }
+   const deleteCharityHandler = async (id) => {
+      try {
+         await deleteAdminCharityRequest(id)
+         showToast('success', 'Успешно', 'Благотворительность успешно удален')
+         return await getAllCharities()
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      }
+   }
+   const blockCharity = async (id) => {
+      try {
+         await blockAdminCharityRequest(id)
+         showToast(
+            'success',
+            'Успешно',
+            'Благотворительность успешно заблокирован'
+         )
+         return await getAllCharities()
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      }
+   }
    useEffect(() => {
       getAllCharities()
    }, [])
@@ -35,12 +67,8 @@ const AdminCharity = () => {
             <CardContainer>
                {charityData?.map((item) => {
                   return (
-                     <Cards
+                     <CharityCard
                         key={item.id}
-                        changeCard={true}
-                        navigateToCharityDetails={() =>
-                           navigate(`${item.id}/detail`)
-                        }
                         id={item.id}
                         userId={item.userId}
                         icon={item.userImage}
@@ -52,11 +80,11 @@ const AdminCharity = () => {
                         date={item.dateAdded}
                         disableMeatalls={item.isReserved}
                         reserve={item.isReserved}
-                        charityMeatballs={item.isAnonymous}
-                        expectation={item.isReserved}
-                        charityMeatballsHandler={true}
-                        bookChange={false}
-                        openMeatballs="false"
+                        reserveIcon={item.userImage}
+                        isAnonymous={item.isAnonymous}
+                        handleDelete={deleteCharityHandler}
+                        handleBlock={blockCharity}
+                        adminCharity
                      />
                   )
                })}

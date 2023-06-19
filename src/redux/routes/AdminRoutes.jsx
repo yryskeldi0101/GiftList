@@ -13,8 +13,6 @@ import NewsletterDetails from '../../containers/admin/NewsLetterDetail'
 import AllGifts from '../../containers/admin/users/AllWishes'
 import AllHolidays from '../../containers/admin/users/AllHolidays'
 import AllCharities from '../../containers/admin/users/AllCharities'
-import AdminCharityDetails from '../../containers/admin/admin-charity/CharityDetails'
-import AddAdminCharity from '../../containers/admin/admin-charity/AddOrEditCharities'
 import AdminCharity from '../../containers/admin/admin-charity/Charity'
 
 const AdminRoutes = () => {
@@ -62,24 +60,6 @@ const AdminRoutes = () => {
                path={INITIAL_PATH.ADMIN.charityAdmin}
                element={
                   <PrivateRoute component={AdminCharity} roles={ROLES.ADMIN} />
-               }
-            />
-            <Route
-               path={INITIAL_PATH.ADMIN.charityAdminDetails}
-               element={
-                  <PrivateRoute
-                     component={AdminCharityDetails}
-                     roles={ROLES.ADMIN}
-                  />
-               }
-            />
-            <Route
-               path={INITIAL_PATH.ADMIN.addAdminCharity}
-               element={
-                  <PrivateRoute
-                     component={AddAdminCharity}
-                     roles={ROLES.ADMIN}
-                  />
                }
             />
             <Route
