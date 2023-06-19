@@ -125,53 +125,7 @@ const AdminCard = ({
                      </StyledCard>
                   )
                })}
-            {dataCategory === ACTION_TYPES.HOLIDAYS_DETAIL &&
-               dataHolidays?.map((item) => {
-                  return (
-                     <StyledCard key={item.id}>
-                        <CardMedia
-                           component="img"
-                           height="149"
-                           image={item.image}
-                           alt="card img"
-                        />
 
-                        <StyledCardContent
-                           onClick={() =>
-                              typeof handleNavigate === 'function'
-                                 ? handleNavigate(item.id)
-                                 : null
-                           }
-                        >
-                           <Title>{item.name}</Title>
-                           <StyledBirthDate>{item.birthDate}</StyledBirthDate>
-                           <StyledStatus>{item.status}</StyledStatus>
-                        </StyledCardContent>
-
-                        <StyledCardActions>
-                           <p>{item.date}</p>
-                           <MeatBalssContainer>
-                              <Meatballs
-                                 display={display}
-                                 arrayIcon={meatballsContent}
-                                 handleClick={(e) => {
-                                    handleClick(e)
-                                    setCurrentId(item.id)
-                                 }}
-                                 id={item.id}
-                                 date={item.date}
-                                 name={item.name}
-                                 image={item.image}
-                                 handleClose={handleClose}
-                                 open={open}
-                                 anchorEl={anchorEl}
-                                 handleClickMenuItem={handleClickMenuDetail}
-                              />
-                           </MeatBalssContainer>
-                        </StyledCardActions>
-                     </StyledCard>
-                  )
-               })}
             {dataCategory === ACTION_TYPES.CHARITIES &&
                dataCharity?.map((item) => (
                   <StyledCard key={item.id}>

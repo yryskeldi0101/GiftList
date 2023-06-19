@@ -1,5 +1,5 @@
 import React from 'react'
-import AppRoutes from './routes/AppRoutes'
+import AppRoutes from './redux/routes/AppRoutes'
 
 const App = () => {
    return (

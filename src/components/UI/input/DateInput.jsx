@@ -3,10 +3,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { styled } from '@mui/material/styles'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 
-function DateInput({ onChange, valid }) {
+function DateInput({ onChange, value, valid }) {
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
          <StyledDatePicker
+            value={value}
             valid={valid}
             onChange={(newValue) => onChange(newValue?.toDate())}
          />

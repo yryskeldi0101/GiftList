@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { LandingPage } from '../containers/LandingPage'
-import ErrorPage from '../containers/ErrorPage'
-import { INITIAL_PATH } from '../utlis/constants/constnats'
+import { LandingPage } from '../../containers/LandingPage'
+import ErrorPage from '../../containers/ErrorPage'
+import { INITIAL_PATH } from '../../utlis/constants/constnats'
 
 const GuestRoutes = () => {
    return (

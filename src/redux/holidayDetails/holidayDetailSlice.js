@@ -5,6 +5,7 @@ const initialState = {
    holidayDetail: [],
    isLoading: true,
    error: '',
+   holiday: {},
 }
 
 export const holidayDetailSlice = createSlice({
@@ -24,15 +25,5 @@ export const holidayDetailSlice = createSlice({
             state.error = action.payload
             state.isLoading = false
          })
-      // .addCase(postHolidayDetails.pending, (state) => {
-      //    state.isLoading = true
-      // })
-      // .addCase(postHolidayDetails.fulfilled, (state, action) => {
-      //    state.error = action.payload
-      // })
-      // .addCase(postHolidayDetails.rejected, (state, action) => {
-      //    state.error = action.payload
-      //    state.isLoading = false
-      // })
    },
 })

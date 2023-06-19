@@ -3,42 +3,8 @@ import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import { styled } from '@mui/material'
-import HolidayMeatballs from '../UI/HolidayMeatballs'
 
-const HolidayDetailsCard = ({
-   holidayDetail,
-   meatballsContent,
-   handleClick,
-   handleClose,
-   display,
-   open,
-   anchorEl,
-   setSearchParams,
-   handleNavigate,
-}) => {
-   const [currentId, setCurrentId] = React.useState(0)
-   const [currentData, setCurrentData] = React.useState({})
-
-   const handleClickMenuItem = React.useCallback(
-      (title, func) => {
-         handleClose()
-
-         if (typeof func === 'function') {
-            if (title === 'Редактировать') {
-               func(setSearchParams, currentData, currentId)
-            }
-            if (currentId) {
-               func(currentId, { ...currentData, currentId }, currentId)
-            }
-         }
-      },
-      [holidayDetail, currentId]
-   )
-
-   const handleClickMenuDetail = (title, func, currentId) => {
-      handleClickMenuItem(title, func, currentId)
-   }
-
+const HolidayDetailsCard = ({ holidayDetail, handleNavigate }) => {
    return (
       <div>
          <CardContainer>
@@ -66,29 +32,6 @@ const HolidayDetailsCard = ({
 
                      <StyledCardActions>
                         <p>{item.date}</p>
-                        <MeatBalssContainer>
-                           <HolidayMeatballs
-                              display={display}
-                              arrayIcon={meatballsContent}
-                              handleClick={(e) => {
-                                 handleClick(e)
-                                 setCurrentId(item.id)
-                                 setCurrentData({
-                                    date: item.date,
-                                    image: item.image,
-                                    name: item.name,
-                                 })
-                              }}
-                              id={item.id}
-                              date={item.date}
-                              name={item.name}
-                              image={item.image}
-                              handleClose={handleClose}
-                              open={open}
-                              anchorEl={anchorEl}
-                              handleClickMenuItem={handleClickMenuDetail}
-                           />
-                        </MeatBalssContainer>
                      </StyledCardActions>
                   </StyledCard>
                )
@@ -105,7 +48,6 @@ const CardContainer = styled('div')`
    flex-wrap: wrap;
    flex-direction: row;
    gap: 61px;
-   justify-content: center;
 `
 const StyledCard = styled(Card)`
    padding: 20px;
@@ -158,10 +100,4 @@ const StyledStatus = styled('div')`
    font-size: 14px;
    color: #fd5200;
    margin-right: 20px;
-`
-const MeatBalssContainer = styled('div')`
-   margin-left: 27px;
-   display: flex;
-   align-items: center;
-   gap: 10px;
 `
