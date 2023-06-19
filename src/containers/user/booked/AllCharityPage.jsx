@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { styled } from '@mui/material'
-import {
-   getAllBooked,
-   // postBookedCharities,
-} from '../../../redux/booked/bookedThunk'
+import { getAllBooked } from '../../../redux/booked/bookedThunk'
 import Cards from '../../../components/card/Card'
 
 export const AllCharityPage = () => {
    const dispatch = useDispatch()
 
    const allCharityBooked = useSelector((state) => state.booked.postAllBooked)
-   console.log(allCharityBooked, 'allCharityBooked')
 
    useEffect(() => {
       dispatch(getAllBooked())
@@ -32,13 +28,7 @@ export const AllCharityPage = () => {
                         title={item.holidayName}
                         img={item.image}
                         date={item.date}
-                        // openMeatballs={item.openMeatballs}
-                        // meatballsChangeHandler={item.meatballsChangeHandler}
-                        // changeCard={true}
-                        // bookChange={true}
                         display={true}
-                        // reserveHandler={addToMyPresents}
-                        // deleteHandler={deleteMyCharities}
                      />
                   </div>
                )

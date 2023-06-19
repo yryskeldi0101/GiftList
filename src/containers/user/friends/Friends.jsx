@@ -104,7 +104,6 @@ const Container = styled('div')`
    margin-top: 24px;
    display: flex;
    flex-wrap: wrap;
-   justify-content: center;
    align-items: flex-start;
    gap: 45px;
 `

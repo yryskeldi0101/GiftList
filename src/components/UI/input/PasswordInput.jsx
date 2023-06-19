@@ -20,6 +20,7 @@ const PasswordInput = forwardRef((props, ref) => {
             label={props.label}
             type={showPassword ? 'text' : 'password'}
             variant="outlined"
+            onBlur={props.onBlur}
             id={props.id}
             ref={ref}
             name={props.name}

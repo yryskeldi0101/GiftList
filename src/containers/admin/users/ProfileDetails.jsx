@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { styled } from '@mui/material'
 import CustomProfile from '../../../components/UI/CustomProfile'
 import { getOneUserById } from '../../../redux/user/userThunk'
@@ -29,6 +29,7 @@ const ProfileDetails = () => {
       try {
          const data = await deleteUserRequest(id)
          navigate('/admin/users')
+         showToast('')
          return data
       } catch (error) {
          return showToast(
@@ -38,9 +39,9 @@ const ProfileDetails = () => {
          )
       }
    }
-   const blockUser = async (id) => {
+   const blockUser = async (id, isBlocked) => {
       try {
-         const data = await blockUserRequest(id)
+         const data = await blockUserRequest(id, !isBlocked)
          navigate('/admin/users')
          return data
       } catch (error) {
@@ -51,7 +52,7 @@ const ProfileDetails = () => {
          )
       }
    }
-
+   const { state } = useLocation()
    const dataHoliday = profileData.holidayResponses || []
    const dataWishList = profileData.wishResponseUserList || []
    const dataCharity = profileData.charityResponseUsers || []
@@ -106,6 +107,7 @@ const ProfileDetails = () => {
                deleteHandler={deleteUser}
                blockHandler={blockUser}
                adminVariant
+               isBlocked={state.isBlocked}
             />
          </div>
          <Container>
@@ -182,7 +184,6 @@ const ArrayContainer = styled('div')`
    margin-top: 45px;
    display: flex;
    align-items: center;
-   justify-content: center;
 `
 const StyledNavlink = styled(NavLink)`
    font-family: 'Inter';

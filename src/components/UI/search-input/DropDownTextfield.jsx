@@ -23,20 +23,20 @@ const CustomIcon = () => {
 const TextFieldWithDropDown = ({
    inputChangeHandler,
    value,
-   setCategory,
    category,
+   subCategory,
    stateSelect,
    countries,
-   subCategory,
-   setCountries,
-   setStateSelect,
-   setSubCategory,
+   categoryChangeHnadler,
+   counrtyChangeHandler,
+   stateChangeHandler,
+   subCategouryChangeHandler,
    ...rest
 }) => {
    const [isChecked, setIsChecked] = useState(false)
    const selectArray = [
       {
-         setValue: setStateSelect,
+         onChange: stateChangeHandler,
          value: stateSelect,
          placeholder: 'Состояние',
          width: '13vw',
@@ -46,7 +46,7 @@ const TextFieldWithDropDown = ({
          id: '1',
       },
       {
-         setValue: setCategory,
+         onChange: categoryChangeHnadler,
          value: category,
          placeholder: 'Категория',
          width: '13vw',
@@ -61,7 +61,7 @@ const TextFieldWithDropDown = ({
          height: '35px',
          placeholder: 'Подкатегория',
          border: 'none',
-         setValue: setSubCategory,
+         onChange: subCategouryChangeHandler,
          options: subcategoryArray,
          id: '3',
       },
@@ -71,7 +71,7 @@ const TextFieldWithDropDown = ({
          height: '35px',
          placeholder: 'Страна',
          border: 'none',
-         setValue: setCountries,
+         onChange: counrtyChangeHandler,
          options: countriesArray,
          id: '4',
       },
@@ -102,7 +102,7 @@ const TextFieldWithDropDown = ({
                      height={item.height}
                      placeholder={item.placeholder}
                      border={item.border}
-                     setValue={item.setValue}
+                     onChange={item.onChange}
                      options={item.options}
                   />
                )

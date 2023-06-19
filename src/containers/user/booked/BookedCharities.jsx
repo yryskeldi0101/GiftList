@@ -3,19 +3,8 @@ import { styled } from '@mui/material'
 import { Link } from 'react-router-dom'
 import Cards from '../../../components/card/Card'
 import { deleteCharityReq } from '../../../service/bookedService'
-// import { postBookedCharityReq } from '../../../service/bookedService'
 
 export const BookedCharities = ({ getChraititesData }) => {
-   // const addToMyPresents = async (id) => {
-   //    try {
-   //       await postBookedCharityReq(id)
-   //    } catch (error) {
-   //       console.log(error)
-   //    }
-   // }
-
-   console.log(getChraititesData)
-
    const deleteMyCharities = async (charityId) => {
       const idMyCharities = {
          id: charityId,

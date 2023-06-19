@@ -11,9 +11,8 @@ const roleControl = {
 }
 const AppRoutes = () => {
    const { token, role } = useSelector((state) => state.auth)
-   if (!token && role === 'GUEST') return <GuestRoutes />
-   const selectedRoute = roleControl[role]
-   return selectedRoute || null
+   if (!token) return <GuestRoutes />
+   return roleControl[role] || null
 }
 
 export default AppRoutes

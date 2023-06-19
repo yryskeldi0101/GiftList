@@ -26,7 +26,6 @@ export default function Meatballs({
    const takeOffBookedHanlder = () => {
       dispatch(takeOffBooked(id))
    }
-
    return (
       <>
          <Buttons
@@ -41,9 +40,7 @@ export default function Meatballs({
          </Buttons>
 
          <div>
-            {display ? (
-               ''
-            ) : (
+            {display ? null : (
                <Menu
                   id="demo-positioned-menu"
                   aria-labelledby="demo-positioned-button"

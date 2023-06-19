@@ -4,14 +4,14 @@ import { styled } from '@mui/material'
 const MyModal = ({ children, onClose, open, propswidth, ...rest }) => {
    return (
       <Modal open={open} onClose={onClose} {...rest}>
-         <StyledBox>{children}</StyledBox>
+         <StyledBox propswidth={propswidth}>{children}</StyledBox>
       </Modal>
    )
 }
 
 export default MyModal
 
-const StyledBox = styled('div')(() => ({
+const StyledBox = styled('div')(({ propswidth }) => ({
    position: 'absolute',
    top: '50%',
    zIndex: '10',
@@ -21,4 +21,5 @@ const StyledBox = styled('div')(() => ({
    transform: 'translate(-50%, -50%)',
    padding: '24px 32px',
    borderRadius: '10px',
+   maxWidth: propswidth || '',
 }))

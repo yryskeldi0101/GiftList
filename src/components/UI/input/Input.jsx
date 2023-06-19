@@ -20,6 +20,7 @@ const ReusableInput = React.forwardRef(
          name,
          onBlur,
          valid,
+         borderError,
          ...rest
       },
       ref
@@ -30,9 +31,9 @@ const ReusableInput = React.forwardRef(
                {text}
             </StyledFormHelperText>
             <StyledOutlinedInput
-               errorcolor={error}
                value={value}
                name={name}
+               bordercolor={borderError?.toString()}
                onChange={onChange}
                placeholder={placeholder}
                aria-describedby={inputLabel}
@@ -71,7 +72,7 @@ const StyledFormHelperText = styled(FormHelperText)(({ valid }) => ({
    color: valid ? 'red' : '#464444',
 }))
 
-const StyledOutlinedInput = styled(OutlinedInput)(({ valid }) => ({
+const StyledOutlinedInput = styled(OutlinedInput)(({ valid, bordercolor }) => ({
    width: '100%',
    height: '30px',
    marginBottom: '15px',
@@ -82,12 +83,12 @@ const StyledOutlinedInput = styled(OutlinedInput)(({ valid }) => ({
 
    '&.MuiOutlinedInput-root': {
       height: '32px',
-      border: '1px solid grey',
+      border: bordercolor === 'true' ? '1px solid red' : '1px solid grey',
       '&:hover ': {
-         border: '1px solid #6200EE',
+         border: bordercolor === 'true' ? '1px solid red' : '1px solid #6200EE',
       },
       '&.focused': {
-         border: '1px solid #6200EE',
+         border: bordercolor === 'true' ? '1px solid red' : '1px solid #6200EE',
       },
    },
    '& .MuiOutlinedInput-notchedOutline': {

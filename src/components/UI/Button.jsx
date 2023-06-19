@@ -19,6 +19,7 @@ const MyButton = ({
          variant={variant}
          background={background}
          disabled={disabled}
+         border={border}
          hoverbackgroundcolor={hoverbackgroundcolor}
          activebackgroundcolor={activebackgroundcolor}
          defaultcolor={defaultcolor}
