@@ -77,16 +77,6 @@ const ForgotPassword = React.forwardRef(({ openModal, onCloseModal }, ref) => {
 
 export default ForgotPassword
 
-const StyledModal = styled(MyModal)`
-   width: 564px;
-   position: 'absolute';
-   top: 50%;
-   z-index: 10;
-   border: 'none';
-   background-color: '#fff';
-   left: 50%;
-   transform: translate(-50%, -50%);
-`
 const StyledTitle = styled('h2')`
    display: inline-block;
 `
@@ -106,8 +96,6 @@ const StyledInput = styled(ReusableInput)(() => ({
    height: '32px',
    marginBottom: '32px',
 }))
-
-
 
 const StyledText = styled('p')`
    width: 482px;
