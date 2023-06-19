@@ -12,3 +12,6 @@ export const deleteAdminCharityRequest = (id) => {
 export const saveAdminCharityRequest = (data) => {
    return axiosInstance.put(`/api/charity-admin`, data)
 }
+export const blockAdminCharityRequest = (id) => {
+   return axiosInstance.get(`/api/complaint/block-charity?id=${id}`)
+}

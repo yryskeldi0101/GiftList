@@ -7,7 +7,6 @@ import plaidIcon from '../../../assets/images/Plaid.png'
 import shirtIcon from '../../../assets/images/Shirt.png'
 import { ReactComponent as PlusIcon } from '../../../assets/icons/plusIcon.svg'
 import MyButton from '../../../components/UI/Button'
-import Cards from '../../../components/card/Card'
 
 import useToastBar from '../../../hooks/useToastBar'
 import {
@@ -15,6 +14,7 @@ import {
    reserveCharityRequest,
 } from '../../../service/charityService'
 import Snackbar from '../../../components/button/SnackBar'
+import CharityCard from '../../../components/card/CharityCard'
 
 const UserCharity = () => {
    const [charityData, setCharityData] = useState([])
@@ -28,6 +28,7 @@ const UserCharity = () => {
    const getCharities = async () => {
       try {
          const { data } = await getCharityRequest()
+         setCharityData(data)
          return data
       } catch (error) {
          return showToast(
@@ -38,22 +39,22 @@ const UserCharity = () => {
       }
    }
    useEffect(() => {
-      async function getData() {
-         const data = await getCharities()
-         setCharityData(data)
-      }
-
-      getData()
+      getCharities()
    }, [])
 
-   const reserveCharityHandler = async (id, charityId) => {
+   const reserveCharityHandler = async (id, anonym) => {
       const dataReserve = {
-         id: charityId,
-         anonymous: id !== '1',
+         id,
+         anonymous: anonym,
       }
       try {
-         const { data } = await reserveCharityRequest(dataReserve)
-         return data
+         await reserveCharityRequest(dataReserve)
+         showToast(
+            'success',
+            'Успешно',
+            'Благотворительность успешно забронирован'
+         )
+         return await getCharities()
       } catch (error) {
          return showToast(
             'error',
@@ -93,8 +94,7 @@ const UserCharity = () => {
                   {charityData?.map((item) => {
                      return (
                         <div key={item.id}>
-                           <Cards
-                              changeCard="true"
+                           <CharityCard
                               navigateToCharityDetails={
                                  navigateToCharityDetails
                               }
@@ -111,10 +111,10 @@ const UserCharity = () => {
                               disableMeatalls={item.isReserved}
                               reserve={item.isReserved}
                               charityMeatballs={item.isAnonymous}
+                              isAnonymous={item.isAnonymous}
                               expectation={item.isReserved}
-                              charityMeatballsHandler={true}
-                              bookChange={false}
-                              openMeatballs="false"
+                              reserveIcon={item.userImage}
+                              userCharity
                            />
                         </div>
                      )
