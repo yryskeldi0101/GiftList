@@ -9,7 +9,7 @@ import ReusableInput from '../UI/input/Input'
 
 import { postForgetPassword } from '../../redux/reducer/auth/authThunk'
 
-const ForgotPassword = ({ openModal, onCloseModal }) => {
+const ForgotPassword = React.forwardRef(({ openModal, onCloseModal }, ref) => {
    const { register, handleSubmit, formState } = useForm()
    const dispatch = useDispatch()
    const baseUrl = window.location.origin
@@ -19,10 +19,11 @@ const ForgotPassword = ({ openModal, onCloseModal }) => {
    }
    return (
       <div>
-         <StyledModal
-            propswidth="564px"
+         <MyModal
+            propswidth="546px"
             open={openModal}
             onClose={onCloseModal}
+            ref={ref}
          >
             <div>
                <form onSubmit={handleSubmit(submitHandler)}>
@@ -48,7 +49,7 @@ const ForgotPassword = ({ openModal, onCloseModal }) => {
                         required: 'Электронная почта обязательнo',
                         pattern: {
                            value: /\S+@\S+\.\S+/,
-                           message: 'Неверный формат электронной почты',
+                           message: 'Электронная почта должна включать @',
                         },
                      })}
                   />
@@ -69,10 +70,10 @@ const ForgotPassword = ({ openModal, onCloseModal }) => {
                   </MyButton>
                </form>
             </div>
-         </StyledModal>
+         </MyModal>
       </div>
    )
-}
+})
 
 export default ForgotPassword
 
@@ -80,21 +81,11 @@ const StyledTitle = styled('h2')`
    display: inline-block;
 `
 
-const StyledModal = styled(MyModal)`
-   /* width: 564px;
-   position: 'absolute';
-   top: 50%;
-   z-index: 10;
-   border: 'none';
-   background-color: '#fff';
-   left: 50%;
-   transform: translate(-50%, -50%); */
-`
 const StyledTitleContainer = styled('div')`
    display: flex;
    align-items: center;
    justify-content: space-between;
-   max-width: 482px;
+   width: 482px;
    height: 32px;
    margin-right: 0;
    padding: 0;
@@ -118,7 +109,7 @@ const StyledText = styled('p')`
    margin-bottom: 32px;
 `
 const StyledErrorColor = styled('h2')`
-   font-size: large;
+   font-size: 15px;
    color: #d91c1c;
    font-weight: 400;
    font-family: 'Inter';

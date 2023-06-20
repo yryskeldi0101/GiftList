@@ -171,9 +171,7 @@ export default function Meatballs({
             <MeatballsIcon />
          </Button>
          <div>
-            {display ? (
-               ''
-            ) : (
+            {display ? null : (
                <Menu
                   id="demo-positioned-menu"
                   aria-labelledby="demo-positioned-button"
@@ -205,6 +203,7 @@ export default function Meatballs({
                               alt="#"
                               style={{ marginRight: '10px' }}
                            />
+
                            {item.title}
                         </MenuItem>
                      </div>

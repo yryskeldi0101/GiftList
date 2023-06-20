@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { ROLES } from '../utlis/constants/constnats'
 import AdminRoutes from './AdminRoutes'
 import UserRoutes from './UserRoutes'
 import GuestRoutes from './GuestRoutes'
+import { ROLES } from '../../utlis/constants/constnats'
 
 const roleControl = {
    [ROLES.ADMIN]: <AdminRoutes />,
@@ -11,9 +11,8 @@ const roleControl = {
 }
 const AppRoutes = () => {
    const { token, role } = useSelector((state) => state.auth)
-   if (!token && role === 'GUEST') return <GuestRoutes />
-   const selectedRoute = roleControl[role]
-   return selectedRoute || null
+   if (!token) return <GuestRoutes />
+   return roleControl[role] || null
 }
 
 export default AppRoutes

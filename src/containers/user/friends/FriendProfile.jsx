@@ -189,7 +189,6 @@ const ArrayContainer = styled('div')`
    margin-top: 45px;
    display: flex;
    align-items: center;
-   justify-content: center;
 `
 const StyledNavlink = styled(NavLink)`
    font-family: 'Inter';

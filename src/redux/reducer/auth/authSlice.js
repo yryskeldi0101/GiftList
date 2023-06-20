@@ -20,7 +20,7 @@ const getInitialState = () => {
       isAuthorized: false,
       isloading: false,
       error: '',
-      role: 'GUEST',
+      role: '',
       userId: '',
    }
 }

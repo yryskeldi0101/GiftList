@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ReactComponent as ListCardIcon } from '../../assets/icons/listcardicon.svg'
 import { ReactComponent as IconTable } from '../../assets/icons/tablecard.svg'
 import { getLentaCard, getLentaInfoCard } from '../../redux/lenta/lentaThunk'
-import Cards from '../../components/card/Card'
 import useToastBar from '../../hooks/useToastBar'
 import Snackbar from '../../components/button/SnackBar'
+import Cards from '../../components/card/Card'
 
 const Lenta = () => {
    const [card, setCard] = useState(true)

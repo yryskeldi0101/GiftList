@@ -3,8 +3,9 @@ import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import { styled } from '@mui/material'
-import Meatballs from '../UI/Meatballs'
 import { ACTION_TYPES } from '../../utlis/constants/constnats'
+import Meatballs from '../UI/Meatballs'
+import HolidayMeatballs from '../UI/HolidayMeatballs'
 
 const AdminCard = ({
    dataCategory,
@@ -17,7 +18,32 @@ const AdminCard = ({
    display,
    open,
    anchorEl,
+   setSearchParams,
+   handleNavigate,
 }) => {
+   const [currentId, setCurrentId] = React.useState(0)
+   const [currentData, setCurrentData] = React.useState({})
+
+   const handleClickMenuItem = React.useCallback(
+      (title, func) => {
+         handleClose()
+
+         if (typeof func === 'function') {
+            if (title === 'Редактировать') {
+               func(setSearchParams, currentData, currentId)
+            }
+            if (currentId) {
+               func(currentId, { ...currentData, currentId }, currentId)
+            }
+         }
+      },
+      [dataHolidays, currentId]
+   )
+
+   const handleClickMenuDetail = (title, func, currentId) => {
+      handleClickMenuItem(title, func, currentId)
+   }
+
    return (
       <div>
          <CardContainer>
@@ -52,35 +78,54 @@ const AdminCard = ({
                   </StyledCard>
                ))}
             {dataCategory === ACTION_TYPES.HOLIDAYS &&
-               dataHolidays?.map((item) => (
-                  <StyledCard key={item.id}>
-                     <CardMedia
-                        component="img"
-                        height="149"
-                        image={item.image}
-                        alt="card img"
-                     />
+               dataHolidays?.map((item) => {
+                  return (
+                     <StyledCard key={item.id}>
+                        <CardMedia
+                           component="img"
+                           height="149"
+                           image={item.image}
+                           onClick={() =>
+                              typeof handleNavigate === 'function'
+                                 ? handleNavigate(item.id)
+                                 : null
+                           }
+                           alt="card img"
+                           sx={{ cursor: 'pointer' }}
+                        />
 
-                     <StyledCardContent>
-                        <Title>{item.name}</Title>
-                        <StyledBirthDate>{item.nameWish}</StyledBirthDate>
-                        <StyledStatus>{item.status}</StyledStatus>
-                     </StyledCardContent>
-                     <StyledCardActions>
-                        <p>{item.date}</p>
-                        <MeatBalssContainer>
-                           <Meatballs
-                              display={display}
-                              arrayIcon={meatballsContent}
-                              handleClick={handleClick}
-                              handleClose={handleClose}
-                              open={open}
-                              anchorEl={anchorEl}
-                           />
-                        </MeatBalssContainer>
-                     </StyledCardActions>
-                  </StyledCard>
-               ))}
+                        <StyledCardContent>
+                           <Title>{item.name}</Title>
+                           <StyledBirthDate>{item.birthDate}</StyledBirthDate>
+                           <StyledStatus>{item.status}</StyledStatus>
+                        </StyledCardContent>
+
+                        <StyledCardActions>
+                           <p>{item.date}</p>
+                           <MeatBalssContainer>
+                              <HolidayMeatballs
+                                 display={display}
+                                 arrayIcon={meatballsContent}
+                                 handleClick={(e) => {
+                                    handleClick(e)
+                                    setCurrentId(item.id)
+                                    setCurrentData({
+                                       date: item.date,
+                                       image: item.image,
+                                       name: item.name,
+                                    })
+                                 }}
+                                 handleClose={handleClose}
+                                 open={open}
+                                 anchorEl={anchorEl}
+                                 handleClickMenuItem={handleClickMenuDetail}
+                              />
+                           </MeatBalssContainer>
+                        </StyledCardActions>
+                     </StyledCard>
+                  )
+               })}
+
             {dataCategory === ACTION_TYPES.CHARITIES &&
                dataCharity?.map((item) => (
                   <StyledCard key={item.id}>
@@ -109,6 +154,7 @@ const AdminCard = ({
                               )}
                            </StyledExpectation>
                            <Meatballs
+                              currentId={currentId}
                               display={display}
                               arrayIcon={meatballsContent}
                               handleClick={handleClick}
@@ -131,7 +177,6 @@ const CardContainer = styled('div')`
    flex-wrap: wrap;
    flex-direction: row;
    gap: 61px;
-   justify-content: center;
 `
 const StyledCard = styled(Card)`
    padding: 20px;

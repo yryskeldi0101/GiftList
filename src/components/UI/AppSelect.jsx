@@ -2,54 +2,80 @@ import FormControl from '@mui/material/FormControl'
 import MenuItem from '@mui/material/MenuItem'
 import SelectMui from '@mui/material/Select'
 import { styled } from '@mui/material'
+import React, { forwardRef } from 'react'
 
-const Placeholder = ({ children }) => {
+const Placeholder = ({ id, name, children }) => {
    return (
-      <div style={{ color: '#8D949E', padding: 0, margin: 0 }}>{children}</div>
-   )
-}
-function AppSelect({
-   width,
-   border,
-   height,
-   placeholder,
-   options,
-   background,
-   value,
-   setValue,
-}) {
-   const handleChange = (event) => {
-      setValue(event.target.value)
-   }
-   return (
-      <Form
-         height1={height}
-         width={width}
-         border={border}
-         background={background}
+      <div
+         id={id}
+         name={name}
+         style={{ color: '#8D949E', padding: 0, margin: 0 }}
       >
-         <SelectStyled
-            heightprops={height}
-            onChange={handleChange}
-            value={value}
-            displayEmpty
-            renderValue={
-               value !== ''
-                  ? undefined
-                  : () => <Placeholder>{placeholder}</Placeholder>
-            }
-         >
-            {options.map((item) => {
-               return (
-                  <StyledMenuItem key={item.id} value={item.name}>
-                     {item.name}
-                  </StyledMenuItem>
-               )
-            })}
-         </SelectStyled>
-      </Form>
+         {children}
+      </div>
    )
 }
+const AppSelect = forwardRef(
+   (
+      {
+         width,
+         border,
+         height,
+         placeholder,
+         options,
+         background,
+         value = '',
+         onChange,
+         id,
+         name,
+         borderError,
+      },
+      ref
+   ) => {
+      return (
+         <Form
+            height1={height}
+            width={width}
+            border={border}
+            background={background}
+         >
+            <SelectStyled
+               bordercolor={borderError}
+               id={id}
+               name={name}
+               heightprops={height}
+               onChange={onChange}
+               value={value}
+               displayEmpty
+               ref={ref}
+               renderValue={
+                  value !== ''
+                     ? undefined
+                     : () => (
+                          <Placeholder id={id} name={name}>
+                             {placeholder}
+                          </Placeholder>
+                       )
+               }
+            >
+               {options.map((item) => {
+                  return (
+                     <StyledMenuItem
+                        id={id}
+                        name={name}
+                        key={item.id}
+                        value={item.name}
+                        ref={ref}
+                     >
+                        {item.name}
+                     </StyledMenuItem>
+                  )
+               })}
+            </SelectStyled>
+         </Form>
+      )
+   }
+)
 export default AppSelect
 
 const StyledMenuItem = styled(MenuItem)(() => ({
@@ -72,7 +98,8 @@ const Form = styled(FormControl)`
       height: '20px';
    }
 `
-const SelectStyled = styled(SelectMui)(({ heightprops }) => ({
+const SelectStyled = styled(SelectMui)(({ heightprops, bordercolor }) => ({
    height: heightprops || 'none',
    padding: 0,
+   border: bordercolor === 'true' ? '1px solid red' : '',
 }))

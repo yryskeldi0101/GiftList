@@ -89,10 +89,10 @@ export default function UserMenu() {
    )
 }
 const StyledUserName = styled('p')`
-   font-family: 'Open Sans';
+   font-family: 'Inter';
    font-style: normal;
    font-weight: 400;
-   font-size: 0.9rem;
+   font-size: 0.8rem;
    line-height: 1.3rem;
    margin: 0;
    letter-spacing: 0.02em;

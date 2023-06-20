@@ -1,7 +1,6 @@
+import { IconButton, InputLabel, styled, OutlinedInput } from '@mui/material'
+import InputAdornment from '@mui/material/InputAdornment'
 import React from 'react'
-import { styled } from '@mui/system'
-import { IconButton, InputLabel } from '@mui/material'
-import ReusableInput from '../components/UI/input/Input'
 import { ReactComponent as IconFacebook } from '../assets/icons/FaceBook.svg'
 import { ReactComponent as IconInstagram } from '../assets/icons/Instagram.svg'
 import { ReactComponent as IconWk } from '../assets/icons/WkIcon.svg'
@@ -59,13 +58,20 @@ const Footer = () => {
                </NavigationContainer>
                <EmailContainer>
                   <StyledEmailTitle>Подписаться на рассылку</StyledEmailTitle>
-                  <ReusableInput icon={<Inactive />} />
+                  <StyledTextField
+                     placeholder="Введите ваш Email"
+                     endAdornment={
+                        <InputAdornment position="end">
+                           <Inactive />
+                        </InputAdornment>
+                     }
+                  />
                </EmailContainer>
             </Container>
          </GlobalContainer>
          <div>
             <StyledCompanyName>
-               Peaksoft © 2022 Все права защищены
+               Peaksoft © 2023 Все права защищены
             </StyledCompanyName>
          </div>
       </>
@@ -83,12 +89,13 @@ const Container = styled('div')(() => ({
    maxWidth: '80%',
    margin: '0 auto',
    display: 'flex',
-   padding: '25px 0px 0px 0px',
-   justifyContent: 'space-between',
    alignItems: 'center',
+   padding: '10px 0px 10px 0px',
+   justifyContent: 'space-between',
 }))
 const TitleContainer = styled('div')(() => ({
    textAlign: 'start',
+   paddingTop: '20px',
 }))
 const StyledTitle = styled('h1')(() => ({
    textAlign: 'start',
@@ -112,6 +119,7 @@ const NavigationContainer = styled('div')(() => ({
    width: '152px',
    display: 'flex',
    flexWrap: 'wrap',
+   alignItems: 'center',
 }))
 const StyledNavText = styled('a')(() => ({
    textAlign: 'start',
@@ -128,6 +136,7 @@ const EmailContainer = styled(InputLabel)(() => ({
    display: 'flex',
    flexWrap: 'wrap',
    textAlign: 'start',
+   alignItems: 'center',
 }))
 const StyledEmailTitle = styled('p')(() => ({
    fontFamily: 'Inter',
@@ -148,4 +157,23 @@ const StyledCompanyName = styled('p')(() => ({
    lineHeight: '130%',
    color: '#353A5A',
    padding: '25px 0',
+}))
+
+const StyledTextField = styled(OutlinedInput)(() => ({
+   '&.MuiOutlinedInput-root': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      height: '39px',
+      width: '322px',
+      background: '#FCFCFD',
+      borderRadius: '6px 35px 35px 6px',
+      padding: 0,
+      '&:hover fieldset': {
+         borderColor: '#6200EE',
+      },
+      '&.Mui-focused fieldset': {
+         borderColor: '#6200EE',
+      },
+   },
 }))

@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { BASE_ULR } from './axiosInstance'
+import { BASE_URL } from './axiosInstance'
 import store from '../redux/store'
 
 export const axiosFileInstance = axios.create({
-   baseURL: BASE_ULR,
+   baseURL: BASE_URL,
 })
 
 axiosFileInstance.interceptors.request.use(
