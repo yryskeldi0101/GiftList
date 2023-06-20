@@ -13,10 +13,12 @@ const BpCheckedIcon = styled(BpIcon)({
 
    '&:before': {
       display: 'block',
-      width: 5,
-      height: 5,
+      width: '12px',
+      height: '12px',
+      borderRadius: '50%',
       backgroundImage: 'radial-gradient(#fff,#fff 60%,transparent 100%)',
       content: '""',
+      margin: '-3px',
    },
 })
 

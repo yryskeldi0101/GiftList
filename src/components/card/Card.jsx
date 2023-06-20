@@ -1,5 +1,6 @@
 import {
    CardActions as MuiCardActions,
+   CardActionArea as MuiCardActionArea,
    Card as MuiCard,
    CardContent as MuiCardContent,
    styled,
@@ -17,116 +18,8 @@ import {
    getRequestLentaCard,
 } from '../../service/lenta.service'
 import Meatballs from '../UI/Meatballs'
-import { getLentaCard } from '../../redux/lenta/lentaThunk'
+import useToastBar from '../../hooks/useToastBar'
 
-const MEATBALLS_EXPECT_CONTENT = [
-   {
-      id: '1',
-      icon: Lock,
-      title: 'Забронировать',
-      clickHandler: async (id) => {
-         if (MEATBALLS_EXPECT_CONTENT[0].id === '1') {
-            postRequestLentaBooking(id, false)
-            console.log('asaajdkfsdihfbkzdhfjsakdb')
-            getLentaCard()
-         }
-      },
-   },
-   {
-      id: '2',
-      icon: Ananim,
-      title: 'Забронировать анонимно',
-      clickHandler: async (id) => {
-         if (MEATBALLS_EXPECT_CONTENT[1].id === '2') {
-            postRequestLentaBooking(id, false)
-         }
-      },
-   },
-   {
-      id: '3',
-      icon: Present,
-      title: 'Добавить в мои подарки',
-      clickHandler: async (id) => {
-         await postRequestLentaPresent(id)
-      },
-   },
-   {
-      id: '4',
-      icon: Dislike,
-      title: 'Пожаловаться',
-      clickHandler: async (id) => {
-         console.log(id)
-      },
-   },
-]
-const MEATBALLS_LENTA_CONTENT = [
-   {
-      id: '1',
-      icon: Present,
-      title: 'Добавить в мои подарки',
-      clickHandler: async () => {},
-   },
-   {
-      id: '2',
-      icon: OpenLock,
-      title: 'Снять бронь',
-      clickHandler: async (id) => {
-         await deleteRequestLentaBooking(id)
-         return getRequestLentaCard()
-      },
-   },
-   {
-      id: '3',
-      icon: Dislike,
-      title: 'Пожаловаться',
-      clickHandler: async () => {},
-   },
-]
-const MEATBALLS_BOOK_CONTENT = [
-   {
-      icon: Present,
-      title: 'Добавить в мои подарки',
-   },
-   {
-      icon: OpenLock,
-      title: 'Снять бронь',
-   },
-
-   {
-      icon: Dislike,
-      title: 'Пожаловаться',
-      clickHandler: (id) => {
-         console.log(id)
-      },
-   },
-]
-const MEATBALLS_CHARITY_CONTENT = [
-   {
-      id: '3',
-      icon: Present,
-      title: 'Добавить в мои подарки',
-      clickHandler: async (id) => {
-         await postRequestLentaPresent(id)
-      },
-   },
-   {
-      icon: OpenLock,
-      title: 'Снять бронь',
-      clickHandler: (id) => {
-         console.log(id)
-      },
-   },
-   {
-      icon: Lock,
-      title: 'Забронировать',
-      id: '1',
-   },
-   {
-      icon: Ananim,
-      title: 'Забронировать анонимно',
-      id: '2',
-   },
-]
 export default function Cards({
    id,
    icon,
@@ -149,15 +42,133 @@ export default function Cards({
    reserve,
    isAnonymous,
 }) {
-   const { open, anchorEl, handleClick, handleClose } = useMeatballs()
+   const { showToast } = useToastBar()
+   const MEATBALLS_EXPECT_CONTENT = [
+      {
+         id: '1',
+         icon: Lock,
+         title: 'Забронировать',
+         clickHandler: async (id) => {
+            if (MEATBALLS_EXPECT_CONTENT[0].id === '1') {
+               try {
+                  postRequestLentaBooking(id, false)
+                  getRequestLentaCard()
+                  showToast('success', 'Успешно', 'Запрос успешно отправлен')
+               } catch (error) {
+                  showToast('error', 'Ошибка', 'При загрузке произошла ошибка')
+               }
+            }
+         },
+      },
+      {
+         id: '2',
+         icon: Ananim,
+         title: 'Забронировать анонимно',
+         clickHandler: async (id) => {
+            if (MEATBALLS_EXPECT_CONTENT[1].id === '2') {
+               await postRequestLentaBooking(id, false)
+            }
+            return getRequestLentaCard()
+         },
+      },
+      {
+         id: '3',
+         icon: Present,
+         title: 'Добавить в мои подарки',
+         clickHandler: async (id) => {
+            await postRequestLentaPresent(id)
+         },
+      },
+      {
+         id: '4',
+         icon: Dislike,
+         title: 'Пожаловаться',
+         clickHandler: async (id) => {
+            console.log(id)
+         },
+      },
+   ]
+   const MEATBALLS_LENTA_CONTENT = [
+      {
+         id: '1',
+         icon: Present,
+         title: 'Добавить в мои подарки',
+         clickHandler: async () => {},
+      },
+      {
+         id: '2',
+         icon: OpenLock,
+         title: 'Снять бронь',
+         clickHandler: async (id) => {
+            try {
+               await deleteRequestLentaBooking(id)
+               getRequestLentaCard()
+               showToast('success', 'Успешно', 'Запрос успешно отправлен')
+            } catch (error) {
+               showToast('error', 'Ошибка', 'При загрузке произошла ошибка')
+            }
+         },
+      },
+      {
+         id: '3',
+         icon: Dislike,
+         title: 'Пожаловаться',
+         clickHandler: async () => {},
+      },
+   ]
+   const MEATBALLS_BOOK_CONTENT = [
+      {
+         icon: Present,
+         title: 'Добавить в мои подарки',
+      },
+      {
+         icon: OpenLock,
+         title: 'Снять бронь',
+      },
 
+      {
+         icon: Dislike,
+         title: 'Пожаловаться',
+         clickHandler: (id) => {
+            console.log(id)
+         },
+      },
+   ]
+   const MEATBALLS_CHARITY_CONTENT = [
+      {
+         id: '3',
+         icon: Present,
+         title: 'Добавить в мои подарки',
+         clickHandler: async (id) => {
+            await postRequestLentaPresent(id)
+         },
+      },
+      {
+         icon: OpenLock,
+         title: 'Снять бронь',
+         clickHandler: (id) => {
+            console.log(id)
+         },
+      },
+      {
+         icon: Lock,
+         title: 'Забронировать',
+         id: '1',
+      },
+      {
+         icon: Ananim,
+         title: 'Забронировать анонимно',
+         id: '2',
+      },
+   ]
+   const { open, anchorEl, handleClick, handleClose } = useMeatballs()
    return (
       <Card
          key={id}
          changecard={changeCard.toString()}
          sx={{ width: changeCard ? '349px' : '533px' }}
       >
-         <CardActionArea changecard={toString(changeCard)}>
+         <CardActionArea changecard={changeCard}>
             {changeCard ? (
                ''
             ) : (
@@ -176,10 +187,12 @@ export default function Cards({
                      </HeaderAvatar>
                      <UserBirthDate>{birthDate}</UserBirthDate>
                   </CardHeader>
+
                   <TitleImg>
+                     {changeCard ? '' : <h4>{title}</h4>}
                      {charityMeatballsHandler && (
                         <CharityContainer>
-                           <h3>{title}</h3>
+                           <NameImg>{title}</NameImg>
                            <p>{state}</p>
                         </CharityContainer>
                      )}
@@ -312,14 +325,14 @@ const Card = styled(MuiCard)(() => ({
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
 }))
-const CardActionArea = styled('div')(({ changecard }) => ({
+const CardActionArea = styled(MuiCardActionArea)(({ changecard }) => ({
    padding: '0',
    fontFamily: 'Inter',
    fontStyle: 'normal',
    letterSpacing: '0.02em',
    fontWeight: 500,
-   display: changecard ? 'flex' : '',
-   justifyContent: changecard ? 'space-between' : '',
+   display: changecard ? '' : 'flex',
+   justifyContent: changecard ? '' : 'space-between',
    width: changecard ? '' : '524px',
 }))
 const CardHeader = styled('div')(() => ({
@@ -336,13 +349,12 @@ const HeaderAvatar = styled('div')(() => ({
    alignItems: 'center',
    width: '176px',
 }))
-const ImgIcon = styled('img')(({ changeCard }) => ({
+const ImgIcon = styled('img')(() => ({
    width: '36px',
-   marginRight: '10px',
-   marginLeft: changeCard ? '20px' : '',
+   marginRight: '8px',
 }))
 const UserName = styled('h2')(() => ({
-   fontSize: '14px',
+   fontSize: '13px',
    color: '#020202',
 }))
 const UserBirthDate = styled('a')(() => ({
@@ -350,16 +362,23 @@ const UserBirthDate = styled('a')(() => ({
    fontSize: '13px',
    color: '#0BA360',
 }))
+const NameImg = styled('h4')(() => ({
+   padding: '16px 0 12px',
+   fontWeight: 500,
+   fontSize: '14px',
+   color: '#020202',
+}))
 const Img = styled('img')(() => ({
    width: '315px',
    height: '170px',
-   borderRadius: '8px',
+   borderRadius: '6px',
    margin: '12px 0',
+   // objectFit: 'contain',
 }))
 const TitleImg = styled('div')(() => ({
    padding: '0',
    margin: '0',
-   p: {
+   h4: {
       padding: '14px 0',
       fontSize: '14px',
       color: '#020202',
@@ -368,16 +387,12 @@ const TitleImg = styled('div')(() => ({
 const CardMedia = styled('div')(() => ({
    width: '312px',
    heght: '153px',
-
-   h4: {
-      padding: '12px 0',
-   },
 }))
 const CardActions = styled(MuiCardActions)(({ openmeatballs }) => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   width: '338px',
+   width: '316px',
    margin: openmeatballs ? '9px 0' : '0',
    padding: '0',
    span: {
@@ -390,6 +405,7 @@ const FooterAvatar = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
+   width: '200px',
 }))
 const Button = styled('div')(() => ({
    border: 'none',

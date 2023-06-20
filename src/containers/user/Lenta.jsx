@@ -7,12 +7,15 @@ import { ReactComponent as ListCardIcon } from '../../assets/icons/listcardicon.
 import { ReactComponent as IconTable } from '../../assets/icons/tablecard.svg'
 import { getLentaCard, getLentaInfoCard } from '../../redux/lenta/lentaThunk'
 import Cards from '../../components/card/Card'
+import useToastBar from '../../hooks/useToastBar'
+import Snackbar from '../../components/button/SnackBar'
 
 const Lenta = () => {
    const [card, setCard] = useState(true)
    const dispatch = useDispatch()
    const navigate = useNavigate()
    const lentaArray = useSelector((state) => state.lenta.card)
+   const { showToast } = useToastBar()
 
    const navigationHandler = (id) => {
       navigate(`${id}/lenta_details`)
@@ -20,53 +23,67 @@ const Lenta = () => {
    const changeCard = () => {
       setCard(false)
    }
+
    useEffect(() => {
       dispatch(getLentaCard())
+         .unwrap()
+         .then()
+         .catch(() =>
+            showToast('error', 'Ошибка', 'При загрузке данных произошла ошибка')
+         )
    }, [])
 
    const requesById = (id) => {
       dispatch(getLentaInfoCard(id))
+         .unwrap()
+         .then()
+         .catch(() =>
+            showToast('error', 'Ошибка', 'При загрузке данных произошла ошибка')
+         )
       navigationHandler(id)
    }
 
    return (
-      <div>
-         <StyledMain>
-            <StyledIcon onClick={() => setCard(true)}>
-               <StyledTableIcon cardColor={card} />
-            </StyledIcon>
-            <StyledButton onClick={changeCard}>
-               <StyledListIcon cardColor={card} />
-            </StyledButton>
-         </StyledMain>
-         <StyledCard>
-            {lentaArray.map((item) => {
-               return (
-                  <Cards
-                     key={item.userId}
-                     requestById={requesById}
-                     openMeatballs={true}
-                     changeCard={card}
-                     userId={item.userId}
-                     id={item.wishId}
-                     icon={item.image}
-                     reserveUserImage={item.reserveUserImage}
-                     userName={item.fullName}
-                     birthDate={item.holidayName}
-                     title={item.wishName}
-                     img={item.photo}
-                     date={item.date}
-                     navigateToCharityDetails={navigationHandler}
-                     bookChange={false}
-                     charityMeatballsHandler={false}
-                     charityMeatballs={false}
-                     reserve={item.isReserved}
-                     isAnonymous={item.isAnonymous}
-                  />
-               )
-            })}
-         </StyledCard>
-      </div>
+      <>
+         <Snackbar />
+         <div>
+            <StyledMain>
+               <StyledIcon onClick={() => setCard(true)}>
+                  <StyledTableIcon cardColor={card} />
+               </StyledIcon>
+               <StyledButton onClick={changeCard}>
+                  <StyledListIcon cardColor={card} />
+               </StyledButton>
+            </StyledMain>
+            <StyledCard>
+               {lentaArray.map((item) => {
+                  return (
+                     <Cards
+                        key={item.userId}
+                        requestById={requesById}
+                        openMeatballs={true}
+                        changeCard={card}
+                        userId={item.userId}
+                        id={item.wishId}
+                        icon={item.image}
+                        reserveUserImage={item.reserveUserImage}
+                        userName={item.fullName}
+                        birthDate={item.holidayName}
+                        title={item.wishName}
+                        img={item.photo}
+                        date={item.date}
+                        navigateToCharityDetails={navigationHandler}
+                        bookChange={false}
+                        charityMeatballsHandler={false}
+                        charityMeatballs={false}
+                        reserve={item.isReserved}
+                        isAnonymous={item.isAnonymous}
+                     />
+                  )
+               })}
+            </StyledCard>
+         </div>
+      </>
    )
 }
 

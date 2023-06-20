@@ -10,6 +10,8 @@ import {
    postRequestLentaPresent,
 } from '../../service/lenta.service'
 import RadioButton from './RadioButton'
+import useToastBar from '../../hooks/useToastBar'
+import Snackbar from '../button/SnackBar'
 
 const complaints = [
    {
@@ -61,6 +63,7 @@ export default function Meatballs({
    const [openComplaint, setOpenComplaintModal] = useState(false)
    const [complaint, setComplaint] = useState(null)
    const [holidays, setHolidays] = useState([])
+   const { showToast } = useToastBar()
 
    const getHoliday = async () => {
       try {
@@ -100,10 +103,11 @@ export default function Meatballs({
             id,
             complaintDescription: complaint.title,
          })
+         showToast('succes', 'Успешно', 'Запрос успешно отправлен')
 
          complaint(null)
       } catch (error) {
-         console.log(error)
+         showToast('error', 'Ошибка', 'При загрузке данных произошла ошибка')
       }
       closeModal()
    }
@@ -117,7 +121,8 @@ export default function Meatballs({
    }
 
    return (
-      <div>
+      <>
+         <Snackbar />
          <div>
             <MyModal open={openModal} onClose={closeModal}>
                {holidays.map((item) => {
@@ -207,7 +212,7 @@ export default function Meatballs({
                </Menu>
             )}
          </div>
-      </div>
+      </>
    )
 }
 

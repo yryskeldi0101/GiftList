@@ -1,7 +1,7 @@
 import { axiosInstance } from '../api/axiosInstance'
 
 export const getRequestLentaCard = () => {
-   return axiosInstance.get('/api/feeds')
+   return axiosInstance.get('/api/feeds/search?page=1&size=6')
 }
 export const getRequestLentaInfoCard = (userId) => {
    return axiosInstance.get(`/api/feeds/${userId}`)
