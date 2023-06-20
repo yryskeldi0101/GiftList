@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
-import React, { useState } from 'react'
 import Scrolltrigger from 'react-scroll-trigger'
+import React, { useState } from 'react'
 import KidsImage from '../assets/images/thirdImage.png'
 
 const ThrirdSection = () => {

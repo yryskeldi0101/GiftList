@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import UserCard from '../../../components/UI/user-cards/UserCard'
 import MyModal from '../../../components/UI/modal/Modal'
 import { ReactComponent as MoveToTrash } from '../../../assets/icons/trahsicon.svg'
