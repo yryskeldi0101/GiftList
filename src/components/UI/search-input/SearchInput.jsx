@@ -53,6 +53,7 @@ const SearchInput = ({
                   type="text"
                   autoFocus={false}
                   placeholder="Поиск"
+                  autoComplete="off"
                   InputProps={{
                      startAdornment: <CustomIcon />,
                   }}

@@ -308,6 +308,7 @@ const Text = styled('h3')({
    alignItems: 'center',
    justifyContent: 'center',
    textAlign: 'center',
+   marginBottom: '20px',
 })
 
 const StyledMyButton = styled(MyButton)`
