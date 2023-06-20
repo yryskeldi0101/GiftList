@@ -1,23 +1,24 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Lenta from '../containers/user/Lenta'
-import WishList from '../containers/user/WishList'
-import Booked from '../containers/user/booked/Booked'
-import MyHolidays from '../containers/user/MyHolidays'
-import UserCharity from '../containers/user/charities/Charity'
-import UserLayout from '../layout/user/UserLayout'
-import PrivateRoute from '../hoc/withPrivateRoute'
-import { INITIAL_PATH, ROLES } from '../utlis/constants/constnats'
-import ErrorPage from '../containers/ErrorPage'
-import { AllWishesPage } from '../containers/user/booked/AllWishesPage'
-import { AllCharityPage } from '../containers/user/booked/AllCharityPage'
-import CharityDetails from '../containers/user/charities/CharityDetails'
-import AddCharity from '../containers/user/charities/AddCharity'
-import Friends from '../containers/user/friends/Friends'
-import FriendProfile from '../containers/user/friends/FriendProfile'
-import AllCharities from '../containers/admin/users/AllCharities'
-import AllGifts from '../containers/admin/users/AllWishes'
-import AllHolidays from '../containers/admin/users/AllHolidays'
+import Lenta from '../../containers/user/Lenta'
+import WishList from '../../containers/user/WishList'
+import Booked from '../../containers/user/booked/Booked'
+import MyHolidays from '../../containers/user/holidays/MyHolidays'
+import UserCharity from '../../containers/user/charities/Charity'
+import UserLayout from '../../layout/user/UserLayout'
+import PrivateRoute from '../../hoc/withPrivateRoute'
+import { INITIAL_PATH, ROLES } from '../../utlis/constants/constnats'
+import ErrorPage from '../../containers/ErrorPage'
+import MyHolidaysCard from '../../containers/user/holidays/MyHolidaysCard'
+import { AllWishesPage } from '../../containers/user/booked/AllWishesPage'
+import { AllCharityPage } from '../../containers/user/booked/AllCharityPage'
+import CharityDetails from '../../containers/user/charities/CharityDetails'
+import AddCharity from '../../containers/user/charities/AddCharity'
+import Friends from '../../containers/user/friends/Friends'
+import FriendProfile from '../../containers/user/friends/FriendProfile'
+import AllCharities from '../../containers/admin/users/AllCharities'
+import AllGifts from '../../containers/admin/users/AllWishes'
+import AllHolidays from '../../containers/admin/users/AllHolidays'
 
 const UserRoutes = () => {
    return (
@@ -84,6 +85,14 @@ const UserRoutes = () => {
                   <PrivateRoute component={MyHolidays} roles={ROLES.USER} />
                }
             />
+            <Route
+               path={
+                  INITIAL_PATH.USER.holidays &&
+                  INITIAL_PATH.USER.holiday_details
+               }
+               element={<PrivateRoute component={MyHolidaysCard} />}
+            />
+
             <Route
                path={INITIAL_PATH.USER.charity}
                element={

@@ -37,6 +37,7 @@ export default MyButton
 const StyleButton = styled(Button)(
    ({
       variant,
+      propswidth,
       defaultcolor,
       hoverbackgroundcolor,
       activebackgroundcolor,
@@ -44,7 +45,6 @@ const StyleButton = styled(Button)(
       background,
       border,
       outlinedbordercolor,
-      propswidth,
    }) => {
       switch (variant) {
          case 'contained':

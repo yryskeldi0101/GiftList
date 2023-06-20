@@ -206,6 +206,7 @@ export const INITIAL_PATH = {
       wishlist: 'wishlist',
       bookedPage: 'bookedPage',
       holidays: 'holidays',
+      holiday_details: 'holidays/:detailId/holiday_details',
       charity: 'charity/',
       charity_details: 'charity/:id/:userId/charity_details',
       add_charity: 'charity/add_charity',
@@ -219,9 +220,54 @@ export const INITIAL_PATH = {
    },
 }
 
+export const dataHolidays = [
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+]
 export const ACTION_TYPES = {
    WISHLIST: 'WISHLIST',
    HOLIDAYS: 'HOLIDAYS',
+   HOLIDAYS_DETAIL: 'HOLIDAYS_DETAIL',
    CHARITIES: 'CHARITIES',
 }
 export const CLIENT_ID =

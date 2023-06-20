@@ -85,7 +85,7 @@ const StyledTitleContainer = styled('div')`
    display: flex;
    align-items: center;
    justify-content: space-between;
-   max-width: 482px;
+   width: 482px;
    height: 32px;
    margin-right: 0;
    padding: 0;
