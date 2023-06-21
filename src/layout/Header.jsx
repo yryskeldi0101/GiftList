@@ -27,13 +27,13 @@ const StyledHeader = styled('header')`
    display: flex;
    padding: 20px 40px 20px 14px;
    background-color: #ffffff;
-   marginright: 80px;
+   margin-right: 80px;
    justify-content: space-between;
 `
 const StyledContainer = styled('div')`
    display: flex;
-   marginRight:'20px',
-      gap: 0.25rem;
+   margin-right: 20px;
+   gap: 0.25rem;
 `
 const StyledIconButton = styled(IconButton)`
    margin-left: 0;

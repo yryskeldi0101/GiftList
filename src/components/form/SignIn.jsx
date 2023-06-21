@@ -11,7 +11,6 @@ import ReusableInput from '../UI/input/Input'
 import { postAuthGoogle, signIn } from '../../redux/reducer/auth/authThunk'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import Spinner from '../UI/Spinner'
-import { ROLES } from '../../utlis/constants/constnats'
 
 const SignIn = ({
    openModal,

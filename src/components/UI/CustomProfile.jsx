@@ -1,10 +1,12 @@
 import React from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { IconButton, styled } from '@mui/material'
 import MyButton from './Button'
 import { ReactComponent as WkIcon } from '../../assets/icons/wkontacteicon.svg'
 import { ReactComponent as InsatagramIcon } from '../../assets/icons/instagramicon.svg'
 import { ReactComponent as TelegramIcon } from '../../assets/icons/telegramicon.svg'
 import { ReactComponent as FacebookIcon } from '../../assets/icons/facebookicons.svg'
+import ProfileResetPassword from '../form/ProfileResetPassword'
 
 const CustomProfile = ({
    variant,
@@ -18,6 +20,15 @@ const CustomProfile = ({
    acceptHandler,
    rejectHandler,
 }) => {
+   const [searchParams, setSearchParams] = useSearchParams()
+   const { open } = Object.fromEntries(searchParams)
+   const onCloseModal = () => setSearchParams({})
+   const openResetPasswordModal = () =>
+      setSearchParams({ open: 'reset_password' })
+   const openResetPasswordModalHandler = (e) => {
+      e.preventDefault()
+      openResetPasswordModal()
+   }
    return (
       <StyledGlobalContainer height={height}>
          <StyledLocalContainer>
@@ -50,9 +61,14 @@ const CustomProfile = ({
                            outlinedbordercolor="#8D949E"
                            outlinedhoverandactivetextcolor="#fff"
                            propswidth="206px"
+                           onClick={openResetPasswordModalHandler}
                         >
                            Сменить пароль
                         </MyButton>
+                        <ProfileResetPassword
+                           open={open}
+                           onCloseModal={onCloseModal}
+                        />
                      </StyledButton2Container>
                   </>
                )}

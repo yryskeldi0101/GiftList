@@ -14,7 +14,6 @@ import NewsletterDetails from '../containers/admin/NewsLetterDetail'
 import AllGifts from '../containers/admin/users/AllWishes'
 import AllHolidays from '../containers/admin/users/AllHolidays'
 import AllCharities from '../containers/admin/users/AllCharities'
-import AdminCharity from '../containers/admin/Charity'
 
 const AdminRoutes = () => {
    return (
@@ -70,15 +69,27 @@ const AdminRoutes = () => {
             />
             <Route
                path={INITIAL_PATH.ADMIN.complaints}
-               element={<PrivateRoute component={Complains} roles={ROLES.ADMIN} />}
+               element={
+                  <PrivateRoute component={Complains} roles={ROLES.ADMIN} />
+               }
             />
             <Route
                path={INITIAL_PATH.ADMIN.complains_wish_details}
-               element={<PrivateRoute component={ComplainsDetail} roles={ROLES.ADMIN} />}
+               element={
+                  <PrivateRoute
+                     component={ComplainsDetail}
+                     roles={ROLES.ADMIN}
+                  />
+               }
             />
             <Route
                path={INITIAL_PATH.ADMIN.complains_charity_details}
-               element={<PrivateRoute component={ComplainsDetail} roles={ROLES.ADMIN}/>}
+               element={
+                  <PrivateRoute
+                     component={ComplainsDetail}
+                     roles={ROLES.ADMIN}
+                  />
+               }
             />
             <Route
                path={INITIAL_PATH.ADMIN.mailing}

@@ -9,30 +9,8 @@ import Meatballs from '../UI/Meatballs'
 import Ananim from '../../assets/icons/anonim.svg'
 import Lock from '../../assets/icons/key.svg'
 import Present from '../../assets/icons/present.svg'
-import Dislike from '../../assets/icons/dislake.svg'
 import OpenLock from '../../assets/icons/lock.svg'
 import { useMeatballs } from '../../hooks/useMeatballs'
-
-const MEATBALLS_EXPECT_CONTENT = [
-   {
-      icon: Lock,
-      title: 'Забронировать',
-      id: '1',
-   },
-   {
-      icon: Ananim,
-      title: 'Забронировать анонимно',
-      id: '2',
-   },
-   {
-      icon: Present,
-      title: 'Добавить в мои подарки',
-   },
-   {
-      icon: Dislike,
-      title: 'Пожаловаться',
-   },
-]
 
 const MEATBALLS_BOOK_CONTENT = [
    {
