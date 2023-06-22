@@ -5,6 +5,7 @@ import { ReactComponent as MeatballsIcon } from '../../../assets/icons/meatballs
 import BlockIcon from '../../../assets/icons/bookIcon.svg'
 import TrashIcon from '../../../assets/icons/deleteIcon.svg'
 import MyButton from '../Button'
+import LockUser from '../../../assets/icons/lockicon.svg'
 
 const UserCard = ({
    buttons,
@@ -19,6 +20,9 @@ const UserCard = ({
    countOfWish,
    id,
    handleBlock,
+   acceptHandler,
+   rejectHandler,
+   isBlocked,
 }) => {
    const { open, handleClick, handleClose, anchorEl } = useMeatballs()
    const clickHandler = () => {
@@ -26,7 +30,7 @@ const UserCard = ({
    }
    return (
       <Container>
-         <NavigationContainer onClick={() => navigateHandler(id)}>
+         <NavigationContainer onClick={() => navigateHandler(id, isBlocked)}>
             <ProfileContainer>
                <StyledProfileIcon src={image} alt="userIcon" />
             </ProfileContainer>
@@ -57,6 +61,7 @@ const UserCard = ({
                      hoverbackgroundcolor="#7f05cb"
                      activebackgroundcolor="#6504a0"
                      propswidth="240px"
+                     onClick={() => acceptHandler(id)}
                   >
                      Принять заявку
                   </MyButton>
@@ -64,6 +69,7 @@ const UserCard = ({
                      variant="outlined"
                      defaultcolor="#8D949E"
                      propswidth="240px"
+                     onClick={() => rejectHandler(id)}
                   >
                      Отклонить
                   </MyButton>
@@ -96,19 +102,35 @@ const UserCard = ({
                         horizontal: 'left',
                      }}
                   >
-                     <MenuItem
-                        onClick={() => {
-                           handleBlock(id)
-                           handleClose()
-                        }}
-                     >
-                        <img
-                           src={BlockIcon}
-                           alt="#"
-                           style={{ marginRight: '10px' }}
-                        />
-                        Заблокировать
-                     </MenuItem>
+                     {isBlocked ? (
+                        <MenuItem
+                           onClick={() => {
+                              handleBlock(id, isBlocked)
+                              handleClose()
+                           }}
+                        >
+                           <img
+                              src={LockUser}
+                              alt="#"
+                              style={{ marginRight: '10px' }}
+                           />
+                           Разблокировать
+                        </MenuItem>
+                     ) : (
+                        <MenuItem
+                           onClick={() => {
+                              handleBlock(id, isBlocked)
+                              handleClose()
+                           }}
+                        >
+                           <img
+                              src={BlockIcon}
+                              alt="#"
+                              style={{ marginRight: '10px' }}
+                           />
+                           Заблокировать
+                        </MenuItem>
+                     )}
                      <MenuItem
                         onClick={() => {
                            clickHandler()

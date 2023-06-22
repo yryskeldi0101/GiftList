@@ -5,8 +5,8 @@ import { TabPanel, a11yProps } from './TabPanel'
 export default function Tabs({
    children,
    requestTab,
-   followersCount = 4,
-   requestsCount = 5,
+   followersCount,
+   requestsCount,
    changeStyle,
 }) {
    const [value, setValue] = React.useState(0)

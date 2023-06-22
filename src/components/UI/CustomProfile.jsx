@@ -13,6 +13,11 @@ const CustomProfile = ({
    height,
    deleteHandler,
    blockHandler,
+   adminVariant,
+   deleteOrAddToFriendHandler,
+   acceptHandler,
+   rejectHandler,
+   isBlocked,
 }) => {
    return (
       <StyledGlobalContainer height={height}>
@@ -22,7 +27,7 @@ const CustomProfile = ({
                <StyledUserNameContainer>
                   <StyledUserName>{profileData.fullName}</StyledUserName>
                </StyledUserNameContainer>
-               {variant ? (
+               {variant && (
                   <>
                      <StyledButton1Container>
                         <MyButton
@@ -51,7 +56,60 @@ const CustomProfile = ({
                         </MyButton>
                      </StyledButton2Container>
                   </>
-               ) : null}
+               )}
+               {profileData.inFriends && (
+                  <StyledDeleteButton>
+                     <MyButton
+                        variant="outlined"
+                        defaultcolor="#8D949E"
+                        propswidth="196px"
+                        onClick={() =>
+                           deleteOrAddToFriendHandler(profileData.id)
+                        }
+                     >
+                        Удалить из друзей
+                     </MyButton>
+                  </StyledDeleteButton>
+               )}
+               {profileData.inFriends &&
+                  profileData.inRequests === undefined && (
+                     <StyledDeleteButton>
+                        <MyButton
+                           variant="contained"
+                           background="#8639B5"
+                           hoverbackgroundcolor="#7f05cb"
+                           activebackgroundcolor="#6504a0"
+                           propswidth="240px"
+                           onClick={() =>
+                              deleteOrAddToFriendHandler(profileData.id)
+                           }
+                        >
+                           Добавить в друзья
+                        </MyButton>
+                     </StyledDeleteButton>
+                  )}
+               {profileData.inRequests && (
+                  <FriendRequstsButtons>
+                     <MyButton
+                        variant="contained"
+                        background="#8639B5"
+                        hoverbackgroundcolor="#7f05cb"
+                        activebackgroundcolor="#6504a0"
+                        propswidth="240px"
+                        onClick={() => acceptHandler(profileData.id)}
+                     >
+                        Принять заявку
+                     </MyButton>
+                     <MyButton
+                        variant="outlined"
+                        defaultcolor="#8D949E"
+                        propswidth="240px"
+                        onClick={() => rejectHandler(profileData.id)}
+                     >
+                        Отклонить
+                     </MyButton>
+                  </FriendRequstsButtons>
+               )}
                <StyledIconButtonsContainer>
                   <IconButton>
                      <a href={profileData.whatsApp}>
@@ -147,7 +205,7 @@ const CustomProfile = ({
                </StyledSubTitleSubText2Container>
             </StyledContent>
          </StyledLocalContainer>
-         {!variant ? (
+         {adminVariant && (
             <StyledButtonsVariantFalseContainer>
                <MyButton
                   variant="outlined"
@@ -168,13 +226,13 @@ const CustomProfile = ({
                      activebackgroundcolor="#44046B"
                      defaultcolor="#ffff"
                      propswidth="177px"
-                     onClick={() => blockHandler(profileData.id)}
+                     onClick={() => blockHandler(profileData.id, isBlocked)}
                   >
-                     Заблокировать
+                     {isBlocked ? 'Разблокировать' : 'Заблокировать'}
                   </MyButton>
                </StyledButtonContainer>
             </StyledButtonsVariantFalseContainer>
-         ) : null}
+         )}
       </StyledGlobalContainer>
    )
 }
@@ -237,7 +295,7 @@ const StyledUserNameContainer = styled('div')`
    display: flex;
    align-items: center;
    justify-content: center;
-   width: 190px;
+   width: 200px;
    margin-top: 16px;
 `
 const StyledUserName = styled('p')`
@@ -357,4 +415,14 @@ const StyledSubTitleSubText2Container = styled('div')`
    max-width: 100%;
    margin-left: 129px;
    margin-top: 37px;
+`
+const StyledDeleteButton = styled('div')`
+   margin-top: 24px;
+`
+const FriendRequstsButtons = styled('div')`
+   margin-top: 24px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   row-gap: 24px;
 `

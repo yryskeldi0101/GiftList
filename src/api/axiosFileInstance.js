@@ -1,6 +1,6 @@
 import axios from 'axios'
-import store from '../redux/store'
 import { BASE_URL } from './axiosInstance'
+import store from '../redux/store'
 
 export const axiosFileInstance = axios.create({
    baseURL: BASE_URL,

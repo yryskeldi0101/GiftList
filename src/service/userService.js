@@ -6,8 +6,8 @@ export const getAllUsersRequest = (page) => {
 export const getOneUserByIdRequest = (id) => {
    return axiosInstance.get(`/api/user/${id}`)
 }
-export const blockUserRequest = (id) => {
-   return axiosInstance.put(`/api/user`, { userId: id, blocked: true })
+export const blockUserRequest = (id, isBlocked) => {
+   return axiosInstance.put(`/api/user`, { userId: id, blocked: isBlocked })
 }
 export const deleteUserRequest = (id) => {
    return axiosInstance.delete(`/api/user/${id}`)

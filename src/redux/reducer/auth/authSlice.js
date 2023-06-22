@@ -39,7 +39,6 @@ export const authSlice = createSlice({
          state.error = ''
          state.role = payload.role
          state.userId = payload.id
-         console.log(payload.role, 'payload.role')
       })
       builder.addCase(signIn.pending, (state) => {
          state.email = ''

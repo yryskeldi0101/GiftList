@@ -9,39 +9,47 @@ import Meatballs from '../UI/Meatballs'
 import Ananim from '../../assets/icons/anonim.svg'
 import Lock from '../../assets/icons/key.svg'
 import Present from '../../assets/icons/present.svg'
-import Dislike from '../../assets/icons/dislake.svg'
 import OpenLock from '../../assets/icons/lock.svg'
 import { useMeatballs } from '../../hooks/useMeatballs'
 
-const MEATBALLS_EXPECT_CONTENT = [
-   {
-      icon: Lock,
-      title: 'Забронировать',
-      id: '1',
-   },
-   {
-      icon: Ananim,
-      title: 'Забронировать анонимно',
-      id: '2',
-   },
-   {
-      icon: Present,
-      title: 'Добавить в мои подарки',
-   },
-   {
-      icon: Dislike,
-      title: 'Пожаловаться',
-   },
-]
+// const MEATBALLS_EXPECT_CONTENT = [
+//    {
+//       icon: Lock,
+//       title: 'Забронировать',
+//       id: '1',
+//    },
+//    {
+//       icon: Ananim,
+//       title: 'Забронировать анонимно',
+//       id: '2',
+//    },
+//    {
+//       icon: Present,
+//       title: 'Добавить в мои подарки',
+//    },
+//    {
+//       icon: Dislike,
+//       title: 'Пожаловаться',
+//    },
+// ]
 
 const MEATBALLS_BOOK_CONTENT = [
    {
       icon: Present,
       title: 'Добавить в мои подарки',
+      id: '1',
    },
    {
       icon: OpenLock,
       title: 'Снять бронь',
+      id: '2',
+   },
+]
+const MEATBALLS_BOOK = [
+   {
+      icon: OpenLock,
+      title: 'Снять бронь',
+      id: '3',
    },
 ]
 const MEATBALLS_CHARITY_CONTENT = [
@@ -80,12 +88,15 @@ function Cards({
    state,
    secondIcon,
    complainChange,
+   deleteHandler,
 }) {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
+
    return (
       <Card
          changecard={changeCard}
          sx={{ width: changeCard ? '349px' : '533px' }}
+         // eslint-disable-next-line react/jsx-no-bind
       >
          <CardActionArea key={id} changecard={changeCard}>
             {changeCard ? (
@@ -126,7 +137,7 @@ function Cards({
                </NavigationContainer>
 
                <CardActions openmeatballs={openMeatballs}>
-                  <span>{date}</span>
+                  <StyledDate>{date}</StyledDate>
                   {charityMeatballsHandler ? (
                      <FooterAvatar>
                         {charityMeatballs ? (
@@ -136,12 +147,28 @@ function Cards({
                               >
                                  {reserve ? 'Забронирован' : 'В ожидании'}
                               </Button>
+                              <StyledMeatballsMargins>
+                                 <Meatballs
+                                    arrayIcon={MEATBALLS_CHARITY_CONTENT}
+                                    open={open}
+                                    id={id}
+                                    meatballsselecthandler={
+                                       meatballsSelectHandler
+                                    }
+                                    handleClose={handleClose}
+                                    handleClick={handleClick}
+                                    anchorEl={anchorEl}
+                                    reserveHandler={reserveHandler}
+                                    display={reserve}
+                                 />
+                              </StyledMeatballsMargins>
                               <Meatballs
-                                 arrayIcon={MEATBALLS_CHARITY_CONTENT}
+                                 arrayIcon={MEATBALLS_BOOK_CONTENT}
                                  open={open}
                                  id={id}
                                  meatballsselecthandler={meatballsSelectHandler}
                                  handleClose={handleClose}
+                                 deleteHandler={deleteHandler}
                                  handleClick={handleClick}
                                  anchorEl={anchorEl}
                                  reserveHandler={reserveHandler}
@@ -149,7 +176,7 @@ function Cards({
                               />
                            </>
                         ) : (
-                           <>
+                           <StyledCharityContainer>
                               <ImgIcon src={icon} />
 
                               <Button onClick={meatballsChangeHandler}>
@@ -166,7 +193,7 @@ function Cards({
                                  reserveHandler={reserveHandler}
                                  display={reserve}
                               />
-                           </>
+                           </StyledCharityContainer>
                         )}
                      </FooterAvatar>
                   ) : (
@@ -184,14 +211,14 @@ function Cards({
                         ) : (
                            <FooterAvatar>
                               {openMeatballs ? (
-                                 <>
+                                 <div>
                                     <Button onClick={meatballsChangeHandler}>
                                        {expectation}
                                     </Button>
                                     <Meatballs
-                                       arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                       arrayIcon={MEATBALLS_BOOK}
                                        open={open}
-                                       id={id}
+                                       id={2}
                                        meatballsSelectHandler={
                                           meatballsSelectHandler
                                        }
@@ -200,16 +227,16 @@ function Cards({
                                        anchorEl={anchorEl}
                                        reserveHandler={reserveHandler}
                                     />
-                                 </>
+                                 </div>
                               ) : (
-                                 <>
+                                 <div>
                                     <ImgIcon src={secondIcon} />
                                     <Button onClick={meatballsChangeHandler}>
                                        {reserve}
                                        {complainChange && 'Причина жалобы'}
                                     </Button>
                                     <Meatballs
-                                       arrayIcon={MEATBALLS_EXPECT_CONTENT}
+                                       arrayIcon={MEATBALLS_BOOK}
                                        open={open}
                                        id={id}
                                        handleClose={handleClose}
@@ -218,7 +245,7 @@ function Cards({
                                        reserveHandler={reserveHandler}
                                        display={complainChange && true}
                                     />
-                                 </>
+                                 </div>
                               )}
                            </FooterAvatar>
                         )}
@@ -232,11 +259,19 @@ function Cards({
 }
 export default Cards
 
+const StyledCharityContainer = styled('div')`
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   margin-right: 20px;
+   gap: 10px;
+`
 const Card = styled(MuiCard)(() => ({
-   padding: '16px',
+   padding: '6px',
    background: '#FFFFFF',
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
+   marginTop: '20px',
 }))
 const CardActionArea = styled(MuiCardActionArea)(({ changecard }) => ({
    padding: '0',
@@ -264,7 +299,6 @@ const HeaderAvatar = styled('div')(() => ({
 }))
 const ImgIcon = styled('img')(() => ({
    width: '36px',
-   marginRight: '8px',
 }))
 const UserName = styled('h2')(() => ({
    fontSize: '13px',
@@ -286,7 +320,7 @@ const Img = styled('img')(() => ({
    height: '170px',
    borderRadius: '6px',
    margin: '12px 0',
-   // objectFit: 'contain',
+   objectFit: 'contain',
 }))
 const TitleImg = styled('div')(() => ({
    padding: '0',
@@ -316,7 +350,6 @@ const CardActions = styled(MuiCardActions)(({ openmeatballs }) => ({
 }))
 const FooterAvatar = styled('div')(() => ({
    display: 'flex',
-   justifyContent: 'space-between',
    alignItems: 'center',
    width: '200px',
 }))
@@ -363,3 +396,10 @@ const CharityContainer = styled('div')(() => ({
       maxWidth: '30%',
    },
 }))
+const StyledDate = styled('span')`
+   /* margin-right: 32px; */
+`
+
+const StyledMeatballsMargins = styled('span')`
+   /* margin-left: 15px; */
+`

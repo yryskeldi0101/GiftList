@@ -1,6 +1,8 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Menu, MenuItem, styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import { ReactComponent as MeatballsIcon } from '../../assets/icons/meatballs.svg'
+import { takeOffBooked } from '../../redux/booked/bookedThunk'
 
 export default function Meatballs({
    arrayIcon = [],
@@ -10,9 +12,27 @@ export default function Meatballs({
    anchorEl,
    reserveHandler,
    display,
+   editChangeHandler,
    id,
+   data,
    ...restProps
 }) {
+   const dispatch = useDispatch()
+
+   const handleClickBtn = (id) => {
+      reserveHandler(id)
+      if (id === 1) {
+         editChangeHandler(data)
+      } else if (id === 2) {
+         reserveHandler(id)
+      }
+      handleClose()
+   }
+
+   // eslint-disable-next-line no-unused-vars
+   const takeOffBookedHanlder = () => {
+      dispatch(takeOffBooked(id))
+   }
    return (
       <>
          <Buttons
@@ -25,10 +45,9 @@ export default function Meatballs({
          >
             <MeatballsIcon />
          </Buttons>
+
          <div>
-            {display ? (
-               ''
-            ) : (
+            {display ? null : (
                <Menu
                   id="demo-positioned-menu"
                   aria-labelledby="demo-positioned-button"
@@ -47,10 +66,11 @@ export default function Meatballs({
                   {arrayIcon?.map((item) => (
                      <div key={item.id}>
                         <MenuItem
-                           onClick={() => {
-                              reserveHandler(item.id, id)
-                              handleClose()
-                           }}
+                           onClick={
+                              // item.id === '2'
+                              // ? takeOffBookedHanlder
+                              () => handleClickBtn(id)
+                           }
                            {...restProps}
                         >
                            <img
@@ -58,6 +78,7 @@ export default function Meatballs({
                               alt="#"
                               style={{ marginRight: '10px' }}
                            />
+
                            {item.title}
                         </MenuItem>
                      </div>

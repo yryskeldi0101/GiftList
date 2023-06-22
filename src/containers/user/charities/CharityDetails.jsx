@@ -53,6 +53,7 @@ const CharityDetails = () => {
             'Успешно',
             'благотворительность успешно бронирована'
          )
+         navigate('/user/charity')
          return data
       } catch (error) {
          return showToast(
@@ -82,8 +83,10 @@ const CharityDetails = () => {
                isLoading={isLoading}
                handleChange={checkBoxChangeHandler}
                handleReserve={reserveCharityHandler}
+               userCharity
                complains={false}
                complainer={false}
+               adminCharity={false}
             />
          </div>
       </>

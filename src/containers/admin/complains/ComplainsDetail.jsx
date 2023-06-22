@@ -88,7 +88,7 @@ export const ComplainsDetail = () => {
          {[dataDetail]?.map((item) => (
             <div>
                <DetailedPage
-                  key={id}
+                  key={item.id}
                   dataDetail={dataDetail}
                   profileDetails={item}
                   complainerData={[item.whoComplaintResponses]}
