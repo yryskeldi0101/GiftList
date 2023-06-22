@@ -1,27 +1,28 @@
 import React from 'react'
 import { styled } from '@mui/material'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import MenuItem from '@mui/material/MenuItem'
-import { useDispatch } from 'react-redux'
 import Menu from '@mui/material/Menu'
+import { useSelector } from 'react-redux'
 import { ReactComponent as ProfileIcon } from '../assets/icons/Profile.svg'
 import { ReactComponent as ArrowIcon } from '../assets/icons/Arrows.svg'
 import { UserMenuData } from '../utlis/constants/constnats'
-import { signOut } from '../redux/reducer/auth/authThunk'
+import Logout from '../containers/user/Logout'
 
 const ITEM_HEIGHT = 48
 
-function MenuList({ id, anchorEl, open, onClose }) {
-   const dispatch = useDispatch()
-   const navigateToLogOutHandler = () => {
-      dispatch(signOut())
+function MenuList({ id, anchorEl, open, onClose, openLogOutModal, userId }) {
+   const navigate = useNavigate()
+   const navigateToProfileHandler = () => {
+      navigate(`${userId}/profile`)
    }
    const handleMenuItemClick = (id) => {
       onClose()
       if (id === '1') {
-         //
+         navigateToProfileHandler()
       }
       if (id === '2') {
-         navigateToLogOutHandler()
+         openLogOutModal()
       }
    }
 
@@ -45,7 +46,7 @@ function MenuList({ id, anchorEl, open, onClose }) {
                onClick={() => handleMenuItemClick(item.id)}
             >
                <img src={item.icon} alt="" />
-               <StyledMenuText onClick={handleMenuItemClick}>
+               <StyledMenuText onClick={() => handleMenuItemClick(item.id)}>
                   {item.name}
                </StyledMenuText>
             </MenuItem>
@@ -55,7 +56,12 @@ function MenuList({ id, anchorEl, open, onClose }) {
 }
 
 export default function UserMenu() {
+   const [searchParams, setSearchParams] = useSearchParams()
+   const { opened } = Object.fromEntries(searchParams)
+   const onCloseModal = () => setSearchParams({})
+   const openLogOutModal = () => setSearchParams({ opened: 'logout' })
    const [anchorEl, setAnchorEl] = React.useState(null)
+   const { userId, firstName, lastName } = useSelector((state) => state.auth)
 
    const handleClick = (event) => {
       setAnchorEl(event.currentTarget)
@@ -65,8 +71,8 @@ export default function UserMenu() {
       setAnchorEl(null)
    }
 
-   const open = Boolean(anchorEl)
-   const id = open ? 'simple-popover' : undefined
+   const openMenu = Boolean(anchorEl)
+   const id = opened ? 'simple-popover' : undefined
 
    return (
       <div>
@@ -76,15 +82,20 @@ export default function UserMenu() {
             onClick={handleClick}
          >
             <ProfileIcon />
-            <StyledUserName>Naruto Uzumaki</StyledUserName>
+            <StyledUserName>
+               {firstName} {lastName}
+            </StyledUserName>
             <ArrowIcon />
          </StyledContainer>
          <MenuList
             id={id}
+            userId={userId}
             anchorEl={anchorEl}
-            open={open}
+            open={openMenu}
             onClose={handleClose}
+            openLogOutModal={openLogOutModal}
          />
+         <Logout onClose={onCloseModal} open={opened} />
       </div>
    )
 }

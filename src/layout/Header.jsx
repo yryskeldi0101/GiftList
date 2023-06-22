@@ -26,10 +26,12 @@ const StyledHeader = styled('header')`
    display: flex;
    padding: 20px 40px 20px 14px;
    background-color: #ffffff;
+   margin-right: 80px;
    justify-content: space-between;
 `
 const StyledContainer = styled('div')`
    display: flex;
+   margin-right: 20px;
    align-items: center;
    gap: 0.25rem;
 `
