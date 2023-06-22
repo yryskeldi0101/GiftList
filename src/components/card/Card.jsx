@@ -345,7 +345,7 @@ const CardHeader = styled('div')(() => ({
 }))
 const HeaderAvatar = styled('div')(() => ({
    display: 'flex',
-   justifyContent: 'space-between',
+   // justifyContent: 'space-between',
    alignItems: 'center',
    width: '176px',
 }))
