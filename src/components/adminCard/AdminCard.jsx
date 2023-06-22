@@ -30,8 +30,10 @@ const AdminCard = ({
    const [currentId, setCurrentId] = React.useState(0)
    const [currentData, setCurrentData] = React.useState({})
 
+   const [currentWishData, setCurrentWishData] = React.useState({})
+
    const handleClickMenuItem = React.useCallback(
-      (title, func) => {
+      (title, func, currentId) => {
          handleClose()
 
          if (typeof func === 'function') {
@@ -56,7 +58,11 @@ const AdminCard = ({
             {dataCategory === ACTION_TYPES.WISHLIST &&
                dataWishlist?.map((item) => {
                   return (
-                     <StyledCard key={item.id} changecard={changecard}>
+                     <StyledCard
+                        onClick={() => setCurrentWishData(item)}
+                        key={item.id}
+                        changecard={changecard}
+                     >
                         <StyledCardMedia
                            component="img"
                            changecard={changecard}
@@ -123,7 +129,9 @@ const AdminCard = ({
                                              <MenuItem
                                                 onClick={() => {
                                                    handleClose()
-                                                   editChangeHandler(item)
+                                                   editChangeHandler(
+                                                      currentWishData
+                                                   )
                                                 }}
                                              >
                                                 <img
@@ -137,7 +145,9 @@ const AdminCard = ({
                                              </MenuItem>
                                              <MenuItem
                                                 onClick={() => {
-                                                   reserveHandler(item.id)
+                                                   reserveHandler(
+                                                      currentWishData.id
+                                                   )
                                                    handleClose()
                                                 }}
                                              >
