@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { authSlice } from '../reducer/auth/authSlice'
+import { lentaSlice } from '../lenta/lentaSlice'
 import { holidaySlice } from '../../hoc/holidaySlice'
 import { charitySlice } from '../charities/charitySlice'
 import { complainsSlice } from '../complains/complainsSlice'
@@ -14,6 +15,7 @@ import { adminCharitySlice } from '../admin-charity/adminCharitySlice'
 const store = configureStore({
    reducer: {
       [authSlice.name]: authSlice.reducer,
+      [lentaSlice.name]: lentaSlice.reducer,
       [holidaySlice.name]: holidaySlice.reducer,
       [holidayDetailSlice.name]: holidayDetailSlice.reducer,
       [complainsSlice.name]: complainsSlice.reducer,
