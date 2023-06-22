@@ -90,6 +90,7 @@ const TextFieldWithDropDown = ({
             onKeyDown={keyDownHandler}
             type="text"
             variant="outlined"
+            autoComplete="off"
             placeholder="Поиск"
          />
          <ContentSelect>
