@@ -32,6 +32,7 @@ const StyledHeader = styled('header')`
 const StyledContainer = styled('div')`
    display: flex;
    margin-right: 20px;
+   align-items: center;
    gap: 0.25rem;
 `
 const StyledIconButton = styled(IconButton)`

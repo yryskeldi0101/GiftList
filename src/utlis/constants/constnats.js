@@ -19,7 +19,7 @@ export const sideBarRoles = {
       },
       {
          title: 'Благотворительность',
-         path: 'charityAdmin',
+         path: 'charity',
          id: '2',
          icon: CharityIcon,
       },
@@ -177,6 +177,7 @@ export const UserMenuData = [
 export const ROLES = {
    ADMIN: 'ADMIN',
    USER: 'USER',
+   GUEST: 'GUEST',
 }
 export const INITIAL_PATH = {
    ADMIN: {
@@ -186,7 +187,7 @@ export const INITIAL_PATH = {
       allWishes: 'users/:id/user_detail/wishes',
       allHolidays: 'users/:id/user_detail/holidays',
       allCharities: 'users/:id/user_detail/charities',
-      charityAdmin: 'charityAdmin',
+      charityAdmin: 'charity/',
       complaints: 'complaints',
       complains_wish_details: 'complaints/:id/wish-details',
       complains_charity_details: 'complaints/:id/charity-details',
@@ -205,6 +206,7 @@ export const INITIAL_PATH = {
       wishlist: 'wishlist',
       bookedPage: 'bookedPage',
       holidays: 'holidays',
+      holiday_details: 'holidays/:detailId/holiday_details',
       charity: 'charity/',
       charity_details: 'charity/:id/:userId/charity_details',
       add_charity: 'charity/add_charity',
@@ -241,9 +243,54 @@ export const ShoesSize = [
    { id: 10, type: 44 },
 ]
 
+export const dataHolidays = [
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+   {
+      id: Math.random(),
+      // birthDate: "День рождения",
+      title: 'День матери',
+      img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
+      date: '12.04.2022',
+   },
+]
 export const ACTION_TYPES = {
    WISHLIST: 'WISHLIST',
    HOLIDAYS: 'HOLIDAYS',
+   HOLIDAYS_DETAIL: 'HOLIDAYS_DETAIL',
    CHARITIES: 'CHARITIES',
 }
 export const CLIENT_ID =

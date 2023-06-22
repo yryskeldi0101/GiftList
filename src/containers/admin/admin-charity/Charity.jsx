@@ -12,7 +12,6 @@ import CharityCard from '../../../components/card/CharityCard'
 const AdminCharity = () => {
    const [charities, setCharities] = useState([])
    const { showToast } = useToastBar()
-
    const getAllCharities = async () => {
       try {
          const data = await getAllAdminCharityRequest()
