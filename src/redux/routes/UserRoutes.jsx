@@ -19,6 +19,11 @@ import FriendProfile from '../../containers/user/friends/FriendProfile'
 import AllCharities from '../../containers/admin/users/AllCharities'
 import AllGifts from '../../containers/admin/users/AllWishes'
 import AllHolidays from '../../containers/admin/users/AllHolidays'
+import Profile from '../../containers/user/Profile'
+import Logout from '../../containers/user/Logout'
+import ProfileEdit from '../../containers/user/ProfileEdit'
+
+
 
 const UserRoutes = () => {
    return (
@@ -90,6 +95,7 @@ const UserRoutes = () => {
                   INITIAL_PATH.USER.holidays &&
                   INITIAL_PATH.USER.holiday_details
                }
+               element={<PrivateRoute component={MyHolidays} />}
                element={<PrivateRoute component={MyHolidaysCard} />}
             />
 
@@ -120,6 +126,20 @@ const UserRoutes = () => {
                element={
                   <PrivateRoute component={CharityDetails} roles={ROLES.USER} />
                }
+            />
+            <Route
+               path={INITIAL_PATH.USER.profile}
+               element={<PrivateRoute component={Profile} />}
+            />
+            <Route
+               path={
+                  INITIAL_PATH.USER.profile && INITIAL_PATH.USER.edit_profile
+               }
+               element={<PrivateRoute component={ProfileEdit} />}
+            />
+            <Route
+               path={INITIAL_PATH.USER.logout}
+               element={<PrivateRoute component={Logout} />}
             />
          </Route>
          <Route path={INITIAL_PATH.USER.not_found} element={<ErrorPage />} />
