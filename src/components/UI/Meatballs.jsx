@@ -17,8 +17,6 @@ export default function Meatballs({
 }) {
    const dispatch = useDispatch()
 
-   console.log(id)
-
    const handleClickBtn = (id) => {
       reserveHandler(id)
       handleClose()
@@ -28,7 +26,6 @@ export default function Meatballs({
    const takeOffBookedHanlder = () => {
       dispatch(takeOffBooked(id))
    }
-
    return (
       <>
          <Buttons
@@ -43,9 +40,7 @@ export default function Meatballs({
          </Buttons>
 
          <div>
-            {display ? (
-               ''
-            ) : (
+            {display ? null : (
                <Menu
                   id="demo-positioned-menu"
                   aria-labelledby="demo-positioned-button"

@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { AxiosError, isAxiosError } from 'axios'
-
 import {
    signUpReq,
    forgotPasswordReq,

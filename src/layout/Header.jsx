@@ -8,12 +8,11 @@ const Header = () => {
    return (
       <div>
          <StyledHeader>
-            <SearchInput inputChangeProps={true} />
-
-            <StyledIconButton>
-               <BallIcon />
-            </StyledIconButton>
+            <SearchInput />
             <StyledContainer>
+               <StyledIconButton>
+                  <BallIcon />
+               </StyledIconButton>
                <UserMenu />
             </StyledContainer>
          </StyledHeader>
@@ -37,8 +36,5 @@ const StyledContainer = styled('div')`
 `
 const StyledIconButton = styled(IconButton)`
    margin-left: 0;
-   margin-right: 0;
-   /* margin-left: rem; */
-   margin-right: 5.2rem;
-   gap: 1rem;
+   margin-right: 0.4vw;
 `

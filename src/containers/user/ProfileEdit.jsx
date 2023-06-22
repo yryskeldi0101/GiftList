@@ -39,9 +39,9 @@ const ProfileEdit = () => {
    const { id } = useParams()
    const navigate = useNavigate()
    const navigateToProfileHandler = () => {
-      navigate(`/user/profile`)
+      navigate(-1)
    }
-   console.log(id)
+
    const { showToast } = useToastBar()
 
    const getProfileData = async () => {
@@ -107,7 +107,6 @@ const ProfileEdit = () => {
 
    const handleOption2Change = (event) => {
       setSelectedOption2(event.target.value)
-      console.log(event.target.value)
    }
    const handleOption1Change = (event) => {
       setSelectedOption1(event.target.value)
@@ -498,7 +497,7 @@ const StyledTitleForTextArea = styled('p')`
    display: flex;
    align-items: center;
    margin-left: 9px;
-   margin-bottom: -10px;
+   margin-bottom: 10px;
    color: #464444;
 `
 const StyledMarginLefts = styled('div')`

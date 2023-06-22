@@ -9,7 +9,7 @@ const Profile = () => {
    const [profileData, setProfileData] = useState([])
    const navigate = useNavigate()
    const navigateToProfileEditHandler = () => {
-      navigate(`${profileData.id}/edit_profile`)
+      navigate(`/user/profile/${profileData.id}/edit_profile`)
    }
 
    const getProfile = async () => {

@@ -1,7 +1,7 @@
 import React from 'react'
-import AppRoutes from './routes/AppRoutes'
+import AppRoutes from './redux/routes/AppRoutes'
 
-function App() {
+const App = () => {
    return (
       <div>
          <AppRoutes />

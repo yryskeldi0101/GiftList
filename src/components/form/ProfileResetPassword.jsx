@@ -9,7 +9,7 @@ import PasswordInput from '../UI/input/PasswordInput'
 import useToastBar from '../../hooks/useToastBar'
 import { addProfileResetPasswordRequest } from '../../service/profileService'
 
-const ProfileResetPassword = ({ open, onCloseModal }) => {
+const ProfileResetPassword = React.forwardRef(({ open, onCloseModal }, ref) => {
    const {
       register,
       handleSubmit,
@@ -19,15 +19,15 @@ const ProfileResetPassword = ({ open, onCloseModal }) => {
    const { showToast } = useToastBar()
    const navigate = useNavigate()
    const { id } = useParams()
-   console.log(id)
+
    const submitHandler = async (values) => {
       if (values.newPassword !== values.repeatPassword) {
          return showToast('warning', 'Пожалуйста!', 'Пароли должны совпадать!')
       }
-      console.log(values)
+
       try {
          await addProfileResetPasswordRequest({ ...values, id: +id })
-         return navigate('/user/:id/profile')
+         return navigate('/user/profile')
       } catch (error) {
          return showToast(
             'error',
@@ -36,8 +36,10 @@ const ProfileResetPassword = ({ open, onCloseModal }) => {
          )
       }
    }
+   const booleanOpen = Boolean(open)
+
    return (
-      <MyModal open={open} close={onCloseModal}>
+      <MyModal open={booleanOpen} onClose={onCloseModal} ref={ref}>
          <div>
             <form onSubmit={handleSubmit(submitHandler)}>
                <StyledTitleContainer>
@@ -117,7 +119,7 @@ const ProfileResetPassword = ({ open, onCloseModal }) => {
          </div>
       </MyModal>
    )
-}
+})
 
 export default ProfileResetPassword
 

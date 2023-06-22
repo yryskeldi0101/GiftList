@@ -19,19 +19,21 @@ const ReusableInput = React.forwardRef(
          icon,
          name,
          onBlur,
+         valid,
+         borderError,
          ...rest
       },
       ref
    ) => {
       return (
          <>
-            <StyledFormHelperText error={error} id={inputLabel}>
+            <StyledFormHelperText valid={valid} id={inputLabel}>
                {text}
             </StyledFormHelperText>
             <StyledOutlinedInput
-               errorcolor={error}
                value={value}
                name={name}
+               bordercolor={borderError?.toString()}
                onChange={onChange}
                placeholder={placeholder}
                aria-describedby={inputLabel}
@@ -39,12 +41,12 @@ const ReusableInput = React.forwardRef(
                classes={{ focused: 'focused' }}
                id={id}
                ref={ref}
-               error={error}
+               valid={valid}
                endAdornment={
                   <StyledInputAbornment position="end">
                      <StyledIconButton>{icon}</StyledIconButton>
 
-                     {error && <StyledErrorIcon error={error} />}
+                     {valid && <StyledErrorIcon valid={valid} />}
                   </StyledInputAbornment>
                }
                {...rest}
@@ -59,27 +61,34 @@ const ReusableInput = React.forwardRef(
 
 export default ReusableInput
 
-const StyledFormHelperText = styled(FormHelperText)(({ error }) => ({
+const StyledFormHelperText = styled(FormHelperText)(({ valid }) => ({
+   fontFamily: 'Inter',
+   fontWeight: 400,
    fontSize: '14px',
-   color: error ? 'red' : '#8D949E',
+   lineHeight: '15px',
+   display: 'flex',
+   alignItems: 'center',
+   marginBottom: '6px',
+   color: valid ? 'red' : '#464444',
 }))
 
-const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
+const StyledOutlinedInput = styled(OutlinedInput)(({ valid, bordercolor }) => ({
+   width: '100%',
    height: '30px',
    marginBottom: '15px',
-   border: error ? '1px solid red' : '',
+   border: valid ? '1px solid red!important' : '',
    borderRadius: '6px',
-   color: error ? 'red' : '',
+   color: valid ? 'red' : '',
    paddingTop: '2px',
 
    '&.MuiOutlinedInput-root': {
       height: '32px',
-      border: '1px solid grey',
+      border: bordercolor === 'true' ? '1px solid red' : '1px solid grey',
       '&:hover ': {
-         border: '1px solid #6200EE',
+         border: bordercolor === 'true' ? '1px solid red' : '1px solid #6200EE',
       },
       '&.focused': {
-         border: '1px solid #6200EE',
+         border: bordercolor === 'true' ? '1px solid red' : '1px solid #6200EE',
       },
    },
    '& .MuiOutlinedInput-notchedOutline': {
@@ -90,8 +99,8 @@ const StyledOutlinedInput = styled(OutlinedInput)(({ error }) => ({
    },
 }))
 
-const StyledErrorIcon = styled(ErrorIcon)(({ error }) => ({
-   color: error ? 'red' : '',
+const StyledErrorIcon = styled(ErrorIcon)(({ valid }) => ({
+   color: valid ? 'red' : '',
 }))
 const StyledIconButton = styled(IconButton)`
    margin-right: -18px;

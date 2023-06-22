@@ -11,6 +11,7 @@ import ReusableInput from '../UI/input/Input'
 import { postAuthGoogle, signIn } from '../../redux/reducer/auth/authThunk'
 import { ReactComponent as GoogleIcon } from '../../assets/icons/GoogleBlack.svg'
 import Spinner from '../UI/Spinner'
+import useToastBar from '../../hooks/useToastBar'
 
 const SignIn = ({
    openModal,
@@ -20,6 +21,7 @@ const SignIn = ({
 }) => {
    const isLoading = useSelector((state) => state.auth.isloading)
    const dispatch = useDispatch()
+   const { showToast } = useToastBar()
    const {
       register,
       handleSubmit,
@@ -27,11 +29,15 @@ const SignIn = ({
    } = useForm()
    const submitHandler = (data) => {
       dispatch(signIn(data))
+         .unwrap()
+         .then(() => showToast('succes', 'Успешно', 'Вы вошли успешно'))
+         .catch(() =>
+            showToast('error', 'Ошибка', 'Не верный пороль или email')
+         )
    }
    const submitDataWithGoogle = () => {
       dispatch(postAuthGoogle())
    }
-
    return (
       <div>
          <MyModal open={openModal} onClose={onCloseModal}>
@@ -53,7 +59,7 @@ const SignIn = ({
                      required: 'Электронная почта обязательнo',
                      pattern: {
                         value: /\S+@\S+\.\S+/,
-                        message: 'Неверный формат электронной почты',
+                        message: 'Электронная почта должна включать @',
                      },
                   })}
                />
@@ -125,10 +131,11 @@ const SignIn = ({
 export default SignIn
 
 const StyledErrorColor = styled('h2')`
-   font-size: large;
+   font-size: 15px;
    color: #d91c1c;
    font-weight: 400;
    font-family: 'Inter';
+   margin-bottom: 5px;
 `
 
 const StyledTitleContainer = styled('div')`

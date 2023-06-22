@@ -14,8 +14,6 @@ import {
 const Newsletter = () => {
    const [fileImage, setFileImage] = useState(null)
    const [imageUrl, setImageUrl] = useState('')
-   const [mailingTitle, setMailingTitle] = useState('')
-   const [mailingDescription, setMailingDescription] = useState('')
    const [searchParams, setSearchParams] = useSearchParams()
    const [mailingData, setMailingData] = useState([])
    const { open } = Object.fromEntries(searchParams)
@@ -42,6 +40,7 @@ const Newsletter = () => {
    const getAllMailing = async () => {
       try {
          const { data } = await getAllMailingRequest()
+         setMailingData(data)
          return data
       } catch (error) {
          return showToast(
@@ -51,10 +50,6 @@ const Newsletter = () => {
          )
       }
    }
-   const mailingTitleChangeHandler = (e) => setMailingTitle(e.target.value)
-
-   const mailingDescriptionChangeHandler = (e) =>
-      setMailingDescription(e.target.value)
 
    const uploadFile = async () => {
       try {
@@ -75,7 +70,7 @@ const Newsletter = () => {
       try {
          await createMailRequest(sendData)
          onCloseModal()
-         return getAllMailing()
+         return await getAllMailing()
       } catch (error) {
          console.error(error)
          return showToast(
@@ -85,41 +80,33 @@ const Newsletter = () => {
          )
       }
    }
-   const submitHandler = async () => {
+   const submitHandler = async (data) => {
       const formIsEmpty = Object.values({
          imageUrl,
-         mailingDescription,
-         mailingTitle,
+         mailingTitle: data.mailingTitle,
+         mailingDescription: data.mailingDescription,
       }).some((value) => !value)
       if (formIsEmpty) {
-         return showToast('warning', 'Пожалуйста!', 'Заполните все поля')
+         return showToast('warning', 'Пожалуйста!', 'Выберите фотографию')
       }
       const sendData = {
-         title: mailingTitle,
-         description: mailingDescription,
+         title: data.mailingTitle,
+         description: data.mailingDescription,
       }
       const fileResponce = fileImage && (await uploadFile())
       if (fileResponce) {
          addMailing({ ...sendData, image: fileResponce })
       }
-      setMailingTitle('')
-      setMailingDescription('')
       setImageUrl('')
       return formIsEmpty
    }
    const closeModalHandler = () => {
       onCloseModal()
-      setMailingTitle()
-      setMailingDescription()
       setImageUrl()
       setFileImage()
    }
    useEffect(() => {
-      const getData = async () => {
-         const data = await getAllMailing()
-         setMailingData(data)
-      }
-      getData()
+      getAllMailing()
    }, [])
    return (
       <>
@@ -129,10 +116,6 @@ const Newsletter = () => {
             onClose={closeModalHandler}
             imageFileChangeHandler={imageFileChangeHandler}
             imageValue={imageUrl}
-            mailingValue={mailingTitle}
-            mailingDescriptionValue={mailingDescription}
-            mailingTitleChangeHandler={mailingTitleChangeHandler}
-            mailingDescriptionChangeHandler={mailingDescriptionChangeHandler}
             clickHandler={submitHandler}
          />
          <ButtonContainer>
@@ -180,7 +163,6 @@ const ButtonContainer = styled('div')`
 `
 const GlobalContainer = styled('div')`
    display: flex;
-   justify-content: center;
    flex-wrap: wrap;
    margin-top: 30px;
    max-width: 1170px;

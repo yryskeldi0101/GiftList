@@ -19,7 +19,7 @@ const CustomProfileSelect = ({ options, onSelect, value, placeholder }) => {
       >
          {options.map((option) => (
             <StyledMenuItem key={option.id} value={option.type}>
-               <StyledSelectOptions> {option.type}</StyledSelectOptions>
+               <StyledSelectOptions>{option.type}</StyledSelectOptions>
             </StyledMenuItem>
          ))}
       </StyledSelect>
@@ -36,6 +36,10 @@ const StyledSelect = styled(SelectMui)(() => ({
       height: '35px',
       padding: '8px 18px',
       marginRight: '10px',
+   },
+   '& .MuiSelect-select': {
+      width: '396px',
+      overflow: 'hidden',
    },
 }))
 const StyledMenuItem = styled(MenuItem)(() => ({

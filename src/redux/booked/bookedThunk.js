@@ -5,7 +5,6 @@ import {
    getAllBookedReq,
    getBookedWishesReq,
    getCharitiesReq,
-   // postBookedCharityReq,
    postBookedWishReq,
 } from '../../service/bookedService'
 import { axiosInstance } from '../../api/axiosInstance'
@@ -15,7 +14,6 @@ export const getAllBooked = createAsyncThunk(
    async (_, { rejectWithValue }) => {
       try {
          const { data } = await getAllBookedReq()
-         console.log(data, 'DATAAA')
          return data
       } catch (error) {
          if (isAxiosError(error)) {
@@ -62,9 +60,10 @@ export const getBookedCharities = createAsyncThunk(
 
 export const postBookedWish = createAsyncThunk(
    'booked/postBookedWish',
-   async (payload, { rejectWithValue }) => {
+   async (payload, { rejectWithValue, dispatch }) => {
       try {
          const data = await postBookedWishReq(payload)
+         dispatch(getBookedWishes())
          return data
       } catch (error) {
          if (isAxiosError(error)) {
@@ -75,26 +74,12 @@ export const postBookedWish = createAsyncThunk(
    }
 )
 
-// export const postBookedCharities = createAsyncThunk(
-//    'booked/postBookedCharities',
-//    async (payload, { rejectWithValue }) => {
-//       try {
-//          const data = await postBookedCharityReq(payload)
-//          return data
-//       } catch (error) {
-//          if (isAxiosError(error)) {
-//             return rejectWithValue(error.response?.data.message)
-//          }
-//       }
-//       return rejectWithValue('Something went wrong')
-//    }
-// )
-
 export const deleteBookedWish = createAsyncThunk(
    'booked/deleteBookedWish',
-   async (payload) => {
+   async (payload, { dispatch }) => {
       try {
          const result = await deleteWishReq(payload.id)
+         dispatch(getAllBooked())
          return result
       } catch (error) {
          return error
@@ -102,35 +87,16 @@ export const deleteBookedWish = createAsyncThunk(
    }
 )
 
-// export const addToWish = createAsyncThunk(
-//    'booked/addToWish',
-//    async (params) => {
-//       try {
-//          const response = await axiosInstance.post(
-//             '/api/reserves/wish',
-//             {},
-//             {
-//                params,
-//             }
-//          )
-
-//          return response
-//       } catch (error) {
-//          return error
-//       }
-//    }
-// )
-
 export const takeOffBooked = createAsyncThunk(
    'booked/takeOffBooked',
-   async (id) => {
+   async (id, { dispatch }) => {
       try {
          const response = await axiosInstance.delete('/api/reserves/wish', {
             params: {
                wishId: id,
             },
          })
-
+         dispatch(getBookedWishes())
          return response
       } catch (error) {
          return error
@@ -140,13 +106,14 @@ export const takeOffBooked = createAsyncThunk(
 
 export const takeOffBookedCharity = createAsyncThunk(
    'booked/takeOffBookedCharity',
-   async (id) => {
+   async (id, { dispatch }) => {
       try {
          const response = await axiosInstance.delete('/api/reserves/charity', {
             params: {
                wishId: id,
             },
          })
+         dispatch(getBookedCharities())
          return response
       } catch (error) {
          return error

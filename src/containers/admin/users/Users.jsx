@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import UserCard from '../../../components/UI/user-cards/UserCard'
 import MyModal from '../../../components/UI/modal/Modal'
 import { ReactComponent as MoveToTrash } from '../../../assets/icons/trahsicon.svg'
@@ -19,7 +19,7 @@ const Users = () => {
    const [searchParams, setSearchParams] = useSearchParams()
    const [userData, setUserData] = useState([])
    const [userId, setUserId] = useState(null)
-   const [page, setPage] = useState(3)
+   const [page, setPage] = useState(4)
 
    const { open } = Object.fromEntries(searchParams)
    const { showToast } = useToastBar()
@@ -29,16 +29,16 @@ const Users = () => {
       setSearchParams({ open: 'delete', id })
    }
    const navigate = useNavigate()
-   const navigateToDetails = (id) => navigate(`${id}/user_detail`)
-
+   const navigateToDetails = (id, isBlocked) => {
+      return navigate(`${id}/user_detail`, { state: { isBlocked } })
+   }
    const booleanOpen = Boolean(open)
    const getAllUsers = async () => {
       try {
          const data = await getAllUsersRequest(page)
          const users = data.data.elements
          setUserData(users)
-         setPage((prevPage) => prevPage + 3)
-
+         setPage((prevPage) => prevPage + 4)
          return users
       } catch (error) {
          return showToast(
@@ -62,10 +62,22 @@ const Users = () => {
          )
       }
    }
-   const blockUser = async (id) => {
+   const blockUser = async (id, isBlocked) => {
       try {
-         await blockUserRequest(id)
-         showToast('success', 'Успешно', 'Пользователь успешно заблокирован!')
+         await blockUserRequest(id, !isBlocked)
+         if (isBlocked) {
+            showToast(
+               'success',
+               'Успешно',
+               'Пользователь успешно разблокирован!'
+            )
+         } else {
+            showToast(
+               'success',
+               'Успешно',
+               'Пользователь успешно заблокирован!'
+            )
+         }
          return getAllUsers()
       } catch (error) {
          return showToast(
@@ -93,7 +105,6 @@ const Users = () => {
          window.removeEventListener('scroll', handleScroll)
       }
    }, [page])
-
    return (
       <>
          <Snackbar />
@@ -152,6 +163,7 @@ const Users = () => {
                            id={item.id}
                            countOfWish={item.count}
                            handleBlock={blockUser}
+                           isBlocked={item.isBlocked}
                         />
                      )
                   })}
@@ -171,7 +183,6 @@ const Container = styled('div')`
    max-width: 1170px;
    height: 75vw;
    flex-wrap: wrap;
-   justify-content: center;
 `
 const ContentContainer = styled('div')`
    display: flex;

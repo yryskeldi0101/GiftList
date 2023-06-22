@@ -19,6 +19,7 @@ const CustomProfile = ({
    deleteOrAddToFriendHandler,
    acceptHandler,
    rejectHandler,
+   isBlocked,
 }) => {
    const [searchParams, setSearchParams] = useSearchParams()
    const { open } = Object.fromEntries(searchParams)
@@ -241,9 +242,9 @@ const CustomProfile = ({
                      activebackgroundcolor="#44046B"
                      defaultcolor="#ffff"
                      propswidth="177px"
-                     onClick={() => blockHandler(profileData.id)}
+                     onClick={() => blockHandler(profileData.id, isBlocked)}
                   >
-                     Заблокировать
+                     {isBlocked ? 'Разблокировать' : 'Заблокировать'}
                   </MyButton>
                </StyledButtonContainer>
             </StyledButtonsVariantFalseContainer>

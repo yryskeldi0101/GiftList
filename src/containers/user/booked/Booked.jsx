@@ -7,37 +7,45 @@ import {
    getBookedWishes,
    getBookedCharities,
 } from '../../../redux/booked/bookedThunk'
+import useToastBar from '../../../hooks/useToastBar'
+import Snackbar from '../../../components/button/SnackBar'
 
 const Booked = () => {
    const dispatch = useDispatch()
-
+   const { showToast } = useToastBar()
    useEffect(() => {
       dispatch(getBookedCharities())
+         .unwrap()
+         .then()
+         .catch(() =>
+            showToast('error', 'Ошибка', 'При загрузке данных произошла ошибка')
+         )
       dispatch(getBookedWishes())
+         .unwrap()
+         .then()
+         .catch(() =>
+            showToast('error', 'Ошибка', 'При загрузке данных произошла ошибка')
+         )
    }, [])
 
    const { getChraititesData, getWishesData } = useSelector(
       (state) => state.booked
    )
 
-   console.log(
-      getChraititesData,
-      getWishesData,
-      ' getChraititesData, getWishesData'
-   )
    return (
-      <BookedContainer>
-         <h1>Забронированные</h1>
-
-         <div>
-            <BookedWishes getWishesData={getWishesData} />
-            <BookedCharities getChraititesData={getChraititesData} />
-         </div>
-      </BookedContainer>
+      <>
+         <Snackbar />
+         <BookedContainer>
+            <div>
+               <BookedWishes getWishesData={getWishesData} />
+               <BookedCharities getChraititesData={getChraititesData} />
+            </div>
+         </BookedContainer>
+      </>
    )
 }
 export default Booked
 
-const BookedContainer = styled('div')({
-   margin: '0 10px 0 0',
-})
+const BookedContainer = styled('div')`
+   max-width: 1150px;
+`

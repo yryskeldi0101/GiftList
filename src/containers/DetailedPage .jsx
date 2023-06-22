@@ -28,7 +28,7 @@ function DetailedPage({
       <StyledCard>
          <StyledInfo>
             <StyledImage>
-               <Img src={image} alt="cat" />
+               <Img src={profileDetails.image || image} alt="cat" />
             </StyledImage>
             <InfoBox>
                <HeaderBox>
@@ -41,7 +41,7 @@ function DetailedPage({
                   </TitleBox>
                   <StyledReserve>
                      {profileDetails.isAnonymous ? null : (
-                        <IconImage src={reserveUserImage} alt="icon" />
+                        <IconImage src={reserveUserImage} alt="" />
                      )}
                      {isReserved ? <p>Забронирован</p> : <p>В ожидании</p>}
                   </StyledReserve>
@@ -122,7 +122,7 @@ function DetailedPage({
                                        handleChange={handleChange}
                                     />
                                     <StyledBookText>
-                                       Заброниовать анонимно
+                                       Забронировать анонимно
                                     </StyledBookText>
                                  </StyledCheckBox>
                               )}
@@ -188,7 +188,8 @@ const ComplainsContainer = styled('div')`
 const StyledButtoncContainer = styled('div')`
    display: flex;
    align-items: center;
-   justify-content: flex-end;
+   width: 100%;
+   margin-left: 13vw;
    gap: 70px;
 
    p {
@@ -205,7 +206,7 @@ const StyledCard = styled(Card)(() => ({
    background: '#FFFFFF',
    border: '2px solid #FFFFFF',
    borderRadius: '10px',
-   width: '1400px',
+   maxWidth: '1170px',
    height: '100%',
    position: 'relative',
    marginTop: '26px',
@@ -233,7 +234,7 @@ const InfoBox = styled('div')(() => ({
 }))
 
 const HeaderBox = styled('div')(() => ({
-   width: '767px',
+   maxWidth: '767px',
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
@@ -246,7 +247,7 @@ const TitleBox = styled('div')(() => ({
    marginBottom: '10px',
 }))
 const ImgIcon = styled('img')(() => ({
-   width: '40px',
+   maxWidth: '40px',
    height: ' 40px',
 }))
 const StyledTitle = styled('div')(() => ({
@@ -277,9 +278,10 @@ const CauseComplainer = styled('h4')(() => ({
 const StyledReserve = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
+   width: '100%',
+   justifyContent: 'flex-end',
+   gap: '10px',
    p: {
-      marginRight: '4px',
-      marginLeft: '10px',
       color: '#3774D0',
    },
 }))
