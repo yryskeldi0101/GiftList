@@ -1,6 +1,6 @@
 import axios from 'axios'
-import store from '../redux/store/index'
 import { signOut } from '../redux/reducer/auth/authThunk'
+import store from '../redux/store'
 
 export const BASE_URL = 'http://giftlist.peaksoftprojects.com'
 export const axiosInstance = axios.create({
