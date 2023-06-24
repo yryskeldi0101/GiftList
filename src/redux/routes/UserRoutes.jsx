@@ -111,6 +111,7 @@ const UserRoutes = () => {
                   INITIAL_PATH.USER.holiday_details
                }
                element={<PrivateRoute component={MyHolidays} />}
+               element={<PrivateRoute component={MyHolidaysCard} />}
             />
 
             <Route
