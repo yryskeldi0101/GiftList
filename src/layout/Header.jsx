@@ -1,16 +1,23 @@
 import React from 'react'
 import { IconButton, styled } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import SearchInput from '../components/UI/search-input/SearchInput'
 import { ReactComponent as BallIcon } from '../assets/icons/ball.svg'
 import UserMenu from './HeaderMenu'
 
 const Header = () => {
+   const navigate = useNavigate()
+
+   const openNotification = () => {
+      navigate(`notification`)
+   }
+
    return (
       <div>
          <StyledHeader>
             <SearchInput />
             <StyledContainer>
-               <StyledIconButton>
+               <StyledIconButton onClick={openNotification}>
                   <BallIcon />
                </StyledIconButton>
                <UserMenu />
@@ -26,10 +33,12 @@ const StyledHeader = styled('header')`
    display: flex;
    padding: 20px 40px 20px 14px;
    background-color: #ffffff;
+   margin-right: 80px;
    justify-content: space-between;
 `
 const StyledContainer = styled('div')`
    display: flex;
+   margin-right: 20px;
    align-items: center;
    gap: 0.25rem;
 `

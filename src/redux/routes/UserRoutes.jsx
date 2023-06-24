@@ -19,6 +19,10 @@ import { AllWishesPage } from '../../containers/user/booked/AllWishesPage'
 import { AllCharityPage } from '../../containers/user/booked/AllCharityPage'
 import Booked from '../../containers/user/booked/Booked'
 import MyHolidays from '../../containers/user/holidays/MyHolidaysCard'
+import Profile from '../../containers/user/Profile'
+import Logout from '../../containers/user/Logout'
+import ProfileEdit from '../../containers/user/ProfileEdit'
+import Notification from '../../components/UI/notification/Notification'
 
 const UserRoutes = () => {
    return (
@@ -26,6 +30,17 @@ const UserRoutes = () => {
          <Route
             path={INITIAL_PATH.GUEST.main}
             element={<Navigate replace to="/user/lenta" />}
+         />
+         <Route
+            path={INITIAL_PATH.USER.notification}
+            element={
+               <PrivateRoute component={Notification} roles={ROLES.USER} />
+            }
+         />
+
+         <Route
+            path={INITIAL_PATH.USER.notification_profile}
+            element={<PrivateRoute component={ProfileЁ} roles={ROLES.USER} />}
          />
          <Route path={INITIAL_PATH.USER.user} element={<UserLayout />}>
             <Route
@@ -125,6 +140,20 @@ const UserRoutes = () => {
                element={
                   <PrivateRoute component={CharityDetails} roles={ROLES.USER} />
                }
+            />
+            <Route
+               path={INITIAL_PATH.USER.profile}
+               element={<PrivateRoute component={Profile} />}
+            />
+            <Route
+               path={
+                  INITIAL_PATH.USER.profile && INITIAL_PATH.USER.edit_profile
+               }
+               element={<PrivateRoute component={ProfileEdit} />}
+            />
+            <Route
+               path={INITIAL_PATH.USER.logout}
+               element={<PrivateRoute component={Logout} />}
             />
          </Route>
          <Route path={INITIAL_PATH.USER.not_found} element={<ErrorPage />} />

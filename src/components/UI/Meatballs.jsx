@@ -198,12 +198,13 @@ export default function Meatballs({
                            }}
                            {...restProps}
                         >
-                           <img
-                              src={item.icon}
-                              alt="#"
-                              style={{ marginRight: '10px' }}
-                           />
-
+                           {item.icon && (
+                              <img
+                                 src={item.icon}
+                                 alt="#"
+                                 style={{ marginRight: '10px' }}
+                              />
+                           )}
                            {item.title}
                         </MenuItem>
                      </div>
