@@ -19,7 +19,7 @@ const StyledBox = styled('div')(({ propswidth }) => ({
    backgroundColor: '#fff',
    left: '50%',
    transform: 'translate(-50%, -50%)',
-   padding: '24px 32px',
+   padding: '24px  50px  50px 24px',
    borderRadius: '10px',
    maxWidth: propswidth || '',
 }))

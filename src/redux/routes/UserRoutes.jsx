@@ -9,9 +9,7 @@ import UserLayout from '../../layout/user/UserLayout'
 import PrivateRoute from '../../hoc/withPrivateRoute'
 import { INITIAL_PATH, ROLES } from '../../utlis/constants/constnats'
 import ErrorPage from '../../containers/ErrorPage'
-import MyHolidaysCard from '../../containers/user/holidays/MyHolidaysCard'
-import { AllWishesPage } from '../../containers/user/booked/AllWishesPage'
-import { AllCharityPage } from '../../containers/user/booked/AllCharityPage'
+import CardPage from '../../containers/CardPage'
 import CharityDetails from '../../containers/user/charities/CharityDetails'
 import AddCharity from '../../containers/user/charities/AddCharity'
 import Friends from '../../containers/user/friends/Friends'
@@ -20,6 +18,10 @@ import AllCharities from '../../containers/admin/users/AllCharities'
 import AllGifts from '../../containers/admin/users/AllWishes'
 import AllHolidays from '../../containers/admin/users/AllHolidays'
 import { AddWish } from '../../containers/user/wish/AddWish'
+import { AllWishesPage } from '../../containers/user/booked/AllWishesPage'
+import { AllCharityPage } from '../../containers/user/booked/AllCharityPage'
+import Booked from '../../containers/user/booked/Booked'
+import MyHolidays from '../../containers/user/holidays/MyHolidaysCard'
 import Profile from '../../containers/user/Profile'
 import Logout from '../../containers/user/Logout'
 import ProfileEdit from '../../containers/user/ProfileEdit'
@@ -35,6 +37,11 @@ const UserRoutes = () => {
             <Route
                path={INITIAL_PATH.USER.lenta}
                element={<PrivateRoute component={Lenta} roles={ROLES.USER} />}
+            />
+
+            <Route
+               path={INITIAL_PATH.USER.lenta && INITIAL_PATH.USER.lenta_details}
+               element={<PrivateRoute component={CardPage} />}
             />
             <Route
                path={INITIAL_PATH.USER.friends}
