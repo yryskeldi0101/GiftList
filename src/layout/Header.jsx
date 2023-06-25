@@ -1,16 +1,23 @@
 import React from 'react'
 import { IconButton, styled } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 import SearchInput from '../components/UI/search-input/SearchInput'
 import { ReactComponent as BallIcon } from '../assets/icons/ball.svg'
 import UserMenu from './HeaderMenu'
 
 const Header = () => {
+   const navigate = useNavigate()
+
+   const openNotification = () => {
+      navigate(`notification`)
+   }
+
    return (
       <div>
          <StyledHeader>
             <SearchInput />
             <StyledContainer>
-               <StyledIconButton>
+               <StyledIconButton onClick={openNotification}>
                   <BallIcon />
                </StyledIconButton>
                <UserMenu />

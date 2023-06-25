@@ -22,6 +22,7 @@ import MyHolidays from '../../containers/user/holidays/MyHolidaysCard'
 import Profile from '../../containers/user/Profile'
 import Logout from '../../containers/user/Logout'
 import ProfileEdit from '../../containers/user/ProfileEdit'
+import Notification from '../../components/UI/notification/Notification'
 
 const UserRoutes = () => {
    return (
@@ -29,6 +30,17 @@ const UserRoutes = () => {
          <Route
             path={INITIAL_PATH.GUEST.main}
             element={<Navigate replace to="/user/lenta" />}
+         />
+         <Route
+            path={INITIAL_PATH.USER.notification}
+            element={
+               <PrivateRoute component={Notification} roles={ROLES.USER} />
+            }
+         />
+
+         <Route
+            path={INITIAL_PATH.USER.notification_profile}
+            element={<PrivateRoute component={ProfileЁ} roles={ROLES.USER} />}
          />
          <Route path={INITIAL_PATH.USER.user} element={<UserLayout />}>
             <Route
