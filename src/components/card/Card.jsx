@@ -167,12 +167,16 @@ export default function Cards({
                      <CardActions openmeatballs={toString(openMeatballs)}>
                         <span>{date}</span>
 
-                        <FooterAvatar>
+                        <FooterAvatarComplains>
                            <>
                               <ImgIcon src={icon} />
-                              <Button>
-                                 {reserve ? 'Забронирован' : 'В ожидании'}
-                              </Button>
+                              <ComplainsButton
+                                 onClick={() =>
+                                    navigateToCharityDetails(id, userId)
+                                 }
+                              >
+                                 {reserve ? 'Причина жалобы' : 'Причина жалобы'}
+                              </ComplainsButton>
                               <Meatballs
                                  arrayIcon={MEATBALLS_LENTA_CONTENT}
                                  open={open}
@@ -184,7 +188,7 @@ export default function Cards({
                                  display={true}
                               />
                            </>
-                        </FooterAvatar>
+                        </FooterAvatarComplains>
                      </CardActions>
                   </CardContent>
                </CardActionArea>
@@ -275,7 +279,7 @@ export default function Cards({
                            )}
                         </TitleImg>
                      </NavigationContainer>
-                     <CardActions openmeatballs={toString(openMeatballs)}>
+                     <CardActionsLenta reserve={reserve}>
                         <span>{date}</span>
                         <div>
                            <FooterAvatar>
@@ -300,7 +304,7 @@ export default function Cards({
                                     />
                                  </>
                               ) : (
-                                 <>
+                                 <WaitingStyled>
                                     <Button>
                                        {reserve
                                           ? 'Забронировать ананимно'
@@ -320,11 +324,11 @@ export default function Cards({
                                        anchorEl={anchorEl}
                                        clickHandler={deleteHandler}
                                     />
-                                 </>
+                                 </WaitingStyled>
                               )}
                            </FooterAvatar>
                         </div>
-                     </CardActions>
+                     </CardActionsLenta>
                   </CardContent>
                </CardActionArea>
             </LentaCard>
@@ -350,6 +354,9 @@ const LentaCard = styled(MuiCard)(() => ({
    border: '1px solid #FFFFFF',
    borderRadius: '8px',
 }))
+const WaitingStyled = styled('div')(() => ({
+   display: 'flex',
+}))
 const CardActionArea = styled(MuiCardActionArea)(({ changecard }) => ({
    padding: '0',
    fontFamily: 'Inter',
@@ -374,7 +381,7 @@ const HeaderAvatar = styled('div')(() => ({
    width: '176px',
 }))
 const ImgIcon = styled('img')(() => ({
-   width: '36px',
+   width: '32px',
    marginRight: '8px',
    borderRadius: '30px',
 }))
@@ -419,11 +426,29 @@ const CardActions = styled(MuiCardActions)(({ openmeatballs }) => ({
       color: '#636C84',
    },
 }))
+const CardActionsLenta = styled(MuiCardActions)(({ reserve }) => ({
+   display: 'flex',
+   justifyContent: 'space-between',
+   alignItems: 'center',
+   width: reserve ? '316px' : '370px',
+   padding: '0',
+   span: {
+      fontWeight: 400,
+      fontSize: '14px',
+      color: '#636C84',
+   },
+}))
 const FooterAvatar = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   width: '200px',
+   width: '190px',
+}))
+const FooterAvatarComplains = styled('div')(() => ({
+   display: 'flex',
+   justifyContent: 'space-between',
+   alignItems: 'center',
+   width: '210px',
 }))
 const Button = styled('div')(() => ({
    border: 'none',
@@ -432,6 +457,15 @@ const Button = styled('div')(() => ({
    fontStyle: 'normal',
    fontWeight: '400',
    fontSize: '14px',
+   color: '#636C84',
+}))
+const ComplainsButton = styled('div')(() => ({
+   border: 'none',
+   background: '#fff',
+   fontFamily: 'Inter',
+   fontStyle: 'normal',
+   fontWeight: '400',
+   fontSize: '12px',
    color: '#636C84',
 }))
 const CardContent = styled(MuiCardContent)(({ changecard }) => ({

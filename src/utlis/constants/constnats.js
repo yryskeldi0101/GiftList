@@ -197,6 +197,8 @@ export const INITIAL_PATH = {
    },
    USER: {
       user: '/user',
+      notification: 'user/notification',
+      notification_profile: ':id/user/notification_profile',
       lenta: 'lenta/',
       addInMyHolidays: 'lenta/addInMyHolidays',
       lenta_details: 'lenta/:id/lenta_details',

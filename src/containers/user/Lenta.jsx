@@ -92,6 +92,7 @@ const Lenta = () => {
                         lentaCard={true}
                         deleteHandler={deleteLentaBooking}
                         bookedDelete={false}
+                        waiting={true}
                      />
                   )
                })}
