@@ -2,15 +2,16 @@ import React from 'react'
 import { styled } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import Cards from '../../../components/card/Card'
 import { deleteCharityReq } from '../../../service/bookedService'
 import useToastBar from '../../../hooks/useToastBar'
 import Snackbar from '../../../components/button/SnackBar'
 import { getBookedCharities } from '../../../redux/booked/bookedThunk'
+import Cards from '../../../components/card/Card'
 
 export const BookedCharities = ({ getChraititesData }) => {
    const { showToast } = useToastBar()
    const dispatch = useDispatch()
+
    const deleteMyCharities = async (charityId) => {
       const idMyCharities = {
          id: charityId,
@@ -46,13 +47,11 @@ export const BookedCharities = ({ getChraititesData }) => {
                               img={item.image}
                               date={item.date}
                               openMeatballs={item.openMeatballs}
-                              meatballsChangeHandler={
-                                 item.meatballsChangeHandler
-                              }
                               changeCard={true}
                               bookChange={false}
-                              reserveHandler={deleteMyCharities}
                               deleteHandler={deleteMyCharities}
+                              bookedCard={true}
+                              bookedDelete={true}
                            />
                         </div>
                      )

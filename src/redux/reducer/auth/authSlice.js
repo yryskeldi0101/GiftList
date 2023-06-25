@@ -12,6 +12,8 @@ const getInitialState = () => {
          email: userData.email,
          role: userData.role,
          userId: userData.id,
+         firstName: userData.firstName,
+         lastName: userData.lastname,
       }
    }
    return {
@@ -22,6 +24,8 @@ const getInitialState = () => {
       error: '',
       role: 'GUEST',
       userId: '',
+      firstName: '',
+      lastName: '',
    }
 }
 const initialState = getInitialState()
@@ -39,6 +43,8 @@ export const authSlice = createSlice({
          state.error = ''
          state.role = payload.role
          state.userId = payload.id
+         state.firstName = payload.firstName
+         state.lastName = payload.lastname
       })
       builder.addCase(signIn.pending, (state) => {
          state.email = ''
@@ -66,6 +72,8 @@ export const authSlice = createSlice({
          state.error = ''
          state.role = payload.role
          state.userId = payload.id
+         state.firstName = payload.firstName
+         state.lastName = payload.lastname
       })
       builder.addCase(signUpPost.pending, (state) => {
          state.email = ''

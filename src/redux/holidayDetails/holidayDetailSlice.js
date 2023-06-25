@@ -19,6 +19,7 @@ export const holidayDetailSlice = createSlice({
          })
          .addCase(getHolidayDetails.fulfilled, (state, action) => {
             state.holiday = action.payload
+            state.holidayDetail = action.payload
             state.isLoading = false
          })
          .addCase(getHolidayDetails.rejected, (state, action) => {

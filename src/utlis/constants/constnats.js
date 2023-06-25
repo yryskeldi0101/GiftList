@@ -197,8 +197,10 @@ export const INITIAL_PATH = {
    },
    USER: {
       user: '/user',
-      lenta: 'lenta',
-      friends: 'friends/',
+      lenta: 'lenta/',
+      addInMyHolidays: 'lenta/addInMyHolidays',
+      lenta_details: 'lenta/:id/lenta_details',
+      friends: 'friends',
       friend_profile: 'friends/:id/profile',
       friend_charity: 'friends/:id/profile/charities',
       friend_wishes: 'friends/:id/profile/wishes',
@@ -208,13 +210,16 @@ export const INITIAL_PATH = {
       add_wish: 'wishlist/add_wishlist',
       close_add_wish: '/user/wishlist',
       bookedPage: 'bookedPage',
-      holidays: 'holidays',
-      holiday_details: 'holidays/:detailId/holiday_details',
+      holidays: 'holidays/',
+      holiday_details: 'holidays/:id/holiday_details',
       charity: 'charity/',
       charity_details: 'charity/:id/:userId/charity_details',
       add_charity: 'charity/add_charity',
       edit_charity: 'charity/:id/edit_charity',
       book_charity: 'charity/:id/book_charity',
+      profile: ':id/profile/',
+      logout: 'logout',
+      edit_profile: 'profile/:id/edit_profile',
       not_found: '*',
    },
    GUEST: {
@@ -222,6 +227,26 @@ export const INITIAL_PATH = {
       error: '*',
    },
 }
+export const ClotherSize = [
+   { id: 1, type: 'XS' },
+   { id: 2, type: 'S' },
+   { id: 3, type: 'M' },
+   { id: 4, type: 'L' },
+   { id: 5, type: 'XL' },
+   { id: 6, type: 'XXL' },
+]
+export const ShoesSize = [
+   { id: 1, type: 35 },
+   { id: 2, type: 36 },
+   { id: 3, type: 37 },
+   { id: 4, type: 38 },
+   { id: 5, type: 39 },
+   { id: 6, type: 40 },
+   { id: 7, type: 41 },
+   { id: 8, type: 42 },
+   { id: 9, type: 43 },
+   { id: 10, type: 44 },
+]
 
 export const dataHolidays = [
    {

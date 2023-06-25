@@ -29,6 +29,7 @@ const SearchInput = ({
    const categoryChangeHnadler = (e) => setCategory(e.target.value)
    const counrtyChangeHandler = (e) => setCountries(e.target.value)
    const subCategouryChangeHandler = (e) => setSubCategory(e.target.value)
+
    return (
       <div>
          {pathname.includes('charity') ? (

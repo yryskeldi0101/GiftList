@@ -2,34 +2,26 @@ import React from 'react'
 import { styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { postBookedWishReq } from '../../../service/bookedService'
 import Cards from '../../../components/card/Card'
 import useToastBar from '../../../hooks/useToastBar'
 import Snackbar from '../../../components/button/SnackBar'
-import { getBookedWishes } from '../../../redux/booked/bookedThunk'
+import { deleteWishReq } from '../../../service/bookedService'
 
 export default function BookedWishes({ getWishesData }) {
    const dispatch = useDispatch()
    const { showToast } = useToastBar()
-   const addToMyPresents = async (id) => {
+
+   const deleteMyWishes = (wishId) => {
+      const idMyWishes = {
+         id: wishId,
+      }
       try {
-         await postBookedWishReq(id)
-         showToast('success', 'Успешно', 'успешно добавлено')
-         return dispatch(getBookedWishes())
+         const response = dispatch(deleteWishReq(idMyWishes))
+         showToast('success', 'Успешно', 'успешно удален')
+         return response
       } catch (error) {
          return showToast('error', 'Ошибка', 'Что-то пошло не так')
       }
-   }
-
-   const deleteMyWishes = (id, wishId) => {
-      const idMyWishes = {
-         id: wishId,
-         anonymous: id !== '1',
-      }
-      return dispatch(deleteMyWishes(idMyWishes))
-         .unwrap()
-         .then(() => showToast('success', 'Успешно', 'успешно удален'))
-         .catch(() => showToast('error', 'Ошибка', 'Что-то пошло не так'))
    }
 
    return (
@@ -54,13 +46,11 @@ export default function BookedWishes({ getWishesData }) {
                               img={item.image}
                               date={item.date}
                               openMeatballs={item.openMeatballs}
-                              meatballsChangeHandler={
-                                 item.meatballsChangeHandler
-                              }
                               changeCard={true}
                               bookChange={true}
-                              reserveHandler={addToMyPresents}
                               deleteHandler={deleteMyWishes}
+                              bookedCard={true}
+                              bookedDelete={true}
                            />
                         </div>
                      )

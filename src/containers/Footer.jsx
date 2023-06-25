@@ -2,7 +2,7 @@ import { IconButton, InputLabel, styled, OutlinedInput } from '@mui/material'
 import InputAdornment from '@mui/material/InputAdornment'
 import React from 'react'
 import { ReactComponent as IconFacebook } from '../assets/icons/FaceBook.svg'
-import { ReactComponent as IconInstagram } from '../assets/icons/Instagram.svg'
+import { ReactComponent as IconInstagram } from '../assets/icons/instagramicon.svg'
 import { ReactComponent as IconWk } from '../assets/icons/WkIcon.svg'
 import { ReactComponent as Inactive } from '../assets/icons/inactive.svg'
 

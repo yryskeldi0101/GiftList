@@ -23,20 +23,9 @@ export const postBookedWishReq = (data) => {
       }
    )
 }
-// export const postBookedCharityReq = (data) => {
-//    return axiosInstance.post(
-//       '/api/reserves/charity',
-//       {},
-//       { params: { charityId: data.id, isAnonymous: data.anonymous } }
-//    )
-// }
 
 export const deleteWishReq = (data) => {
-   return axiosInstance.delete(`/api/reserves/wish=${data}`, {
-      params: {
-         wishId: data.id,
-      },
-   })
+   return axiosInstance.delete(`/api/reserves/wish=${data.id}`)
 }
 
 export const deleteCharityReq = (data) => {

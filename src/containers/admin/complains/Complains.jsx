@@ -67,6 +67,7 @@ const Complains = () => {
                         charityMeatballsHandler={false}
                         complainChange={true}
                         display={true}
+                        complainsCard={true}
                         navigateToCharityDetails={openCharityCardDetails}
                         meatballsChangeHandler={() =>
                            openCharityCardDetails(obj.id)
@@ -87,9 +88,9 @@ const Complains = () => {
                         date={obj.dateOfIssue}
                         reserve={obj.reserve}
                         changeCard="true"
-                        charityMeatballsHandler={false}
                         complainChange={true}
                         display={true}
+                        complainsCard={true}
                         navigateToCharityDetails={openWishCardDetails}
                         meatballsChangeHandler={() =>
                            openWishCardDetails(obj.id)

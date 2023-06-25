@@ -253,8 +253,8 @@ const AdminCard = ({
             {dataCategory === ACTION_TYPES.HOLIDAYS &&
                dataHolidays?.map((item) => {
                   return (
-                     <StyledCard key={item.id}>
-                        <CardMedia
+                     <StyledCardHoliday key={item.id}>
+                        <HolidaysImage
                            component="img"
                            height="149"
                            image={item.image}
@@ -267,35 +267,35 @@ const AdminCard = ({
                            sx={{ cursor: 'pointer' }}
                         />
 
-                        <StyledCardContent>
-                           <Title>{item.name}</Title>
-                           <StyledBirthDate>{item.birthDate}</StyledBirthDate>
-                           <StyledStatus>{item.status}</StyledStatus>
-                        </StyledCardContent>
+                        <HolidaysCardInfo>
+                           <StyledCardContent>
+                              <Title>{item.name}</Title>
+                           </StyledCardContent>
 
-                        <StyledCardActions>
-                           <p>{item.date}</p>
-                           <MeatBallssContainer>
-                              <HolidayMeatballs
-                                 display={display}
-                                 arrayIcon={meatballsContent}
-                                 handleClick={(e) => {
-                                    handleClick(e)
-                                    setCurrentId(item.id)
-                                    setCurrentData({
-                                       date: item.date,
-                                       image: item.image,
-                                       name: item.name,
-                                    })
-                                 }}
-                                 handleClose={handleClose}
-                                 open={open}
-                                 anchorEl={anchorEl}
-                                 handleClickMenuItem={handleClickMenuDetail}
-                              />
-                           </MeatBallssContainer>
-                        </StyledCardActions>
-                     </StyledCard>
+                           <StyledCardActionsHoliday>
+                              <p>{item.date}</p>
+                              <MeatBallssContainer>
+                                 <HolidayMeatballs
+                                    display={display}
+                                    arrayIcon={meatballsContent}
+                                    handleClick={(e) => {
+                                       handleClick(e)
+                                       setCurrentId(item.id)
+                                       setCurrentData({
+                                          date: item.date,
+                                          image: item.image,
+                                          name: item.name,
+                                       })
+                                    }}
+                                    handleClose={handleClose}
+                                    open={open}
+                                    anchorEl={anchorEl}
+                                    handleClickMenuItem={handleClickMenuDetail}
+                                 />
+                              </MeatBallssContainer>
+                           </StyledCardActionsHoliday>
+                        </HolidaysCardInfo>
+                     </StyledCardHoliday>
                   )
                })}
 
@@ -369,6 +369,23 @@ const StyledCard = styled(Card)(({ changecard }) => ({
    display: changecard ? '' : 'flex',
    justifyContent: changecard ? '' : 'space-betweeen',
    alignItems: changecard ? '' : '',
+}))
+const HolidaysCardInfo = styled('div')(() => ({
+   marginTop: '15px',
+}))
+const StyledCardHoliday = styled(Card)(() => ({
+   display: 'flex',
+   flexDirection: 'column',
+   width: '330pxpx',
+   padding: '15px',
+}))
+const HolidaysImage = styled(CardMedia)(() => ({
+   width: '310px',
+   borderRadius: '20px',
+}))
+const StyledCardActionsHoliday = styled('div')(() => ({
+   display: 'flex',
+   justifyContent: 'space-between',
 }))
 const StyledCardMedia = styled(CardMedia)(({ changecard }) => ({
    width: changecard ? '317px' : '146px',
