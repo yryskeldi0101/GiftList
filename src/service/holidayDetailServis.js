@@ -1,7 +1,7 @@
 import { axiosInstance } from '../api/axiosInstance'
 
 export const getHolidayDetailService = (id) => {
-   return axiosInstance.get('/api/holidays/details', { params: { id } })
+   return axiosInstance.get(`/api/holidays/details?id=${id}`)
 }
 
 export const postHolidayDetailService = (url, postData) => {

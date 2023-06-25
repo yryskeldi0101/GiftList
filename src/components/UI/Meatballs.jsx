@@ -59,7 +59,8 @@ export default function Meatballs({
    setReserved,
    setAnonym,
    variant,
-
+   bookedDelete,
+   clickHandler,
    ...restProps
 }) {
    const [openModal, setOpenModal] = useState(false)
@@ -86,15 +87,15 @@ export default function Meatballs({
       }
    }
 
-
-   const handleClickBtn = (id) => {
-      reserveHandler(id)
-      if (id === 1) {
-         editChangeHandler(data)
-      } else if (id === 2) {
-         reserveHandler(id)
-      }
-      handleClose()
+   // const handleClickBtn = (id) => {
+   //    reserveHandler(id)
+   //    if (id === 1) {
+   //       editChangeHandler(data)
+   //    } else if (id === 2) {
+   //       reserveHandler(id)
+   //    }
+   //    handleClose()
+   // }
 
    const openComplaintModal = (title) => {
       if (title === 'Пожаловаться') {
@@ -117,8 +118,7 @@ export default function Meatballs({
             complaintDescription: complaint.title,
          })
          showToast('succes', 'Успешно', 'Запрос успешно отправлен')
-
-         complaint(null)
+         // complaint(null)
       } catch (error) {
          showToast('error', 'Ошибка', 'При загрузке данных произошла ошибка')
       }
@@ -202,24 +202,40 @@ export default function Meatballs({
                >
                   {arrayIcon?.map((item) => (
                      <div key={item.id}>
-                        <MenuItem
-                           onClick={() => {
-                              handleClose()
-                              menuClickHandler(item.title)
-                              openComplaintModal(item.title)
-                              item.clickHandler(id)
-                           }}
-                           {...restProps}
-                        >
-                           {item.icon && (
+                        {bookedDelete ? (
+                           <MenuItem
+                              onClick={() => {
+                                 handleClose()
+                                 clickHandler(id)
+                              }}
+                              {...restProps}
+                           >
                               <img
                                  src={item.icon}
                                  alt="#"
                                  style={{ marginRight: '10px' }}
                               />
-                           )}
-                           {item.title}
-                        </MenuItem>
+
+                              {item.title}
+                           </MenuItem>
+                        ) : (
+                           <MenuItem
+                              onClick={() => {
+                                 handleClose()
+                                 menuClickHandler(item.title)
+                                 openComplaintModal(item.title)
+                              }}
+                              {...restProps}
+                           >
+                              <img
+                                 src={item.icon}
+                                 alt="#"
+                                 style={{ marginRight: '10px' }}
+                              />
+
+                              {item.title}
+                           </MenuItem>
+                        )}
                      </div>
                   ))}
                </Menu>

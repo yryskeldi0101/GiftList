@@ -1,8 +1,8 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Lenta from '../../containers/user/Lenta'
 import WishList from '../../containers/user/wish/WishList'
-import Booked from '../../containers/user/booked/Booked'
 import MyHolidays from '../../containers/user/holidays/MyHolidays'
 import UserCharity from '../../containers/user/charities/Charity'
 import UserLayout from '../../layout/user/UserLayout'
@@ -21,7 +21,7 @@ import { AddWish } from '../../containers/user/wish/AddWish'
 import { AllWishesPage } from '../../containers/user/booked/AllWishesPage'
 import { AllCharityPage } from '../../containers/user/booked/AllCharityPage'
 import Booked from '../../containers/user/booked/Booked'
-import MyHolidays from '../../containers/user/holidays/MyHolidaysCard'
+import MyHolidaysCard from '../../containers/user/holidays/MyHolidaysCard'
 import Profile from '../../containers/user/Profile'
 import Logout from '../../containers/user/Logout'
 import ProfileEdit from '../../containers/user/ProfileEdit'
@@ -43,7 +43,7 @@ const UserRoutes = () => {
 
          <Route
             path={INITIAL_PATH.USER.notification_profile}
-            element={<PrivateRoute component={ProfileЁ} roles={ROLES.USER} />}
+            element={<PrivateRoute component={Profile} roles={ROLES.USER} />}
          />
          <Route path={INITIAL_PATH.USER.user} element={<UserLayout />}>
             <Route
@@ -81,6 +81,12 @@ const UserRoutes = () => {
                path={INITIAL_PATH.USER.friend_holidays}
                element={
                   <PrivateRoute component={AllHolidays} roles={ROLES.USER} />
+               }
+            />
+            <Route
+               path={INITIAL_PATH.USER.holiday_details}
+               element={
+                  <PrivateRoute component={MyHolidaysCard} roles={ROLES.USER} />
                }
             />
             <Route
@@ -122,14 +128,14 @@ const UserRoutes = () => {
                   <PrivateRoute component={MyHolidays} roles={ROLES.USER} />
                }
             />
-            <Route
+            {/* <Route
                path={
                   INITIAL_PATH.USER.holidays &&
                   INITIAL_PATH.USER.holiday_details
                }
                element={<PrivateRoute component={MyHolidays} />}
                element={<PrivateRoute component={MyHolidaysCard} />}
-            />
+            /> */}
 
             <Route
                path={INITIAL_PATH.USER.charity}

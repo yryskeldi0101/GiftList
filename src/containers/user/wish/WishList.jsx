@@ -102,6 +102,7 @@ const WishList = () => {
                   reserveHandler={deleteWishHandler}
                   editChangeHandler={editChangeHandler}
                   wishes={true}
+                  bookedDelete={false}
                />
             </Wishes>
          </div>

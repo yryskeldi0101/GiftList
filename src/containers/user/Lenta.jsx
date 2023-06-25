@@ -9,6 +9,7 @@ import { getLentaCard, getLentaInfoCard } from '../../redux/lenta/lentaThunk'
 import useToastBar from '../../hooks/useToastBar'
 import Snackbar from '../../components/button/SnackBar'
 import Cards from '../../components/card/Card'
+import { deleteRequestLentaBooking } from '../../service/lenta.service'
 
 const Lenta = () => {
    const [card, setCard] = useState(true)
@@ -42,6 +43,18 @@ const Lenta = () => {
          )
       navigationHandler(id)
    }
+   const deleteLentaBooking = async (charityId) => {
+      const idMyCharities = {
+         id: charityId,
+      }
+      try {
+         const response = await deleteRequestLentaBooking(idMyCharities)
+         showToast('success', 'Успешно', 'успешно удален')
+         return response
+      } catch (error) {
+         return showToast('error', 'Ошибка', 'Что-то пошло не так')
+      }
+   }
 
    return (
       <>
@@ -63,7 +76,7 @@ const Lenta = () => {
                         requestById={requesById}
                         openMeatballs={true}
                         changeCard={card}
-                        userId={item.userId}
+                        userId={item.wishId}
                         id={item.wishId}
                         icon={item.image}
                         reserveUserImage={item.reserveUserImage}
@@ -74,10 +87,12 @@ const Lenta = () => {
                         date={item.date}
                         navigateToCharityDetails={navigationHandler}
                         bookChange={false}
-                        charityMeatballsHandler={false}
-                        charityMeatballs={false}
                         reserve={item.isReserved}
                         isAnonymous={item.isAnonymous}
+                        lentaCard={true}
+                        deleteHandler={deleteLentaBooking}
+                        bookedDelete={false}
+                        waiting={true}
                      />
                   )
                })}

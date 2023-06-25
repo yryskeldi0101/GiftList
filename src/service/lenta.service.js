@@ -12,13 +12,11 @@ export const postRequestLentaPresent = ({ wishId, holidayId }) => {
       `/api/reserves?wishId=${wishId}&holidayId=${holidayId}`
    )
 }
-
 export const postRequestLentaBooking = (id, isAnonymous) => {
    return axiosInstance.post(
       `/api/reserves/wish?wishId=${id}&isAnonymous=${isAnonymous}`
    )
 }
-
 export const deleteRequestLentaBooking = (id) => {
    return axiosInstance.delete(`/api/reserves/wish?wishId=${id}`)
 }

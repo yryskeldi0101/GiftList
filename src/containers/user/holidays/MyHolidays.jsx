@@ -23,6 +23,7 @@ import AdminCard from '../../../components/adminCard/AdminCard'
 import DateInput from '../../../components/UI/input/DateInput'
 import { ACTION_TYPES } from '../../../utlis/constants/constnats'
 import useToastBar from '../../../hooks/useToastBar'
+import { getHolidayDetails } from '../../../redux/holidayDetails/holidayDetailThunk'
 
 const MyHolidays = () => {
    const dispatch = useDispatch()
@@ -78,6 +79,7 @@ const MyHolidays = () => {
    }, [data, editHolidayData])
 
    const navigateToDetails = (id) => {
+      dispatch(getHolidayDetails(id))
       navigate(`${id}/holiday_details`)
    }
 

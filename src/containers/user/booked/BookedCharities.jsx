@@ -11,6 +11,7 @@ import Cards from '../../../components/card/Card'
 export const BookedCharities = ({ getChraititesData }) => {
    const { showToast } = useToastBar()
    const dispatch = useDispatch()
+
    const deleteMyCharities = async (charityId) => {
       const idMyCharities = {
          id: charityId,
@@ -46,13 +47,11 @@ export const BookedCharities = ({ getChraititesData }) => {
                               img={item.image}
                               date={item.date}
                               openMeatballs={item.openMeatballs}
-                              meatballsChangeHandler={
-                                 item.meatballsChangeHandler
-                              }
                               changeCard={true}
                               bookChange={false}
-                              reserveHandler={deleteMyCharities}
                               deleteHandler={deleteMyCharities}
+                              bookedCard={true}
+                              bookedDelete={true}
                            />
                         </div>
                      )

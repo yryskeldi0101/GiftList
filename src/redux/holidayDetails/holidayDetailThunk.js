@@ -10,6 +10,7 @@ export const getHolidayDetails = createAsyncThunk(
    async (id, { rejectWithValue }) => {
       try {
          const { data } = await getHolidayDetailService(id)
+         console.log(data, 'data')
          return data
       } catch (error) {
          return rejectWithValue(error)
