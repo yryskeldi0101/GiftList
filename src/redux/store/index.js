@@ -3,13 +3,13 @@ import { authSlice } from '../reducer/auth/authSlice'
 import { lentaSlice } from '../lenta/lentaSlice'
 import { holidaySlice } from '../../hoc/holidaySlice'
 import { charitySlice } from '../charities/charitySlice'
-import { modalSlice } from '../holiday/modalSlice'
+import { complainsSlice } from '../complains/complainsSlice'
 import { userSlice } from '../user/userSlice'
 import { mailingSlice } from '../newsLetter/mailingSlice'
+import { modalSlice } from '../holiday/modalSlice'
 import { friendSlice } from '../friends/friendSlice'
 import { holidayDetailSlice } from '../holidayDetails/holidayDetailSlice'
 import bookedSlice from '../booked/bookedSlice'
-import { complainsSlice } from '../complains/complainsSlice'
 import { adminCharitySlice } from '../admin-charity/adminCharitySlice'
 
 const store = configureStore({
@@ -32,5 +32,4 @@ const store = configureStore({
          serializableCheck: false,
       }),
 })
-
 export default store

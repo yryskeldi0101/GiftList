@@ -206,7 +206,6 @@ const StyledCard = styled(Card)(() => ({
    background: '#FFFFFF',
    border: '2px solid #FFFFFF',
    borderRadius: '10px',
-   maxWidth: '1170px',
    height: '100%',
    position: 'relative',
    marginTop: '26px',
@@ -238,6 +237,10 @@ const HeaderBox = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
    justifyContent: 'space-between',
+
+   '@media screen and (max-width: 1440px)': {
+      width: '700px',
+   },
 }))
 
 const TitleBox = styled('div')(() => ({

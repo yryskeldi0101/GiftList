@@ -1,7 +1,9 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Lenta from '../../containers/user/Lenta'
-import WishList from '../../containers/user/WishList'
+import WishList from '../../containers/user/wish/WishList'
+import Booked from '../../containers/user/booked/Booked'
+import MyHolidays from '../../containers/user/holidays/MyHolidays'
 import UserCharity from '../../containers/user/charities/Charity'
 import UserLayout from '../../layout/user/UserLayout'
 import PrivateRoute from '../../hoc/withPrivateRoute'
@@ -15,6 +17,7 @@ import FriendProfile from '../../containers/user/friends/FriendProfile'
 import AllCharities from '../../containers/admin/users/AllCharities'
 import AllGifts from '../../containers/admin/users/AllWishes'
 import AllHolidays from '../../containers/admin/users/AllHolidays'
+import { AddWish } from '../../containers/user/wish/AddWish'
 import { AllWishesPage } from '../../containers/user/booked/AllWishesPage'
 import { AllCharityPage } from '../../containers/user/booked/AllCharityPage'
 import Booked from '../../containers/user/booked/Booked'
@@ -82,6 +85,20 @@ const UserRoutes = () => {
             />
             <Route
                path={INITIAL_PATH.USER.wishlist}
+               element={
+                  <PrivateRoute component={WishList} roles={ROLES.USER} />
+               }
+            />
+            <Route
+               path={INITIAL_PATH.USER.edit_wish}
+               element={<PrivateRoute component={AddWish} roles={ROLES.USER} />}
+            />
+            <Route
+               path={INITIAL_PATH.USER.add_wish}
+               element={<PrivateRoute component={AddWish} roles={ROLES.USER} />}
+            />
+            <Route
+               path={INITIAL_PATH.USER.close_add_wish}
                element={
                   <PrivateRoute component={WishList} roles={ROLES.USER} />
                }

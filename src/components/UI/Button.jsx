@@ -12,6 +12,7 @@ const MyButton = ({
    border,
    children,
    type,
+   propsborderbadius,
    ...rest
 }) => {
    return (
@@ -24,6 +25,7 @@ const MyButton = ({
          activebackgroundcolor={activebackgroundcolor}
          defaultcolor={defaultcolor}
          disabledcolor={disabledcolor}
+         propsborderbadius={propsborderbadius}
          type={type}
          {...rest}
       >
@@ -45,12 +47,14 @@ const StyleButton = styled(Button)(
       background,
       border,
       outlinedbordercolor,
+      propsborderbadius,
    }) => {
       switch (variant) {
          case 'contained':
             return {
                width: `${propswidth}`,
                backgroundColor: `${background}`,
+               borderRadius: `${propsborderbadius}`,
                color: `${defaultcolor}`,
                gap: '10px',
                padding: '10px 26px',

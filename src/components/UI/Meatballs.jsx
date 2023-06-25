@@ -51,11 +51,14 @@ export default function Meatballs({
    handleClose,
    handleClick,
    anchorEl,
+   reserveHandler,
+   display,
+   editChangeHandler,
    id,
+   data,
    setReserved,
    setAnonym,
    variant,
-   display,
 
    ...restProps
 }) {
@@ -82,6 +85,16 @@ export default function Meatballs({
          setOpenModal(true)
       }
    }
+
+
+   const handleClickBtn = (id) => {
+      reserveHandler(id)
+      if (id === 1) {
+         editChangeHandler(data)
+      } else if (id === 2) {
+         reserveHandler(id)
+      }
+      handleClose()
 
    const openComplaintModal = (title) => {
       if (title === 'Пожаловаться') {
