@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { styled } from '@mui/material'
@@ -149,7 +149,7 @@ const ProfileDetails = () => {
    )
 }
 
-export default ProfileDetails
+export default memo(ProfileDetails)
 const Container = styled('div')`
    margin-top: 56px;
    display: flex;

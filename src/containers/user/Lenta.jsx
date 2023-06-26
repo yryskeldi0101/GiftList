@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@mui/material'
 import styled from '@emotion/styled'
@@ -88,7 +88,7 @@ const Lenta = () => {
    )
 }
 
-export default Lenta
+export default memo(Lenta)
 
 const StyledCard = styled('div')(() => ({
    display: 'flex',

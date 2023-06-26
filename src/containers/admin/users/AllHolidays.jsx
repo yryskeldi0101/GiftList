@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { styled } from '@mui/material'
 import { useMeatballs } from '../../../hooks/useMeatballs'
@@ -25,7 +25,7 @@ const AllHolidays = () => {
    )
 }
 
-export default AllHolidays
+export default memo(AllHolidays)
 
 const Container = styled('div')`
    margin-top: 50px;

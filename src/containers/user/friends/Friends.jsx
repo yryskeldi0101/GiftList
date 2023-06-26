@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Tabs from '../../../components/UI/tabs/Tabs'
@@ -107,4 +107,4 @@ const Container = styled('div')`
    align-items: flex-start;
    gap: 45px;
 `
-export default Friends
+export default memo(Friends)

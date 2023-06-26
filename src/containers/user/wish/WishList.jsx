@@ -1,5 +1,5 @@
 import { styled } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as GalleryCard } from '../../../assets/icons/galleryCard.svg'
 import { ReactComponent as ListCard } from '../../../assets/icons/listCard.svg'
@@ -109,7 +109,7 @@ const WishList = () => {
       </>
    )
 }
-export default WishList
+export default memo(WishList)
 
 const WishTitle = styled('h1')`
    font-weight: 500;

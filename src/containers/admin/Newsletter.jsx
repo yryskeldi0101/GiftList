@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { Snackbar, styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import MyButton from '../../components/UI/Button'
@@ -152,7 +152,7 @@ const Newsletter = () => {
    )
 }
 
-export default Newsletter
+export default memo(Newsletter)
 
 const ButtonContainer = styled('div')`
    display: flex;

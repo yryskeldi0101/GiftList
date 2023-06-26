@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { styled } from '@mui/material'
 import AdminCard from '../../../components/adminCard/AdminCard'
@@ -25,7 +25,7 @@ const AllCharities = () => {
    )
 }
 
-export default AllCharities
+export default memo(AllCharities)
 const Container = styled('div')`
    margin-top: 50px;
    max-width: 1170px;

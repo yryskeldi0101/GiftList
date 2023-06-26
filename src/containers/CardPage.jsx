@@ -1,6 +1,6 @@
 import { Card, styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { useParams } from 'react-router-dom'
 import MyButton from '../components/UI/Button'
 import { postRequestLentaBooking } from '../service/lenta.service'
@@ -82,7 +82,7 @@ function CardPage() {
    )
 }
 
-export default CardPage
+export default memo(CardPage)
 
 const StyledCheckbox = styled('div')(() => ({
    display: 'flex',

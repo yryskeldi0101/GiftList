@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 const ErrorPage = () => {
    return (
@@ -8,4 +8,4 @@ const ErrorPage = () => {
    )
 }
 
-export default ErrorPage
+export default memo(ErrorPage)

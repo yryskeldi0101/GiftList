@@ -1,5 +1,5 @@
 import { styled } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getOneMailById } from '../../redux/newsLetter/mailingThunk'
@@ -29,7 +29,7 @@ const NewsletterDetails = () => {
    )
 }
 
-export default NewsletterDetails
+export default memo(NewsletterDetails)
 
 const GlobalContainer = styled('div')`
    max-width: 1170px;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import bagIcon from '../../../assets/images/Bag.png'
@@ -113,7 +113,7 @@ const UserCharity = () => {
                               charityMeatballs={item.isAnonymous}
                               isAnonymous={item.isAnonymous}
                               expectation={item.isReserved}
-                              reserveIcon={item.userImage}
+                              reserveIcon={item.reserveUserImage}
                               reserveUserImage={item.reserveUserImage}
                               userCharity
                            />
@@ -127,7 +127,7 @@ const UserCharity = () => {
    )
 }
 
-export default UserCharity
+export default memo(UserCharity)
 const StyledCardContainer = styled('div')`
    display: flex;
    max-width: 1170px;

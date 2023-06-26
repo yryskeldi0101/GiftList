@@ -1,6 +1,6 @@
 import { IconButton, InputLabel, styled, OutlinedInput } from '@mui/material'
 import InputAdornment from '@mui/material/InputAdornment'
-import React from 'react'
+import React, { memo } from 'react'
 import { ReactComponent as IconFacebook } from '../assets/icons/FaceBook.svg'
 import { ReactComponent as IconInstagram } from '../assets/icons/instagramicon.svg'
 import { ReactComponent as IconWk } from '../assets/icons/WkIcon.svg'
@@ -78,7 +78,7 @@ const Footer = () => {
    )
 }
 
-export default Footer
+export default memo(Footer)
 const GlobalContainer = styled('div')(() => ({
    maxWidth: '100%',
    borderBottom: '1px solid #353A5A',
