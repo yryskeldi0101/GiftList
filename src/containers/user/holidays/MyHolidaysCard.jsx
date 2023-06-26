@@ -7,6 +7,7 @@ import HolidayDetailsCard from '../../../components/adminCard/HolidayDetailsCard
 const MyHolidays = () => {
    const { open, anchorEl, handleClick, handleClose } = useMeatballs()
    const holidayDetail = useSelector((state) => state.holidayDetail.holiday)
+   console.log(holidayDetail, 'holidays')
 
    return (
       <>

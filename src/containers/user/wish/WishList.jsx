@@ -20,7 +20,7 @@ const WishList = () => {
    const { showToast } = useToastBar()
 
    const changeCardHAndler = () => {
-      setChangeCard(!changeCard)
+      setChangeCard(false)
    }
    const addWishHandler = () => {
       navigate('add_wishlist')
@@ -70,7 +70,7 @@ const WishList = () => {
                <HeaderActions>
                   <div>
                      <StGalleryCard
-                        onClick={changeCardHAndler}
+                        onClick={() => setChangeCard(true)}
                         changeCard={true}
                      >
                         <GalleryCard />
