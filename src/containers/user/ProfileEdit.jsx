@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ReactComponent as AddImg } from '../../assets/icons/charityImgAddIcon.svg'
@@ -419,6 +419,7 @@ const ProfileEdit = () => {
                   propswidth="113px"
                   outlinedbordercolor="#8D949E"
                   propsborderradius="10px"
+                  onClick={() => navigate(-1)}
                >
                   Отмена
                </MyButton>
@@ -440,7 +441,7 @@ const ProfileEdit = () => {
    )
 }
 
-export default ProfileEdit
+export default memo(ProfileEdit)
 
 const StyledReusebleInput = styled(ReusableInput)`
    width: 396px;

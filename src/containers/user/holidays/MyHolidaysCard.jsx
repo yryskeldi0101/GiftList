@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles'
 import { useSelector } from 'react-redux'
+import { memo } from 'react'
 import { useMeatballs } from '../../../hooks/useMeatballs'
 import { ACTION_TYPES } from '../../../utlis/constants/constnats'
 import HolidayDetailsCard from '../../../components/adminCard/HolidayDetailsCard'
@@ -29,7 +30,7 @@ const MyHolidays = () => {
    )
 }
 
-export default MyHolidays
+export default memo(MyHolidays)
 
 const Container = styled('div')({
    display: 'flex',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import DetailedPage from '../../DetailedPage '
@@ -93,4 +93,4 @@ const CharityDetails = () => {
    )
 }
 
-export default CharityDetails
+export default memo(CharityDetails)

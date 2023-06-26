@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -174,7 +174,7 @@ const Users = () => {
    )
 }
 
-export default Users
+export default memo(Users)
 
 const Container = styled('div')`
    margin-top: 45px;

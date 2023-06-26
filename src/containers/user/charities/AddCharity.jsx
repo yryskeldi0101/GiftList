@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -306,7 +306,7 @@ const CharityAdd = () => {
    )
 }
 
-export default CharityAdd
+export default memo(CharityAdd)
 
 const StyledReusebleInput = styled(ReusableInput)`
    width: 396px;

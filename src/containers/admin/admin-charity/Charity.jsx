@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import {
    blockAdminCharityRequest,
@@ -66,7 +66,6 @@ const AdminCharity = () => {
          <GlobalContainer>
             <CardContainer>
                {charityData?.map((item) => {
-                  console.log(item, 'iteeem')
                   return (
                      <CharityCard
                         key={item.id}
@@ -81,7 +80,7 @@ const AdminCharity = () => {
                         date={item.dateAdded}
                         disableMeatalls={item.isReserved}
                         reserve={item.isReserved}
-                        reserveIcon={item.userImage}
+                        reserveIcon={item.reserveUserImage}
                         isAnonymous={item.isAnonymous}
                         handleDelete={deleteCharityHandler}
                         handleBlock={blockCharity}
@@ -103,4 +102,4 @@ const CardContainer = styled('div')`
    gap: 60px;
    max-width: 1170px;
 `
-export default AdminCharity
+export default memo(AdminCharity)

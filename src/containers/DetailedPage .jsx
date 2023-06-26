@@ -1,4 +1,5 @@
 import { Card, styled } from '@mui/material'
+import { memo } from 'react'
 import MyButton from '../components/UI/Button'
 import Checkboxes from '../components/UI/Checkbox'
 import Spinner from '../components/UI/Spinner'
@@ -158,7 +159,7 @@ function DetailedPage({
    )
 }
 
-export default DetailedPage
+export default memo(DetailedPage)
 const StyledBookText = styled('h3')`
    font-family: 'Inter';
    font-style: normal;

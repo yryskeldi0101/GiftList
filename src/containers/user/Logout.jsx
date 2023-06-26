@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { styled } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -50,7 +50,7 @@ const Logout = React.forwardRef(({ open = false, onClose }, ref) => {
    )
 })
 
-export default Logout
+export default memo(Logout)
 
 const StyledTitle = styled('p')`
    text-align: center;

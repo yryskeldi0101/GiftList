@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { getAllComplainsReq } from '../../../service/complainService'
@@ -105,7 +105,7 @@ const Complains = () => {
    )
 }
 
-export default Complains
+export default memo(Complains)
 
 const ComplainTitle = styled('div')(() => ({
    width: '100%',

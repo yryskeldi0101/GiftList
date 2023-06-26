@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CustomProfile from '../../components/UI/CustomProfile'
 import useToastBar from '../../hooks/useToastBar'
@@ -45,4 +45,4 @@ const Profile = () => {
    )
 }
 
-export default Profile
+export default memo(Profile)

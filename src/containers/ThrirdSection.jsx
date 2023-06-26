@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
 import Scrolltrigger from 'react-scroll-trigger'
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import KidsImage from '../assets/images/thirdImage.png'
 
 const ThrirdSection = () => {
@@ -32,7 +32,7 @@ const ThrirdSection = () => {
    )
 }
 
-export default ThrirdSection
+export default memo(ThrirdSection)
 const FirstAnimaton = styled('div')`
    -webkit-animation-name: bounceInLeft;
    animation-name: bounceInLeft;

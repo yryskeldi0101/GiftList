@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material/styles'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { format } from 'date-fns'
@@ -284,7 +284,7 @@ const MyHolidays = () => {
    )
 }
 
-export default MyHolidays
+export default memo(MyHolidays)
 
 const Container = styled('div')({
    display: 'flex',

@@ -40,7 +40,7 @@ const SignUp = React.forwardRef(
          if (data.confirmPassword === data.password) {
             dispatch(signUpPost(sendData))
                .unwrap()
-               .then(() => showToast('succes', 'Успешно', 'Вы вошли успешно'))
+               .then(() => showToast('success', 'Успешно', 'Вы вошли успешно'))
                .catch(() =>
                   showToast('error', 'Ошибка', 'Не верный пороль или email')
                )

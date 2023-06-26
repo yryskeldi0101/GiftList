@@ -2,6 +2,7 @@ import { styled } from '@mui/material'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { memo } from 'react'
 import User1 from '../assets/images/user1.png'
 import User2 from '../assets/images/user2.png'
 import User3 from '../assets/images/user3.png'
@@ -71,7 +72,7 @@ const FiveSection = () => {
    )
 }
 
-export default FiveSection
+export default memo(FiveSection)
 const GlobalContainer = styled('div')(() => ({
    maxWidth: '100%',
    height: '221px',

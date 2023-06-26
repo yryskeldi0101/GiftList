@@ -1,5 +1,5 @@
 import { styled } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import Scrolltrigger from 'react-scroll-trigger'
 import LaptopImg from '../assets/images/laptopImage.png'
 
@@ -33,7 +33,7 @@ const FourSection = () => {
    )
 }
 
-export default FourSection
+export default memo(FourSection)
 
 const GlobalContainer = styled('div')(() => ({
    maxWidth: '100%',

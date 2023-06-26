@@ -371,7 +371,6 @@ const CardContainer = styled('div')`
    flex-wrap: wrap;
    flex-direction: row;
    gap: 61px;
-   justify-content: center;
 `
 const StyledCard = styled(Card)(({ changecard }) => ({
    padding: '20px',

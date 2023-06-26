@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, memo } from 'react'
 import { BookedCharities } from './BookedCharities'
 import BookedWishes from './BookedWishes'
 import {
@@ -44,7 +44,7 @@ const Booked = () => {
       </>
    )
 }
-export default Booked
+export default memo(Booked)
 
 const BookedContainer = styled('div')`
    max-width: 1150px;
