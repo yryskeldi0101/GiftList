@@ -114,6 +114,7 @@ const UserCharity = () => {
                               isAnonymous={item.isAnonymous}
                               expectation={item.isReserved}
                               reserveIcon={item.userImage}
+                              reserveUserImage={item.reserveUserImage}
                               userCharity
                            />
                         </div>

@@ -3,6 +3,7 @@ import React from 'react'
 import { ReactComponent as MeatballsIcon } from '../../assets/icons/meatballs.svg'
 import Ananim from '../../assets/icons/anonim.svg'
 import Lock from '../../assets/icons/key.svg'
+import Avatar from '../../assets/icons/avatar.png'
 import { useMeatballs } from '../../hooks/useMeatballs'
 import DeleteIcon from '../../assets/icons/deleteIcon.svg'
 
@@ -20,6 +21,7 @@ const CharityCard = ({
    isAnonymous,
    adminCharity,
    handleDelete,
+   reserveUserImage,
    handleBlock,
    reserveHandler,
    navigateToCharityDetails = () => {},
@@ -51,7 +53,11 @@ const CharityCard = ({
          <FooterContainer>
             <h4>{date}</h4>
             <div>
-               {isAnonymous ? null : <img src={reserveIcon} alt="icon" />}
+               {reserveUserImage === null ? (
+                  <img src={Avatar} alt="avatar" />
+               ) : (
+                  <ReserveUserImage src={reserveUserImage} alt="icon" />
+               )}
                <p>{reserve ? 'Забронирован' : 'В ожидании'}</p>
                <StyledButton
                   id="demo-positioned-button"
@@ -135,6 +141,16 @@ const StyledButton = styled('button')(() => ({
    background: 'transparent',
    border: 'none',
 }))
+const ReserveUserImage = styled('img')(() => ({
+   width: '46px',
+   height: '46px',
+}))
+// const StyledButton = styled('button')(() => ({
+//    margin: 0,
+//    padding: 0,
+//    background: 'transparent',
+//    border: 'none',
+// }))
 
 const GlobalContainer = styled('div')`
    display: flex;

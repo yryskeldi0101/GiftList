@@ -9,7 +9,6 @@ import { getLentaCard, getLentaInfoCard } from '../../redux/lenta/lentaThunk'
 import useToastBar from '../../hooks/useToastBar'
 import Snackbar from '../../components/button/SnackBar'
 import Cards from '../../components/card/Card'
-import { deleteRequestLentaBooking } from '../../service/lenta.service'
 
 const Lenta = () => {
    const [card, setCard] = useState(true)
@@ -42,18 +41,6 @@ const Lenta = () => {
             showToast('error', 'Ошибка', 'При загрузке данных произошла ошибка')
          )
       navigationHandler(id)
-   }
-   const deleteLentaBooking = async (charityId) => {
-      const idMyCharities = {
-         id: charityId,
-      }
-      try {
-         const response = await deleteRequestLentaBooking(idMyCharities)
-         showToast('success', 'Успешно', 'успешно удален')
-         return response
-      } catch (error) {
-         return showToast('error', 'Ошибка', 'Что-то пошло не так')
-      }
    }
 
    return (
@@ -90,7 +77,6 @@ const Lenta = () => {
                         reserve={item.isReserved}
                         isAnonymous={item.isAnonymous}
                         lentaCard={true}
-                        deleteHandler={deleteLentaBooking}
                         bookedDelete={false}
                         waiting={true}
                      />

@@ -169,7 +169,6 @@ export default function Cards({
 
                         <FooterAvatarComplains>
                            <>
-                              <ImgIcon src={icon} />
                               <ComplainsButton
                                  onClick={() =>
                                     navigateToCharityDetails(id, userId)
@@ -296,11 +295,13 @@ export default function Cards({
                                              : MEATBALLS_EXPECT_CONTENT
                                        }
                                        open={open}
+                                       meatballsselecthandler={
+                                          meatballsselecthandler
+                                       }
                                        id={id}
                                        handleClose={handleClose}
                                        handleClick={handleClick}
                                        anchorEl={anchorEl}
-                                       clickHandler={deleteHandler}
                                     />
                                  </>
                               ) : (
@@ -318,6 +319,9 @@ export default function Cards({
                                              : MEATBALLS_EXPECT_CONTENT
                                        }
                                        open={open}
+                                       meatballsselecthandler={
+                                          meatballsselecthandler
+                                       }
                                        id={id}
                                        handleClose={handleClose}
                                        handleClick={handleClick}
@@ -448,7 +452,7 @@ const FooterAvatarComplains = styled('div')(() => ({
    display: 'flex',
    justifyContent: 'space-between',
    alignItems: 'center',
-   width: '210px',
+   width: '170px',
 }))
 const Button = styled('div')(() => ({
    border: 'none',

@@ -66,6 +66,7 @@ const AdminCharity = () => {
          <GlobalContainer>
             <CardContainer>
                {charityData?.map((item) => {
+                  console.log(item, 'iteeem')
                   return (
                      <CharityCard
                         key={item.id}

@@ -17,6 +17,7 @@ const Complains = () => {
    const getAllComplains = async () => {
       try {
          const { data } = await getAllComplainsReq()
+         console.log(data, 'dataaaa')
          setComplains(data)
          return data
       } catch (error) {
