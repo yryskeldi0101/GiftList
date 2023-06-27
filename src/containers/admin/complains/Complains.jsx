@@ -122,7 +122,8 @@ const ComplainTitle = styled('div')(() => ({
 const ComplainCards = styled('div')(() => ({
    display: 'flex',
    flexWrap: 'wrap',
-   gap: '20px',
+   gap: '40px',
+   width: '100%',
 }))
 const StyledSpinner = styled('div')(() => ({
    marginTop: '200px',

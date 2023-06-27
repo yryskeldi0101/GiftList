@@ -27,4 +27,5 @@ const HeaderContent = styled('header')`
 `
 const MainContainer = styled('main')`
    margin-left: 21vw;
+   margin-right: 4vw;
 `

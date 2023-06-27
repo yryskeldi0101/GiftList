@@ -130,9 +130,9 @@ const UserCharity = () => {
 export default memo(UserCharity)
 const StyledCardContainer = styled('div')`
    display: flex;
-   max-width: 1170px;
    flex-wrap: wrap;
-   gap: 55px;
+   width: 100%;
+   gap: 40px;
    justify-content: flex-start;
    align-items: flex-start;
 `
@@ -166,5 +166,4 @@ const ButtonContainer = styled('div')`
    display: flex;
    justify-content: flex-end;
    width: 100%;
-   margin-right: 40px;
 `

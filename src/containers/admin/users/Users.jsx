@@ -179,8 +179,8 @@ export default memo(Users)
 const Container = styled('div')`
    margin-top: 45px;
    display: flex;
-   gap: 45px;
-   max-width: 1170px;
+   gap: 35px;
+   width: 100%;
    height: 75vw;
    flex-wrap: wrap;
 `

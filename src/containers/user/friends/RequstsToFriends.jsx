@@ -61,6 +61,6 @@ const Container = styled('div')`
    margin-top: 24px;
    display: flex;
    flex-wrap: wrap;
-   gap: 45px;
+   gap: 40px;
 `
 export default memo(RequestsToFriends)

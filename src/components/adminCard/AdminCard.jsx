@@ -370,7 +370,7 @@ const CardContainer = styled('div')`
    display: flex;
    flex-wrap: wrap;
    flex-direction: row;
-   gap: 61px;
+   gap: 40px;
 `
 const StyledCard = styled(Card)(({ changecard }) => ({
    padding: '20px',
@@ -385,7 +385,7 @@ const HolidaysCardInfo = styled('div')(() => ({
 const StyledCardHoliday = styled(Card)(() => ({
    display: 'flex',
    flexDirection: 'column',
-   width: '330pxpx',
+   width: '355px',
    padding: '15px',
 }))
 const HolidaysImage = styled(CardMedia)(() => ({

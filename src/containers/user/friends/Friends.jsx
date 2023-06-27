@@ -95,7 +95,7 @@ const Friends = () => {
    )
 }
 const GlobalContainer = styled('div')`
-   max-width: 1170px;
+   width: 100%;
    display: flex;
    flex-direction: column;
    justify-content: flex-start;
@@ -105,6 +105,6 @@ const Container = styled('div')`
    display: flex;
    flex-wrap: wrap;
    align-items: flex-start;
-   gap: 45px;
+   gap: 40px;
 `
 export default memo(Friends)

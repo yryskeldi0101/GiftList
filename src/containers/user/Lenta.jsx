@@ -93,14 +93,13 @@ export default memo(Lenta)
 const StyledCard = styled('div')(() => ({
    display: 'flex',
    flexWrap: 'wrap',
-   gap: '55px',
+   gap: '40px',
    marginTop: '30px',
 }))
 
 const StyledMain = styled('div')(() => ({
    marginTop: '30px',
    display: 'flex',
-   marginRight: '40px',
    justifyContent: 'end',
 }))
 

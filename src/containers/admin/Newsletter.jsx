@@ -156,7 +156,6 @@ export default memo(Newsletter)
 
 const ButtonContainer = styled('div')`
    display: flex;
-   max-width: 1170px;
    align-items: center;
    justify-content: flex-end;
    margin-top: 32px;
@@ -165,8 +164,7 @@ const GlobalContainer = styled('div')`
    display: flex;
    flex-wrap: wrap;
    margin-top: 30px;
-   max-width: 1170px;
-   gap: 60px;
+   gap: 43px;
    row-gap: 50px;
 `
 const Container = styled('div')`
