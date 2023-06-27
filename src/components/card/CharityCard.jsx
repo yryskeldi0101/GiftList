@@ -144,12 +144,6 @@ const ReserveUserImage = styled('img')(() => ({
    width: '46px',
    height: '46px',
 }))
-// const StyledButton = styled('button')(() => ({
-//    margin: 0,
-//    padding: 0,
-//    background: 'transparent',
-//    border: 'none',
-// }))
 
 const GlobalContainer = styled('div')`
    display: flex;

@@ -5,7 +5,6 @@ import MyModal from './modal/Modal'
 import ReusableInput from './input/Input'
 import MyButton from './Button'
 import { ReactComponent as AddImage } from '../../assets/icons/iconaddimage.svg'
-import Snackbar from '../button/SnackBar'
 
 const MailingModal = React.forwardRef(
    (
@@ -24,81 +23,78 @@ const MailingModal = React.forwardRef(
       })
       const booleanOpen = Boolean(open)
       return (
-         <>
-            <Snackbar />
-            <MyModal open={booleanOpen} onClose={onClose} ref={ref}>
-               <GlobalContainer>
-                  <form onSubmit={handleSubmit(clickHandler)}>
-                     <ImageContainer>
-                        <h2>Создание рассылки</h2>
-                        <StyledImageContainer>
-                           <label htmlFor="image">
-                              {imageValue ? (
-                                 <StyledImage src={imageValue} alt="profile" />
-                              ) : (
-                                 <>
-                                    <AddImage />
-                                    <p>Нажмите для добавления фотографии</p>
-                                 </>
-                              )}
-                           </label>
-                           <StyledFileInput
-                              type="file"
-                              id="image"
-                              onChange={imageFileChangeHandler}
-                           />
-                        </StyledImageContainer>
-                     </ImageContainer>
-                     <InputContainer>
-                        <p>Тема</p>
-                        <ReusableInput
-                           id="mailingTitle"
-                           name="mailingTitle"
-                           placeholder="Введите тему рассылки"
-                           {...register('mailingTitle', {
-                              required: true,
-                           })}
-                           borderError={errors?.mailingTitle ? 'true' : 'false'}
+         <MyModal open={booleanOpen} onClose={onClose} ref={ref}>
+            <GlobalContainer>
+               <form onSubmit={handleSubmit(clickHandler)}>
+                  <ImageContainer>
+                     <h2>Создание рассылки</h2>
+                     <StyledImageContainer>
+                        <label htmlFor="image">
+                           {imageValue ? (
+                              <StyledImage src={imageValue} alt="profile" />
+                           ) : (
+                              <>
+                                 <AddImage />
+                                 <p>Нажмите для добавления фотографии</p>
+                              </>
+                           )}
+                        </label>
+                        <StyledFileInput
+                           type="file"
+                           id="image"
+                           onChange={imageFileChangeHandler}
                         />
-                        <p>Текст рассылки</p>
-                        <ReusableInput
-                           id="mailingDescription"
-                           name="mailingDescription"
-                           placeholder="Введите текст рассылки"
-                           {...register('mailingDescription', {
-                              required: true,
-                           })}
-                           borderError={
-                              errors?.mailingDescription ? 'true' : 'false'
-                           }
-                        />
-                     </InputContainer>
-                     <ButtonContainer>
-                        <MyButton
-                           variant="outlined"
-                           defaultcolor="#8D949E"
-                           outlinedbordercolor="#8D949E"
-                           onClick={onClose}
-                           propswidth="232px"
-                        >
-                           Отмена
-                        </MyButton>
-                        <MyButton
-                           variant="contained"
-                           defaultcolor="#ffffff"
-                           background="#8639B5"
-                           hoverbackgroundcolor="#840fcd"
-                           activebackgroundcolor="#5e0695"
-                           propswidth="232px"
-                           type="submit"
-                        >
-                           Отправить
-                        </MyButton>
-                     </ButtonContainer>
-                  </form>
-               </GlobalContainer>
-            </MyModal>
-         </>
+                     </StyledImageContainer>
+                  </ImageContainer>
+                  <InputContainer>
+                     <p>Тема</p>
+                     <ReusableInput
+                        id="mailingTitle"
+                        name="mailingTitle"
+                        placeholder="Введите тему рассылки"
+                        {...register('mailingTitle', {
+                           required: true,
+                        })}
+                        borderError={errors?.mailingTitle ? 'true' : 'false'}
+                     />
+                     <p>Текст рассылки</p>
+                     <ReusableInput
+                        id="mailingDescription"
+                        name="mailingDescription"
+                        placeholder="Введите текст рассылки"
+                        {...register('mailingDescription', {
+                           required: true,
+                        })}
+                        borderError={
+                           errors?.mailingDescription ? 'true' : 'false'
+                        }
+                     />
+                  </InputContainer>
+                  <ButtonContainer>
+                     <MyButton
+                        variant="outlined"
+                        defaultcolor="#8D949E"
+                        outlinedbordercolor="#8D949E"
+                        onClick={onClose}
+                        propswidth="232px"
+                     >
+                        Отмена
+                     </MyButton>
+                     <MyButton
+                        variant="contained"
+                        defaultcolor="#ffffff"
+                        background="#8639B5"
+                        hoverbackgroundcolor="#840fcd"
+                        activebackgroundcolor="#5e0695"
+                        propswidth="232px"
+                        type="submit"
+                     >
+                        Отправить
+                     </MyButton>
+                  </ButtonContainer>
+               </form>
+            </GlobalContainer>
+         </MyModal>
       )
    }
 )

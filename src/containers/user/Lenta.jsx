@@ -7,7 +7,6 @@ import { ReactComponent as ListCardIcon } from '../../assets/icons/listcardicon.
 import { ReactComponent as IconTable } from '../../assets/icons/tablecard.svg'
 import { getLentaCard, getLentaInfoCard } from '../../redux/lenta/lentaThunk'
 import useToastBar from '../../hooks/useToastBar'
-import Snackbar from '../../components/button/SnackBar'
 import Cards from '../../components/card/Card'
 
 const Lenta = () => {
@@ -44,47 +43,44 @@ const Lenta = () => {
    }
 
    return (
-      <>
-         <Snackbar />
-         <div>
-            <StyledMain>
-               <StyledIcon onClick={() => setCard(true)}>
-                  <StyledTableIcon cardColor={card} />
-               </StyledIcon>
-               <StyledButton onClick={changeCard}>
-                  <StyledListIcon cardColor={card} />
-               </StyledButton>
-            </StyledMain>
-            <StyledCard>
-               {lentaArray.map((item) => {
-                  return (
-                     <Cards
-                        key={item.userId}
-                        requestById={requesById}
-                        openMeatballs={true}
-                        changeCard={card}
-                        userId={item.wishId}
-                        id={item.wishId}
-                        icon={item.image}
-                        reserveUserImage={item.reserveUserImage}
-                        userName={item.fullName}
-                        birthDate={item.holidayName}
-                        title={item.wishName}
-                        img={item.photo}
-                        date={item.date}
-                        navigateToCharityDetails={navigationHandler}
-                        bookChange={false}
-                        reserve={item.isReserved}
-                        isAnonymous={item.isAnonymous}
-                        lentaCard={true}
-                        bookedDelete={false}
-                        waiting={true}
-                     />
-                  )
-               })}
-            </StyledCard>
-         </div>
-      </>
+      <div>
+         <StyledMain>
+            <StyledIcon onClick={() => setCard(true)}>
+               <StyledTableIcon cardColor={card} />
+            </StyledIcon>
+            <StyledButton onClick={changeCard}>
+               <StyledListIcon cardColor={card} />
+            </StyledButton>
+         </StyledMain>
+         <StyledCard>
+            {lentaArray.map((item) => {
+               return (
+                  <Cards
+                     key={item.userId}
+                     requestById={requesById}
+                     openMeatballs={true}
+                     changeCard={card}
+                     userId={item.wishId}
+                     id={item.wishId}
+                     icon={item.image}
+                     reserveUserImage={item.reserveUserImage}
+                     userName={item.fullName}
+                     birthDate={item.holidayName}
+                     title={item.wishName}
+                     img={item.photo}
+                     date={item.date}
+                     navigateToCharityDetails={navigationHandler}
+                     bookChange={false}
+                     reserve={item.isReserved}
+                     isAnonymous={item.isAnonymous}
+                     lentaCard={true}
+                     bookedDelete={false}
+                     waiting={true}
+                  />
+               )
+            })}
+         </StyledCard>
+      </div>
    )
 }
 

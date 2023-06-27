@@ -147,7 +147,7 @@ const MyHolidays = () => {
             }
             dispatch(postHoliday(data))
             onCloseModal()
-            showToast('success', 'Праздник успешно добавлен!')
+            showToast('success', 'Успешно', 'Праздник успешно добавлен!')
          }
       } else {
          showToast('warning', 'Пожалуйста!', 'Заполните все поля')
@@ -165,7 +165,7 @@ const MyHolidays = () => {
             }
             dispatch(updateHolidayThunk({ data, ubdateId }))
             onCloseModal()
-            showToast('success', '', 'Праздник успешно изменен!')
+            showToast('success', 'Успешно', 'Праздник успешно изменен!')
          }
       } else {
          showToast('warning', 'Пожалуйста!', 'Заполните все поля')

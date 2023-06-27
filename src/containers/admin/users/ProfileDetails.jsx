@@ -9,7 +9,6 @@ import {
    deleteUserRequest,
 } from '../../../service/userService'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 import AdminCard from '../../../components/adminCard/AdminCard'
 import { useMeatballs } from '../../../hooks/useMeatballs'
 import { ACTION_TYPES } from '../../../utlis/constants/constnats'
@@ -100,7 +99,6 @@ const ProfileDetails = () => {
    ]
    return (
       <>
-         <Snackbar />
          <div>
             <CustomProfile
                profileData={profileData}

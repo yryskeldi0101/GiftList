@@ -10,7 +10,6 @@ import { ACTION_TYPES } from '../../../utlis/constants/constnats'
 import { useMeatballs } from '../../../hooks/useMeatballs'
 import { deleteWishReq, getAllWishesReq } from '../../../service/wishService'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 
 const WishList = () => {
    const [changeCard, setChangeCard] = useState(true)
@@ -62,51 +61,48 @@ const WishList = () => {
    }, [])
 
    return (
-      <>
-         <Snackbar />
-         <div>
-            <HeaderWish>
-               <WishTitle>Список желаний</WishTitle>
-               <HeaderActions>
-                  <div>
-                     <StGalleryCard
-                        onClick={() => setChangeCard(true)}
-                        changeCard={true}
-                     >
-                        <GalleryCard />
-                     </StGalleryCard>
-                     <StListCard onClick={changeCardHAndler} changeCard={false}>
-                        <ListCard />
-                     </StListCard>
-                  </div>
-                  <MyButton
-                     variant="contained"
-                     background="#8639B5"
-                     hoverbackgroundcolor="#8639B5"
-                     onClick={addWishHandler}
+      <div>
+         <HeaderWish>
+            <WishTitle>Список желаний</WishTitle>
+            <HeaderActions>
+               <div>
+                  <StGalleryCard
+                     onClick={() => setChangeCard(true)}
+                     changeCard={true}
                   >
-                     <Plus />
-                     Добавить желание
-                  </MyButton>
-               </HeaderActions>
-            </HeaderWish>
-            <Wishes>
-               <AdminCard
-                  dataCategory={ACTION_TYPES.WISHLIST}
-                  dataWishlist={wishes}
-                  changecard={changeCard}
-                  open={open}
-                  anchorEl={anchorEl}
-                  handleClick={handleClick}
-                  handleClose={handleClose}
-                  reserveHandler={deleteWishHandler}
-                  editChangeHandler={editChangeHandler}
-                  wishes={true}
-                  bookedDelete={false}
-               />
-            </Wishes>
-         </div>
-      </>
+                     <GalleryCard />
+                  </StGalleryCard>
+                  <StListCard onClick={changeCardHAndler} changeCard={false}>
+                     <ListCard />
+                  </StListCard>
+               </div>
+               <MyButton
+                  variant="contained"
+                  background="#8639B5"
+                  hoverbackgroundcolor="#8639B5"
+                  onClick={addWishHandler}
+               >
+                  <Plus />
+                  Добавить желание
+               </MyButton>
+            </HeaderActions>
+         </HeaderWish>
+         <Wishes>
+            <AdminCard
+               dataCategory={ACTION_TYPES.WISHLIST}
+               dataWishlist={wishes}
+               changecard={changeCard}
+               open={open}
+               anchorEl={anchorEl}
+               handleClick={handleClick}
+               handleClose={handleClose}
+               reserveHandler={deleteWishHandler}
+               editChangeHandler={editChangeHandler}
+               wishes={true}
+               bookedDelete={false}
+            />
+         </Wishes>
+      </div>
    )
 }
 export default memo(WishList)
