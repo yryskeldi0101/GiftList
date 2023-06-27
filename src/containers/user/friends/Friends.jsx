@@ -9,7 +9,6 @@ import {
    getAllRequestsToFriend,
 } from '../../../service/friendsService'
 import RequestsToFriends from './RequstsToFriends'
-import Snackbar from '../../../components/button/SnackBar'
 
 const Friends = () => {
    const [userData, setUserData] = useState([])
@@ -57,41 +56,36 @@ const Friends = () => {
    const allUsersData = userData || []
    const allrequestToFriend = requestFirends || []
    return (
-      <>
-         <Snackbar />
-         <GlobalContainer>
-            <Tabs
-               followersCount={allUsersData?.length}
-               requestsCount={allrequestToFriend?.length}
-               requestTab={
-                  <RequestsToFriends
-                     requestToFriend={allrequestToFriend}
-                     getAllRequests={getAllRequests}
-                     errorFunction={errorFunction}
-                  />
-               }
-            >
-               <Container>
-                  {allUsersData?.map((item) => {
-                     return (
-                        <UserCard
-                           key={item.id}
-                           id={item.id}
-                           fullName={item.fullName}
-                           changeFlexContent
-                           image={item.image}
-                           count={item.countOfHolidays}
-                           countOfWish={item.countOfWishes}
-                           navigateHandler={() =>
-                              navigate(`${item.id}/profile`)
-                           }
-                        />
-                     )
-                  })}
-               </Container>
-            </Tabs>
-         </GlobalContainer>
-      </>
+      <GlobalContainer>
+         <Tabs
+            followersCount={allUsersData?.length}
+            requestsCount={allrequestToFriend?.length}
+            requestTab={
+               <RequestsToFriends
+                  requestToFriend={allrequestToFriend}
+                  getAllRequests={getAllRequests}
+                  errorFunction={errorFunction}
+               />
+            }
+         >
+            <Container>
+               {allUsersData?.map((item) => {
+                  return (
+                     <UserCard
+                        key={item.id}
+                        id={item.id}
+                        fullName={item.fullName}
+                        changeFlexContent
+                        image={item.image}
+                        count={item.countOfHolidays}
+                        countOfWish={item.countOfWishes}
+                        navigateHandler={() => navigate(`${item.id}/profile`)}
+                     />
+                  )
+               })}
+            </Container>
+         </Tabs>
+      </GlobalContainer>
    )
 }
 const GlobalContainer = styled('div')`

@@ -5,9 +5,9 @@ import { toast } from 'react-toastify'
 
 const getColor = (type) => {
    const colors = {
-      success: '',
-      error: '',
-      warning: '',
+      success: '#00AB1B',
+      error: '#F61414',
+      warning: '#FFD60A',
       info: '#007AFF',
       default: '#4C4859',
    }
@@ -41,12 +41,11 @@ function useToastBar() {
          </>,
          {
             position: 'top-right',
-            autoClose: true,
+            autoClose: 1000,
             hideProgressBar: true,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
-            theme: 'colored',
          }
       )
    }

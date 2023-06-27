@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { Snackbar, styled } from '@mui/material'
+import { styled } from '@mui/material'
 import { ReactComponent as AddPhotoIcon } from '../../../assets/svg/charityImgAddIcon.svg'
 import ReusableInput from '../../../components/UI/input/Input'
 import MyButton from '../../../components/UI/Button'
@@ -165,108 +165,105 @@ export const AddWish = () => {
    }, [])
 
    return (
-      <>
-         <Snackbar />
-         <AddWishContainer localHeight={localHeight}>
-            <StyledContainerAddWishImage>
-               {(imageUrl && (
-                  <label htmlFor="add_image">
-                     <StyledImage src={imageUrl} alt="" />
-                  </label>
-               )) || (
-                  <StyledAddWishImageIcons htmlFor="add_image">
-                     <AddPhotoIcon />
-                     <p>Нажмите для добавления фотографии</p>
-                  </StyledAddWishImageIcons>
-               )}
-               <input
-                  id="add_image"
-                  placeholder="Нажмите для добавления фотографии"
-                  type="file"
-                  accept="image/*"
-                  onChange={fileValueHandler}
-               />
-            </StyledContainerAddWishImage>
+      <AddWishContainer localHeight={localHeight}>
+         <StyledContainerAddWishImage>
+            {(imageUrl && (
+               <label htmlFor="add_image">
+                  <StyledImage src={imageUrl} alt="" />
+               </label>
+            )) || (
+               <StyledAddWishImageIcons htmlFor="add_image">
+                  <AddPhotoIcon />
+                  <p>Нажмите для добавления фотографии</p>
+               </StyledAddWishImageIcons>
+            )}
+            <input
+               id="add_image"
+               placeholder="Нажмите для добавления фотографии"
+               type="file"
+               accept="image/*"
+               onChange={fileValueHandler}
+            />
+         </StyledContainerAddWishImage>
 
-            <InfoAboutWish>
-               <h3>Добавление желаемого подарка</h3>
-               <StyledInputs>
-                  <div>
-                     <ReusableInput
-                        placeholder="Введите название подарка"
-                        text="Название подарка"
-                        value={titlePresentValue}
-                        onChange={titlePresentValueHandler}
-                     />
-                  </div>
-                  <div>
-                     <ReusableInput
-                        placeholder="Вставьте ссылку на подарок"
-                        text="Ссылка на подарок"
-                        value={linkGiftValue}
-                        onChange={linkGiftValueHandler}
-                     />
-                  </div>
-               </StyledInputs>
-               <StyledInputs>
-                  <div>
-                     <HolidaySelectTitle>Категория</HolidaySelectTitle>
-                     <AppSelect
-                        background="none"
-                        options={holidayName}
-                        height="30px"
-                        value={categoryValue}
-                        onChange={categoryValueHandler}
-                        placeholder="Выберите праздник"
-                        text="Праздник"
-                     />
-                  </div>
-                  <div>
-                     <ReusableInput
-                        defaultValue=""
-                        placeholder="Укажите дату праздника"
-                        type="date"
-                        text="Дата праздника"
-                        value={dateValue}
-                        onChange={dateValueHandler}
-                     />
-                  </div>
-               </StyledInputs>
+         <InfoAboutWish>
+            <h3>Добавление желаемого подарка</h3>
+            <StyledInputs>
                <div>
-                  <StyledReusableInputArea
-                     placeholder="Введите описание подарка"
-                     text="Описание подарка"
-                     value={descPresent}
-                     onChange={descPresentHandler}
+                  <ReusableInput
+                     placeholder="Введите название подарка"
+                     text="Название подарка"
+                     value={titlePresentValue}
+                     onChange={titlePresentValueHandler}
                   />
                </div>
-               <InfoActions>
-                  <MyButton
-                     variant="contained"
-                     background="#fff"
-                     outlinedbordercolor="#8D949E"
-                     defaultcolor="#8D949E"
-                     hoverbackgroundcolor="#fff"
-                     propsBorderRadius="15px"
-                     border="none"
-                     onClick={closeAddWishHandler}
-                  >
-                     Отмена
-                  </MyButton>
-                  <MyButton
-                     variant="contained"
-                     background="#8639B5"
-                     hoverbackgroundcolor="#8639B5"
-                     propsborderbadius="15px"
-                     type="submit"
-                     onClick={submitWishHandler}
-                  >
-                     Добавить
-                  </MyButton>
-               </InfoActions>
-            </InfoAboutWish>
-         </AddWishContainer>
-      </>
+               <div>
+                  <ReusableInput
+                     placeholder="Вставьте ссылку на подарок"
+                     text="Ссылка на подарок"
+                     value={linkGiftValue}
+                     onChange={linkGiftValueHandler}
+                  />
+               </div>
+            </StyledInputs>
+            <StyledInputs>
+               <div>
+                  <HolidaySelectTitle>Категория</HolidaySelectTitle>
+                  <AppSelect
+                     background="none"
+                     options={holidayName}
+                     height="30px"
+                     value={categoryValue}
+                     onChange={categoryValueHandler}
+                     placeholder="Выберите праздник"
+                     text="Праздник"
+                  />
+               </div>
+               <div>
+                  <ReusableInput
+                     defaultValue=""
+                     placeholder="Укажите дату праздника"
+                     type="date"
+                     text="Дата праздника"
+                     value={dateValue}
+                     onChange={dateValueHandler}
+                  />
+               </div>
+            </StyledInputs>
+            <div>
+               <StyledReusableInputArea
+                  placeholder="Введите описание подарка"
+                  text="Описание подарка"
+                  value={descPresent}
+                  onChange={descPresentHandler}
+               />
+            </div>
+            <InfoActions>
+               <MyButton
+                  variant="contained"
+                  background="#fff"
+                  outlinedbordercolor="#8D949E"
+                  defaultcolor="#8D949E"
+                  hoverbackgroundcolor="#fff"
+                  propsBorderRadius="15px"
+                  border="none"
+                  onClick={closeAddWishHandler}
+               >
+                  Отмена
+               </MyButton>
+               <MyButton
+                  variant="contained"
+                  background="#8639B5"
+                  hoverbackgroundcolor="#8639B5"
+                  propsborderbadius="15px"
+                  type="submit"
+                  onClick={submitWishHandler}
+               >
+                  Добавить
+               </MyButton>
+            </InfoActions>
+         </InfoAboutWish>
+      </AddWishContainer>
    )
 }
 const AddWishContainer = styled('div')(({ localHeight }) => ({

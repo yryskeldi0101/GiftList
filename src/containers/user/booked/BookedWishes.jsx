@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Cards from '../../../components/card/Card'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 import { deleteWishReq } from '../../../service/bookedService'
 
 export default function BookedWishes({ getWishesData }) {
@@ -25,40 +24,37 @@ export default function BookedWishes({ getWishesData }) {
    }
 
    return (
-      <>
-         <Snackbar />
-         <div>
-            <CardsContainer>
-               <Main>
-                  <Title>Желания</Title>
-                  <StyledLink to="booked-wish">Смотреть все</StyledLink>
-               </Main>
-               <StyledContainer>
-                  {getWishesData?.map((item) => {
-                     return (
-                        <div key={item.wishId}>
-                           <Cards
-                              id={item.wishId}
-                              icon={item.photo}
-                              userName={item.fullName}
-                              birthDate={item.birthDate}
-                              title={item.holidayName}
-                              img={item.image}
-                              date={item.date}
-                              openMeatballs={item.openMeatballs}
-                              changeCard={true}
-                              bookChange={true}
-                              deleteHandler={deleteMyWishes}
-                              bookedCard={true}
-                              bookedDelete={true}
-                           />
-                        </div>
-                     )
-                  })}
-               </StyledContainer>
-            </CardsContainer>
-         </div>
-      </>
+      <div>
+         <CardsContainer>
+            <Main>
+               <Title>Желания</Title>
+               <StyledLink to="booked-wish">Смотреть все</StyledLink>
+            </Main>
+            <StyledContainer>
+               {getWishesData?.map((item) => {
+                  return (
+                     <div key={item.wishId}>
+                        <Cards
+                           id={item.wishId}
+                           icon={item.photo}
+                           userName={item.fullName}
+                           birthDate={item.birthDate}
+                           title={item.holidayName}
+                           img={item.image}
+                           date={item.date}
+                           openMeatballs={item.openMeatballs}
+                           changeCard={true}
+                           bookChange={true}
+                           deleteHandler={deleteMyWishes}
+                           bookedCard={true}
+                           bookedDelete={true}
+                        />
+                     </div>
+                  )
+               })}
+            </StyledContainer>
+         </CardsContainer>
+      </div>
    )
 }
 

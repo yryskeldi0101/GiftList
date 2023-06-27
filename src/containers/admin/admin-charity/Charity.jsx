@@ -6,7 +6,6 @@ import {
    getAllAdminCharityRequest,
 } from '../../../service/charityAdminService'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 import CharityCard from '../../../components/card/CharityCard'
 
 const AdminCharity = () => {
@@ -61,36 +60,33 @@ const AdminCharity = () => {
    }, [])
    const charityData = charities || []
    return (
-      <>
-         <Snackbar />
-         <GlobalContainer>
-            <CardContainer>
-               {charityData?.map((item) => {
-                  return (
-                     <CharityCard
-                        key={item.id}
-                        id={item.id}
-                        userId={item.userId}
-                        icon={item.userImage}
-                        userName={item.fullName}
-                        birthDate={item.birthDate}
-                        title={item.charityName}
-                        img={item.image}
-                        state={item.state}
-                        date={item.dateAdded}
-                        disableMeatalls={item.isReserved}
-                        reserve={item.isReserved}
-                        reserveIcon={item.reserveUserImage}
-                        isAnonymous={item.isAnonymous}
-                        handleDelete={deleteCharityHandler}
-                        handleBlock={blockCharity}
-                        adminCharity
-                     />
-                  )
-               })}
-            </CardContainer>
-         </GlobalContainer>
-      </>
+      <GlobalContainer>
+         <CardContainer>
+            {charityData?.map((item) => {
+               return (
+                  <CharityCard
+                     key={item.id}
+                     id={item.id}
+                     userId={item.userId}
+                     icon={item.userImage}
+                     userName={item.fullName}
+                     birthDate={item.birthDate}
+                     title={item.charityName}
+                     img={item.image}
+                     state={item.state}
+                     date={item.dateAdded}
+                     disableMeatalls={item.isReserved}
+                     reserve={item.isReserved}
+                     reserveIcon={item.reserveUserImage}
+                     isAnonymous={item.isAnonymous}
+                     handleDelete={deleteCharityHandler}
+                     handleBlock={blockCharity}
+                     adminCharity
+                  />
+               )
+            })}
+         </CardContainer>
+      </GlobalContainer>
    )
 }
 const GlobalContainer = styled('div')`

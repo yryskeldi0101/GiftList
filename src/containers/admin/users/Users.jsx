@@ -13,7 +13,6 @@ import {
    deleteUserRequest,
    getAllUsersRequest,
 } from '../../../service/userService'
-import Snackbar from '../../../components/button/SnackBar'
 
 const Users = () => {
    const [searchParams, setSearchParams] = useSearchParams()
@@ -107,7 +106,6 @@ const Users = () => {
    }, [page])
    return (
       <>
-         <Snackbar />
          <MyModal open={booleanOpen} onClose={onCloseModal}>
             <GlobalModalContainer>
                <SecondContainer>

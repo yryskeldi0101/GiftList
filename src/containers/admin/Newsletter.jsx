@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo } from 'react'
-import { Snackbar, styled } from '@mui/material'
+import { styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import MyButton from '../../components/UI/Button'
 import { ReactComponent as MailingIcon } from '../../assets/icons/mailing.svg'
@@ -110,7 +110,6 @@ const Newsletter = () => {
    }, [])
    return (
       <>
-         <Snackbar />
          <MailingModal
             open={open}
             onClose={closeModalHandler}

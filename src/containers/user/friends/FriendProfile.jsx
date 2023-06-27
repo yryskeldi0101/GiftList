@@ -13,7 +13,6 @@ import {
    rejectApplicationRequest,
 } from '../../../service/friendsService'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 
 const FriendProfile = () => {
    const profileData = useSelector((state) => state.friends.friendProfile)
@@ -102,54 +101,51 @@ const FriendProfile = () => {
       }
    }
    return (
-      <>
-         <Snackbar />
+      <div>
          <div>
-            <div>
-               <CustomProfile
-                  profileData={profileData}
-                  deleteOrAddToFriendHandler={deleteOrAddToFriendHandler}
-                  acceptHandler={acceptApplicationHandler}
-                  rejectHandler={rejectApplicationHandler}
-               />
-            </div>
-            <Container>
-               {appSelectData.map((item) => {
-                  return (
-                     <ItemContainer key={item.id}>
-                        <StyledTitileContainer>
-                           <h2>{item.title}</h2>
-                           <StyledNavlink
-                              to={item.pathName}
-                              state={{
-                                 dataHoliday,
-                                 dataWishList,
-                                 dataCharity,
-                              }}
-                           >
-                              {item.pathTitle}
-                           </StyledNavlink>
-                        </StyledTitileContainer>
-                        <ArrayContainer>
-                           <AdminCard
-                              key={item.id}
-                              display={item.display}
-                              dataWishlist={item.dataWishlist}
-                              dataHolidays={item.dataHoliday}
-                              dataCharity={item.dataCharity}
-                              dataCategory={item.dataCategory}
-                              anchorEl={item.anchorEl}
-                              open={item.open}
-                              handleClick={item.handleClick}
-                              handleClose={item.handleClose}
-                           />
-                        </ArrayContainer>
-                     </ItemContainer>
-                  )
-               })}
-            </Container>
+            <CustomProfile
+               profileData={profileData}
+               deleteOrAddToFriendHandler={deleteOrAddToFriendHandler}
+               acceptHandler={acceptApplicationHandler}
+               rejectHandler={rejectApplicationHandler}
+            />
          </div>
-      </>
+         <Container>
+            {appSelectData.map((item) => {
+               return (
+                  <ItemContainer key={item.id}>
+                     <StyledTitileContainer>
+                        <h2>{item.title}</h2>
+                        <StyledNavlink
+                           to={item.pathName}
+                           state={{
+                              dataHoliday,
+                              dataWishList,
+                              dataCharity,
+                           }}
+                        >
+                           {item.pathTitle}
+                        </StyledNavlink>
+                     </StyledTitileContainer>
+                     <ArrayContainer>
+                        <AdminCard
+                           key={item.id}
+                           display={item.display}
+                           dataWishlist={item.dataWishlist}
+                           dataHolidays={item.dataHoliday}
+                           dataCharity={item.dataCharity}
+                           dataCategory={item.dataCategory}
+                           anchorEl={item.anchorEl}
+                           open={item.open}
+                           handleClick={item.handleClick}
+                           handleClose={item.handleClose}
+                        />
+                     </ArrayContainer>
+                  </ItemContainer>
+               )
+            })}
+         </Container>
+      </div>
    )
 }
 
