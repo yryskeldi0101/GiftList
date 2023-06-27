@@ -128,7 +128,6 @@ const HeaderActions = styled('div')`
    justify-content: space-between;
    align-items: center;
    gap: 16px;
-   margin-right: 40px;
 
    div {
       width: 82px;
@@ -162,5 +161,5 @@ const Wishes = styled('div')`
    align-items: center;
    flex-wrap: wrap;
    gap: 20px;
-   margin-right: 40px;
+   width: 100%;
 `

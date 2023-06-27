@@ -29,5 +29,5 @@ export default memo(AllHolidays)
 
 const Container = styled('div')`
    margin-top: 50px;
-   max-width: 1170px;
+   width: 100%;
 `

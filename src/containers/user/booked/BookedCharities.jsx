@@ -70,13 +70,14 @@ const StyledContainer = styled('div')`
    display: flex;
    align-items: center;
    flex-wrap: wrap;
-   gap: 50px;
+   gap: 40px;
 `
 const Main = styled('div')`
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin: 30px 0 24px;
+   margin-top: 30px;
+   margin-bottom: 24px;
 `
 const Titile = styled('h2')`
    font-family: 'Inter';

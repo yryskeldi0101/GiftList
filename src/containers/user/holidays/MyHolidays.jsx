@@ -314,5 +314,6 @@ const Text = styled('h3')({
 })
 
 const StyledMyButton = styled(MyButton)`
-   margin: 32px;
+   margin-top: 30px;
+   margin-bottom: 30px;
 `

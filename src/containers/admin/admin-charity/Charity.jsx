@@ -99,7 +99,7 @@ const GlobalContainer = styled('div')`
 const CardContainer = styled('div')`
    display: flex;
    flex-wrap: wrap;
-   gap: 60px;
-   max-width: 1170px;
+   gap: 40px;
+   width: 100%;
 `
 export default memo(AdminCharity)

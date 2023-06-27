@@ -8,7 +8,7 @@ import {
    getRequestHoliday,
    postRequestLentaComplain,
    postRequestLentaPresent,
-} from '../../service/lenta.service'
+} from '../../service/lentaService'
 import RadioButton from './RadioButton'
 import useToastBar from '../../hooks/useToastBar'
 import Snackbar from '../button/SnackBar'

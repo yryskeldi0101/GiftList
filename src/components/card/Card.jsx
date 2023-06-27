@@ -16,7 +16,7 @@ import {
    postRequestLentaBooking,
    deleteRequestLentaBooking,
    getRequestLentaCard,
-} from '../../service/lenta.service'
+} from '../../service/lentaService'
 import useToastBar from '../../hooks/useToastBar'
 import Meatballs from '../UI/Meatballs'
 

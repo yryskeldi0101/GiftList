@@ -47,5 +47,5 @@ const Booked = () => {
 export default memo(Booked)
 
 const BookedContainer = styled('div')`
-   max-width: 1150px;
+   width: 100%;
 `
