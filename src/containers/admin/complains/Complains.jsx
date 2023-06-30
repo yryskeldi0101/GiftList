@@ -52,7 +52,7 @@ const Complains = () => {
                </StyledSpinner>
             ) : (
                <ComplainCards>
-                  {complains.charityResponseWIthComplaints?.map((obj) => (
+                  {complains.charityResponseWithComplaints?.map((obj) => (
                      <Cards
                         key={obj.id}
                         id={obj.id}

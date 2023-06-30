@@ -30,7 +30,7 @@ const SignIn = ({
    const submitHandler = (data) => {
       dispatch(signIn(data))
          .unwrap()
-         .then(() => showToast('succes', 'Успешно', 'Вы вошли успешно'))
+         .then(() => showToast('success', 'Успешно', 'Вы вошли успешно'))
          .catch(() =>
             showToast('error', 'Ошибка', 'Не верный пороль или email')
          )
