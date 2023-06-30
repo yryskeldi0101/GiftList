@@ -4,7 +4,6 @@ import { styled } from '@mui/material'
 import { getAllBooked, postBookedWish } from '../../../redux/booked/bookedThunk'
 import Cards from '../../../components/card/Card'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 
 export const AllWishesPage = () => {
    const dispatch = useDispatch()
@@ -31,34 +30,31 @@ export const AllWishesPage = () => {
          .catch(() => showToast('error', 'Ошибка', 'Что-то пошло не так'))
    }
    return (
-      <>
-         <Snackbar />
-         <GlobalContainer>
-            <Title>Желания</Title>
-            <Main>
-               {allWishBooked.wishes?.map((item) => {
-                  return (
-                     <div key={item.id}>
-                        <Cards
-                           id={item.id}
-                           icon={item.photo}
-                           userName={item.fullName}
-                           birthDate={item.birthDate}
-                           title={item.holidayName}
-                           img={item.image}
-                           date={item.date}
-                           openMeatballs={item.openMeatballs}
-                           meatballsChangeHandler={item.meatballsChangeHandler}
-                           changeCard={true}
-                           bookChange={true}
-                           reserveHandler={addToMyPresents}
-                        />
-                     </div>
-                  )
-               })}
-            </Main>
-         </GlobalContainer>
-      </>
+      <GlobalContainer>
+         <Title>Желания</Title>
+         <Main>
+            {allWishBooked.wishes?.map((item) => {
+               return (
+                  <div key={item.id}>
+                     <Cards
+                        id={item.id}
+                        icon={item.photo}
+                        userName={item.fullName}
+                        birthDate={item.birthDate}
+                        title={item.holidayName}
+                        img={item.image}
+                        date={item.date}
+                        openMeatballs={item.openMeatballs}
+                        meatballsChangeHandler={item.meatballsChangeHandler}
+                        changeCard={true}
+                        bookChange={true}
+                        reserveHandler={addToMyPresents}
+                     />
+                  </div>
+               )
+            })}
+         </Main>
+      </GlobalContainer>
    )
 }
 

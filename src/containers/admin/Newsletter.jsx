@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Snackbar, styled } from '@mui/material'
+import React, { useEffect, useState, memo } from 'react'
+import { styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import MyButton from '../../components/UI/Button'
 import { ReactComponent as MailingIcon } from '../../assets/icons/mailing.svg'
@@ -110,7 +110,6 @@ const Newsletter = () => {
    }, [])
    return (
       <>
-         <Snackbar />
          <MailingModal
             open={open}
             onClose={closeModalHandler}
@@ -152,11 +151,10 @@ const Newsletter = () => {
    )
 }
 
-export default Newsletter
+export default memo(Newsletter)
 
 const ButtonContainer = styled('div')`
    display: flex;
-   max-width: 1170px;
    align-items: center;
    justify-content: flex-end;
    margin-top: 32px;
@@ -165,8 +163,7 @@ const GlobalContainer = styled('div')`
    display: flex;
    flex-wrap: wrap;
    margin-top: 30px;
-   max-width: 1170px;
-   gap: 60px;
+   gap: 43px;
    row-gap: 50px;
 `
 const Container = styled('div')`

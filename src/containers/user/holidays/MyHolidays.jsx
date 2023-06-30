@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material/styles'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { format } from 'date-fns'
@@ -147,7 +147,7 @@ const MyHolidays = () => {
             }
             dispatch(postHoliday(data))
             onCloseModal()
-            showToast('success', 'Праздник успешно добавлен!')
+            showToast('success', 'Успешно', 'Праздник успешно добавлен!')
          }
       } else {
          showToast('warning', 'Пожалуйста!', 'Заполните все поля')
@@ -165,7 +165,7 @@ const MyHolidays = () => {
             }
             dispatch(updateHolidayThunk({ data, ubdateId }))
             onCloseModal()
-            showToast('success', '', 'Праздник успешно изменен!')
+            showToast('success', 'Успешно', 'Праздник успешно изменен!')
          }
       } else {
          showToast('warning', 'Пожалуйста!', 'Заполните все поля')
@@ -284,7 +284,7 @@ const MyHolidays = () => {
    )
 }
 
-export default MyHolidays
+export default memo(MyHolidays)
 
 const Container = styled('div')({
    display: 'flex',
@@ -314,5 +314,6 @@ const Text = styled('h3')({
 })
 
 const StyledMyButton = styled(MyButton)`
-   margin: 32px;
+   margin-top: 30px;
+   margin-bottom: 30px;
 `

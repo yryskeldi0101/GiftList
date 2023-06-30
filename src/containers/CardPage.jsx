@@ -1,6 +1,6 @@
 import { Card, styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { useParams } from 'react-router-dom'
 import MyButton from '../components/UI/Button'
 import { postRequestLentaBooking } from '../service/lenta.service'
@@ -82,7 +82,7 @@ function CardPage() {
    )
 }
 
-export default CardPage
+export default memo(CardPage)
 
 const StyledCheckbox = styled('div')(() => ({
    display: 'flex',
@@ -94,9 +94,8 @@ const StyledCard = styled(Card)(() => ({
    background: '#FFFFFF',
    border: '2px solid #FFFFFF',
    borderRadius: '10px',
-   width: '1086px',
-   height: '871px',
-   position: 'relative',
+   height: '571px',
+   width: '100%',
    marginTop: '26px',
 }))
 
@@ -121,8 +120,9 @@ const InfoBox = styled('div')(() => ({
 
 const HeaderBox = styled('div')(() => ({
    display: 'flex',
-   justifyContent: 'space-between',
    alignItems: 'center',
+   justifyContent: 'space-between',
+   width: '100%',
 }))
 
 const TitleBox = styled('div')(() => ({
@@ -149,7 +149,7 @@ const UserName = styled('h4')(() => ({
 const StyledPending = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
-   marginLeft: '330px',
+   marginLeft: '25rem',
    p: {
       marginRight: '4px',
       marginLeft: '10px',

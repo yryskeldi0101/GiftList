@@ -8,14 +8,18 @@ import MyButton from '../UI/Button'
 import ReusableInput from '../UI/input/Input'
 
 import { postForgetPassword } from '../../redux/reducer/auth/authThunk'
+import useToastBar from '../../hooks/useToastBar'
 
 const ForgotPassword = React.forwardRef(({ openModal, onCloseModal }, ref) => {
    const { register, handleSubmit, formState } = useForm()
    const dispatch = useDispatch()
    const baseUrl = window.location.origin
-
+   const { showToast } = useToastBar()
    const submitHandler = ({ email }) => {
       dispatch(postForgetPassword({ email, baseUrl }))
+         .unwrap()
+         .then(() => showToast('success', 'Успешно', 'Пароль успешно изменен'))
+         .catch(() => showToast('error', 'Ошибка', 'Что-то пошло не так'))
    }
    return (
       <div>

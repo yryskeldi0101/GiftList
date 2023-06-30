@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -13,7 +13,6 @@ import {
 import EmptyTextarea from '../../../components/UI/textarea/Textarea'
 import MyButton from '../../../components/UI/Button'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 import Spinner from '../../../components/UI/Spinner'
 import {
    addCharityRequest,
@@ -135,178 +134,163 @@ const CharityAdd = () => {
       return formIsEmpty
    }
    return (
-      <>
-         <Snackbar />
-         <form onSubmit={handleSubmit(submitHandler)}>
-            <StyledGlobalContainer>
-               <StyledImgContainer>
-                  <div>
-                     <StyledImgIconContainer>
-                        {(imageUrl && (
-                           <label htmlFor="file-input">
-                              <StyledImgProfileWidth src={imageUrl} alt="img" />
-                           </label>
-                        )) || (
-                           <StyledImgText htmlFor="file-input">
-                              <div>
-                                 <AddImg />
-                                 <p> Нажмите для добавления фотографии</p>
-                              </div>
-                           </StyledImgText>
-                        )}
-                     </StyledImgIconContainer>
+      <form onSubmit={handleSubmit(submitHandler)}>
+         <StyledGlobalContainer>
+            <StyledImgContainer>
+               <div>
+                  <StyledImgIconContainer>
+                     {(imageUrl && (
+                        <label htmlFor="file-input">
+                           <StyledImgProfileWidth src={imageUrl} alt="img" />
+                        </label>
+                     )) || (
+                        <StyledImgText htmlFor="file-input">
+                           <div>
+                              <AddImg />
+                              <p> Нажмите для добавления фотографии</p>
+                           </div>
+                        </StyledImgText>
+                     )}
+                  </StyledImgIconContainer>
 
-                     <StyledInputOfTypeFile
-                        id="file-input"
-                        accept="image/*"
-                        type="file"
-                        placeholder="Нажмите для добавления фотографии"
-                        onChange={handleImageChange}
+                  <StyledInputOfTypeFile
+                     id="file-input"
+                     accept="image/*"
+                     type="file"
+                     placeholder="Нажмите для добавления фотографии"
+                     onChange={handleImageChange}
+                  />
+               </div>
+            </StyledImgContainer>
+
+            <StyledInputAndSelctsGlobalContainer>
+               <div>
+                  <StyledTitle>Добавление вещи</StyledTitle>
+               </div>
+               <StyledInputAndSelectsContainer>
+                  <div>
+                     <StyledTitleForSelects>
+                        Название подарка
+                     </StyledTitleForSelects>
+                     <StyledReusebleInput
+                        id="titleInputValue"
+                        name="titleInputValue"
+                        placeholder="Введите название подарка"
+                        {...register('titleInputValue', { required: true })}
+                        borderError={errors?.titleInputValue ? 'true' : 'false'}
                      />
                   </div>
-               </StyledImgContainer>
-
-               <StyledInputAndSelctsGlobalContainer>
+                  <StyledMarginLefts>
+                     <StyledSelectContainer>
+                        <StyledTitleForSelects>Cостояние</StyledTitleForSelects>
+                        <AppSelect
+                           id="stateValue"
+                           name="stateValue"
+                           background="none"
+                           options={stateArray}
+                           height="30px"
+                           value={watchStateValue}
+                           placeholder="Укажите состояние"
+                           {...register('stateValue', {
+                              required: true,
+                           })}
+                           borderError={errors?.stateValue ? 'true' : 'false'}
+                        />
+                     </StyledSelectContainer>
+                  </StyledMarginLefts>
                   <div>
-                     <StyledTitle>Добавление вещи</StyledTitle>
+                     <StyledTitleForSelects>Категория</StyledTitleForSelects>
+                     <AppSelect
+                        background="none"
+                        options={categoryArray}
+                        height="30px"
+                        placeholder="Выберите категорию"
+                        id="categoryValue"
+                        name="categoryValue"
+                        value={watchCategoryValue}
+                        {...register('categoryValue', {
+                           required: true,
+                        })}
+                        borderError={errors?.categoryValue ? 'true' : 'false'}
+                     />
                   </div>
-                  <StyledInputAndSelectsContainer>
-                     <div>
-                        <StyledTitleForSelects>
-                           Название подарка
-                        </StyledTitleForSelects>
-                        <StyledReusebleInput
-                           id="titleInputValue"
-                           name="titleInputValue"
-                           placeholder="Введите название подарка"
-                           {...register('titleInputValue', { required: true })}
-                           borderError={
-                              errors?.titleInputValue ? 'true' : 'false'
-                           }
-                        />
-                     </div>
-                     <StyledMarginLefts>
-                        <StyledSelectContainer>
-                           <StyledTitleForSelects>
-                              Cостояние
-                           </StyledTitleForSelects>
-                           <AppSelect
-                              id="stateValue"
-                              name="stateValue"
-                              background="none"
-                              options={stateArray}
-                              height="30px"
-                              value={watchStateValue}
-                              placeholder="Укажите состояние"
-                              {...register('stateValue', {
-                                 required: true,
-                              })}
-                              borderError={
-                                 errors?.stateValue ? 'true' : 'false'
-                              }
-                           />
-                        </StyledSelectContainer>
-                     </StyledMarginLefts>
-                     <div>
-                        <StyledTitleForSelects>Категория</StyledTitleForSelects>
-                        <AppSelect
-                           background="none"
-                           options={categoryArray}
-                           height="30px"
-                           placeholder="Выберите категорию"
-                           id="categoryValue"
-                           name="categoryValue"
-                           value={watchCategoryValue}
-                           {...register('categoryValue', {
-                              required: true,
-                           })}
-                           borderError={
-                              errors?.categoryValue ? 'true' : 'false'
-                           }
-                        />
-                     </div>
-                     <StyledMarginLefts>
-                        <StyledTitleForSelects>
-                           Подкатегория
-                        </StyledTitleForSelects>
-                        <AppSelect
-                           background="none"
-                           options={subcategoryArray}
-                           height="30px"
-                           id="subCategoryValue"
-                           value={watchSubCategoryValue}
-                           name="subCategoryValue"
-                           placeholder="Выберите подкатегорию"
-                           {...register('subCategoryValue', {
-                              required: true,
-                           })}
-                           borderError={
-                              errors?.subCategoryValue ? 'true' : 'false'
-                           }
-                        />
-                     </StyledMarginLefts>
-                  </StyledInputAndSelectsContainer>
-                  <div>
-                     <StyledDescription>Описание</StyledDescription>
-                     <EmptyTextarea
-                        title="Введите описание подарка"
-                        id="descriptionValue"
-                        name="descriptionValue"
-                        rows="4"
-                        {...register('descriptionValue', { required: true })}
+                  <StyledMarginLefts>
+                     <StyledTitleForSelects>Подкатегория</StyledTitleForSelects>
+                     <AppSelect
+                        background="none"
+                        options={subcategoryArray}
+                        height="30px"
+                        id="subCategoryValue"
+                        value={watchSubCategoryValue}
+                        name="subCategoryValue"
+                        placeholder="Выберите подкатегорию"
+                        {...register('subCategoryValue', {
+                           required: true,
+                        })}
                         borderError={
-                           errors?.descriptionValue ? 'true' : 'false'
+                           errors?.subCategoryValue ? 'true' : 'false'
                         }
                      />
-                  </div>
-                  <StyledButtonContainer>
+                  </StyledMarginLefts>
+               </StyledInputAndSelectsContainer>
+               <div>
+                  <StyledDescription>Описание</StyledDescription>
+                  <EmptyTextarea
+                     title="Введите описание подарка"
+                     id="descriptionValue"
+                     name="descriptionValue"
+                     rows="4"
+                     {...register('descriptionValue', { required: true })}
+                     borderError={errors?.descriptionValue ? 'true' : 'false'}
+                  />
+               </div>
+               <StyledButtonContainer>
+                  <MyButton
+                     variant="outlined"
+                     background="#ffffff"
+                     defaultcolor="#8D949E"
+                     propswidth="113px"
+                     outlinedbordercolor="#8D949E"
+                     propsborderradius="10px"
+                     onClick={navigateToCharityHandler}
+                  >
+                     Отмена
+                  </MyButton>
+                  {id ? (
                      <MyButton
-                        variant="outlined"
-                        background="#ffffff"
-                        defaultcolor="#8D949E"
+                        variant="contained"
                         propswidth="113px"
-                        outlinedbordercolor="#8D949E"
+                        background="#8639B5"
+                        defaultcolor="#ffffff"
+                        hoverbackgroundcolor="#612386"
+                        activebackgroundcolor="#AB62D8"
                         propsborderradius="10px"
-                        onClick={navigateToCharityHandler}
+                        type="submit"
                      >
-                        Отмена
+                        {isLoading ? <Spinner /> : 'Cохранить'}
                      </MyButton>
-                     {id ? (
-                        <MyButton
-                           variant="contained"
-                           propswidth="113px"
-                           background="#8639B5"
-                           defaultcolor="#ffffff"
-                           hoverbackgroundcolor="#612386"
-                           activebackgroundcolor="#AB62D8"
-                           propsborderradius="10px"
-                           type="submit"
-                        >
-                           {isLoading ? <Spinner /> : 'Cохранить'}
-                        </MyButton>
-                     ) : (
-                        <MyButton
-                           variant="contained"
-                           propswidth="113px"
-                           background="#8639B5"
-                           defaultcolor="#ffffff"
-                           hoverbackgroundcolor="#612386"
-                           activebackgroundcolor="#AB62D8"
-                           propsborderradius="10px"
-                           type="submit"
-                        >
-                           {isLoading ? <Spinner /> : 'Добавить'}
-                        </MyButton>
-                     )}
-                  </StyledButtonContainer>
-               </StyledInputAndSelctsGlobalContainer>
-            </StyledGlobalContainer>
-         </form>
-      </>
+                  ) : (
+                     <MyButton
+                        variant="contained"
+                        propswidth="113px"
+                        background="#8639B5"
+                        defaultcolor="#ffffff"
+                        hoverbackgroundcolor="#612386"
+                        activebackgroundcolor="#AB62D8"
+                        propsborderradius="10px"
+                        type="submit"
+                     >
+                        {isLoading ? <Spinner /> : 'Добавить'}
+                     </MyButton>
+                  )}
+               </StyledButtonContainer>
+            </StyledInputAndSelctsGlobalContainer>
+         </StyledGlobalContainer>
+      </form>
    )
 }
 
-export default CharityAdd
+export default memo(CharityAdd)
 
 const StyledReusebleInput = styled(ReusableInput)`
    width: 396px;

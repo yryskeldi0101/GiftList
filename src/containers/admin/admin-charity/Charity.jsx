@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import {
    blockAdminCharityRequest,
@@ -6,7 +6,6 @@ import {
    getAllAdminCharityRequest,
 } from '../../../service/charityAdminService'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 import CharityCard from '../../../components/card/CharityCard'
 
 const AdminCharity = () => {
@@ -61,37 +60,33 @@ const AdminCharity = () => {
    }, [])
    const charityData = charities || []
    return (
-      <>
-         <Snackbar />
-         <GlobalContainer>
-            <CardContainer>
-               {charityData?.map((item) => {
-                  console.log(item, 'iteeem')
-                  return (
-                     <CharityCard
-                        key={item.id}
-                        id={item.id}
-                        userId={item.userId}
-                        icon={item.userImage}
-                        userName={item.fullName}
-                        birthDate={item.birthDate}
-                        title={item.charityName}
-                        img={item.image}
-                        state={item.state}
-                        date={item.dateAdded}
-                        disableMeatalls={item.isReserved}
-                        reserve={item.isReserved}
-                        reserveIcon={item.userImage}
-                        isAnonymous={item.isAnonymous}
-                        handleDelete={deleteCharityHandler}
-                        handleBlock={blockCharity}
-                        adminCharity
-                     />
-                  )
-               })}
-            </CardContainer>
-         </GlobalContainer>
-      </>
+      <GlobalContainer>
+         <CardContainer>
+            {charityData?.map((item) => {
+               return (
+                  <CharityCard
+                     key={item.id}
+                     id={item.id}
+                     userId={item.userId}
+                     icon={item.userImage}
+                     userName={item.fullName}
+                     birthDate={item.birthDate}
+                     title={item.charityName}
+                     img={item.image}
+                     state={item.state}
+                     date={item.dateAdded}
+                     disableMeatalls={item.isReserved}
+                     reserve={item.isReserved}
+                     reserveIcon={item.reserveUserImage}
+                     isAnonymous={item.isAnonymous}
+                     handleDelete={deleteCharityHandler}
+                     handleBlock={blockCharity}
+                     adminCharity
+                  />
+               )
+            })}
+         </CardContainer>
+      </GlobalContainer>
    )
 }
 const GlobalContainer = styled('div')`
@@ -100,7 +95,7 @@ const GlobalContainer = styled('div')`
 const CardContainer = styled('div')`
    display: flex;
    flex-wrap: wrap;
-   gap: 60px;
-   max-width: 1170px;
+   gap: 40px;
+   width: 100%;
 `
-export default AdminCharity
+export default memo(AdminCharity)

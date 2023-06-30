@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import bagIcon from '../../../assets/images/Bag.png'
@@ -13,7 +13,6 @@ import {
    getCharityRequest,
    reserveCharityRequest,
 } from '../../../service/charityService'
-import Snackbar from '../../../components/button/SnackBar'
 import CharityCard from '../../../components/card/CharityCard'
 
 const UserCharity = () => {
@@ -65,74 +64,69 @@ const UserCharity = () => {
    }
 
    return (
-      <>
-         <Snackbar />
-         <div>
-            <StyledContainer>
-               <Title>Благотворительность</Title>
-               <IconsContainer>
-                  <Images src={bagIcon} alt="bag" />
-                  <Images src={plaidIcon} alt="plaid" />
-                  <Images src={shirtIcon} alt="shirt" />
-               </IconsContainer>
-               <ButtonContainer>
-                  <MyButton
-                     variant="contained"
-                     hoverbackgroundcolor="#9c04fa"
-                     background="#8639B5"
-                     activebackgroundcolor="#44046b"
-                     defaultcolor="#ffff"
-                     onClick={navigateToAddCharityHandler}
-                  >
-                     <PlusIcon />
-                     Добавить подарок
-                  </MyButton>
-               </ButtonContainer>
-            </StyledContainer>
-            <CardContainer>
-               <StyledCardContainer>
-                  {charityData?.map((item) => {
-                     return (
-                        <div key={item.id}>
-                           <CharityCard
-                              navigateToCharityDetails={
-                                 navigateToCharityDetails
-                              }
-                              reserveHandler={reserveCharityHandler}
-                              id={item.id}
-                              userId={item.userId}
-                              icon={item.userImage}
-                              userName={item.fullName}
-                              birthDate={item.birthDate}
-                              title={item.charityName}
-                              img={item.image}
-                              state={item.state}
-                              date={item.dateAdded}
-                              disableMeatalls={item.isReserved}
-                              reserve={item.isReserved}
-                              charityMeatballs={item.isAnonymous}
-                              isAnonymous={item.isAnonymous}
-                              expectation={item.isReserved}
-                              reserveIcon={item.userImage}
-                              reserveUserImage={item.reserveUserImage}
-                              userCharity
-                           />
-                        </div>
-                     )
-                  })}
-               </StyledCardContainer>
-            </CardContainer>
-         </div>
-      </>
+      <div>
+         <StyledContainer>
+            <Title>Благотворительность</Title>
+            <IconsContainer>
+               <Images src={bagIcon} alt="bag" />
+               <Images src={plaidIcon} alt="plaid" />
+               <Images src={shirtIcon} alt="shirt" />
+            </IconsContainer>
+            <ButtonContainer>
+               <MyButton
+                  variant="contained"
+                  hoverbackgroundcolor="#9c04fa"
+                  background="#8639B5"
+                  activebackgroundcolor="#44046b"
+                  defaultcolor="#ffff"
+                  onClick={navigateToAddCharityHandler}
+               >
+                  <PlusIcon />
+                  Добавить подарок
+               </MyButton>
+            </ButtonContainer>
+         </StyledContainer>
+         <CardContainer>
+            <StyledCardContainer>
+               {charityData?.map((item) => {
+                  return (
+                     <div key={item.id}>
+                        <CharityCard
+                           navigateToCharityDetails={navigateToCharityDetails}
+                           reserveHandler={reserveCharityHandler}
+                           id={item.id}
+                           userId={item.userId}
+                           icon={item.userImage}
+                           userName={item.fullName}
+                           birthDate={item.birthDate}
+                           title={item.charityName}
+                           img={item.image}
+                           state={item.state}
+                           date={item.dateAdded}
+                           disableMeatalls={item.isReserved}
+                           reserve={item.isReserved}
+                           charityMeatballs={item.isAnonymous}
+                           isAnonymous={item.isAnonymous}
+                           expectation={item.isReserved}
+                           reserveIcon={item.reserveUserImage}
+                           reserveUserImage={item.reserveUserImage}
+                           userCharity
+                        />
+                     </div>
+                  )
+               })}
+            </StyledCardContainer>
+         </CardContainer>
+      </div>
    )
 }
 
-export default UserCharity
+export default memo(UserCharity)
 const StyledCardContainer = styled('div')`
    display: flex;
-   max-width: 1170px;
    flex-wrap: wrap;
-   gap: 55px;
+   width: 100%;
+   gap: 40px;
    justify-content: flex-start;
    align-items: flex-start;
 `
@@ -166,5 +160,4 @@ const ButtonContainer = styled('div')`
    display: flex;
    justify-content: flex-end;
    width: 100%;
-   margin-right: 40px;
 `

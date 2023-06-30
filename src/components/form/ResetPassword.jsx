@@ -7,6 +7,7 @@ import { ReactComponent as LetterIcon } from '../../assets/icons/Light.svg'
 import MyButton from '../UI/Button'
 import PasswordInput from '../UI/input/PasswordInput'
 import { postResetPassword } from '../../redux/reducer/auth/authThunk'
+import useToastBar from '../../hooks/useToastBar'
 
 const ResetPassword = React.forwardRef(({ token, setOpenModal }, ref) => {
    const {
@@ -15,10 +16,15 @@ const ResetPassword = React.forwardRef(({ token, setOpenModal }, ref) => {
       formState: { errors },
    } = useForm()
    const dispatch = useDispatch()
-
+   const { showToast } = useToastBar()
    const onSubmit = (data) => {
       if (data.confirmPassword === data.password) {
          dispatch(postResetPassword({ data, token }))
+            .unwrap()
+            .then(() =>
+               showToast('success', 'Успешно', 'Пароль успешно изменен')
+            )
+            .catch(() => showToast('error', 'Ошибка', 'Что-то пошло не так'))
       }
    }
    const open = Boolean(token)

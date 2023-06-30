@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deleteCharityReq } from '../../../service/bookedService'
 import useToastBar from '../../../hooks/useToastBar'
-import Snackbar from '../../../components/button/SnackBar'
 import { getBookedCharities } from '../../../redux/booked/bookedThunk'
 import Cards from '../../../components/card/Card'
 
@@ -26,40 +25,37 @@ export const BookedCharities = ({ getChraititesData }) => {
    }
 
    return (
-      <>
-         <Snackbar />
-         <div>
-            <CardsContainer>
-               <Main>
-                  <Titile>Благотворительность</Titile>
-                  <StyledLink to="booked-charity">Смотреть все</StyledLink>
-               </Main>
-               <StyledContainer>
-                  {getChraititesData?.map((item) => {
-                     return (
-                        <div key={item.charityId}>
-                           <Cards
-                              id={item.charityId}
-                              icon={item.photo}
-                              userName={item.fullName}
-                              birthDate={item.birthDate}
-                              title={item.holidayName}
-                              img={item.image}
-                              date={item.date}
-                              openMeatballs={item.openMeatballs}
-                              changeCard={true}
-                              bookChange={false}
-                              deleteHandler={deleteMyCharities}
-                              bookedCard={true}
-                              bookedDelete={true}
-                           />
-                        </div>
-                     )
-                  })}
-               </StyledContainer>
-            </CardsContainer>
-         </div>
-      </>
+      <div>
+         <CardsContainer>
+            <Main>
+               <Titile>Благотворительность</Titile>
+               <StyledLink to="booked-charity">Смотреть все</StyledLink>
+            </Main>
+            <StyledContainer>
+               {getChraititesData?.map((item) => {
+                  return (
+                     <div key={item.charityId}>
+                        <Cards
+                           id={item.charityId}
+                           icon={item.photo}
+                           userName={item.fullName}
+                           birthDate={item.birthDate}
+                           title={item.holidayName}
+                           img={item.image}
+                           date={item.date}
+                           openMeatballs={item.openMeatballs}
+                           changeCard={true}
+                           bookChange={false}
+                           deleteHandler={deleteMyCharities}
+                           bookedCard={true}
+                           bookedDelete={true}
+                        />
+                     </div>
+                  )
+               })}
+            </StyledContainer>
+         </CardsContainer>
+      </div>
    )
 }
 const CardsContainer = styled('div')`
@@ -70,13 +66,14 @@ const StyledContainer = styled('div')`
    display: flex;
    align-items: center;
    flex-wrap: wrap;
-   gap: 50px;
+   gap: 40px;
 `
 const Main = styled('div')`
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin: 30px 0 24px;
+   margin-top: 30px;
+   margin-bottom: 24px;
 `
 const Titile = styled('h2')`
    font-family: 'Inter';

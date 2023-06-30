@@ -314,7 +314,7 @@ export default function Cards({
                                  <WaitingStyled>
                                     <Button>
                                        {reserve
-                                          ? 'Забронировать ананимно'
+                                          ? 'Забронирован ананимно'
                                           : 'В ожидании'}
                                     </Button>
 

@@ -6,7 +6,6 @@ import {
    acceptApplicationRequest,
    rejectApplicationRequest,
 } from '../../../service/friendsService'
-import Snackbar from '../../../components/button/SnackBar'
 
 const RequestsToFriends = ({
    requestToFriend,
@@ -31,36 +30,33 @@ const RequestsToFriends = ({
       }
    }
    return (
-      <>
-         <Snackbar />
-         <div>
-            <Container>
-               {requestToFriend?.map((item) => {
-                  return (
-                     <UserCard
-                        key={item.id}
-                        id={item.id}
-                        fullName={item.fullName}
-                        buttons
-                        changeFlexContent
-                        image={item.image}
-                        count={item.countOfHolidays}
-                        countOfWish={item.countOfWishes}
-                        navigateHandler={() => navigate(`${item.id}/profile`)}
-                        acceptHandler={acceptApplicationHandler}
-                        rejectHandler={rejectApplicationHandler}
-                     />
-                  )
-               })}
-            </Container>
-         </div>
-      </>
+      <div>
+         <Container>
+            {requestToFriend?.map((item) => {
+               return (
+                  <UserCard
+                     key={item.id}
+                     id={item.id}
+                     fullName={item.fullName}
+                     buttons
+                     changeFlexContent
+                     image={item.image}
+                     count={item.countOfHolidays}
+                     countOfWish={item.countOfWishes}
+                     navigateHandler={() => navigate(`${item.id}/profile`)}
+                     acceptHandler={acceptApplicationHandler}
+                     rejectHandler={rejectApplicationHandler}
+                  />
+               )
+            })}
+         </Container>
+      </div>
    )
 }
 const Container = styled('div')`
    margin-top: 24px;
    display: flex;
    flex-wrap: wrap;
-   gap: 45px;
+   gap: 40px;
 `
 export default memo(RequestsToFriends)

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import DetailedPage from '../../DetailedPage '
 import { getOneCharityById } from '../../../redux/charities/charityThunk'
-import Snackbar from '../../../components/button/SnackBar'
 import useToastBar from '../../../hooks/useToastBar'
 import {
    deleteCharityRequest,
@@ -65,32 +64,29 @@ const CharityDetails = () => {
    }
 
    return (
-      <>
-         <Snackbar />
-         <div>
-            <DetailedPage
-               id={userId}
-               userId={params.userId}
-               profileDetails={getOneCharity}
-               reserveUserImage={getOneCharity.bookAgentImage}
-               isReserved={getOneCharity.isReserved}
-               title={getOneCharity.charityName}
-               date={getOneCharity.dateAdded}
-               image={getOneCharity.image}
-               onClick={deleteCharityHandler}
-               handleClick={editCharityHandler}
-               checked={checked}
-               isLoading={isLoading}
-               handleChange={checkBoxChangeHandler}
-               handleReserve={reserveCharityHandler}
-               userCharity
-               complains={false}
-               complainer={false}
-               adminCharity={false}
-            />
-         </div>
-      </>
+      <div>
+         <DetailedPage
+            id={userId}
+            userId={params.userId}
+            profileDetails={getOneCharity}
+            reserveUserImage={getOneCharity.bookAgentImage}
+            isReserved={getOneCharity.isReserved}
+            title={getOneCharity.charityName}
+            date={getOneCharity.dateAdded}
+            image={getOneCharity.image}
+            onClick={deleteCharityHandler}
+            handleClick={editCharityHandler}
+            checked={checked}
+            isLoading={isLoading}
+            handleChange={checkBoxChangeHandler}
+            handleReserve={reserveCharityHandler}
+            userCharity
+            complains={false}
+            complainer={false}
+            adminCharity={false}
+         />
+      </div>
    )
 }
 
-export default CharityDetails
+export default memo(CharityDetails)

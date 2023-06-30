@@ -1,12 +1,11 @@
 import styled from '@emotion/styled'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { getAllComplainsReq } from '../../../service/complainService'
 import useToastBar from '../../../hooks/useToastBar'
 import Cards from '../../../components/card/Card'
 import Spinner from '../../../components/UI/Spinner'
-import Snackbar from '../../../components/button/SnackBar'
 
 const Complains = () => {
    const { showToast } = useToastBar()
@@ -17,7 +16,6 @@ const Complains = () => {
    const getAllComplains = async () => {
       try {
          const { data } = await getAllComplainsReq()
-         console.log(data, 'dataaaa')
          setComplains(data)
          return data
       } catch (error) {
@@ -41,71 +39,66 @@ const Complains = () => {
       navigate(`${id}/charity-details`)
    }
    return (
-      <>
-         <Snackbar />
-         <ComplainTitle>
-            <h1>Жалобы</h1>
+      <ComplainTitle>
+         <h1>Жалобы</h1>
 
-            {isLoading ? (
-               <StyledSpinner>
-                  <Spinner />
-               </StyledSpinner>
-            ) : (
-               <ComplainCards>
-                  {complains.charityResponseWithComplaints?.map((obj) => (
-                     <Cards
-                        key={obj.id}
-                        id={obj.id}
-                        icon={obj.userImage}
-                        secondIcon={obj.whomUserImage}
-                        userName={obj.fullName}
-                        title={obj.name}
-                        img={obj.charityImage}
-                        date={obj.dateOfIssue}
-                        birthDate="День рождения"
-                        reserve={obj.reserve}
-                        changeCard="true"
-                        charityMeatballsHandler={false}
-                        complainChange={true}
-                        display={true}
-                        complainsCard={true}
-                        navigateToCharityDetails={openCharityCardDetails}
-                        meatballsChangeHandler={() =>
-                           openCharityCardDetails(obj.id)
-                        }
-                     />
-                  ))}
+         {isLoading ? (
+            <StyledSpinner>
+               <Spinner />
+            </StyledSpinner>
+         ) : (
+            <ComplainCards>
+               {complains.charityResponseWIthComplaints?.map((obj) => (
+                  <Cards
+                     key={obj.id}
+                     id={obj.id}
+                     icon={obj.userImage}
+                     secondIcon={obj.whomUserImage}
+                     userName={obj.fullName}
+                     title={obj.name}
+                     img={obj.charityImage}
+                     date={obj.dateOfIssue}
+                     birthDate="День рождения"
+                     reserve={obj.reserve}
+                     changeCard="true"
+                     charityMeatballsHandler={false}
+                     complainChange={true}
+                     display={true}
+                     complainsCard={true}
+                     navigateToCharityDetails={openCharityCardDetails}
+                     meatballsChangeHandler={() =>
+                        openCharityCardDetails(obj.id)
+                     }
+                  />
+               ))}
 
-                  {complains.wishResponseWithComplaints?.map((obj) => (
-                     <Cards
-                        key={obj.id}
-                        id={obj.id}
-                        icon={obj.userImage}
-                        secondIcon={obj.whomUserImage}
-                        userName={obj.fullName}
-                        birthDate="День рождения"
-                        title={obj.name}
-                        img={obj.wishImage}
-                        date={obj.dateOfIssue}
-                        reserve={obj.reserve}
-                        changeCard="true"
-                        complainChange={true}
-                        display={true}
-                        complainsCard={true}
-                        navigateToCharityDetails={openWishCardDetails}
-                        meatballsChangeHandler={() =>
-                           openWishCardDetails(obj.id)
-                        }
-                     />
-                  ))}
-               </ComplainCards>
-            )}
-         </ComplainTitle>
-      </>
+               {complains.wishResponseWithComplaints?.map((obj) => (
+                  <Cards
+                     key={obj.id}
+                     id={obj.id}
+                     icon={obj.userImage}
+                     secondIcon={obj.whomUserImage}
+                     userName={obj.fullName}
+                     birthDate="День рождения"
+                     title={obj.name}
+                     img={obj.wishImage}
+                     date={obj.dateOfIssue}
+                     reserve={obj.reserve}
+                     changeCard="true"
+                     complainChange={true}
+                     display={true}
+                     complainsCard={true}
+                     navigateToCharityDetails={openWishCardDetails}
+                     meatballsChangeHandler={() => openWishCardDetails(obj.id)}
+                  />
+               ))}
+            </ComplainCards>
+         )}
+      </ComplainTitle>
    )
 }
 
-export default Complains
+export default memo(Complains)
 
 const ComplainTitle = styled('div')(() => ({
    width: '100%',
@@ -122,7 +115,8 @@ const ComplainTitle = styled('div')(() => ({
 const ComplainCards = styled('div')(() => ({
    display: 'flex',
    flexWrap: 'wrap',
-   gap: '20px',
+   gap: '40px',
+   width: '100%',
 }))
 const StyledSpinner = styled('div')(() => ({
    marginTop: '200px',

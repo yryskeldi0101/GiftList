@@ -37,15 +37,15 @@ const Notification = ({
       navigate(`notification`)
    }
 
-   const navigationHandler = (notificationId) => {
+   const navigationHandler = (notificationId) =>
       navigate(`/${notificationId}/user/notification_profile`)
-   }
+
    const getNotifications = async () => {
       try {
          const { data } = await getRequestNotifications()
          setNotifications(data)
       } catch (error) {
-         console.log(error)
+         throw new Error(error)
       }
    }
    useEffect(() => {

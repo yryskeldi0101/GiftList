@@ -17,11 +17,10 @@ const CharityCard = ({
    state,
    date,
    reserve,
-   reserveIcon,
    isAnonymous,
    adminCharity,
    handleDelete,
-   reserveUserImage,
+   reserveIcon,
    handleBlock,
    reserveHandler,
    navigateToCharityDetails = () => {},
@@ -53,10 +52,10 @@ const CharityCard = ({
          <FooterContainer>
             <h4>{date}</h4>
             <div>
-               {reserveUserImage === null ? (
+               {reserveIcon === null ? (
                   <img src={Avatar} alt="avatar" />
                ) : (
-                  <ReserveUserImage src={reserveUserImage} alt="icon" />
+                  <ReserveUserImage src={reserveIcon} alt="icon" />
                )}
                <p>{reserve ? 'Забронирован' : 'В ожидании'}</p>
                <StyledButton
@@ -145,12 +144,6 @@ const ReserveUserImage = styled('img')(() => ({
    width: '46px',
    height: '46px',
 }))
-// const StyledButton = styled('button')(() => ({
-//    margin: 0,
-//    padding: 0,
-//    background: 'transparent',
-//    border: 'none',
-// }))
 
 const GlobalContainer = styled('div')`
    display: flex;

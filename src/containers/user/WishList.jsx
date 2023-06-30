@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 const WishList = () => {
    return (
@@ -8,4 +8,4 @@ const WishList = () => {
    )
 }
 
-export default WishList
+export default memo(WishList)

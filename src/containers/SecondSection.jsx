@@ -1,5 +1,5 @@
 import { keyframes, styled } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import Scrolltrigger from 'react-scroll-trigger'
 import CountUp from 'react-countup'
 import Like from '../assets/svg/Like.svg'
@@ -471,4 +471,4 @@ const Section = styled('div')`
    margin: 0 auto;
 `
 
-export default SecondSection
+export default memo(SecondSection)
