@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import DetailedPage from '../../DetailedPage '
 import {
@@ -21,6 +21,7 @@ export const ComplainsDetail = () => {
    const { id } = useParams()
    const location = useLocation()
    const dispatch = useDispatch()
+   const navigate = useNavigate()
 
    const getWishDetail = async () => {
       try {
@@ -61,17 +62,57 @@ export const ComplainsDetail = () => {
    }, [])
 
    const blockWishHandler = (id) => {
-      dispatch(blockWish(id))
+      try {
+         dispatch(blockWish(id))
+         navigate('/admin/complaints')
+         return showToast('success', 'Success', 'Успешно заблокировано')
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      }
    }
    const blockCharityHandler = (id) => {
-      dispatch(blockCharity(id))
+      try {
+         dispatch(blockCharity(id))
+         navigate('/admin/complaints')
+         return showToast('success', 'Success', 'Успешно заблокировано')
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      }
    }
 
    const deleteWishHandler = (id) => {
-      dispatch(deleteWish(id))
+      try {
+         dispatch(deleteWish(id))
+         navigate('/admin/complaints')
+         return showToast('success', 'Success', 'Успешно удалено')
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      }
    }
    const deleteCharityHandler = (id) => {
-      dispatch(deleteCharity(id))
+      try {
+         dispatch(deleteCharity(id))
+         navigate('/admin/complaints')
+         return showToast('success', 'Success', 'Успешно удалено')
+      } catch (error) {
+         return showToast(
+            'error',
+            'Ошибка',
+            'Что-то пошло не так повторите попытку позже'
+         )
+      }
    }
    const locationPath =
       location.pathname === `/admin/complaints/${id}/charity-details`
