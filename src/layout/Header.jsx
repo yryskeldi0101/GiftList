@@ -1,29 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IconButton, styled } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import SearchInput from '../components/UI/search-input/SearchInput'
+import { useSearchParams } from 'react-router-dom'
 import { ReactComponent as BallIcon } from '../assets/icons/ball.svg'
 import UserMenu from './HeaderMenu'
+import Notification from '../components/UI/notification/Notification'
+import SearchInput from '../components/UI/search-input/SearchInput'
 
 const Header = () => {
-   const navigate = useNavigate()
-
-   const openNotification = () => {
-      navigate(`notification`)
+   const [searchInputValue, setSearchInputValue] = useState('')
+   const [searchParams, setSearchParams] = useSearchParams()
+   const { open } = Object.fromEntries(searchParams)
+   const openNotification = () => setSearchParams({ open: 'notification' })
+   const closeNotification = () => setSearchParams({})
+   const booleanOpen = Boolean(open)
+   const inputChangeHandler = (e) => setSearchInputValue(e.target.value)
+   const cleanHandler = () => {
+      setSearchInputValue('')
+      window.location.reload()
    }
-
    return (
-      <div>
-         <StyledHeader>
-            <SearchInput />
-            <StyledContainer>
-               <StyledIconButton onClick={openNotification}>
-                  <BallIcon />
-               </StyledIconButton>
-               <UserMenu />
-            </StyledContainer>
-         </StyledHeader>
-      </div>
+      <>
+         <div>
+            <StyledHeader>
+               <SearchInput
+                  inputChangeHandler={inputChangeHandler}
+                  value={searchInputValue}
+                  cleanHandler={cleanHandler}
+               />
+               <StyledContainer>
+                  <StyledIconButton onClick={openNotification}>
+                     <BallIcon />
+                  </StyledIconButton>
+                  <UserMenu />
+               </StyledContainer>
+            </StyledHeader>
+         </div>
+         <Notification
+            open={booleanOpen}
+            onClose={closeNotification}
+            openHandler={openNotification}
+         />
+      </>
    )
 }
 

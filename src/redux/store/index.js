@@ -11,6 +11,7 @@ import { friendSlice } from '../friends/friendSlice'
 import { holidayDetailSlice } from '../holidayDetails/holidayDetailSlice'
 import bookedSlice from '../booked/bookedSlice'
 import { adminCharitySlice } from '../admin-charity/adminCharitySlice'
+import { searchSlice } from '../search/searchSlice'
 
 const store = configureStore({
    reducer: {
@@ -26,6 +27,7 @@ const store = configureStore({
       [mailingSlice.name]: mailingSlice.reducer,
       [friendSlice.name]: friendSlice.reducer,
       [adminCharitySlice.name]: adminCharitySlice.reducer,
+      [searchSlice.name]: searchSlice.reducer,
    },
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

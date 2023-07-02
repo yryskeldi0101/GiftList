@@ -2,6 +2,7 @@ import React, { useEffect, useState, memo } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import UserCard from '../../../components/UI/user-cards/UserCard'
 import MyModal from '../../../components/UI/modal/Modal'
 import { ReactComponent as MoveToTrash } from '../../../assets/icons/trahsicon.svg'
@@ -19,7 +20,7 @@ const Users = () => {
    const [userData, setUserData] = useState([])
    const [userId, setUserId] = useState(null)
    const [page, setPage] = useState(4)
-
+   const searchedAdminUsers = useSelector((state) => state.search.data)
    const { open } = Object.fromEntries(searchParams)
    const { showToast } = useToastBar()
    const onCloseModal = () => setSearchParams({})
@@ -145,7 +146,10 @@ const Users = () => {
                hasMore={true}
             >
                <Container>
-                  {userData?.map((item) => {
+                  {(searchedAdminUsers?.length > 0
+                     ? searchedAdminUsers
+                     : userData
+                  )?.map((item) => {
                      return (
                         <UserCard
                            key={item.id}

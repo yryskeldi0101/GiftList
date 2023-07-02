@@ -1,6 +1,7 @@
 import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import bagIcon from '../../../assets/images/Bag.png'
 import plaidIcon from '../../../assets/images/Plaid.png'
 
@@ -16,10 +17,11 @@ import {
 import CharityCard from '../../../components/card/CharityCard'
 
 const UserCharity = () => {
+   const dataCharitySearched = useSelector((state) => state.search.data)
    const [charityData, setCharityData] = useState([])
    const navigate = useNavigate()
    const { showToast } = useToastBar()
-
+   console.log(dataCharitySearched)
    const navigateToAddCharityHandler = () => navigate('add_charity')
    const navigateToCharityDetails = (id, userId) =>
       navigate(`${id}/${userId}/charity_details`)
@@ -39,6 +41,9 @@ const UserCharity = () => {
    }
    useEffect(() => {
       getCharities()
+      return () => {
+         getCharities()
+      }
    }, [])
 
    const reserveCharityHandler = async (id, anonym) => {
@@ -88,7 +93,10 @@ const UserCharity = () => {
          </StyledContainer>
          <CardContainer>
             <StyledCardContainer>
-               {charityData?.map((item) => {
+               {(dataCharitySearched?.length > 0
+                  ? dataCharitySearched
+                  : charityData
+               )?.map((item) => {
                   return (
                      <div key={item.id}>
                         <CharityCard
@@ -96,8 +104,8 @@ const UserCharity = () => {
                            reserveHandler={reserveCharityHandler}
                            id={item.id}
                            userId={item.userId}
-                           icon={item.userImage}
-                           userName={item.fullName}
+                           icon={item.userImage || item.image}
+                           userName={item.fullName || item.firstName}
                            birthDate={item.birthDate}
                            title={item.charityName}
                            img={item.image}
@@ -108,7 +116,7 @@ const UserCharity = () => {
                            charityMeatballs={item.isAnonymous}
                            isAnonymous={item.isAnonymous}
                            expectation={item.isReserved}
-                           reserveIcon={item.reserveUserImage}
+                           reserveIcon={item.reserveUserImage || item.image}
                            reserveUserImage={item.reserveUserImage}
                            userCharity
                         />
