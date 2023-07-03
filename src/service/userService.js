@@ -1,7 +1,7 @@
 import { axiosInstance } from '../api/axiosInstance'
 
-export const getAllUsersRequest = (page) => {
-   return axiosInstance.get(`/api/user?page=${page}&size=1`)
+export const getAllUsersRequest = () => {
+   return axiosInstance.get(`/api/user?page=${20}&size=1`)
 }
 export const getOneUserByIdRequest = (id) => {
    return axiosInstance.get(`/api/user/${id}`)

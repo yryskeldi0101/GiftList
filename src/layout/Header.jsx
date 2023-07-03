@@ -16,7 +16,6 @@ const Header = () => {
    const inputChangeHandler = (e) => setSearchInputValue(e.target.value)
    const cleanHandler = () => {
       setSearchInputValue('')
-      window.location.reload()
    }
    return (
       <>

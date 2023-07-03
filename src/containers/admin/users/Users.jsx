@@ -2,7 +2,7 @@ import React, { useEffect, useState, memo } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { styled } from '@mui/material'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import UserCard from '../../../components/UI/user-cards/UserCard'
 import MyModal from '../../../components/UI/modal/Modal'
 import { ReactComponent as MoveToTrash } from '../../../assets/icons/trahsicon.svg'
@@ -12,14 +12,12 @@ import useToastBar from '../../../hooks/useToastBar'
 import {
    blockUserRequest,
    deleteUserRequest,
-   getAllUsersRequest,
 } from '../../../service/userService'
+import { getAllAdminUsers } from '../../../redux/search/searchThunk'
 
 const Users = () => {
    const [searchParams, setSearchParams] = useSearchParams()
-   const [userData, setUserData] = useState([])
    const [userId, setUserId] = useState(null)
-   const [page, setPage] = useState(4)
    const searchedAdminUsers = useSelector((state) => state.search.data)
    const { open } = Object.fromEntries(searchParams)
    const { showToast } = useToastBar()
@@ -28,32 +26,19 @@ const Users = () => {
       setUserId(id)
       setSearchParams({ open: 'delete', id })
    }
+   const dispatch = useDispatch()
    const navigate = useNavigate()
    const navigateToDetails = (id, isBlocked) => {
       return navigate(`${id}/user_detail`, { state: { isBlocked } })
    }
    const booleanOpen = Boolean(open)
-   const getAllUsers = async () => {
-      try {
-         const data = await getAllUsersRequest(page)
-         const users = data.data.elements
-         setUserData(users)
-         setPage((prevPage) => prevPage + 4)
-         return users
-      } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'При загрузке данных произошла ошибка! повторите попытку позже'
-         )
-      }
-   }
+
    const deleteUser = async () => {
       try {
          await deleteUserRequest(userId)
          showToast('success', 'Успешно', 'Пользователь успешно удален!')
          onCloseModal()
-         return getAllUsers()
+         return dispatch(getAllAdminUsers())
       } catch (error) {
          return showToast(
             'error',
@@ -78,7 +63,7 @@ const Users = () => {
                'Пользователь успешно заблокирован!'
             )
          }
-         return getAllUsers()
+         return dispatch(getAllAdminUsers())
       } catch (error) {
          return showToast(
             'error',
@@ -88,7 +73,16 @@ const Users = () => {
       }
    }
    useEffect(() => {
-      getAllUsers()
+      dispatch(getAllAdminUsers())
+         .unwrap()
+         .then()
+         .catch(() =>
+            showToast(
+               'error',
+               'Ошибка',
+               'При загрузке данных произошла ошибка! повторите попытку позже'
+            )
+         )
    }, [])
 
    const handleScroll = () => {
@@ -96,7 +90,7 @@ const Users = () => {
          window.innerHeight + document.documentElement.scrollTop ===
          document.documentElement.offsetHeight
       ) {
-         getAllUsers()
+         dispatch(getAllAdminUsers())
       }
    }
    useEffect(() => {
@@ -104,7 +98,7 @@ const Users = () => {
       return () => {
          window.removeEventListener('scroll', handleScroll)
       }
-   }, [page])
+   }, [])
    return (
       <>
          <MyModal open={booleanOpen} onClose={onCloseModal}>
@@ -141,15 +135,11 @@ const Users = () => {
          </MyModal>
          <div>
             <InfiniteScroll
-               dataLength={userData.length}
-               next={getAllUsers}
+               dataLength={searchedAdminUsers.length}
                hasMore={true}
             >
                <Container>
-                  {(searchedAdminUsers?.length > 0
-                     ? searchedAdminUsers
-                     : userData
-                  )?.map((item) => {
+                  {searchedAdminUsers?.map((item) => {
                      return (
                         <UserCard
                            key={item.id}

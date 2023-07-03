@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IconButton, InputBase, styled } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useDebounce } from 'use-debounce'
 import { ReactComponent as IconSearch } from '../../../assets/icons/searchIcon.svg'
 import { ReactComponent as IconDelete } from '../../../assets/icons/Отмена.svg'
 import {
@@ -11,15 +12,19 @@ import {
    subcategoryArray,
 } from '../../../utlis/constants/constnats'
 import AppSelect from '../AppSelect'
-import { searchThunk } from '../../../redux/search/searchThunk'
+import {
+   getAllAdminCharities,
+   getAllUserCharities,
+   searchThunk,
+} from '../../../redux/search/searchThunk'
 import useToastBar from '../../../hooks/useToastBar'
 
-const CustomIcon = ({ handleSearch, value }) => {
+const CustomIcon = () => {
    return (
       <div
          style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}
       >
-         <IconButton onClick={() => handleSearch(value)}>
+         <IconButton>
             <IconSearch />
          </IconButton>
       </div>
@@ -28,7 +33,7 @@ const CustomIcon = ({ handleSearch, value }) => {
 
 const TextFieldWithDropDown = ({
    inputChangeHandler,
-   value,
+   charityInputValue,
    category,
    subCategory,
    stateSelect,
@@ -86,57 +91,66 @@ const TextFieldWithDropDown = ({
    const keyDownHandler = () => {
       setIsChecked(true)
    }
+   const [searchedValue] = useDebounce(charityInputValue, 500)
+
    const dispatch = useDispatch()
    const location = useLocation()
    const { showToast } = useToastBar()
-   const handleSearch = (value) => {
+   useEffect(() => {
       let searchEndpoint = ''
       switch (location.pathname) {
          case '/user/charity':
-            searchEndpoint = `/api/charities/search?keyWord=${value}`
-            dispatch(searchThunk(searchEndpoint))
-               .unwrap()
-               .then((result) => {
-                  if (result.length === 0) {
-                     showToast(
-                        'info',
-                        'Благотворительность',
-                        'с таким названием не существует!'
-                     )
-                  }
-               })
-               .catch(() =>
-                  showToast('error', 'Ошибка', 'не удалось ничего найти')
-               )
+            searchEndpoint = `/api/charities/search?keyWord=${searchedValue}`
+            if (charityInputValue?.trim().length > 0) {
+               dispatch(searchThunk(searchEndpoint))
+                  .unwrap()
+                  .then((result) => {
+                     if (result.length === 0) {
+                        showToast(
+                           'info',
+                           'Благотворительность',
+                           'с таким названием не существует!'
+                        )
+                     }
+                  })
+                  .catch(() =>
+                     showToast('error', 'Ошибка', 'не удалось ничего найти')
+                  )
+            } else {
+               dispatch(getAllUserCharities())
+            }
             break
          case '/admin/charity':
-            searchEndpoint = `/api/charities/search?keyWord=${value}`
-            dispatch(searchThunk(searchEndpoint))
-               .unwrap()
-               .then((result) => {
-                  if (result.length === 0) {
-                     showToast(
-                        'info',
-                        'Благотворительность',
-                        'с таким названием не существует!'
-                     )
-                  }
-               })
-               .catch(() =>
-                  showToast('error', 'Ошибка', 'не удалось ничего найти')
-               )
+            searchEndpoint = `/api/charities/search?keyWord=${searchedValue}`
+            if (charityInputValue?.trim().length > 0) {
+               dispatch(searchThunk(searchEndpoint))
+                  .unwrap()
+                  .then((result) => {
+                     if (result.length === 0) {
+                        showToast(
+                           'info',
+                           'Благотворительность',
+                           'с таким названием не существует!'
+                        )
+                     }
+                  })
+                  .catch(() =>
+                     showToast('error', 'Ошибка', 'не удалось ничего найти')
+                  )
+            } else {
+               dispatch(getAllAdminCharities())
+            }
             break
          default:
-            break
       }
-   }
+   }, [searchedValue])
    return (
       <Container>
-         <CustomIcon handleSearch={handleSearch} value={value} />
+         <CustomIcon />
          <InputSearch
             {...rest}
             onChange={inputChangeHandler}
-            value={value}
+            value={charityInputValue}
             onKeyDown={keyDownHandler}
             type="text"
             variant="outlined"

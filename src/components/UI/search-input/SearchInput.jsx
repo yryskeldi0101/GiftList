@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IconButton, TextField, styled } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useDebounce } from 'use-debounce'
 import { ReactComponent as IconSearch } from '../../../assets/icons/searchIcon.svg'
-import { searchThunk } from '../../../redux/search/searchThunk'
+import {
+   getAllAdminUsers,
+   getAllFriends,
+   searchThunk,
+} from '../../../redux/search/searchThunk'
 import TextFieldWithDropDown from './DropDownTextfield'
 import { ReactComponent as IconDelete } from '../../../assets/icons/Отмена.svg'
 import useToastBar from '../../../hooks/useToastBar'
@@ -30,52 +35,65 @@ const SearchInput = ({
    const dispatch = useDispatch()
    const handleClean = () => {
       setCharityInputValue('')
-      return window.location.reload()
    }
    const handleChange = (e) => setCharityInputValue(e.target.value)
    const keyDownHandler = () => setIsChecked(true)
    const { showToast } = useToastBar()
-   const handleSearch = async (value) => {
+   const [searchedValue] = useDebounce(value, 500)
+
+   useEffect(() => {
       let searchEndpoint = ''
       switch (location.pathname) {
          case '/user/friends':
-            searchEndpoint = `/api/friends/search?keyWord=${value}`
+            searchEndpoint = `/api/friends/search?keyWord=${searchedValue}`
+            if (value.trim().length > 0) {
+               dispatch(searchThunk(searchEndpoint))
+                  .unwrap()
+                  .then((result) => {
+                     if (result.length === 0) {
+                        showToast(
+                           'info',
+                           'Пользователь',
+                           'с таким именем не существует!'
+                        )
+                     }
+                  })
+                  .catch(() =>
+                     showToast('error', 'Ошибка', 'не удалось ничего найти')
+                  )
+            } else {
+               dispatch(getAllFriends())
+            }
+            break
+         case '/user/lenta':
+            searchEndpoint = `/api/feeds?page=1&size=6?keyWord=${searchedValue}`
             dispatch(searchThunk(searchEndpoint))
-               .unwrap()
-               .then((result) => {
-                  if (result.length === 0) {
-                     showToast(
-                        'info',
-                        'Пользователь',
-                        'с таким именем не существует!'
-                     )
-                  }
-               })
-               .catch(() =>
-                  showToast('error', 'Ошибка', 'не удалось ничего найти')
-               )
             break
          case '/admin/users':
-            searchEndpoint = `/api/user/search?keyWord=${value}`
-            dispatch(searchThunk(searchEndpoint))
-               .unwrap()
-               .then((result) => {
-                  if (result.length === 0) {
-                     showToast(
-                        'info',
-                        'Пользователь',
-                        'с таким именем не существует!'
-                     )
-                  }
-               })
-               .catch(() =>
-                  showToast('error', 'Ошибка', 'не удалось ничего найти')
-               )
+            searchEndpoint = `/api/user/search?keyWord=${searchedValue}`
+            if (value.trim().length > 0) {
+               dispatch(searchThunk(searchEndpoint))
+                  .unwrap()
+                  .then((result) => {
+                     if (result.length === 0) {
+                        showToast(
+                           'info',
+                           'Пользователь',
+                           'с таким именем не существует!'
+                        )
+                     }
+                  })
+                  .catch(() =>
+                     showToast('error', 'Ошибка', 'не удалось ничего найти')
+                  )
+            } else {
+               dispatch(getAllAdminUsers())
+            }
             break
          default:
-            break
       }
-   }
+   }, [searchedValue])
+
    return (
       <div>
          {pathname.includes('charity') ? (
@@ -90,7 +108,7 @@ const SearchInput = ({
                subCategouryChangeHandler={subCategouryChangeHandler}
                inputChangeHandler={handleChange}
                handleClean={handleClean}
-               value={charityInputValue}
+               charityInputValue={charityInputValue}
             />
          ) : (
             <InputBlock>
@@ -105,7 +123,7 @@ const SearchInput = ({
                   onKeyDown={keyDownHandler}
                   InputProps={{
                      startAdornment: (
-                        <StyledIconButton onClick={() => handleSearch(value)}>
+                        <StyledIconButton>
                            <IconSearch />
                         </StyledIconButton>
                      ),

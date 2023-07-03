@@ -1,37 +1,38 @@
-import React, { useEffect, useState, memo } from 'react'
+import React, { useEffect, memo } from 'react'
 import { styled } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
    blockAdminCharityRequest,
    deleteAdminCharityRequest,
-   getAllAdminCharityRequest,
+   // getAllAdminCharityRequest,
 } from '../../../service/charityAdminService'
 import useToastBar from '../../../hooks/useToastBar'
 import CharityCard from '../../../components/card/CharityCard'
+import { getAllAdminCharities } from '../../../redux/search/searchThunk'
 
 const AdminCharity = () => {
-   const [charities, setCharities] = useState([])
    const { showToast } = useToastBar()
    const searchedAdminCharity = useSelector((state) => state.search.data)
-   const getAllCharities = async () => {
-      try {
-         const data = await getAllAdminCharityRequest()
-         const charityData = data.data
-         setCharities(charityData)
-         return charities
-      } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'При загрузке данных произошла ошибка! повторите попытку позже'
-         )
-      }
-   }
+   // const getAllCharities = async () => {
+   //    try {
+   //       const data = await getAllAdminCharityRequest()
+   //       const charityData = data.data
+   //       setCharities(charityData)
+   //       return charities
+   //    } catch (error) {
+   //       return showToast(
+   //          'error',
+   //          'Ошибка',
+   //          'При загрузке данных произошла ошибка! повторите попытку позже'
+   //       )
+   //    }
+   // }
+   const dispatch = useDispatch()
    const deleteCharityHandler = async (id) => {
       try {
          await deleteAdminCharityRequest(id)
          showToast('success', 'Успешно', 'Благотворительность успешно удален')
-         return await getAllCharities()
+         return dispatch(getAllAdminCharities())
       } catch (error) {
          return showToast(
             'error',
@@ -48,7 +49,7 @@ const AdminCharity = () => {
             'Успешно',
             'Благотворительность успешно заблокирован'
          )
-         return await getAllCharities()
+         return await dispatch(getAllAdminCharities())
       } catch (error) {
          return showToast(
             'error',
@@ -58,16 +59,12 @@ const AdminCharity = () => {
       }
    }
    useEffect(() => {
-      getAllCharities()
+      dispatch(getAllAdminCharities())
    }, [])
-   const charityData = charities || []
    return (
       <GlobalContainer>
          <CardContainer>
-            {(searchedAdminCharity?.length > 0
-               ? searchedAdminCharity
-               : charityData
-            )?.map((item) => {
+            {searchedAdminCharity?.map((item) => {
                return (
                   <CharityCard
                      key={item.id}

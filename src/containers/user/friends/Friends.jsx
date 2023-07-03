@@ -1,22 +1,20 @@
 import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Tabs from '../../../components/UI/tabs/Tabs'
 import UserCard from '../../../components/UI/user-cards/UserCard'
 import useToastBar from '../../../hooks/useToastBar'
-import {
-   getAllFriendsRequest,
-   getAllRequestsToFriend,
-} from '../../../service/friendsService'
+import { getAllRequestsToFriend } from '../../../service/friendsService'
 import RequestsToFriends from './RequstsToFriends'
+import { getAllFriends } from '../../../redux/search/searchThunk'
 
 const Friends = () => {
-   const [userData, setUserData] = useState([])
    const searchedUsers = useSelector((state) => state.search.data)
    const [requestFirends, setRequestFriends] = useState([])
    const navigate = useNavigate()
    const { showToast } = useToastBar()
+   const dispatch = useDispatch()
    const errorFunction = (error) => {
       return error
          ? showToast(
@@ -30,16 +28,7 @@ const Friends = () => {
               'При загрузке данных произошла ошибка! повторите попытку позже'
            )
    }
-   const getAllFriends = async () => {
-      try {
-         const data = await getAllFriendsRequest()
-         const users = data.data
-         setUserData(users)
-         return users
-      } catch (error) {
-         return errorFunction()
-      }
-   }
+
    const getAllRequests = async () => {
       try {
          const data = await getAllRequestsToFriend()
@@ -51,16 +40,27 @@ const Friends = () => {
       }
    }
    useEffect(() => {
-      getAllFriends()
+      dispatch(getAllFriends())
+         .unwrap()
+         .then()
+         .catch(() =>
+            showToast(
+               'error',
+               'Ошибка',
+               'При загрузке данных произошла ошибка! повторите попытку позже'
+            )
+         )
       getAllRequests()
-   }, [])
+      return () => {
+         dispatch(getAllFriends())
+      }
+   }, [dispatch])
 
-   const allUsersData = userData || []
    const allrequestToFriend = requestFirends || []
    return (
       <GlobalContainer>
          <Tabs
-            followersCount={allUsersData?.length}
+            followersCount={searchedUsers?.length}
             requestsCount={allrequestToFriend?.length}
             requestTab={
                <RequestsToFriends
@@ -71,24 +71,20 @@ const Friends = () => {
             }
          >
             <Container>
-               {(searchedUsers?.length > 0 ? searchedUsers : allUsersData)?.map(
-                  (item) => {
-                     return (
-                        <UserCard
-                           key={item.id}
-                           id={item.id}
-                           fullName={item.fullName}
-                           changeFlexContent
-                           image={item.image}
-                           count={item.countOfHolidays}
-                           countOfWish={item.countOfWishes}
-                           navigateHandler={() =>
-                              navigate(`${item.id}/profile`)
-                           }
-                        />
-                     )
-                  }
-               )}
+               {searchedUsers?.map((item) => {
+                  return (
+                     <UserCard
+                        key={item.id}
+                        id={item.id}
+                        fullName={item.fullName}
+                        changeFlexContent
+                        image={item.image}
+                        count={item.countOfHolidays}
+                        countOfWish={item.countOfWishes}
+                        navigateHandler={() => navigate(`${item.id}/profile`)}
+                     />
+                  )
+               })}
             </Container>
          </Tabs>
       </GlobalContainer>
