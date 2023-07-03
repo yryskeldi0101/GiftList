@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getOneUserById } from './userThunk'
+import { searchThunk } from '../search/searchThunk'
 
 const initialState = {
    error: '',
    isLoading: false,
    oneUser: {},
+   data: [],
 }
 export const userSlice = createSlice({
    name: 'users',
@@ -26,6 +28,9 @@ export const userSlice = createSlice({
             state.error = payload
             state.isLoading = false
             state.oneUser = {}
+         })
+         .addCase(searchThunk.fulfilled, (state, { payload }) => {
+            state.data = payload
          })
    },
 })

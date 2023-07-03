@@ -1,7 +1,7 @@
-import React, { useEffect, useState, memo } from 'react'
+import React, { useEffect, memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import bagIcon from '../../../assets/images/Bag.png'
 import plaidIcon from '../../../assets/images/Plaid.png'
 
@@ -10,41 +10,30 @@ import { ReactComponent as PlusIcon } from '../../../assets/icons/plusIcon.svg'
 import MyButton from '../../../components/UI/Button'
 
 import useToastBar from '../../../hooks/useToastBar'
-import {
-   getCharityRequest,
-   reserveCharityRequest,
-} from '../../../service/charityService'
+import { reserveCharityRequest } from '../../../service/charityService'
 import CharityCard from '../../../components/card/CharityCard'
+import { getAllUserCharities } from '../../../redux/search/searchThunk'
 
 const UserCharity = () => {
    const dataCharitySearched = useSelector((state) => state.search.data)
-   const [charityData, setCharityData] = useState([])
    const navigate = useNavigate()
    const { showToast } = useToastBar()
-   console.log(dataCharitySearched)
    const navigateToAddCharityHandler = () => navigate('add_charity')
    const navigateToCharityDetails = (id, userId) =>
       navigate(`${id}/${userId}/charity_details`)
-
-   const getCharities = async () => {
-      try {
-         const { data } = await getCharityRequest()
-         setCharityData(data)
-         return data
-      } catch (error) {
-         return showToast(
-            'error',
-            'Ошибка',
-            'При загрузке данных произошла ошибка! повторите попытку позже'
-         )
-      }
-   }
+   const dispatch = useDispatch()
    useEffect(() => {
-      getCharities()
-      return () => {
-         getCharities()
-      }
-   }, [])
+      dispatch(getAllUserCharities())
+         .unwrap()
+         .then()
+         .catch(() =>
+            showToast(
+               'error',
+               'Ошибка',
+               'При загрузке данных произошла ошибка! повторите попытку позже'
+            )
+         )
+   }, [dispatch])
 
    const reserveCharityHandler = async (id, anonym) => {
       const dataReserve = {
@@ -58,7 +47,7 @@ const UserCharity = () => {
             'Успешно',
             'Благотворительность успешно забронирован'
          )
-         return await getCharities()
+         return dispatch(getAllUserCharities())
       } catch (error) {
          return showToast(
             'error',
@@ -93,10 +82,7 @@ const UserCharity = () => {
          </StyledContainer>
          <CardContainer>
             <StyledCardContainer>
-               {(dataCharitySearched?.length > 0
-                  ? dataCharitySearched
-                  : charityData
-               )?.map((item) => {
+               {dataCharitySearched?.map((item) => {
                   return (
                      <div key={item.id}>
                         <CharityCard
