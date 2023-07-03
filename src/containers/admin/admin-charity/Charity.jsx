@@ -1,5 +1,6 @@
 import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
+import { useSelector } from 'react-redux'
 import {
    blockAdminCharityRequest,
    deleteAdminCharityRequest,
@@ -11,6 +12,7 @@ import CharityCard from '../../../components/card/CharityCard'
 const AdminCharity = () => {
    const [charities, setCharities] = useState([])
    const { showToast } = useToastBar()
+   const searchedAdminCharity = useSelector((state) => state.search.data)
    const getAllCharities = async () => {
       try {
          const data = await getAllAdminCharityRequest()
@@ -62,14 +64,17 @@ const AdminCharity = () => {
    return (
       <GlobalContainer>
          <CardContainer>
-            {charityData?.map((item) => {
+            {(searchedAdminCharity?.length > 0
+               ? searchedAdminCharity
+               : charityData
+            )?.map((item) => {
                return (
                   <CharityCard
                      key={item.id}
                      id={item.id}
                      userId={item.userId}
-                     icon={item.userImage}
-                     userName={item.fullName}
+                     icon={item.userImage || item.image}
+                     userName={item.fullName || item.firstName}
                      birthDate={item.birthDate}
                      title={item.charityName}
                      img={item.image}
@@ -77,7 +82,7 @@ const AdminCharity = () => {
                      date={item.dateAdded}
                      disableMeatalls={item.isReserved}
                      reserve={item.isReserved}
-                     reserveIcon={item.reserveUserImage}
+                     reserveIcon={item.reserveUserImage || item.image}
                      isAnonymous={item.isAnonymous}
                      handleDelete={deleteCharityHandler}
                      handleBlock={blockCharity}

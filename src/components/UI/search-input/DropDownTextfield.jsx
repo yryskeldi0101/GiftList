@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { InputBase, styled } from '@mui/material'
+import { IconButton, InputBase, styled } from '@mui/material'
+import { useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { ReactComponent as IconSearch } from '../../../assets/icons/searchIcon.svg'
 import { ReactComponent as IconDelete } from '../../../assets/icons/Отмена.svg'
 import {
@@ -9,13 +11,17 @@ import {
    subcategoryArray,
 } from '../../../utlis/constants/constnats'
 import AppSelect from '../AppSelect'
+import { searchThunk } from '../../../redux/search/searchThunk'
+import useToastBar from '../../../hooks/useToastBar'
 
-const CustomIcon = () => {
+const CustomIcon = ({ handleSearch, value }) => {
    return (
       <div
          style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}
       >
-         <IconSearch />
+         <IconButton onClick={() => handleSearch(value)}>
+            <IconSearch />
+         </IconButton>
       </div>
    )
 }
@@ -31,6 +37,7 @@ const TextFieldWithDropDown = ({
    counrtyChangeHandler,
    stateChangeHandler,
    subCategouryChangeHandler,
+   handleClean,
    ...rest
 }) => {
    const [isChecked, setIsChecked] = useState(false)
@@ -79,10 +86,53 @@ const TextFieldWithDropDown = ({
    const keyDownHandler = () => {
       setIsChecked(true)
    }
-
+   const dispatch = useDispatch()
+   const location = useLocation()
+   const { showToast } = useToastBar()
+   const handleSearch = (value) => {
+      let searchEndpoint = ''
+      switch (location.pathname) {
+         case '/user/charity':
+            searchEndpoint = `/api/charities/search?keyWord=${value}`
+            dispatch(searchThunk(searchEndpoint))
+               .unwrap()
+               .then((result) => {
+                  if (result.length === 0) {
+                     showToast(
+                        'info',
+                        'Благотворительность',
+                        'с таким названием не существует!'
+                     )
+                  }
+               })
+               .catch(() =>
+                  showToast('error', 'Ошибка', 'не удалось ничего найти')
+               )
+            break
+         case '/admin/charity':
+            searchEndpoint = `/api/charities/search?keyWord=${value}`
+            dispatch(searchThunk(searchEndpoint))
+               .unwrap()
+               .then((result) => {
+                  if (result.length === 0) {
+                     showToast(
+                        'info',
+                        'Благотворительность',
+                        'с таким названием не существует!'
+                     )
+                  }
+               })
+               .catch(() =>
+                  showToast('error', 'Ошибка', 'не удалось ничего найти')
+               )
+            break
+         default:
+            break
+      }
+   }
    return (
       <Container>
-         <CustomIcon />
+         <CustomIcon handleSearch={handleSearch} value={value} />
          <InputSearch
             {...rest}
             onChange={inputChangeHandler}
@@ -108,7 +158,16 @@ const TextFieldWithDropDown = ({
                   />
                )
             })}
-            {isChecked && <StyledIcon />}
+            {isChecked && (
+               <IconButton
+                  onClick={() => {
+                     handleClean()
+                     setIsChecked(false)
+                  }}
+               >
+                  <StyledIcon />
+               </IconButton>
+            )}
          </ContentSelect>
       </Container>
    )
@@ -117,6 +176,7 @@ const TextFieldWithDropDown = ({
 export default TextFieldWithDropDown
 const StyledIcon = styled(IconDelete)`
    color: black;
+   cursor: pointer;
 `
 
 const Container = styled('div')`

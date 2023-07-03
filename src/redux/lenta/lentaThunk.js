@@ -5,7 +5,7 @@ import {
    postRequestLentaPresent,
    getRequestLentaInfoCard,
    // deleteRequestLentaBooking,
-} from '../../service/lenta.service'
+} from '../../service/lentaService'
 
 // eslint-disable-next-line import/no-cycle
 

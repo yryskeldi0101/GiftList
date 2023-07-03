@@ -1,6 +1,7 @@
 import React, { useEffect, useState, memo } from 'react'
 import { styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Tabs from '../../../components/UI/tabs/Tabs'
 import UserCard from '../../../components/UI/user-cards/UserCard'
 import useToastBar from '../../../hooks/useToastBar'
@@ -12,6 +13,7 @@ import RequestsToFriends from './RequstsToFriends'
 
 const Friends = () => {
    const [userData, setUserData] = useState([])
+   const searchedUsers = useSelector((state) => state.search.data)
    const [requestFirends, setRequestFriends] = useState([])
    const navigate = useNavigate()
    const { showToast } = useToastBar()
@@ -69,20 +71,24 @@ const Friends = () => {
             }
          >
             <Container>
-               {allUsersData?.map((item) => {
-                  return (
-                     <UserCard
-                        key={item.id}
-                        id={item.id}
-                        fullName={item.fullName}
-                        changeFlexContent
-                        image={item.image}
-                        count={item.countOfHolidays}
-                        countOfWish={item.countOfWishes}
-                        navigateHandler={() => navigate(`${item.id}/profile`)}
-                     />
-                  )
-               })}
+               {(searchedUsers?.length > 0 ? searchedUsers : allUsersData)?.map(
+                  (item) => {
+                     return (
+                        <UserCard
+                           key={item.id}
+                           id={item.id}
+                           fullName={item.fullName}
+                           changeFlexContent
+                           image={item.image}
+                           count={item.countOfHolidays}
+                           countOfWish={item.countOfWishes}
+                           navigateHandler={() =>
+                              navigate(`${item.id}/profile`)
+                           }
+                        />
+                     )
+                  }
+               )}
             </Container>
          </Tabs>
       </GlobalContainer>

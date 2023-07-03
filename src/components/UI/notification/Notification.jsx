@@ -26,17 +26,13 @@ const Notification = ({
    anchorEl,
    id,
    handleClick,
+   open,
    opens,
+   onClose,
 }) => {
    const [meatballsOpen, setMeatballsOpen] = useState(false)
    const [notifications, setNotifications] = useState([])
-
    const navigate = useNavigate()
-
-   const openNotification = () => {
-      navigate(`notification`)
-   }
-
    const navigationHandler = (notificationId) =>
       navigate(`/${notificationId}/user/notification_profile`)
 
@@ -65,9 +61,8 @@ const Notification = ({
          handleMeatballsClose()
       }
    }
-
    return (
-      <StyledMyModal open={openNotification}>
+      <StyledMyModal open={open} onClose={onClose}>
          <StyledContainer>
             <StyledBox onClick={handleBackgroundClick}>
                <h3>Уведомления</h3>
@@ -197,5 +192,4 @@ const StyledImg = styled('img')(() => ({
 const StyledInfo = styled('div')(() => ({
    display: 'flex',
    alignItems: 'center',
-   // justifyContent: 'center',
 }))

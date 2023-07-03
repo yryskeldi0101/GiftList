@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect, memo } from 'react'
 import { useParams } from 'react-router-dom'
 import MyButton from '../components/UI/Button'
-import { postRequestLentaBooking } from '../service/lenta.service'
+import { postRequestLentaBooking } from '../service/lentaService'
 import Checkboxes from '../components/UI/Checkbox'
 import { getLentaInfoCard } from '../redux/lenta/lentaThunk'
 

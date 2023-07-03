@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-/* eslint-disable no-param-reassign */
 
 import { getOneCharityById } from './charityThunk'
-// eslint-disable-next-line import/no-cycle
 
 const initialState = {
    isLoading: false,

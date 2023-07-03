@@ -55,7 +55,7 @@ const ProfileDetails = () => {
    const dataHoliday = profileData.holidayResponses || []
    const dataWishList = profileData.wishResponseUserList || []
    const dataCharity = profileData.charityResponseUsers || []
-
+   console.log(state)
    const appSelectData = [
       dataWishList.length > 0 && {
          display: true,
@@ -105,7 +105,7 @@ const ProfileDetails = () => {
                deleteHandler={deleteUser}
                blockHandler={blockUser}
                adminVariant
-               isBlocked={state.isBlocked}
+               isBlocked={state?.isBlocked}
             />
          </div>
          <Container>
