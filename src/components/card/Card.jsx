@@ -7,6 +7,7 @@ import {
 } from '@mui/material'
 import Ananim from '../../assets/icons/anonim.svg'
 import Lock from '../../assets/icons/key.svg'
+import Avatar from '../../assets/icons/avatar.png'
 import Present from '../../assets/icons/present.svg'
 import Dislike from '../../assets/icons/dislake.svg'
 import OpenLock from '../../assets/icons/lock.svg'
@@ -151,7 +152,12 @@ export default function Cards({
                      >
                         <CardHeader>
                            <HeaderAvatar>
-                              <ImgIcon src={icon} alt="green iguana" />
+                              {icon === null ? (
+                                 <ImgIcon src={Avatar} alt="avatar" />
+                              ) : (
+                                 <ImgIcon src={icon} alt="green iguana" />
+                              )}
+
                               <UserName>{userName}</UserName>
                            </HeaderAvatar>
                            <UserBirthDate>{birthDate}</UserBirthDate>

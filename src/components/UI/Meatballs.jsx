@@ -116,7 +116,7 @@ export default function Meatballs({
             id,
             complaintDescription: complaint.title,
          })
-         showToast('succes', 'Успешно', 'Запрос успешно отправлен')
+         showToast('success', 'Успешно', 'Запрос успешно отправлен')
       } catch (error) {
          showToast('error', 'Ошибка', 'При загрузке данных произошла ошибка')
       }
