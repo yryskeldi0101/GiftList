@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Button, MenuItem } from '@mui/material'
 import styled from '@emotion/styled'
-import { useNavigate } from 'react-router-dom'
 
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+// eslint-disable-next-line import/named
 import {
    getRequestNotifications,
    postRequestNotification,
 } from '../../../service/notificationService'
 import Meatballs from '../Meatballs'
 import MyModal from '../modal/Modal'
+import { getNotifications } from '../../../redux/notification/notificationThunk'
 
 const markAsRead = [
    {
@@ -31,22 +34,13 @@ const Notification = ({
    onClose,
 }) => {
    const [meatballsOpen, setMeatballsOpen] = useState(false)
-   const [notifications, setNotifications] = useState([])
+   const notifications = useSelector((state) => state.notification.notification)
+   const dispatch = useDispatch()
    const navigate = useNavigate()
-   const navigationHandler = (notificationId) =>
-      navigate(`/${notificationId}/user/notification_profile`)
-
-   const getNotifications = async () => {
-      try {
-         const { data } = await getRequestNotifications()
-         setNotifications(data)
-      } catch (error) {
-         throw new Error(error)
-      }
-   }
-   useEffect(() => {
-      getNotifications()
-   }, [])
+   const navigationHandler = (item) =>
+      navigate(`/${item.notificationId}/user/notification_profile`, {
+         state: { item },
+      })
 
    const handleMeatballsOpen = () => {
       setMeatballsOpen(true)
@@ -61,6 +55,9 @@ const Notification = ({
          handleMeatballsClose()
       }
    }
+   useEffect(() => {
+      dispatch(getNotifications())
+   }, [])
    return (
       <StyledMyModal open={open} onClose={onClose}>
          <StyledContainer>
@@ -103,11 +100,11 @@ const Notification = ({
             </StyledBox>
             <StyledHr />
             <StyledUser>
-               {notifications.map((item) => {
+               {notifications?.map((item) => {
                   return (
                      <StyledContent
                         seen={item.seen}
-                        onClick={() => navigationHandler(item.notificationId)}
+                        onClick={() => navigationHandler(item)}
                      >
                         <StyledInfo>
                            <StyledImg src={item.image} alt="#" />

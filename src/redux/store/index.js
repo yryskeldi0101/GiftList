@@ -12,6 +12,7 @@ import { holidayDetailSlice } from '../holidayDetails/holidayDetailSlice'
 import bookedSlice from '../booked/bookedSlice'
 import { adminCharitySlice } from '../admin-charity/adminCharitySlice'
 import { searchSlice } from '../search/searchSlice'
+import { notificationSlice } from '../notification/notificationSlice'
 
 const store = configureStore({
    reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
       [friendSlice.name]: friendSlice.reducer,
       [adminCharitySlice.name]: adminCharitySlice.reducer,
       [searchSlice.name]: searchSlice.reducer,
+      [notificationSlice.name]: notificationSlice.reducer,
    },
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
