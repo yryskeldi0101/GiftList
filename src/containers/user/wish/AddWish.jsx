@@ -134,16 +134,18 @@ export const AddWish = () => {
          descriptions: descPresent,
       }
       const fileRequest = selectedFile && (await sentFileRequest())
-      if (id !== null && id !== undefined) {
+      if (id) {
          editWishRequest({
             ...wishData,
             image: selectedFile ? fileRequest : imageUrl,
             id: +id,
+            holidayId: holidaysId,
          })
       }
       if (fileRequest) {
          postNewWishHandler({ ...wishData, image: fileRequest })
       }
+      closeAddWishHandler()
       return formIsEmpty
    }
 

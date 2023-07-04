@@ -311,7 +311,7 @@ const AdminCard = ({
 
             {dataCategory === ACTION_TYPES.CHARITIES &&
                dataCharity?.map((item) => (
-                  <StyledCard key={item.id}>
+                  <StyledCharityCard key={item.id}>
                      <CardMedia
                         component="img"
                         height="149"
@@ -319,13 +319,12 @@ const AdminCard = ({
                         alt="card img"
                      />
 
-                     <StyledCardContent>
+                     <StyledCardContentCharity>
                         <Title>{item.name}</Title>
-                        <StyledBirthDate>{item.nameWish}</StyledBirthDate>
                         <StyledStatus>{item.state}</StyledStatus>
-                     </StyledCardContent>
+                     </StyledCardContentCharity>
 
-                     <StyledCardActions>
+                     <StyledCardActionsCharity>
                         <StyledDate>{item.date}</StyledDate>
                         <MeatBallssContainer>
                            <StyledIcon src={item.reservePhoto} />
@@ -348,8 +347,8 @@ const AdminCard = ({
                               data={item}
                            />
                         </MeatBallssContainer>
-                     </StyledCardActions>
-                  </StyledCard>
+                     </StyledCardActionsCharity>
+                  </StyledCharityCard>
                ))}
          </CardContainer>
       </div>
@@ -378,6 +377,23 @@ const StyledCard = styled(Card)(({ changecard }) => ({
    display: changecard ? '' : 'flex',
    justifyContent: changecard ? '' : 'space-betweeen',
    alignItems: changecard ? '' : '',
+}))
+const StyledCharityCard = styled(Card)(() => ({
+   padding: '20px',
+   display: 'flex',
+   flexDirection: 'column',
+   width: '355px',
+   marginBottom: '20px',
+}))
+const StyledCardContentCharity = styled('div')(() => ({
+   margin: '16px 0',
+   display: 'flex',
+   justifyContent: 'space-between',
+}))
+const StyledCardActionsCharity = styled('div')(() => ({
+   display: 'flex',
+   justifyContent: 'space-between',
+   alignItems: 'center',
 }))
 const HolidaysCardInfo = styled('div')(() => ({
    marginTop: '15px',
